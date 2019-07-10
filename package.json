@@ -1,0 +1,34 @@
+{
+  "name": "groq-spec",
+  "version": "1.0.0",
+  "description": "Specification for GROQ - Graph Oriented Query Language",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf spec/*.md docs/*.html",
+    "build": "export NODE_ENV=prod; npm run clean && node generateSpec",
+    "start": "npm run clean && node generateSpec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanity-io/GROQ.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanity-io/GROQ/issues"
+  },
+  "homepage": "https://github.com/sanity-io/GROQ#readme",
+  "dependencies": {
+    "@sanity/block-content-to-markdown": "0.0.5",
+    "@sanity/client": "^0.141.6",
+    "dotenv": "^8.0.0",
+    "groq": "^0.141.5",
+    "rimraf": "^2.6.3",
+    "spec-md": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}

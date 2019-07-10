@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<!-- Built with spec-md https://spec-md.com -->
+<html>
+<head><meta charset="utf-8">
+<title>GROQ</title>
+<style>body {
+  color: #333333;
+  font: 13pt/18pt Cambria, "Palatino Linotype", Palatino, "Liberation Serif", serif;
+  margin: 6rem auto 3rem;
+  max-width: 780px;
+}
+
+
+/* Links */
+
+a {
+  color: #3B5998;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+/* Section headers */
+
+h1, h2, h3, h4, h5, h6, h7, h8 {
+  font-weight: bold;
+  margin: 3em 0 1em;
+  position: relative;
+}
+
+h1 {
+  font-size: 1.5em;
+  margin: 6em 0 3em;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-top: 5em;
+}
+
+h3, h4 {
+  font-size: 1.25em;
+}
+
+h5, h6 {
+  font-size: 1em;
+}
+
+section.subsec > h6 {
+  margin-top: 2em;
+}
+
+section.subsec > h6 > a {
+  color: #333333;
+}
+
+section .spec-secid {
+  margin-right: 1ex;
+  position: absolute;
+  right: 100%;
+  text-align: right;
+  white-space: nowrap;
+}
+
+footer {
+  font-size: 75%;
+  opacity: 0.5;
+  text-align: center;
+  margin-top: 12rem;
+}
+
+
+/* Table of contents */
+
+.spec-toc {
+  margin: 1rem 0 3rem;
+}
+
+.spec-toc .title {
+  content: 'Contents';
+  display: block;
+  font-weight: bold;
+  margin: 5em 0 1em;
+}
+
+.spec-toc .spec-secid {
+  margin-right: 1ex;
+}
+
+.spec-toc ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+.spec-toc ol ol {
+  list-style: none;
+  padding-left: 2ex;
+}
+
+.spec-toc li {
+  position: relative;
+  padding: 5px 0 0 30px;
+  margin: -5px 0 0 -30px;
+}
+
+.spec-toc a {
+  color: #333333;
+}
+
+.spec-toc a:hover {
+  text-decoration: none;
+}
+
+.spec-toc a .spec-secid {
+  color: #3B5998;
+}
+
+.spec-toc a:hover .spec-secid {
+  text-decoration: underline;
+}
+
+.spec-toc .toggle {
+  display: none;
+}
+
+.spec-toc .toggle + label {
+  cursor: pointer;
+  left: 10px;
+  opacity: 1;
+  padding: 3px 5px 3px 6px;
+  position: absolute;
+  top: 8px;
+  transform: rotate(0deg);
+  transition: all 0.18s ease-in-out;
+}
+
+.spec-toc .toggle + label:after {
+  border-color: transparent transparent transparent #bbc;
+  border-style: solid;
+  border-width: 6px 0 6px 7px;
+  content: ' ';
+  display: block;
+  height: 0;
+  width: 0;
+}
+
+.spec-toc .toggle:checked + label {
+  transform: rotate(90deg);
+}
+
+.spec-toc li:not(:hover) > .toggle:checked + label {
+  opacity: 0;
+}
+
+.spec-toc .toggle:not(:checked) ~ ol {
+  max-height: 0;
+  overflow: hidden;
+}
+
+
+/* Sidebar */
+
+.spec-sidebar-toggle {
+  display: none;
+}
+
+.spec-sidebar-toggle + label {
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 10px 15px;
+  font-size: 30px;
+  color: rgba(0,0,0,0.7);
+  z-index: 2;
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.spec-sidebar {
+  display: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 320px;
+  font-size: 80%;
+  overflow-y: scroll;
+  height: 100%;
+  padding: 0 0 5rem 30px;
+  box-sizing: border-box;
+  background: #f0f0f0;
+}
+
+.spec-sidebar-toggle:checked ~ .spec-sidebar {
+  display: block;
+  box-shadow:
+    -1px 0 rgba(0,0,0,0.12),
+    -4px 0 8px -2px rgba(0,0,0,0.05);
+}
+
+.spec-sidebar .viewing > a:after {
+  color: #8b9;
+  content: '\2022';
+  margin-left: 1ex;
+}
+
+@media (min-width: 1240px) {
+  .spec-sidebar-toggle + label {
+    display: none;
+  }
+
+  .spec-sidebar {
+    display: block;
+    box-shadow:
+      inset 1px 0 rgba(0,0,0,0.05),
+      inset 4px 0 8px -2px rgba(0,0,0,0.08) !important;
+  }
+
+  body {
+    padding-right: 300px;
+  }
+}
+
+
+/* Notes */
+
+.spec-note {
+  background: #FEFEF3;
+  border-left: solid 4px #F4E925;
+  margin: 1em -1em;
+  min-width: 416px;
+  padding: 1ex 1em 1ex calc(1em - 4px);
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+  width: fit-content;
+}
+
+.spec-note > a:first-child {
+  color: #6C6613;
+  display: block;
+  font: italic 11pt/18pt Cambria, "Palatino Linotype", Palatino, "Liberation Serif", serif;
+  opacity: 0.6;
+  user-select: none;
+}
+
+
+/* Todos */
+
+.spec-todo {
+  color: #666666;
+  margin: 1em 0 1em 5em;
+  min-height: 1em;
+}
+
+.spec-todo::before {
+  content: 'todo';
+  display: block;
+  float: left;
+  margin-left: -5em;
+  text-transform: uppercase;
+}
+
+/* Index table */
+
+.spec-index ol {
+  list-style-type: none;
+  margin: 0 0 0 2rem;
+  padding: 0;
+  column-width: 210px;
+  column-gap: 2rem;
+}
+
+.spec-index ol li {
+  width: min-content;
+}
+
+/* Code */
+
+code {
+  background: #FAFAFA;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 85%;
+  font-weight: inherit;
+  margin: -2px -1px;
+  padding: 3px 3px;
+  white-space: pre;
+}
+
+pre code {
+  background: none;
+  font-weight: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+pre {
+  background: #FAFAFA;
+  border-left: solid 4px #E9E9E9;
+  margin: 1em -1em;
+  min-width: 40ch;
+  padding: 1ex 1em 1ex calc(1em - 4px);
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+  width: fit-content;
+}
+
+.spec-example {
+  background: #FAFAFF;
+  border-left: solid 4px #BBBBFF;
+}
+
+.spec-counter-example {
+  background: #FFFAFA;
+  border-left: solid 4px #FFBBBB;
+}
+
+.spec-example > a,
+.spec-counter-example > a {
+  display: block;
+  font: italic 11pt/18pt Cambria, "Palatino Linotype", Palatino, "Liberation Serif", serif;
+  opacity: 0.6;
+  user-select: none;
+}
+
+.spec-counter-example > a {
+  color: #98593b;
+}
+
+
+/* Tables */
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #F9F9F9;
+}
+
+td, th {
+  border: 1px solid #D0D0D0;
+  padding: 0.4em;
+  vertical-align: baseline;
+}
+
+
+/* Edits */
+
+ins {
+  background-color: rgba(0, 200, 30, 0.08);
+  text-decoration: none;
+}
+
+del {
+  background-color: rgba(200, 0, 0, 0.08);
+}
+
+.spec-added, .spec-removed {
+  border-left: 4px solid;
+  margin-left: -18px;
+  padding-left: 14px;
+}
+
+.spec-added {
+  border-color: #396;
+}
+
+.spec-removed {
+  border-color: #933;
+  text-decoration: line-through;
+}
+
+
+/* Values */
+
+.spec-keyword {
+  font-weight: bold;
+}
+
+.spec-string {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 85%;
+  white-space: pre;
+}
+
+var {
+  font-style: italic;
+}
+
+*[data-name] {
+  transition: 0.15s background ease-out;
+  border-radius: 2px;
+  padding: 0 3px;
+  margin: 0 -3px;
+}
+
+
+/* Grammar semantics, algorithms and calls */
+
+.spec-semantic,
+.spec-algo {
+  margin: 1rem 0 1rem 2rem;
+}
+
+.spec-semantic > .spec-rhs {
+  display: inline-block;
+  margin-left: 1ex;
+}
+
+.spec-semantic > .spec-nt::after,
+.spec-algo > .spec-call:first-child::after {
+  content: ':';
+  font-style: normal;
+  font-weight: bold;
+  margin-left: 1ex;
+}
+
+.spec-semantic ol, .spec-semantic ol ol ol ol,
+.spec-algo ol, .spec-algo ol ol ol ol {
+  list-style-type: decimal;
+}
+
+.spec-semantic ol ol, .spec-semantic ol ol ol ol ol,
+.spec-algo ol ol, .spec-algo ol ol ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.spec-semantic ol ol ol, .spec-semantic ol ol ol ol ol ol,
+.spec-algo ol ol ol, .spec-algo ol ol ol ol ol ol {
+  list-style-type: lower-roman;
+}
+
+.spec-call > a {
+  color: inherit;
+}
+
+
+/* Grammar productions */
+
+.spec-production {
+  margin: 1rem 0 1rem 2rem;
+}
+
+.spec-production > .spec-nt::after {
+  content: ':';
+  font-style: normal;
+  font-weight: bold;
+  margin: 0 1ex;
+}
+
+.spec-semantic.d2 > .spec-nt::after,
+.spec-production.d2 > .spec-nt::after {
+  content: '::';
+}
+
+.spec-semantic.d3 > .spec-nt::after,
+.spec-production.d3 > .spec-nt::after {
+  content: ':::';
+}
+
+.spec-rhs {
+  margin-left: 2rem;
+}
+
+.spec-oneof {
+  display: inline;
+}
+
+.spec-oneof::before {
+  content: 'one of';
+  font-style: normal;
+  font-weight: bold;
+}
+
+.spec-oneof > table {
+  margin-left: 2rem;
+}
+
+.spec-oneof .spec-rhs {
+  border: none;
+  margin: 0;
+  padding: 0 0.5em;
+  vertical-align: baseline;
+}
+
+.spec-rhs .spec-constrained:not(:first-child),
+.spec-rhs .spec-quantified:not(:first-child),
+.spec-rhs .spec-nt:not(:first-child),
+.spec-rhs .spec-t:not(:first-child),
+.spec-rhs .spec-rx:not(:first-child),
+.spec-rhs .spec-prose:not(:first-child),
+.spec-rhs .spec-empty:not(:first-child),
+.spec-rhs .spec-lookahead:not(:first-child) {
+  margin-left: 1ex;
+}
+
+.spec-condition {
+  font-size: 85%;
+}
+
+.spec-condition::before {
+  content: '[if '
+}
+
+.spec-condition.not::before {
+  content: '[if not '
+}
+
+.spec-condition::after {
+  content: ']'
+}
+
+.spec-empty,
+.spec-prose {
+  color: #666666;
+}
+
+.spec-nt {
+  font-style: italic;
+}
+
+.spec-nt > a {
+  color: inherit;
+}
+
+.spec-quantifiers,
+.spec-params {
+  font-size: 65%;
+  font-style: normal;
+  vertical-align: sub;
+}
+
+.spec-quantifier.list {
+  color: #3348D3;
+}
+
+.spec-quantifier.optional {
+  color: #83238E;
+}
+
+.spec-params,
+.spec-condition {
+  color: #1C7758;
+}
+
+.spec-params::before {
+  content: '[';
+}
+
+.spec-params::after {
+  content: ']';
+}
+
+.spec-quantifier:not(:last-child)::after,
+.spec-param:not(:last-child)::after {
+  color: #666666;
+  content: ', ';
+}
+
+.spec-param.conditional::before {
+  content: '?';
+}
+
+.spec-param.negated::before {
+  content: '!';
+}
+
+.spec-t, .spec-rx {
+  color: #333333;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.spec-butnot::before {
+  color: #666666;
+  content: 'but not';
+  font-family: Cambria, "Palatino Linotype", Palatino, "Liberation Serif", serif;
+  font-weight: normal;
+  margin-right: 1ex;
+}
+
+.spec-butnot > *:not(:first-child)::before {
+  color: #666666;
+  content: 'or';
+  font-family: Cambria, "Palatino Linotype", Palatino, "Liberation Serif", serif;
+  font-weight: normal;
+  margin-right: 1ex;
+}
+
+.spec-rhs .spec-oneof::before,
+.spec-rhs .spec-butnot::before {
+  margin-left: 1ex;
+}
+
+.spec-lookahead > * {
+  margin: 0 !important;
+}
+
+.spec-lookahead > *:not(:first-child)::before {
+  color: #666666;
+  content: ', ';
+  font-family: Cambria, "Palatino Linotype", Palatino, "Liberation Serif", serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.spec-lookahead::before {
+  color: #666666;
+  content: '[lookahead = ';
+  font-family: Cambria, "Palatino Linotype", Palatino, "Liberation Serif", serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.spec-lookahead.not::before {
+  content: '[lookahead \2260  ';
+}
+
+.spec-lookahead.set::before {
+  content: '[lookahead \2208  {';
+  margin-right: 0;
+}
+
+.spec-lookahead.set.not::before {
+  content: '[lookahead \2209  {';
+}
+
+.spec-lookahead.ntset::before {
+  content: '[lookahead \2208  ';
+  margin-right: 0;
+}
+
+.spec-lookahead.ntset.not::before {
+  content: '[lookahead \2209  ';
+}
+
+.spec-lookahead::after {
+  color: #666666;
+  content: ']';
+}
+
+.spec-lookahead.set::after {
+  content: '}]';
+}
+</style>
+<style>/* Copied from node_modules/prismjs/themes/prism.css */
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+<script>(function (){
+var styleSheet = document.getElementsByTagName('style')[0].sheet;
+var ruleIndex;
+
+function removeHighlight() {
+  if (ruleIndex) {
+    styleSheet.deleteRule(ruleIndex);
+    ruleIndex = void 0;
+  }
+}
+
+function highlightKeyword(name) {
+  removeHighlight();
+  ruleIndex = styleSheet.insertRule(
+    '*[data-name="' + name + '"] { background: #FBF8D0; }',
+    styleSheet.cssRules.length
+  );
+}
+
+document.documentElement.addEventListener('mouseover', function (event) {
+  var nameAttribute = event.target.attributes['data-name'];
+  if (nameAttribute) {
+    highlightKeyword(nameAttribute.value);
+  }
+});
+
+document.documentElement.addEventListener('mouseout', removeHighlight);
+})()</script>
+</head>
+<body><article>
+<header>
+<h1>GROQ</h1>
+<section id="intro">
+<p><em>Current Working Draft</em></p>
+<p>This is the specification for GROQ (<strong>G</strong>raph-<strong>R</strong>elational <strong>O</strong>bject <strong>Q</strong>ueries), a query language and execution engine made at Sanity, Inc, for filtering and projecting JSON documents. The work started in 2015. The development of this open standard started in 2019.</p>
+<p>GROQ is authored by <a href="https://twitter.com/purefiction">Alexander Staubo</a> and <a href="https://twitter.com/svale">Simen Svale Skogsrud</a>. Additional follow up work by <a href="https://twitter.com/erikgrinaker">Erik Grinaker</a> and <a href="https://twitter.com/judofyr">Magnus Holm</a>.</p>
+<p>This specification should be considered <em>work in progress</em> until the first release.</p>
+<section id="sec-Copyright-notice" class="subsec">
+<h6><a href="#sec-Copyright-notice" title="link to this subsection">Copyright notice</a></h6>
+<p>Copyright © 2015&ndash;present, Sanity, Inc.</p>
+<p>As of July 9, 2010, the following persons or entities have made this Specification available under the Open Web Foundation Final Specification Agreement (OWFa 1.0), which is available at <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">openwebfoundation.org</a>.</p>
+<ul>
+<li>Sanity, Inc.</li>
+</ul>
+<p>You can review the signed copies of the Open Web Foundation Final Specification Agreement Version 1.0 for this specification at <a href="https://github.com/sanity-io/GROQ">github.com/sanity&#8208;io/GROQ</a>, which may also include additional parties to those listed above.</p>
+<p>Your use of this Specification may be subject to other third party rights. THIS SPECIFICATION IS PROVIDED &ldquo;AS IS.&rdquo; The contributors expressly disclaim any warranties (express, implied, or otherwise), including implied warranties of merchantability, non&#8208;infringement, fitness for a particular purpose, or title, related to the Specification. The entire risk as to implementing or otherwise using the Specification is assumed by the Specification implementer and user. IN NO EVENT WILL ANY PARTY BE LIABLE TO ANY OTHER PARTY FOR LOST PROFITS OR ANY FORM OF INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER FROM ANY CAUSES OF ACTION OF ANY KIND WITH RESPECT TO THIS SPECIFICATION OR ITS GOVERNING AGREEMENT, WHETHER BASED ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE, AND WHETHER OR NOT THE OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+</section>
+<section id="sec-Conformance" class="subsec">
+<h6><a href="#sec-Conformance" title="link to this subsection">Conformance</a></h6>
+<p>A conforming implementation of GROQ must fulfill all normative requirements. Conformance requirements are described in this document via both descriptive assertions and key words with clearly defined meanings.</p>
+<p>The key words &ldquo;MUST&rdquo;, &ldquo;MUST NOT&rdquo;, &ldquo;REQUIRED&rdquo;, &ldquo;SHALL&rdquo;, &ldquo;SHALL NOT&rdquo;, &ldquo;SHOULD&rdquo;, &ldquo;SHOULD NOT&rdquo;, &ldquo;RECOMMENDED&rdquo;, &ldquo;MAY&rdquo;, and &ldquo;OPTIONAL&rdquo; in the normative portions of this document are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119">IETF RFC 2119</a>. These key words may appear in lowercase and still retain their meaning unless explicitly declared as non&#8208;normative.</p>
+<p>A conforming implementation of GROQ may provide additional functionality, but must not where explicitly disallowed or would otherwise result in non&#8208;conformance.</p>
+</section>
+<section id="sec-Conforming-Algorithms" class="subsec">
+<h6><a href="#sec-Conforming-Algorithms" title="link to this subsection">Conforming Algorithms</a></h6>
+<p>Algorithm steps phrased in imperative grammar (e.g. &ldquo;Return the result&rdquo;) are to be interpreted with the same level of requirement as the algorithm it is contained within. Any algorithm referenced within an algorithm step (e.g. &ldquo;Let completedResult be the result of calling CompleteValue()&rdquo;) is to be interpreted as having at least the same level of requirement as the algorithm containing that step.</p>
+<p>Conformance requirements expressed as algorithms can be fulfilled by an implementation of this specification in any way as long as the perceived result is equivalent. Algorithms described in this document are written to be easy to understand. Implementers are encouraged to include equivalent but optimized implementations.</p>
+</section>
+</section>
+<nav class="spec-toc">
+<div class="title">Contents</div>
+<ol>
+<li><a href="#sec-Overview"><span class="spec-secid">1</span>Overview</a></li>
+<li><a href="#sec-Language"><span class="spec-secid">2</span>Language</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_2" /><label for="_toggle_2"></label>
+<ol>
+<li><a href="#sec-Syntax"><span class="spec-secid">2.1</span>Syntax</a></li>
+<li><a href="#sec-Source-Text"><span class="spec-secid">2.2</span>Source Text</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_2.2" /><label for="_toggle_2.2"></label>
+<ol>
+<li><a href="#sec-Unicode"><span class="spec-secid">2.2.1</span>Unicode</a></li>
+<li><a href="#sec-White-Space"><span class="spec-secid">2.2.2</span>White Space</a></li>
+<li><a href="#sec-Comments"><span class="spec-secid">2.2.3</span>Comments</a></li>
+<li><a href="#sec-JSON-Superset"><span class="spec-secid">2.2.4</span>JSON Superset</a></li>
+</ol>
+</li>
+<li><a href="#sec-Expressions"><span class="spec-secid">2.3</span>Expressions</a></li>
+<li><a href="#sec-Literals"><span class="spec-secid">2.4</span>Literals</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_2.4" /><label for="_toggle_2.4"></label>
+<ol>
+<li><a href="#sec-Boolean-and-Null-Literals"><span class="spec-secid">2.4.1</span>Boolean and Null Literals</a></li>
+<li><a href="#sec-Float-Literals"><span class="spec-secid">2.4.2</span>Float Literals</a></li>
+<li><a href="#sec-String-Literals"><span class="spec-secid">2.4.3</span>String Literals</a></li>
+<li><a href="#sec-Array-Literals"><span class="spec-secid">2.4.4</span>Array Literals</a></li>
+<li><a href="#sec-Object-Literals"><span class="spec-secid">2.4.5</span>Object Literals</a></li>
+<li><a href="#sec-Pair-Literals"><span class="spec-secid">2.4.6</span>Pair Literals</a></li>
+<li><a href="#sec-Range-Literals"><span class="spec-secid">2.4.7</span>Range Literals</a></li>
+</ol>
+</li>
+<li><a href="#sec-Identifiers"><span class="spec-secid">2.5</span>Identifiers</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_2.5" /><label for="_toggle_2.5"></label>
+<ol>
+<li><a href="#sec-Reserved-Keywords"><span class="spec-secid">2.5.1</span>Reserved Keywords</a></li>
+</ol>
+</li>
+<li><a href="#sec-Attribute-Lookup"><span class="spec-secid">2.6</span>Attribute Lookup</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_2.6" /><label for="_toggle_2.6"></label>
+<ol>
+<li><a href="#sec-Attribute-Scope"><span class="spec-secid">2.6.1</span>Attribute Scope</a></li>
+</ol>
+</li>
+<li><a href="#sec-Language.Operators"><span class="spec-secid">2.7</span>Operators</a></li>
+<li><a href="#sec-Language.Functions"><span class="spec-secid">2.8</span>Functions</a></li>
+<li><a href="#sec-Language.Pipeline-Expressions"><span class="spec-secid">2.9</span>Pipeline Expressions</a></li>
+</ol>
+</li>
+<li><a href="#sec-Data-Types"><span class="spec-secid">3</span>Data Types</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_3" /><label for="_toggle_3"></label>
+<ol>
+<li><a href="#sec-Basic-Data-Types"><span class="spec-secid">3.1</span>Basic Data Types</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_3.1" /><label for="_toggle_3.1"></label>
+<ol>
+<li><a href="#sec-Boolean"><span class="spec-secid">3.1.1</span>Boolean</a></li>
+<li><a href="#sec-Float"><span class="spec-secid">3.1.2</span>Float</a></li>
+<li><a href="#sec-Null"><span class="spec-secid">3.1.3</span>Null</a></li>
+<li><a href="#sec-String"><span class="spec-secid">3.1.4</span>String</a></li>
+</ol>
+</li>
+<li><a href="#sec-Composite-Data-Types"><span class="spec-secid">3.2</span>Composite Data Types</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_3.2" /><label for="_toggle_3.2"></label>
+<ol>
+<li><a href="#sec-Array"><span class="spec-secid">3.2.1</span>Array</a></li>
+<li><a href="#sec-Object"><span class="spec-secid">3.2.2</span>Object</a></li>
+<li><a href="#sec-Pair"><span class="spec-secid">3.2.3</span>Pair</a></li>
+<li><a href="#sec-Range"><span class="spec-secid">3.2.4</span>Range</a></li>
+</ol>
+</li>
+<li><a href="#sec-Subtypes"><span class="spec-secid">3.3</span>Subtypes</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_3.3" /><label for="_toggle_3.3"></label>
+<ol>
+<li><a href="#sec-Datetime"><span class="spec-secid">3.3.1</span>Datetime</a></li>
+<li><a href="#sec-Reference"><span class="spec-secid">3.3.2</span>Reference</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="#sec-undefined.Operators"><span class="spec-secid">4</span>Operators</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_4" /><label for="_toggle_4"></label>
+<ol>
+<li><a href="#sec-Logical-Operators"><span class="spec-secid">4.1</span>Logical Operators</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_4.1" /><label for="_toggle_4.1"></label>
+<ol>
+<li><a href="#sec-Logical-And"><span class="spec-secid">4.1.1</span>Logical And</a></li>
+<li><a href="#sec-Logical-Or"><span class="spec-secid">4.1.2</span>Logical Or</a></li>
+<li><a href="#sec-Logical-Not"><span class="spec-secid">4.1.3</span>Logical Not</a></li>
+</ol>
+</li>
+<li><a href="#sec-Comparison-Operators"><span class="spec-secid">4.2</span>Comparison Operators</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_4.2" /><label for="_toggle_4.2"></label>
+<ol>
+<li><a href="#sec-Equality"><span class="spec-secid">4.2.1</span>Equality</a></li>
+<li><a href="#sec-Inequality"><span class="spec-secid">4.2.2</span>Inequality</a></li>
+<li><a href="#sec-Greater-Than"><span class="spec-secid">4.2.3</span>Greater Than</a></li>
+<li><a href="#sec-Lesser-Than"><span class="spec-secid">4.2.4</span>Lesser Than</a></li>
+<li><a href="#sec-Greater-Than-or-Equal"><span class="spec-secid">4.2.5</span>Greater Than or Equal</a></li>
+<li><a href="#sec-Lesser-Than-or-Equal"><span class="spec-secid">4.2.6</span>Lesser Than or Equal</a></li>
+<li><a href="#sec-Compound-Type-Membership"><span class="spec-secid">4.2.7</span>Compound Type Membership</a></li>
+</ol>
+</li>
+<li><a href="#sec-Access-Operators"><span class="spec-secid">4.3</span>Access Operators</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_4.3" /><label for="_toggle_4.3"></label>
+<ol>
+<li><a href="#sec-Everything"><span class="spec-secid">4.3.1</span>Everything</a></li>
+<li><a href="#sec-This"><span class="spec-secid">4.3.2</span>This</a></li>
+<li><a href="#sec-Parent"><span class="spec-secid">4.3.3</span>Parent</a></li>
+<li><a href="#sec-Access-Operators.Object-Attribute-Access"><span class="spec-secid">4.3.4</span>Object Attribute Access</a></li>
+<li><a href="#sec-Access-Operators.Object-Attribute-Access"><span class="spec-secid">4.3.5</span>Object Attribute Access</a></li>
+<li><a href="#sec-Reference-Access"><span class="spec-secid">4.3.6</span>Reference Access</a></li>
+<li><a href="#sec-Array-Element-Access"><span class="spec-secid">4.3.7</span>Array Element Access</a></li>
+<li><a href="#sec-Array-Slice"><span class="spec-secid">4.3.8</span>Array Slice</a></li>
+<li><a href="#sec-Array-Filter"><span class="spec-secid">4.3.9</span>Array Filter</a></li>
+<li><a href="#sec-Array-Traversal"><span class="spec-secid">4.3.10</span>Array Traversal</a></li>
+<li><a href="#sec-Array-Object-Expansion"><span class="spec-secid">4.3.11</span>Array/Object Expansion</a></li>
+</ol>
+</li>
+<li><a href="#sec-Arithmetic-Operators"><span class="spec-secid">4.4</span>Arithmetic Operators</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_4.4" /><label for="_toggle_4.4"></label>
+<ol>
+<li><a href="#sec-Addition-and-Concatenation"><span class="spec-secid">4.4.1</span>Addition and Concatenation</a></li>
+<li><a href="#sec-Subtraction"><span class="spec-secid">4.4.2</span>Subtraction</a></li>
+<li><a href="#sec-Multiplication"><span class="spec-secid">4.4.3</span>Multiplication</a></li>
+<li><a href="#sec-Division"><span class="spec-secid">4.4.4</span>Division</a></li>
+<li><a href="#sec-Exponentiation"><span class="spec-secid">4.4.5</span>Exponentiation</a></li>
+<li><a href="#sec-Modulo"><span class="spec-secid">4.4.6</span>Modulo</a></li>
+</ol>
+</li>
+<li><a href="#sec-Full-Text-Search-Operators"><span class="spec-secid">4.5</span>Full-Text Search Operators</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_4.5" /><label for="_toggle_4.5"></label>
+<ol>
+<li><a href="#sec-Full-text-Search"><span class="spec-secid">4.5.1</span>Full-text Search</a></li>
+</ol>
+</li>
+<li><a href="#sec-Pipeline-Operators"><span class="spec-secid">4.6</span>Pipeline Operators</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_4.6" /><label for="_toggle_4.6"></label>
+<ol>
+<li><a href="#sec-Pipe-Operator"><span class="spec-secid">4.6.1</span>Pipe Operator</a></li>
+</ol>
+</li>
+<li><a href="#sec-Operator-Precedence"><span class="spec-secid">4.7</span>Operator Precedence</a></li>
+</ol>
+</li>
+<li><a href="#sec-Parameters"><span class="spec-secid">5</span>Parameters</a></li>
+<li><a href="#sec-undefined.Pipeline-Expressions"><span class="spec-secid">6</span>Pipeline Expressions</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_6" /><label for="_toggle_6"></label>
+<ol>
+<li><a href="#sec-Filter-Expression"><span class="spec-secid">6.1</span>Filter Expression</a></li>
+<li><a href="#sec-Slice-Expression"><span class="spec-secid">6.2</span>Slice Expression</a></li>
+<li><a href="#sec-Subscript-Expression"><span class="spec-secid">6.3</span>Subscript Expression</a></li>
+<li><a href="#sec-Projection-Expression"><span class="spec-secid">6.4</span>Projection Expression</a></li>
+<li><a href="#sec-Map-Expression"><span class="spec-secid">6.5</span>Map Expression</a></li>
+<li><a href="#sec-Order-Expression"><span class="spec-secid">6.6</span>Order Expression</a></li>
+</ol>
+</li>
+<li><a href="#sec-undefined.Functions"><span class="spec-secid">7</span>Functions</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_7" /><label for="_toggle_7"></label>
+<ol>
+<li><a href="#sec-coalesce"><span class="spec-secid">7.1</span>coalesce</a></li>
+<li><a href="#sec-count"><span class="spec-secid">7.2</span>count</a></li>
+<li><a href="#sec-defined"><span class="spec-secid">7.3</span>defined</a></li>
+<li><a href="#sec-length"><span class="spec-secid">7.4</span>length</a></li>
+<li><a href="#sec-now"><span class="spec-secid">7.5</span>now</a></li>
+<li><a href="#sec-references"><span class="spec-secid">7.6</span>references</a></li>
+<li><a href="#sec-round"><span class="spec-secid">7.7</span>round</a></li>
+<li><a href="#sec-select"><span class="spec-secid">7.8</span>select</a></li>
+</ol>
+</li>
+<li><a href="#sec-Joins"><span class="spec-secid">8</span>Joins</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_8" /><label for="_toggle_8"></label>
+<ol>
+<li><a href="#sec-Outer-Joins"><span class="spec-secid">8.1</span>Outer Joins</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_8.1" /><label for="_toggle_8.1"></label>
+<ol>
+<li><a href="#sec-Left-Outer-Join"><span class="spec-secid">8.1.1</span>Left Outer Join</a></li>
+<li><a href="#sec-Right-Outer-Joins"><span class="spec-secid">8.1.2</span>Right Outer Joins</a></li>
+<li><a href="#sec-Full-Outer-Joins"><span class="spec-secid">8.1.3</span>Full Outer Joins</a></li>
+</ol>
+</li>
+<li><a href="#sec-Inner-Joins"><span class="spec-secid">8.2</span>Inner Joins</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_8.2" /><label for="_toggle_8.2"></label>
+<ol>
+<li><a href="#sec-Equijoins"><span class="spec-secid">8.2.1</span>Equijoins</a></li>
+<li><a href="#sec-Non-Equijoins"><span class="spec-secid">8.2.2</span>Non-Equijoins</a></li>
+<li><a href="#sec---joins"><span class="spec-secid">8.2.3</span>θ-joins</a></li>
+<li><a href="#sec-Semijoins"><span class="spec-secid">8.2.4</span>Semijoins</a></li>
+<li><a href="#sec-Antijoins"><span class="spec-secid">8.2.5</span>Antijoins</a></li>
+<li><a href="#sec-Natural-Joins"><span class="spec-secid">8.2.6</span>Natural Joins</a></li>
+</ol>
+</li>
+<li><a href="#sec-Other-Joins"><span class="spec-secid">8.3</span>Other Joins</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_8.3" /><label for="_toggle_8.3"></label>
+<ol>
+<li><a href="#sec-Self-joins"><span class="spec-secid">8.3.1</span>Self-joins</a></li>
+<li><a href="#sec-Cross-Joins"><span class="spec-secid">8.3.2</span>Cross Joins</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="#index"><span class="spec-secid">§</span>Index</a></li>
+</ol>
+</nav>
+</header>
+<section id="sec-Overview" secid="1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Overview">1</a></span>Overview</h2>
+<p>GROQ (Graph&#8208;Relational Object Queries) is a declarative language designed to query collections of largely schema&#8208;less JSON documents. Its primary design goals are expressive filtering, joining of several documents into a single response, and shaping the response to fit the client application.</p>
+<p>The idea behind GROQ is to be able to describe exactly what information your application needs, potentially joining together information from several sets of documents, then stitching together a very specific response with only the exact fields you need.</p>
+<p>A query in GROQ typically starts with <code>*</code>. This asterisk represents every document in your dataset. It is typically followed by a <var data-name="filter">filter</var> in brackets. The <var data-name="filter">filter</var> take <var data-name="terms">terms</var>, <var data-name="operators">operators</var> and <var data-name="functions">functions</var>. A <var data-name="projection">projection</var><em> </em>is wrapped in curly braces and describe the data as we want it returned. </p>
+<p>Given these JSON documents:</p>
+<pre><code><span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Peter"</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Gamora"</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Drax"</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Groot"</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Rocket"</span><span class="token punctuation">}</span>
+</code></pre>
+<p>The following query:</p>
+<pre><code>*[id &gt; 2]{name}
+</code></pre>
+<p>Will result in the following JSON document:</p>
+<pre><code><span class="token punctuation">[</span>
+  <span class="token punctuation">{</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Drax"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Groot"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Rocket"</span><span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+</code></pre>
+</section>
+<section id="sec-Language" secid="2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Language">2</a></span>Language</h2>
+<section id="sec-Syntax" secid="2.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Syntax">2.1</a></span>Syntax</h3>
+<p>A query in GROQ has typical this form:</p>
+<pre><code>*[&lt;filter&gt;]{&lt;projection&gt;}
+</code></pre>
+<p><code>*</code> returns all documents in the dataset that the current user has permissions to read. The documents are passed to a filter, which retains documents for which the expression evaluates to <span class="spec-keyword">true</span>. The remaining documents are passed to a projection, which determines how the result should be formatted.</p>
+<p>A GROQ query of this form operates as a query pipeline, where the results from each expression is passed as inputs to the next. The filter and projection are both optional, and a query can have any number of them, in any order, as well as other pipeline expressions. There are implicit <code>|</code> (pipe) operators between these components, so the query above could equivalently be written as:</p>
+<pre><code>* | [&lt;filter&gt;] | {&lt;projection&gt;}
+</code></pre>
+<p>In pipeline expressions, document attributes can be accessed by name. For example, this query would fetch directors born since 1970, and return their name, year of birth, and a list of their movies:</p>
+<pre><code>*[_type == &quot;director&quot; &amp;&amp; birthYear &gt;= 1970]{ 
+  name,
+  birthYear,
+  &quot;movies&quot;: *[ _type == &quot;movie&quot; &amp;&amp; director._ref == ^._id]
+}
+</code></pre>
+</section>
+<section id="sec-Source-Text" secid="2.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Source-Text">2.2</a></span>Source Text</h3>
+<div class="spec-production d2" id="SourceCharacter">
+<span class="spec-nt"><a href="#SourceCharacter" data-name="SourceCharacter">SourceCharacter</a></span><div class="spec-rhs"><span class="spec-rx">/[\u0009\u000A\u000D\u0020-\uFFFF]/</span></div>
+</div>
+<section id="sec-Unicode" secid="2.2.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Unicode">2.2.1</a></span>Unicode</h4>
+<div class="spec-production d2" id="UnicodeBOM">
+<span class="spec-nt"><a href="#UnicodeBOM" data-name="UnicodeBOM">UnicodeBOM</a></span><div class="spec-rhs"><span class="spec-prose">Byte Order Mark (U+FEFF)</span></div>
+</div>
+<p>Non&#8208;ASCII Unicode characters may freely appear within <span class="spec-nt"><span data-name="StringValue">StringValue</span></span> and <span class="spec-nt"><a href="#Comment" data-name="Comment">Comment</a></span> portions of GROQ.</p>
+<p>The &ldquo;Byte Order Mark&rdquo; is a special Unicode character which may appear at the beginning of a file containing Unicode which programs may use to determine the fact that the text stream is Unicode, what endianness the text stream is in, and which of several Unicode encodings to interpret.</p>
+</section>
+<section id="sec-White-Space" secid="2.2.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-White-Space">2.2.2</a></span>White Space</h4>
+<p>Whitespace is not significant in GROQ, except for acting as a token separator and comment terminator. Any sequence of the following characters is considered whitespace, with Unicode code points in parenthesis.</p>
+<div class="spec-production d2" id="WhiteSpace">
+<span class="spec-nt"><a href="#WhiteSpace" data-name="WhiteSpace">WhiteSpace</a></span><div class="spec-rhs"><span class="spec-prose">Tab U+0009</span></div>
+<div class="spec-rhs"><span class="spec-prose">Newline U+000A</span></div>
+<div class="spec-rhs"><span class="spec-prose">Vertical tab U+000B</span></div>
+<div class="spec-rhs"><span class="spec-prose">Form feed U+000C</span></div>
+<div class="spec-rhs"><span class="spec-prose">Carriage return U+000D</span></div>
+<div class="spec-rhs"><span class="spec-prose">Space U+0020</span></div>
+<div class="spec-rhs"><span class="spec-prose">Next line U+0085</span></div>
+<div class="spec-rhs"><span class="spec-prose">Non-breaking space U+00A0</span></div>
+</div>
+<p>Whitespace inside a string literal is interpreted as&#8208;is.</p>
+</section>
+<section id="sec-Comments" secid="2.2.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Comments">2.2.3</a></span>Comments</h4>
+<div class="spec-production d2" id="Comment">
+<span class="spec-nt"><a href="#Comment" data-name="Comment">Comment</a></span><div class="spec-rhs"><span class="spec-rx">//</span><span class="spec-quantified"><span class="spec-nt"><span data-name="CommentChar">CommentChar</span></span><span class="spec-quantifiers"><span class="spec-quantifier list">list</span><span class="spec-quantifier optional">opt</span></span></span></div>
+</div>
+<p>Comments serve as query documentation, and are ignored by the parser. They start with <code>//</code> and run to the end of the line:</p>
+<pre><code>{ 
+  // Comments can be on a separate line 
+  &quot;key&quot;: &quot;value&quot; // Or at the end of a line 
+}
+</code></pre>
+<p>Comments cannot start inside a string literal.</p>
+<pre><code>{ 
+  &quot;key // This isn&#x27;t a comment&quot;: &quot;value&quot;
+}
+</code></pre>
+</section>
+<section id="sec-JSON-Superset" secid="2.2.4">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-JSON-Superset">2.2.4</a></span>JSON Superset</h4>
+<p>GROQ&rsquo;s syntax is a superset of JSON, so any valid JSON value is a valid GROQ query (that simply returns the given value). Below are a few examples of JSON values:</p>
+<pre><code>&quot;Hi! 👋&quot;
+</code></pre>
+<pre><code><span class="token punctuation">[</span><span class="token string">"An"</span><span class="token punctuation">,</span> <span class="token string">"array"</span><span class="token punctuation">,</span> <span class="token string">"of"</span><span class="token punctuation">,</span> <span class="token string">"strings"</span><span class="token punctuation">]</span>
+</code></pre>
+<pre><code><span class="token punctuation">{</span>
+  <span class="token property">"array"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"string"</span><span class="token punctuation">,</span> <span class="token number">3.14</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token null keyword">null</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"boolean"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"number"</span><span class="token operator">:</span> <span class="token number">3.14</span><span class="token punctuation">,</span>
+  <span class="token property">"null"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">"object"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"value"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"string"</span><span class="token operator">:</span> <span class="token string">"Hi! 👋"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</section>
+</section>
+<section id="sec-Expressions" secid="2.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Expressions">2.3</a></span>Expressions</h3>
+<p>An expression is one of the following:</p>
+<ul>
+<li>A literal, attribute lookup, parameter, or constant.</li>
+<li>An operator invocation (and by extension a pipeline).</li>
+<li>A function call.</li>
+</ul>
+<p>Expressions can be used anywhere that a value is expected, such as in object values, array elements, operator operands, or function arguments. The expression is in effect replaced by the value which it evaluates to.</p>
+<div id="note-83bee" class="spec-note">
+<a href="#note-83bee">Note</a>
+Due to parser ambiguity with filters, the following access operators can only take literals, not arbitrary expressions: array element access (e.g. <code>array[0]</code>), array slices (e.g. <code>array[1..3]</code>), and object attribute access (e.g. <code>object[&quot;attribute&quot;]</code>) .</div>
+</section>
+<section id="sec-Literals" secid="2.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Literals">2.4</a></span>Literals</h3>
+<p>Literals are inline representations of constant values, e.g. <code>&quot;string&quot;</code> or <code>3.14</code>. GROQ supports all JSON literals, with a few enhancements and additional data types.</p>
+<section id="sec-Boolean-and-Null-Literals" secid="2.4.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Boolean-and-Null-Literals">2.4.1</a></span>Boolean and Null Literals</h4>
+<p>The constants <code>true</code>, <code>false</code>, and <code>null</code>.</p>
+</section>
+<section id="sec-Float-Literals" secid="2.4.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Float-Literals">2.4.2</a></span>Float Literals</h4>
+<p>Floats have an integer part, a fractional part, and an exponent part. The integer part is required, and at least one of the fractional or exponent parts must be given.</p>
+<p>The integer part is equivalent to an integer literal. The fractional part is a decimal point <code>.</code> followed by a sequence of digits. The exponent part is <code>e</code> or <code>E</code> followed by an optional <code>+</code> or <code>-</code> sign followed by an integer specifying base&#8208;10 exponentiation.</p>
+<p>The following are examples of float literals:</p>
+<pre><code>3.0
+3.143e6 // Equivalent to 3000000.0
+3.14eE0 // Equivalent to 3.14
+3.14e-2 // Equivalent to 0.0314
+</code></pre>
+</section>
+<section id="sec-String-Literals" secid="2.4.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-String-Literals">2.4.3</a></span>String Literals</h4>
+<p>A sequence of zero or more UTF&#8208;8 encoded characters surrounded by single or double quotes, e.g. <code>&quot;Hello world! 👋&quot;</code>. The following escape sequences are supported (mirroring JSON), all of which are valid in both single- and double&#8208;quoted string literals:</p>
+<ul>
+<li><code>\\</code>: backslash</li>
+<li><code>\/</code>: slash</li>
+<li><code>\&#x27;</code>: single quote</li>
+<li><code>\&quot;</code>: double quote</li>
+<li><code>\b</code>: backspace</li>
+<li><code>\f</code>: form feed</li>
+<li><code>\n</code>: newline</li>
+<li><code>\r</code>: carriage return</li>
+<li><code>\t</code>: tab</li>
+<li><code>\uXXXX</code>: UTF&#8208;16 code point, where <code>XXXX</code> is the hexadecimal character code</li>
+<li><code>\uXXXX\uXXXX</code>: UTF&#8208;16 surrogate pair</li>
+</ul>
+</section>
+<section id="sec-Array-Literals" secid="2.4.4">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Array-Literals">2.4.4</a></span>Array Literals</h4>
+<p>A comma&#8208;separated list of values enclosed by <code>[]</code>, e.g. <code>[1, 2, 3]</code>. The final element may be followed by an optional trailing comma.</p>
+</section>
+<section id="sec-Object-Literals" secid="2.4.5">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Object-Literals">2.4.5</a></span>Object Literals</h4>
+<p>A comma&#8208;separated list of key&#8208;value pairs enclosed by <code>{}</code>, where the key and value of each pair is separated by <code>:</code>, e.g. <code>{&quot;a&quot;: 1, &quot;b&quot;: 2}</code>. Keys must be strings. The final pair may be followed by an optional trailing comma.</p>
+</section>
+<section id="sec-Pair-Literals" secid="2.4.6">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Pair-Literals">2.4.6</a></span>Pair Literals</h4>
+<p>Two values separated by <code>=&gt;</code>, e.g. <code>&quot;a&quot; =&gt; 1</code>.</p>
+</section>
+<section id="sec-Range-Literals" secid="2.4.7">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Range-Literals">2.4.7</a></span>Range Literals</h4>
+<p>Two values separated by <code>..</code> (right&#8208;inclusive) or <code>...</code> (right&#8208;exclusive), e.g. <code>1..3</code>.</p>
+</section>
+</section>
+<section id="sec-Identifiers" secid="2.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Identifiers">2.5</a></span>Identifiers</h3>
+<p>Identifiers name query entities such as attributes, parameters, functions, and some operators. Identifiers must begin with <code>a-zA-Z_</code>, followed by any number of characters matching <code>a-zA-Z0-9_</code>. Parameters are prefixed with <code>$</code>.</p>
+<section id="sec-Reserved-Keywords" secid="2.5.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Reserved-Keywords">2.5.1</a></span>Reserved Keywords</h4>
+<p>The following keywords are reserved and cannot be used as identifiers:</p>
+<ul>
+<li><code>false</code></li>
+<li><code>null</code></li>
+<li><code>true</code></li>
+</ul>
+</section>
+</section>
+<section id="sec-Attribute-Lookup" secid="2.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Attribute-Lookup">2.6</a></span>Attribute Lookup</h3>
+<p>A bare identifier looks up the value of the corresponding attribute in the document or object at the root of the current scope. For example, in the following query <code>category</code>returns the value of the <code>category</code> attribute of the document currently being considered by the filter:</p>
+<pre><code>*[category == &quot;news&quot;]
+</code></pre>
+<p>If the attribute does not exist, or if the root value of the scope is not a document or object, then the identifier will return <code>null</code>.</p>
+<div id="note-fd62d" class="spec-note">
+<a href="#note-fd62d">Note</a>
+JSON allows attribute keys to be any arbitrary UTF&#8208;8 string. In cases where the key is not a valid GROQ identifier, it can instead be accessed by using the <code>@</code> operator (typically returning the current document) and the <code>[]</code> attribute access operator, e.g. <code>@[&quot;1 illegal name 🚫&quot;]</code>.</div>
+<section id="sec-Attribute-Scope" secid="2.6.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Attribute-Scope">2.6.1</a></span>Attribute Scope</h4>
+<p>Attribute lookups are scoped, such that the same identifier may refer to different attributes in different contexts. New scopes are created by pipeline expressions, typically by iterating over the piped array elements and evaluating an expression in the scope of each element.</p>
+<p>The <code>@</code> operator can be used to access the root value of the scope (also known as &ldquo;this&rdquo;), like in the following example where it refers to each number contained in the <code>numbers</code> array:</p>
+<pre><code>numbers[ @ &gt;= 10 ]
+</code></pre>
+<p>Scopes can also be nested, in which case the <code>^</code> operator can be used to access the root value of the parent scope. Consider the following query:</p>
+<pre><code>*[ _type == &quot;movie&quot; &amp;&amp; releaseYear &gt;= 2000 ]{
+  title,
+  releaseYear,
+  crew{name, title},
+  &quot;related&quot;: *[ _type == &quot;movie&quot; &amp;&amp; genre == ^.genre ]
+}
+</code></pre>
+<p>In the filter, <code>_type</code> and <code>releaseYear</code> access the corresponding attributes of each doument passed from <code>*</code>. Similarly, in the projection, <code>title</code>, <code>releaseYear</code>, and <code>crew</code>access the corresponding attributes from each document passed from the filter. However, in the nested <code>crew</code> projection, <code>name</code> and <code>title</code> access the attributes of each object passed from the <code>crew</code> array &ndash; notice how the outer and inner <code>title</code>identifiers refer to different attributes (one is from the movie, the other is from the crew member).</p>
+<p>The <code>related</code> pipeline components also create new scopes where <code>_type</code> and <code>genre</code>refer to the attributes of each document fetched from the preceding <code>*</code> operator, not those of the surrounding projected document. Notice how the <code>^</code> operator is used to access the document at the root of the parent (outer) scope and fetch its <code>genre</code>attribute.</p>
+</section>
+</section>
+<section id="sec-Language.Operators" secid="2.7">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Language.Operators">2.7</a></span>Operators</h3>
+<p>GROQ supports nullary, unary, and binary operators which return a single value when invoked. Unary operators can be either prefix or postfix (e.g. <code>!true</code> or <code>ref-&gt;</code>), while binary operators are always infix (e.g. <code>1 + 2</code>). Operators are made up of the characters <code>=&lt;&gt;!|&amp;+-*/%@^</code>, but identifiers can also be used to name certain binary operators (e.g. <code>match</code>), in which case they are considered reserved keywords.</p>
+</section>
+<section id="sec-Language.Functions" secid="2.8">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Language.Functions">2.8</a></span>Functions</h3>
+<p>GROQ function calls are expressed as a function identifier immediately followed by a comma&#8208;separated argument list in parentheses, e.g. <code>function(arg1, arg2)</code>. The final argument may be followed by an optional trailing comma. Functions can take any number of arguments (including zero), and return a single value.</p>
+</section>
+<section id="sec-Language.Pipeline-Expressions" secid="2.9">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Language.Pipeline-Expressions">2.9</a></span>Pipeline Expressions</h3>
+<p>Pipelines are constructed by the binary <code>|</code> operator, which takes a left&#8208;hand value and passes it to a right&#8208;hand pipeline component which processes it and returns a new value. For example, the following pipeline fetches all documents, pipes them to a filter which returns an array of documents that satisfy the filter, then pipes them to an order component which sorts them:</p>
+<pre><code>* | [ _type == &quot;person&quot; &amp;&amp; age &gt;= 18 ] | order(name)
+</code></pre>
+<p>Pipeline expressions typically take a piped array and iterate over each element, evaluating an expression in the scope of the element which determines its output. The <code>|</code> operator is implicit (optional) in front of certain components, and they may also have a range of syntactic sugar to make them more pleasant to work with (projections in particular).</p>
+</section>
+</section>
+<section id="sec-Data-Types" secid="3">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Data-Types">3</a></span>Data Types</h2>
+<p>GROQ is strongly typed, meaning there is no implicit type conversion. Type conflicts (e.g. <code>1 + &quot;a&quot;</code>) will yield <code>null</code>.</p>
+<section id="sec-Basic-Data-Types" secid="3.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Basic-Data-Types">3.1</a></span>Basic Data Types</h3>
+<section id="sec-Boolean" secid="3.1.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Boolean">3.1.1</a></span>Boolean</h4>
+<p>Logical truth values, i.e. <span class="spec-keyword">true</span> and <span class="spec-keyword">false</span>.</p>
+</section>
+<section id="sec-Float" secid="3.1.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Float">3.1.2</a></span>Float</h4>
+<p>Signed 64&#8208;bit double&#8208;precision floating point numbers, e.g. <code>3.14</code>, using the <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format#IEEE_754_double-precision_binary_floating-point_format:_binary64">IEEE 754 binary64 format</a>. These have a magnitude of roughly 10⁻³⁰⁷ to 10³⁰⁸, and can represent 15 significant figures with exact precision &ndash; beyond this, significant figures are rounded to 53&#8208;bit precision. The special IEEE 754 values of infinity and <span class="spec-nt"><span data-name="NaN">NaN</span></span> (not a number) are not supported, and are coerced to <span class="spec-keyword">null</span>.</p>
+</section>
+<section id="sec-Null" secid="3.1.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Null">3.1.3</a></span>Null</h4>
+<p>An unknown value, expressed as <span class="spec-keyword">null</span>. This is the SQL definition of null, which differs from the typical definition of &ldquo;no value&rdquo; in programming languages, and implies among other things that <code>1 + null</code> yields <span class="spec-keyword">null</span> (1 plus an unknown number yields an unknown number).</p>
+</section>
+<section id="sec-String" secid="3.1.4">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-String">3.1.4</a></span>String</h4>
+<p>A UTF&#8208;8 encoded string of characters. The maximum string length is undefined.</p>
+</section>
+</section>
+<section id="sec-Composite-Data-Types" secid="3.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Composite-Data-Types">3.2</a></span>Composite Data Types</h3>
+<section id="sec-Array" secid="3.2.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Array">3.2.1</a></span>Array</h4>
+<p>An ordered collection of values, e.g. <code>[1, 2, 3]</code>. Can contain any combination of other types, including other arrays.</p>
+</section>
+<section id="sec-Object" secid="3.2.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Object">3.2.2</a></span>Object</h4>
+<p>An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. <code>{&quot;a&quot;: 1, &quot;b&quot;: 2}</code>. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used.</p>
+</section>
+<section id="sec-Pair" secid="3.2.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Pair">3.2.3</a></span>Pair</h4>
+<p>A pair of values, e.g. <code>&quot;a&quot; =&gt; 1</code>. Pairs can contain any combination of other types, including other pairs, and are mainly used internally with e.g. projection conditionals and<code>select()</code>. In returned JSON, pairs are represented as arrays with two values.</p>
+</section>
+<section id="sec-Range" secid="3.2.4">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Range">3.2.4</a></span>Range</h4>
+<p>An interval containing all values that are ordered between the start and end values. The starting value is always included, while the end may be either included or excluded. A right&#8208;inclusive range is expressed as two values separated by <code>..</code>, e.g. <code>1..3</code>, while a right&#8208;exclusive range is separated by <code>...</code>, e.g. <code>1...3</code>.</p>
+<p>Ranges can have endpoints of any basic data type, but both endpoints must be of the same type (except integers and floats which can be used interchangeably). Ranges with incompatible or invalid endpoints types will yield <code>null</code>.</p>
+<p>Ranges are mainly used internally, e.g. with the <code>in</code> operator and array slice access operator. The endpoints may have context&#8208;dependant semantics, e.g. in array slices the range <code>[2..-1]</code> will cover the range from the third array element to the last element, while the same range is considered empty when used with <code>in</code>. For more details, see the documentation for the relevant operators.</p>
+</section>
+</section>
+<section id="sec-Subtypes" secid="3.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Subtypes">3.3</a></span>Subtypes</h3>
+<p>Subtypes are subsets of basic or composite types. Operators and functions that can act on the supertype can always act on the subtype as well, but the behavior may be modified, and some operators and functions can only act on the subtype.</p>
+<section id="sec-Datetime" secid="3.3.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Datetime">3.3.1</a></span>Datetime</h4>
+<p>Datetimes are strings with ISO 8601&#8208;formatted date/time combinations.</p>
+</section>
+<section id="sec-Reference" secid="3.3.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Reference">3.3.2</a></span>Reference</h4>
+<p>References are objects that represent a reference to a different document. They have the following special attributes (in addition to other arbitrary attributes):</p>
+<ul>
+<li><code>_ref</code> (path, required): The ID of the referenced document.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="sec-undefined.Operators" secid="4">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.Operators">4</a></span>Operators</h2>
+<section id="sec-Logical-Operators" secid="4.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Logical-Operators">4.1</a></span>Logical Operators</h3>
+<p>GROQ supports the usual logical operators: logical and, logical or, and logical not. Operands must be booleans or <span class="spec-keyword">null</span>. If evaluation of an operand yields an invalid type it will be coerced to <span class="spec-keyword">null</span>.</p>
+<section id="sec-Logical-And" secid="4.1.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Logical-And">4.1.1</a></span>Logical And</h4>
+<p><code>&amp;&amp;</code> returns <code>true</code> if both operands are <code>true</code>, otherwise it returns <code>false</code> or <code>null</code>. The complete truth table is:</p>
+<ul>
+<li><span class="spec-keyword">true</span> &amp;&amp; <span class="spec-keyword">true</span> &rArr; <span class="spec-keyword">true</span></li>
+<li><span class="spec-keyword">true</span> &amp;&amp; <span class="spec-keyword">false</span> &rArr; <span class="spec-keyword">false</span></li>
+<li><span class="spec-keyword">false</span> &amp;&amp; <span class="spec-keyword">true</span> &rArr; <span class="spec-keyword">false</span></li>
+<li><span class="spec-keyword">false</span> &amp;&amp; <span class="spec-keyword">false</span> &rArr; <span class="spec-keyword">false</span></li>
+<li><span class="spec-keyword">true</span> &amp;&amp; <span class="spec-keyword">null</span> &rArr; <span class="spec-keyword">null</span></li>
+<li><span class="spec-keyword">false</span> &amp;&amp; <span class="spec-keyword">null</span> &rArr; <span class="spec-keyword">false</span></li>
+<li><span class="spec-keyword">null</span> &amp;&amp; <span class="spec-keyword">true</span> &rArr; <span class="spec-keyword">null</span></li>
+<li><span class="spec-keyword">null</span> &amp;&amp; <span class="spec-keyword">false</span> &rArr; <span class="spec-keyword">false</span></li>
+<li><span class="spec-keyword">null</span> &amp;&amp; <span class="spec-keyword">null</span> &rArr; <span class="spec-keyword">null</span></li>
+</ul>
+</section>
+<section id="sec-Logical-Or" secid="4.1.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Logical-Or">4.1.2</a></span>Logical Or</h4>
+<p><span class="spec-t">||</span> returns <span class="spec-keyword">true</span> if either operand is <span class="spec-keyword">true</span>, otherwise it returns <span class="spec-keyword">false</span> or <span class="spec-keyword">null</span>. The complete truth table is:</p>
+<ul>
+<li><span class="spec-keyword">true</span> || <span class="spec-keyword">true</span> &rArr; <span class="spec-keyword">true</span></li>
+<li><span class="spec-keyword">true</span> || <span class="spec-keyword">false</span> &rArr; <span class="spec-keyword">true</span></li>
+<li><span class="spec-keyword">false</span> || <span class="spec-keyword">true</span> &rArr; <span class="spec-keyword">true</span></li>
+<li><span class="spec-keyword">false</span> || <span class="spec-keyword">false</span> &rArr; <span class="spec-keyword">false</span></li>
+<li><span class="spec-keyword">true</span> || <span class="spec-keyword">null</span> &rArr; <span class="spec-keyword">true</span></li>
+<li><span class="spec-keyword">false</span> || <span class="spec-keyword">null</span> &rArr; <span class="spec-keyword">null</span></li>
+<li><span class="spec-keyword">null</span> || <span class="spec-keyword">true</span> &rArr; <span class="spec-keyword">true</span></li>
+<li><span class="spec-keyword">null</span> || <span class="spec-keyword">false</span> &rArr; <span class="spec-keyword">null</span></li>
+<li><span class="spec-keyword">null</span> || <span class="spec-keyword">null</span> &rArr; <span class="spec-keyword">null</span></li>
+</ul>
+</section>
+<section id="sec-Logical-Not" secid="4.1.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Logical-Not">4.1.3</a></span>Logical Not</h4>
+<p><code>!</code> returns the logical negation of the unary right&#8208;hand operand. The complete truth table is:</p>
+<ul>
+<li><span class="spec-t">!true</span> &rArr; <span class="spec-keyword">false</span></li>
+<li><span class="spec-t">!false</span> &rArr; <span class="spec-keyword">true</span></li>
+<li><span class="spec-t">!null</span> &rArr; <span class="spec-keyword">null</span></li>
+</ul>
+</section>
+</section>
+<section id="sec-Comparison-Operators" secid="4.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Comparison-Operators">4.2</a></span>Comparison Operators</h3>
+<p>Comparison operators compare two values, returning <span class="spec-keyword">true</span> if the comparison holds or <span class="spec-keyword">false</span> otherwise. The operands must be of the same type (except for integers and floats which are interchangeable), otherwise the comparison returns <span class="spec-keyword">null</span> as usual for type conflicts. If any operand is <span class="spec-keyword">null</span>, the comparison returns <span class="spec-keyword">null</span>.</p>
+<p>Comparisons are currently only supported for basic data types (booleans, integers, floats, and strings), comparison of other data types is currently undefined.</p>
+<p>Equality comparisons (<code>==</code> and <code>!=</code>) have the following semantics:</p>
+<ul>
+<li>Booleans: identical logical truth values.</li>
+<li>Integers and floats: identical real number values.</li>
+<li>Strings: identical lengths and Unicode code points (case sensitive).</li>
+<li>Nulls: always yield <code>null</code>.</li>
+</ul>
+<p>Ordered comparisons (&gt;, &lt;, &ge;, and &le;) use the following order:</p>
+<ul>
+<li>Booleans: <code>true</code> is greater than <code>false</code>.</li>
+<li>Integers and floats: numerical order.</li>
+<li>Strings: numerical Unicode code point order (i.e. case&#8208;sensitive), compared character&#8208;by&#8208;character. For overlapping strings, shorter strings are ordered before longer strings.</li>
+<li>Nulls: always yield <code>null</code>.</li>
+</ul>
+<section id="sec-Equality" secid="4.2.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Equality">4.2.1</a></span>Equality</h4>
+<p>Returns <span class="spec-keyword">true</span> if the operands are considered equal.</p>
+</section>
+<section id="sec-Inequality" secid="4.2.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Inequality">4.2.2</a></span>Inequality</h4>
+<p>Returns <span class="spec-keyword">true</span> if the operands are considered not equal.</p>
+</section>
+<section id="sec-Greater-Than" secid="4.2.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Greater-Than">4.2.3</a></span>Greater Than</h4>
+<p>Returns <span class="spec-keyword">true</span> if the left&#8208;hand operand is greater than (ordered after) the right&#8208;hand operand.</p>
+</section>
+<section id="sec-Lesser-Than" secid="4.2.4">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Lesser-Than">4.2.4</a></span>Lesser Than</h4>
+<p>Returns <span class="spec-keyword">true</span> if the left&#8208;hand operand is lesser than (ordered before) the right&#8208;hand operand.</p>
+</section>
+<section id="sec-Greater-Than-or-Equal" secid="4.2.5">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Greater-Than-or-Equal">4.2.5</a></span>Greater Than or Equal</h4>
+<p>Returns <span class="spec-keyword">true</span> if the left&#8208;hand operand is considered greater than or equal to the right&#8208;hand operand.</p>
+</section>
+<section id="sec-Lesser-Than-or-Equal" secid="4.2.6">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Lesser-Than-or-Equal">4.2.6</a></span>Lesser Than or Equal</h4>
+<p>Returns <span class="spec-keyword">true</span> if the left&#8208;hand operand is considered lesser than or equal to the right&#8208;hand operand.</p>
+</section>
+<section id="sec-Compound-Type-Membership" secid="4.2.7">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Compound-Type-Membership">4.2.7</a></span>Compound Type Membership</h4>
+<p>Returns <span class="spec-keyword">true</span> if the left&#8208;hand operand is contained within the right&#8208;hand operand. The right&#8208;hand operand may be an array, range, or path.</p>
+<p>If the right&#8208;hand operand is an array, the left&#8208;hand operand may be of any type. The left&#8208;hand operand is compared for equality (==) with each element of the array, returning <span class="spec-keyword">true</span> as soon as a match is found. If no match is found, it returns <span class="spec-keyword">null</span> if the array contains a <span class="spec-keyword">null</span> value, otherwise <span class="spec-keyword">false</span>.</p>
+<p>If the right&#8208;hand operand is a range, the left&#8208;hand operand must be of the same type as the range endpoints. Returns <span class="spec-keyword">true</span> if the left&#8208;hand operand is ordered between the range endpoints, otherwise <span class="spec-keyword">false</span>.</p>
+<p>If the right&#8208;hand operand is a path, the left&#8208;hand operand must be a string or path. Returns <span class="spec-keyword">true</span> if the left&#8208;hand operand is matched by the right&#8208;hand path pattern, otherwise <span class="spec-keyword">false</span>.</p>
+</section>
+</section>
+<section id="sec-Access-Operators" secid="4.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Access-Operators">4.3</a></span>Access Operators</h3>
+<p>Access operators are used to access members of compound types, e.g. object attributes or array elements, returning <span class="spec-keyword">null</span> if the member does not exist or the operator is incompatible with the left&#8208;hand operand&rsquo;s type. Access operators can be chained, where each operator accesses the result of the preceding chain, e.g. <code>object.ref-&gt;array[1]</code>.</p>
+<p>A handful of access operators, namely <code>*</code>, <code>^</code>, and <code>@</code>, do not take any operands and instead simply return the appropriate value. As such, they can only be used at the beginning of access expressions.</p>
+<section id="sec-Everything" secid="4.3.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Everything">4.3.1</a></span>Everything</h4>
+<p>Takes no operands, and returns an array of all stored documents that the current user has access to. It is typically used at the beginning of a GROQ query pipeline, such as <code>*[_type == &quot;movie&quot;]{title, releaseYear}</code>.</p>
+<div id="note-91068" class="spec-note">
+<a href="#note-91068">Note</a>
+Not to be confused with the <code>*</code> multiplication operator, which takes two operands (the factors to be multiplied).</div>
+</section>
+<section id="sec-This" secid="4.3.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-This">4.3.2</a></span>This</h4>
+<p>Takes no operands, and returns the root value of the current scope, or <span class="spec-keyword">null</span> if no root value exists. For example, in the document filter <code>*[@.attribute == &quot;value&quot;]</code> it refers to the currently filtered document, and in the expression <code>numbers[@ &gt;= 10]</code> it refers to the currently filtered number of the <code>numbers</code> array.</p>
+</section>
+<section id="sec-Parent" secid="4.3.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Parent">4.3.3</a></span>Parent</h4>
+<p>Takes no operands, and returns the root value of the parent scope, or <code>null</code> if no parent scope exists. For example, in the following query it refers to the projected document, not the document passed from the inner <code>*</code>:</p>
+<pre><code>*{ &quot;referencedBy&quot;: *[ references(^._id) ]}
+</code></pre>
+</section>
+<section id="sec-Access-Operators.Object-Attribute-Access" secid="4.3.4">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Access-Operators.Object-Attribute-Access">4.3.4</a></span>Object Attribute Access</h4>
+<p>Returns the value of the object attribute given by the right&#8208;hand identifier, e.g. <code>object.attribute</code>.</p>
+</section>
+<section id="sec-Access-Operators.Object-Attribute-Access" secid="4.3.5">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Access-Operators.Object-Attribute-Access">4.3.5</a></span>Object Attribute Access</h4>
+<p>Returns the object attribute with the given key, e.g. <code>object[&quot;attribute&quot;]</code>. This is equivalent to the <code>.</code> access operator, but useful when the attribute name is not a legal GROQ identifier.</p>
+<div id="note-8f22b" class="spec-note">
+<a href="#note-8f22b">Note</a>
+The attribute name must be a string literal due to parser ambiguity with filters.</div>
+</section>
+<section id="sec-Reference-Access" secid="4.3.6">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Reference-Access">4.3.6</a></span>Reference Access</h4>
+<p>Returns the document referenced by the left&#8208;hand reference, e.g. <code>ref-&gt;</code>. It may optionally be followed by an attribute identifier, in which case it returns the value of the given attribute of the referenced document, e.g. <code>ref-&gt;attribute</code>. If the reference points to a non&#8208;existent document (for a weak reference) it returns <code>null</code>.</p>
+</section>
+<section id="sec-Array-Element-Access" secid="4.3.7">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Array-Element-Access">4.3.7</a></span>Array Element Access</h4>
+<p>Returns the array element at the given zero&#8208;based index, e.g. <code>array[2]</code> yields the third array element. Negative indices are based at the end of the array, e.g. <code>array[-2]</code> yields the second&#8208;to&#8208;last element.</p>
+<div id="note-85222" class="spec-note">
+<a href="#note-85222">Note</a>
+The element index must be an integer literal due to parser ambiguity with filters.</div>
+</section>
+<section id="sec-Array-Slice" secid="4.3.8">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Array-Slice">4.3.8</a></span>Array Slice</h4>
+<p>Returns a new array containing the elements whose indices fall within the range, e.g. <code>array[2..4]</code> yields the new array <code>[array[2], array[3], array[4]]</code>. Ranges may extend beyond array bounds.</p>
+<p>Negative range endpoints are based at the end of the array, e.g. <code>array[2..-1]</code> yields all elements from the third to the last. If the right endpoint falls before the left endpoint the result is an empty array.</p>
+<div id="note-60604" class="spec-note">
+<a href="#note-60604">Note</a>
+The range must be a range literal due to parser ambiguity with filters.</div>
+</section>
+<section id="sec-Array-Filter" secid="4.3.9">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Array-Filter">4.3.9</a></span>Array Filter</h4>
+<p>Returns a new array with the elements for which the filter expression evaluates to <code>true</code>, e.g. <code>people[birthYear &gt;= 1980]</code>.The filter is evaluated in the scope of each array element.</p>
+</section>
+<section id="sec-Array-Traversal" secid="4.3.10">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Array-Traversal">4.3.10</a></span>Array Traversal</h4>
+<p>Traverses the left&#8208;hand array, applying the optional right&#8208;hand access operator to each element and collecting the resulting values in a flat array &ndash; e.g. <code>array[].attribute</code>yields a flat array of the <code>attribute</code> attribute value of each array element, and <code>array[]-&gt;name</code> yields a flat array of the <code>name</code> attribute values of each document referenced by <code>array</code>. If no right&#8208;hand access operator is given, it defaults to returning a flat array containing each traversed element.</p>
+</section>
+<section id="sec-Array-Object-Expansion" secid="4.3.11">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Array-Object-Expansion">4.3.11</a></span>Array/Object Expansion</h4>
+<p>Expands the right&#8208;hand array or object into the surrounding literal array or object, e.g. <code>[...[1,2], 3, ...[4,5]]</code> yields <code>[1,2,3,4,5]</code>, and <code>{...{&quot;a&quot;:1},&quot;b&quot;:2,{&quot;c&quot;:3}}</code>yields <code>{&quot;a&quot;:1,&quot;b&quot;:2,&quot;c&quot;:3}</code>.</p>
+</section>
+</section>
+<section id="sec-Arithmetic-Operators" secid="4.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Arithmetic-Operators">4.4</a></span>Arithmetic Operators</h3>
+<p>Arithmetic operators accept any combination of float and integer operands. If any operand is a float, or if the result has a non&#8208;zero fractional part, the result is a float; otherwise it is an integer.</p>
+<p>The <code>+</code> operator is also used to concatenate two strings, arrays, or objects.</p>
+<div id="note-8f289" class="spec-note">
+<a href="#note-8f289">Note</a>
+Floating point arithmetic is fundamentally imprecise, so operations on floats may produce results with very small rounding errors, and the results may vary on different CPU architectures. For example, <code>3.14+1</code> yields <code>4.140000000000001</code>. The <code>round()</code> function can be used to round results.</div>
+<section id="sec-Addition-and-Concatenation" secid="4.4.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Addition-and-Concatenation">4.4.1</a></span>Addition and Concatenation</h4>
+<p>Adds two numbers, e.g. <code>3+2</code> yields <code>5</code>. Also acts as a prefix operator for positive numbers, e.g. <code>+3</code> yields <code>3</code>.</p>
+<p>Also concatenates two strings, arrays, or objects, e.g. <code>&quot;ab&quot;+&quot;cd&quot;</code> yields <code>&quot;abcd&quot;</code>. If two objects have duplicate keys, the key from the right&#8208;hand object replaces the key from the left&#8208;hand one.</p>
+</section>
+<section id="sec-Subtraction" secid="4.4.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Subtraction">4.4.2</a></span>Subtraction</h4>
+<p>Subtracts two numbers, e.g. <code>3-2</code> yields <code>1</code>. Also acts as a prefix operator for negative numbers, e.g. <code>-3</code>.</p>
+</section>
+<section id="sec-Multiplication" secid="4.4.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Multiplication">4.4.3</a></span>Multiplication</h4>
+<p>Multiplies two numbers, e.g. <code>3*2</code> yields <code>6</code>.</p>
+</section>
+<section id="sec-Division" secid="4.4.4">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Division">4.4.4</a></span>Division</h4>
+<p>Divides two numbers, e.g. <code>3/2</code> yields <code>1.5</code>. Division by <code>0</code> yields <code>null</code>.</p>
+</section>
+<section id="sec-Exponentiation" secid="4.4.5">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Exponentiation">4.4.5</a></span>Exponentiation</h4>
+<p>Raises the left&#8208;hand operand to the power of the right&#8208;hand operand, e.g. <code>2**3</code> yields <code>8</code>.</p>
+<p>Fractional and negative exponents follow the normal rules of roots and inverse exponentiation, so e.g. the square root of <code>4</code> is taken with <code>4**(1/2)</code> (yielding <code>2</code>), and the inverse square root of <code>4</code> is taken with <code>4**-(1/2)</code> (yielding <code>0.5</code>).</p>
+</section>
+<section id="sec-Modulo" secid="4.4.6">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Modulo">4.4.6</a></span>Modulo</h4>
+<p>Returns the remainder of the division of its operands, e.g. <code>5%2</code> yields <code>1</code>. The remainder has the sign of the dividend and a magnitude less than the divisor.</p>
+</section>
+</section>
+<section id="sec-Full-Text-Search-Operators" secid="4.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Full-Text-Search-Operators">4.5</a></span>Full-Text Search Operators</h3>
+<p>Full&#8208;text search operators perform searches of text content using inverted search indexes. Content is tokenized as words (i.e. split on whitespace and punctuation), with no stemming or other processing.</p>
+<section id="sec-Full-text-Search" secid="4.5.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Full-text-Search">4.5.1</a></span>Full-text Search</h4>
+<p>Searches the left&#8208;hand operand for individual words that match the text pattern given in the right&#8208;hand operand, returning <code>true</code> if a match is found, otherwise <code>false</code> if the right&#8208;hand operand does not contain <code>null</code> or <code>null</code> if it does.</p>
+<p>Patterns are strings that use <code>*</code> as wildcards, and any number of wildcards can be used at any position. For example, <code>foo*</code> matches any word starting with <code>foo</code>, and <code>foo*bar</code>matches any word starting with <code>foo</code> and ending with <code>bar</code>. If the pattern does not contain any wildcards it must exactly match a whole word in the left&#8208;hand operand.</p>
+<p>Both the left&#8208;hand and right&#8208;hand operands can be either strings or arrays of strings. All patterns in the right&#8208;hand operand must match anywhere in the left&#8208;hand operand, e.g. <code>[&quot;foobar&quot;, &quot;baz&quot;] match [&quot;foo*&quot;, &quot;*bar&quot;]</code> returns <code>true</code>.</p>
+</section>
+</section>
+<section id="sec-Pipeline-Operators" secid="4.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Pipeline-Operators">4.6</a></span>Pipeline Operators</h3>
+<p>Pipelines are a calling convention where a left&#8208;hand array is passed to a right&#8208;hand pipeline expression. Pipelines are constructed via the <code>|</code> operator, which may be implicit. </p>
+<section id="sec-Pipe-Operator" secid="4.6.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-Operator">4.6.1</a></span>Pipe Operator</h4>
+<p>Passes the left&#8208;hand array to the right&#8208;hand pipeline expression and returns the result, e.g. <code>* | order(_id)</code>.</p>
+</section>
+</section>
+<section id="sec-Operator-Precedence" secid="4.7">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Operator-Precedence">4.7</a></span>Operator Precedence</h3>
+<p>Operator precedence is listed below, in descending order and with associativity in parenthesis:</p>
+<ul>
+<li><code>.</code> (left), <code>|</code> (left)</li>
+<li><code>-&gt;</code> (left)</li>
+<li><code>**</code> (right)</li>
+<li><code>*</code> (left), <code>/</code> (left), <code>%</code> (left)</li>
+<li><code>+</code> (left), <code>-</code> (left), <code>!</code> (right)</li>
+<li><code>...</code> (right)</li>
+<li>== , !=, &gt;, &ge;, &lt;, &le; (all left), in (left), match (left)</li>
+<li><code>&amp;&amp;</code> (left)</li>
+<li><code>||</code> (left)</li>
+<li><code>*</code> (none), <code>@</code> (none), <code>^</code> (none)</li>
+</ul>
+<p>Precedence can be overridden by grouping expressions with <code>()</code>, e.g. <code>(1+2)*3</code>.</p>
+</section>
+</section>
+<section id="sec-Parameters" secid="5">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Parameters">5</a></span>Parameters</h2>
+<p>Parameters are client&#8208;provided values that are substituted into queries before execution. Their names must begin with <code>$</code> followed by a valid identifier, and their values must be JSON literals of any type (take care to quote strings). Since they are JSON literals they can only contain values, not arbitrary GROQ expressions, and are safe to pass from user input.</p>
+<p>For example, the following query may be given parameters such as <code>$type=&quot;myType&quot;</code> and <code>$object={&quot;title&quot;: &quot;myTitle&quot;, &quot;value&quot;: 3}</code>:</p>
+<pre><code>*[ _type == $type &amp;&amp; title == $object.title &amp;&amp; value &gt; $object.value ]
+</code></pre>
+</section>
+<section id="sec-undefined.Pipeline-Expressions" secid="6">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.Pipeline-Expressions">6</a></span>Pipeline Expressions</h2>
+<p>A pipeline connects a set of expressions via the <code>|</code> (pipe) operator, by passing the array given by the left&#8208;hand operand to the pipeline expressions given by the right&#8208;hand operand and yields its return value. Some expressions have an implicit pipe operator, and thus do not need to be explicitly prefixed by <code>|</code>.</p>
+<p>For example, the following query pipeline fetches all documents from the data store, passes them to a filter, then a projection, and finally orders the results:</p>
+<pre><code>* | [ _type == &quot;movie&quot; &amp;&amp; releaseYear &gt;= 1980] | {
+  title,
+  releaseYear,
+  genre
+} | order(releaseYear desc, title asc) |
+</code></pre>
+<p>A pipeline expression typically iterates over the array elements and evaluates an expression in the scope of each iterated value (as described in &ldquo;Attribute Scope&rdquo; in the Syntax section</p>
+<section id="sec-Filter-Expression" secid="6.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Filter-Expression">6.1</a></span>Filter Expression</h3>
+<p>Iterates over the elements of the piped array, evaluates the given boolean expression in the scope of each element, and returns an array of elements for which the expression evaluated to <code>true</code>. The preceding <code>|</code> operator is optional for filters.</p>
+<p>For example, the following filter will retain documents of type <code>movie</code>where the <code>releaseYear</code> attribute is greater than or equal to 1980:</p>
+<pre><code>*[ _type == &quot;movie&quot; &amp;&amp; releaseYear &gt;= 1980]
+
+</code></pre>
+</section>
+<section id="sec-Slice-Expression" secid="6.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Slice-Expression">6.2</a></span>Slice Expression</h3>
+<p>Returns an array containing the elements of the piped array whose zero&#8208;based indices fall within the range, e.g. <code>* | [2..4]</code> yields elements 3, 4, and 5 from the piped array. The preceding <code>|</code> operator is optional for slices. The range may extend beyond the array bounds.</p>
+<p>Negative range endpoints are based at the end of the piped array, so e.g. <code>array[2..-1]</code> yields all elements from the third to the last. If the right endpoint falls before the left endpoint the result is an empty array.</p>
+</section>
+<section id="sec-Subscript-Expression" secid="6.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Subscript-Expression">6.3</a></span>Subscript Expression</h3>
+<p>Returns the element at the given zero&#8208;based index of the piped array, e.g. <code>* | [2]</code> returns the third element of the piped array, or <code>null</code> if not found. Negative indices are based at the end of the array, e.g. <code>array[-2]</code> yields the second&#8208;to&#8208;last element. The preceding <code>|</code>operator is optional for slices.</p>
+</section>
+<section id="sec-Projection-Expression" secid="6.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Projection-Expression">6.4</a></span>Projection Expression</h3>
+<p>Projections iterate over the elements of the piped array, generate an object of the given form evaluated in the scope of each element, and append it to the output array. The preceding <code>|</code> operator is optional for projections.</p>
+<p>For example, the projection <code>* | {&quot;key&quot;: value}</code> iterates over all documents, and for each document generates an object with a single key <code>key</code> whose value is set to the value of the <code>value</code> attribute of the document, if any.</p>
+<p>Attribute values in projections can be arbitrary GROQ expressions, e.g. <code>* | {&quot;name&quot;: firstName + &quot; &quot; + lastName}</code>. Any attribute whose value evaluates to <code>null</code> is not included in the projection.</p>
+<p>If bare attributes are given in a projection, this inserts the corresponding attribute from the input element in the output object &ndash; e.g. the projection <code>{_id, name}</code> is exactly equivalent to <code>{&quot;_id&quot;: _id, &quot;name&quot;: name}</code>. Bare attributes can also be used with access operators, where the left&#8208;most attribute name is used as the key, e.g. <code>{ref-&gt;attribute.array[0]}</code> will result in an object with a <code>ref</code> key containing the specified array element. Other objects can be expanded into the projection with the <code>...</code>operator. For example, <code>{name, ...properties}</code> will take all attributes from the <code>properties</code> object and place them in the root of the projected object along with the root <code>name</code> attribute.</p>
+<p>A bare <code>...</code> is syntactic sugar for <code>...@</code>, i.e. it inserts all attributes from the currently iterated element into the projection. For example, <code>{..., &quot;key&quot;: &quot;value}</code> generates an object with all of the object&rsquo;s original attributes in addition to the generated <code>key</code> attribute.</p>
+<p>If multiple keys with the same name are given, then the latest key wins. The only exception is with the bare <code>...</code> syntactic sugar mentioned above, which is always evaluated first regardless of its position in the projection. For example, the projection <code>{&quot;name&quot;: &quot;someName&quot;, ...}</code> will replace the original <code>name</code> attribute of the object, if any.</p>
+<p>Since projection values are arbitrary GROQ expressions, nested projections are supported (and encouraged), e.g.:</p>
+<pre><code>*[ _type == &quot;book&quot; ]{
+  title,
+  &quot;authors&quot;: authors{
+    &quot;name&quot;: firstName + &quot; &quot; + lastName,
+    birthYear,
+  }
+}
+</code></pre>
+<p>In this case, the nested <code>authors</code> projection takes its input from the <code>authors</code> array, and generates an output array of projected objects as usual. This projection is evaluated in a new scope (as described in &ldquo;Attribute Scope&rdquo; in the Syntax section<code>^</code> operator.</p>
+<p>Projections also have syntactic sugar for conditionals, expressed as <code>condition =&gt; {}</code>. If <code>condition</code> evaluates to <code>true</code>, the object on the right&#8208;hand side of <code>=&gt;</code> is expanded into the projection. For example, the following projection will include the <code>movies</code> attribute containing a list of related movies if the person is a director, otherwise the attribute will be omitted:</p>
+<pre><code>{
+  name,
+  role == &quot;director&quot; =&gt; {
+    &quot;movies&quot;: *[ _type == &quot;movie&quot; &amp;&amp; director._ref == ^._id ]
+  }
+}
+</code></pre>
+<p>This syntax is exactly equivalent to <code>...select(condition =&gt; {})</code>. Each conditional in a projection is evaluated separately &ndash; for cases where multiple conditions overlap and only a single result (the first) should be included then the full <code>select()</code> syntax must be used instead.</p>
+</section>
+<section id="sec-Map-Expression" secid="6.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Map-Expression">6.5</a></span>Map Expression</h3>
+<p>Mapping evaluates an arbitrary expression in the scope of each piped element, and appends the result to the output array &ndash; e.g. <code>* | (firstName + &quot; &quot; + lastName)</code> returns an array of names. This can also be used e.g. for array projections, such as <code>* | ([ firstName, lastName, age ])</code> returning an array of 3&#8208;element arrays that each contains the person&rsquo;s first name, last name, and age.</p>
+</section>
+<section id="sec-Order-Expression" secid="6.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Order-Expression">6.6</a></span>Order Expression</h3>
+<p><code>order()</code> sorts the piped array according to the given expression and returns an array of sorted elements, e.g. <code>* | order(name asc, age desc)</code>. The direction can be either <code>asc</code> or <code>desc</code>, defaulting to <code>asc</code>if not given. Any number of sort expressions can be given, which specify sorting last&#8208;to&#8208;first.</p>
+</section>
+</section>
+<section id="sec-undefined.Functions" secid="7">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.Functions">7</a></span>Functions</h2>
+<p>Functions take a set of arguments of specific types and return a single value of a specific type. They may be polymorphic, i.e. accept several argument type variations possibly returning different types, and may take a variable number of arguments. Function calls return <code>null</code> if arguments have invalid types, and an error if the function does not exist. GROQ has some standard functions described in this section, but can be extended with vendor&#8208;specific functio</p>
+<div id="note-2e3ba" class="spec-note">
+<a href="#note-2e3ba">Note</a>
+Functions may throw errors rather than return <code>null</code> on type conflicts.</div>
+<section id="sec-coalesce" secid="7.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-coalesce">7.1</a></span>coalesce</h3>
+<pre><code>coalesce(&lt;any&gt;...) &lt;any&gt;
+</code></pre>
+<p>Takes a variable number of arguments of any type, and returns the first non-<code>null</code>argument if any, otherwise <code>null</code> - e.g. <code>coalesce(null, 1, &quot;a&quot;)</code> returns <code>1</code>.</p>
+</section>
+<section id="sec-count" secid="7.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-count">7.2</a></span>count</h3>
+<pre><code>count(&lt;array&gt;) &lt;integer&gt;
+</code></pre>
+<p>Returns the number of elements in the passed array, e.g. <code>count([1,2,3])</code> returns <code>3</code>.</p>
+</section>
+<section id="sec-defined" secid="7.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-defined">7.3</a></span>defined</h3>
+<pre><code>defined(&lt;any&gt;) boolean
+</code></pre>
+<p>Returns <code>true</code> if the argument is non-<code>null</code> and not an empty array or object, otherwise <code>false</code>.</p>
+</section>
+<section id="sec-length" secid="7.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-length">7.4</a></span>length</h3>
+<pre><code>length(&lt;array|string&gt;) &lt;integer&gt;
+</code></pre>
+<p>Returns the length of the argument, either the number of elements in an array or the number of Unicode characters in a string, e.g. <code>length([1,2,3])</code> returns <code>3</code> and <code>length(&quot;Hi! 👋&quot;)</code> returns <code>5</code>.</p>
+</section>
+<section id="sec-now" secid="7.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-now">7.5</a></span>now</h3>
+<pre><code>now() datetime
+</code></pre>
+<p>Returns the current time in ISO 8601&#8208;format with microsecond resolution in the UTC time zone, e.g. <code>2019-03-06T15:51:24.846513Z</code>. The current time is stable within an operation such that multiple calls return identical values, and this generally refers to the start time of the operation.</p>
+</section>
+<section id="sec-references" secid="7.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-references">7.6</a></span>references</h3>
+<pre><code>references(&lt;path|string&gt;) &lt;boolean&gt;
+</code></pre>
+<p>Implicitly takes the document at the root of the current scope and recursively checks whether it contains any references to the given document ID. It is typically used in query filters, e.g. <code>*[ references(&quot;abc&quot;) ]</code> will return any documents that contains a reference to the document <code>abc</code>.</p>
+</section>
+<section id="sec-round" secid="7.7">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-round">7.7</a></span>round</h3>
+<pre><code>round(&lt;integer|float&gt;[, &lt;integer&gt;]) &lt;integer|float&gt;
+</code></pre>
+<p>Rounds the given number to the nearest integer, or to the number of decimal places given by the second, optional argument &ndash; e.g. <code>round(3.14)</code> yields <code>3</code> and <code>round(3.14, 1)</code> yields <code>3.1</code>.</p>
+</section>
+<section id="sec-select" secid="7.8">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-select">7.8</a></span>select</h3>
+<pre><code>select(&lt;pair|any&gt;...) &lt;any&gt;
+</code></pre>
+<p>Used for conditionals, i.e. &ldquo;if&#8208;else&rdquo; expressions. Takes a variable number of arguments that are either pairs or any other type and iterates over them. When encountering a pair whose left&#8208;hand value evaluates to <code>true</code>, the right&#8208;hand value is returned immediately. When encountering a non&#8208;pair argument, that argument is returned immediately. Falls back to returning <code>null</code>.</p>
+<p>For example, the following call returns <code>&quot;adult&quot;</code> if <code>age &gt;= 18</code>, otherwise <code>&quot;teen&quot;</code> if <code>age &gt;= 13</code>, otherwise <code>&quot;child&quot;</code>:</p>
+<pre><code>select( age &gt;= 18 =&gt; &quot;adult&quot;, age &gt;= 13 =&gt; &quot;teen&quot;, &quot;child&quot;, )
+</code></pre>
+</section>
+</section>
+<section id="sec-Joins" secid="8">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Joins">8</a></span>Joins</h2>
+<p>Joins are supported via the reference access operator <code>-&gt;</code>, via subqueries that use the parent scope operator <code>^</code>, and via the <code>references()</code> function. The reference data type can be used in documents to explicitly reference other documents and enforce referential integrity, but joins can be made using arbitrary join conditions not involving reference fields at all.</p>
+<p>Consider the following documents representing an employee and a department:</p>
+<pre><code><span class="token punctuation">{</span>
+  <span class="token property">"_id"</span><span class="token operator">:</span> <span class="token string">"alice"</span><span class="token punctuation">,</span>
+  <span class="token property">"_type"</span><span class="token operator">:</span> <span class="token string">"employee"</span><span class="token punctuation">,</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Alice Anderson"</span><span class="token punctuation">,</span>
+  <span class="token property">"department"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"_ref"</span><span class="token operator">:</span> <span class="token string">"engineering"</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">{</span>
+  <span class="token property">"_id"</span><span class="token operator">:</span> <span class="token string">"engineering"</span><span class="token punctuation">,</span>
+  <span class="token property">"_type"</span><span class="token operator">:</span> <span class="token string">"department"</span><span class="token punctuation">,</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Engineering"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The employee can be joined with the department by applying the <code>-&gt;</code>reference access operator to the <code>department</code> field, which fetches the referenced <code>engineering</code> document and inserts it into the projected document under the <code>department</code> attribute:</p>
+<pre><code>*[ _type == &quot;employee&quot; ]{ ..., department-&gt; }
+
+{
+  &quot;_id&quot;: &quot;alice&quot;,
+  &quot;_type&quot;: &quot;employee&quot;,
+  &quot;name&quot;: &quot;Alice Anderson&quot;,
+  &quot;department&quot;: {
+    &quot;_id&quot;: &quot;engineering&quot;,
+    &quot;_type&quot;: &quot;department&quot;,
+    &quot;name&quot;: &quot;Engineering&quot;
+  }
+}
+
+</code></pre>
+<p>The department can also be joined with its employees by using a subquery that refers to the department&rsquo;s ID via the <code>^</code> parent scope operator:</p>
+<pre><code>*[ _type == &quot;department&quot; ]{
+  ...,
+  &quot;employees&quot;: *[ _type == &quot;employee&quot; &amp;&amp; department._ref == ^._id ]
+}
+
+{
+  &quot;_id&quot;: &quot;engineering&quot;,
+  &quot;_type&quot;: &quot;department&quot;,
+  &quot;name&quot;: &quot;Engineering&quot;,
+  &quot;employees&quot;: [
+    {
+      &quot;_id&quot;: &quot;alice&quot;,
+      &quot;_type&quot;: &quot;employee&quot;,
+      &quot;name&quot;: &quot;Alice Anderson&quot;,
+      &quot;department&quot;: {&quot;_ref&quot;: &quot;engineering&quot;}
+    }
+  ]
+}
+</code></pre>
+<p>Or the <code>references()</code> function can be used to fetch any employees that contain a reference to the department anywhere in their content:</p>
+<pre><code>*[ _type == &quot;department&quot; ]{
+  ...,
+  &quot;employees&quot;: *[ _type == &quot;employee&quot; &amp;&amp; references(^._id) ]
+}
+
+{
+  &quot;_id&quot;: &quot;engineering&quot;,
+  &quot;_type&quot;: &quot;department&quot;,
+  &quot;name&quot;: &quot;Engineering&quot;,
+  &quot;employees&quot;: [
+    {
+      &quot;_id&quot;: &quot;alice&quot;,
+      &quot;_type&quot;: &quot;employee&quot;,
+      &quot;name&quot;: &quot;Alice Anderson&quot;,
+      &quot;department&quot;: {&quot;_ref&quot;: &quot;engineering&quot;}
+    }
+  ]
+}
+</code></pre>
+<p>These mechanisms can be used to perform arbitrarily complex joins, see their respective reference documentation for more details.</p>
+<p>The rest of this section will demonstrate how GROQ can be used to implement joins equivalent to those in relational algebra and SQL databases. In the following examples, the &ldquo;left relation&rdquo; will refer to the current document, while the &ldquo;right relation&rdquo; will refer to the joined documents. test</p>
+<section id="sec-Outer-Joins" secid="8.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Outer-Joins">8.1</a></span>Outer Joins</h3>
+<section id="sec-Left-Outer-Join" secid="8.1.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Left-Outer-Join">8.1.1</a></span>Left Outer Join</h4>
+<p>A left outer join combines each document in the left relation with any documents in the right relation that match the join condition. Documents in the left relation that do not have any corresponding matches in the right relation are still included in the result, typically with a <code>null</code> value or similar.</p>
+<p>The simplest left outer join is made with the reference access operator <code>-&gt;</code>, which joins the referenced document from the right relation into the left relation, or <code>null</code> if the referenced document does not exist. For example, the following query fetches all employees and joins them with their referenced department, if any:</p>
+<pre><code>*[ _type == &quot;employee&quot; ]{ ..., department-&gt; }
+
+</code></pre>
+<p>Left outer joins can also use arbitrary join conditions through subqueries. For example, the following query joins all departments which reference an employee in its <code>employees</code> array:</p>
+<pre><code>*[ _type == &quot;employee&quot; ]{
+  ...,
+  &quot;departments&quot;: *[ _type == &quot;department&quot; &amp;&amp; ^._id in employees[]._ref ],
+}
+</code></pre>
+</section>
+<section id="sec-Right-Outer-Joins" secid="8.1.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Right-Outer-Joins">8.1.2</a></span>Right Outer Joins</h4>
+<p>Right outer joins are identical to left outer joins, except that the left and right relations are swapped. Right outer joins are not directly supported in GROQ, but the same effect is easily accomplished by using a left outer join with the left and right relations swapped.</p>
+</section>
+<section id="sec-Full-Outer-Joins" secid="8.1.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Full-Outer-Joins">8.1.3</a></span>Full Outer Joins</h4>
+<p>Full outer joins fetch all documents in both the left and right relations, and combine them on matching join conditions. Full outer joins do not directly translate to a document database, since the result is not a two&#8208;dimensional set of tuples. However, a similar effect can be obtained by fetching all documents in both relations and joining any matches using projection conditionals.</p>
+<p>For example, the following query fetches all <code>employee</code> documents and all <code>department</code> documents, then joins referenced departments into employees via the <code>-&gt;</code> operator, and employees into departments via a subquery using <code>^</code>:</p>
+<pre><code>*[ _type in [&quot;employee&quot;, &quot;department&quot; ]{
+  ...,
+  _type == &quot;employee&quot; =&gt; {
+    department-&gt;,
+  },
+  _type == &quot;department&quot; =&gt; {
+    &quot;employees&quot;: *[ _type == &quot;employee&quot; &amp;&amp; department._ref == ^._id ],
+  },
+}
+</code></pre>
+</section>
+</section>
+<section id="sec-Inner-Joins" secid="8.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Inner-Joins">8.2</a></span>Inner Joins</h3>
+<section id="sec-Equijoins" secid="8.2.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Equijoins">8.2.1</a></span>Equijoins</h4>
+<p>Equijoins combine documents in the left relation with documents in the right relation that match on an equality condition. Documents in the left relation that do not match any documents in the right relation are not included. This is accomplished in GROQ by using a left outer join and then filtering out any documents which did not have any matches &ndash; for example:</p>
+<pre><code>*[ _type == &quot;employee&quot; ]{ ..., department-&gt; }[ !defined(department) ]
+
+</code></pre>
+<p>The equality can be made explicit by using a subquery instead of the <code>-&gt;</code> access operator:</p>
+<pre><code>*[ _type == &quot;employee&quot; ]{
+  ...,
+  &quot;department&quot;: *[ _type == &quot;department&quot; &amp;&amp; _id == ^.department._ref ][0],
+}[ !defined(department) ]
+
+</code></pre>
+</section>
+<section id="sec-Non-Equijoins" secid="8.2.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Non-Equijoins">8.2.2</a></span>Non-Equijoins</h4>
+<p>Non&#8208;equijoins are similar to equijoins, except they join on inequalities rather than equalities (e.g. <code>&gt;</code>, <code>&lt;</code>, or <code>!=</code>). For example, the following query joins employees with all departments whose <code>baseSalary</code> field is greater than the employee&rsquo;s <code>salary</code> field, and removes employees which do not match the join condition:</p>
+<pre><code>*[ _type == &quot;employee&quot; ]{
+  ...,
+  &quot;betterDepartments&quot;: *[ _type == &quot;department&quot; &amp;&amp; baseSalary &gt; ^.salary ],
+}[ count(betterDepartments) &gt; 0 ]
+</code></pre>
+</section>
+<section id="sec---joins" secid="8.2.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec---joins">8.2.3</a></span>θ-joins</h4>
+<p>θ-joins are similar to equijoins and non&#8208;equijoins, except they join documents on any arbitrary join condition. For example, the following query joins employees with any departments whose <code>baseSalary</code> is higher than the employee&rsquo;s <code>salary</code>, whose <code>manager</code> is not equal to the employee&rsquo;s <code>boss</code>, and whose <code>city</code> field is equal to the employee&rsquo;s <code>city</code> field:</p>
+<pre><code>*[ _type == &quot;employee&quot; ]{
+  ...,
+  &quot;betterDepartments&quot;: *[
+    _type == &quot;department&quot;
+    &amp;&amp; baseSalary &gt; ^.salary
+    &amp;&amp; manager != ^.boss
+    &amp;&amp; city == ^.city
+  ],
+}[ count(betterDepartments) &gt; 0 ]
+</code></pre>
+</section>
+<section id="sec-Semijoins" secid="8.2.4">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Semijoins">8.2.4</a></span>Semijoins</h4>
+<p>A semijoin checks whether a document in the left relation matches one in the right relation on the join condition, but does not actually include any contents from the right relation in the result. Semijoins are performed by including joins in a GROQ filter, for example in the following query that fetches all employees that belong to the <code>finance</code> department:</p>
+<pre><code>*[ _type == &quot;employee&quot; &amp;&amp; department-&gt;_id == &quot;finance&quot; ]
+
+</code></pre>
+<p>Semijoins can also be done with subqueries, like the following example which fetches employees that are contained within the <code>employees</code> array of at least one department.</p>
+<pre><code>*[ _type == &quot;employee&quot; &amp;&amp; count(*[ _type == &quot;department&quot; &amp;&amp; ^._id in employees[]._ref ]) &gt; 0 ]
+
+</code></pre>
+</section>
+<section id="sec-Antijoins" secid="8.2.5">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Antijoins">8.2.5</a></span>Antijoins</h4>
+<p>Antijoins are similar to semijoins, except they check whether the document in the left relation does <em>not</em> match any documents in the right relation on the join condition. For example, the following query fetches all employees that do not belong to any department:</p>
+<pre><code>*[ _type == &quot;employee&quot; &amp;&amp; !defined(department-&gt;) ]
+
+</code></pre>
+<p>Antijoins can also be done with subqueries, like the following example which fetches employees that are not contained within the <code>employees</code> array of any department.</p>
+<pre><code>*[ _type == &quot;employee&quot; &amp;&amp; count(*[ _type == &quot;department&quot; &amp;&amp; ^._id in employees[]._ref ]) == 0 ]
+
+</code></pre>
+</section>
+<section id="sec-Natural-Joins" secid="8.2.6">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Natural-Joins">8.2.6</a></span>Natural Joins</h4>
+<p>Natural joins combine documents that have common fields with equal values. Natural joins as traditionally defined are not supported by GROQ, but a similar effect can be accomplished using the <code>references()</code> function which checks whether a document contains a reference to a given document anywhere within it.</p>
+<p>For example, the following query fetches any employees that contain any references to the department anywhere in their structure, and removes departments with no employees:</p>
+<pre><code>*[ _type == &quot;department&quot; ]{
+  ...,
+  &quot;employees&quot;: *[ _type == &quot;employee&quot; &amp;&amp; references(^._id) ],
+}[ count(employees) &gt; 0 ]
+
+</code></pre>
+</section>
+</section>
+<section id="sec-Other-Joins" secid="8.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Other-Joins">8.3</a></span>Other Joins</h3>
+<section id="sec-Self-joins" secid="8.3.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Self-joins">8.3.1</a></span>Self-joins</h4>
+<p>Self&#8208;joins join documents against other documents in the same relation. For example, the following query fetches employees whose <code>salary</code> values are greater than the currently considered employee:</p>
+<pre><code>*[ _type == &quot;employee&quot; ]{
+  ...,
+  &quot;betterPaid&quot;: *[ _type == &quot;employee&quot; &amp;&amp; salary &gt; ^.salary ],
+}
+
+</code></pre>
+<p>Self&#8208;joins can even join against the same document, like in the following contrived example:</p>
+<pre><code>*[ _type == &quot;employee&quot; ]{ ..., &quot;self&quot;: *[ _id == ^._id ][0] }
+</code></pre>
+</section>
+<section id="sec-Cross-Joins" secid="8.3.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Cross-Joins">8.3.2</a></span>Cross Joins</h4>
+<p>Cross joins (or Carthesian products) join all documents in the left relation with all documents in the right relation. For example, the following query fetches all employees and joins them with all departments:</p>
+<pre><code>*[ _type == &quot;employee&quot; ]{..., &quot;allDepartments&quot;: *[ _type == &quot;department&quot; ]}
+
+</code></pre>
+</section>
+</section>
+</section>
+<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#Comment">Comment</a></li><li><a href="#SourceCharacter">SourceCharacter</a></li><li><a href="#UnicodeBOM">UnicodeBOM</a></li><li><a href="#WhiteSpace">WhiteSpace</a></li></ol></section></article>
+<footer>
+Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</footer>
+<input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden>&#x2630;</label>
+<div class="spec-sidebar" aria-hidden>
+<div class="spec-toc">
+<div class="title"><a href="#">GROQ</a></div>
+<ol><li id="_sidebar_1"><a href="#sec-Overview"><span class="spec-secid">1</span>Overview</a></li>
+<li id="_sidebar_2"><a href="#sec-Language"><span class="spec-secid">2</span>Language</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_2" /><label for="_sidebar_toggle_2"></label>
+<ol>
+<li id="_sidebar_2.1"><a href="#sec-Syntax"><span class="spec-secid">2.1</span>Syntax</a></li>
+<li id="_sidebar_2.2"><a href="#sec-Source-Text"><span class="spec-secid">2.2</span>Source Text</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_2.2" /><label for="_sidebar_toggle_2.2"></label>
+<ol>
+<li id="_sidebar_2.2.1"><a href="#sec-Unicode"><span class="spec-secid">2.2.1</span>Unicode</a></li>
+<li id="_sidebar_2.2.2"><a href="#sec-White-Space"><span class="spec-secid">2.2.2</span>White Space</a></li>
+<li id="_sidebar_2.2.3"><a href="#sec-Comments"><span class="spec-secid">2.2.3</span>Comments</a></li>
+<li id="_sidebar_2.2.4"><a href="#sec-JSON-Superset"><span class="spec-secid">2.2.4</span>JSON Superset</a></li>
+</ol>
+</li>
+<li id="_sidebar_2.3"><a href="#sec-Expressions"><span class="spec-secid">2.3</span>Expressions</a></li>
+<li id="_sidebar_2.4"><a href="#sec-Literals"><span class="spec-secid">2.4</span>Literals</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_2.4" /><label for="_sidebar_toggle_2.4"></label>
+<ol>
+<li id="_sidebar_2.4.1"><a href="#sec-Boolean-and-Null-Literals"><span class="spec-secid">2.4.1</span>Boolean and Null Literals</a></li>
+<li id="_sidebar_2.4.2"><a href="#sec-Float-Literals"><span class="spec-secid">2.4.2</span>Float Literals</a></li>
+<li id="_sidebar_2.4.3"><a href="#sec-String-Literals"><span class="spec-secid">2.4.3</span>String Literals</a></li>
+<li id="_sidebar_2.4.4"><a href="#sec-Array-Literals"><span class="spec-secid">2.4.4</span>Array Literals</a></li>
+<li id="_sidebar_2.4.5"><a href="#sec-Object-Literals"><span class="spec-secid">2.4.5</span>Object Literals</a></li>
+<li id="_sidebar_2.4.6"><a href="#sec-Pair-Literals"><span class="spec-secid">2.4.6</span>Pair Literals</a></li>
+<li id="_sidebar_2.4.7"><a href="#sec-Range-Literals"><span class="spec-secid">2.4.7</span>Range Literals</a></li>
+</ol>
+</li>
+<li id="_sidebar_2.5"><a href="#sec-Identifiers"><span class="spec-secid">2.5</span>Identifiers</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_2.5" /><label for="_sidebar_toggle_2.5"></label>
+<ol>
+<li id="_sidebar_2.5.1"><a href="#sec-Reserved-Keywords"><span class="spec-secid">2.5.1</span>Reserved Keywords</a></li>
+</ol>
+</li>
+<li id="_sidebar_2.6"><a href="#sec-Attribute-Lookup"><span class="spec-secid">2.6</span>Attribute Lookup</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_2.6" /><label for="_sidebar_toggle_2.6"></label>
+<ol>
+<li id="_sidebar_2.6.1"><a href="#sec-Attribute-Scope"><span class="spec-secid">2.6.1</span>Attribute Scope</a></li>
+</ol>
+</li>
+<li id="_sidebar_2.7"><a href="#sec-Language.Operators"><span class="spec-secid">2.7</span>Operators</a></li>
+<li id="_sidebar_2.8"><a href="#sec-Language.Functions"><span class="spec-secid">2.8</span>Functions</a></li>
+<li id="_sidebar_2.9"><a href="#sec-Language.Pipeline-Expressions"><span class="spec-secid">2.9</span>Pipeline Expressions</a></li>
+</ol>
+</li>
+<li id="_sidebar_3"><a href="#sec-Data-Types"><span class="spec-secid">3</span>Data Types</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_3" /><label for="_sidebar_toggle_3"></label>
+<ol>
+<li id="_sidebar_3.1"><a href="#sec-Basic-Data-Types"><span class="spec-secid">3.1</span>Basic Data Types</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_3.1" /><label for="_sidebar_toggle_3.1"></label>
+<ol>
+<li id="_sidebar_3.1.1"><a href="#sec-Boolean"><span class="spec-secid">3.1.1</span>Boolean</a></li>
+<li id="_sidebar_3.1.2"><a href="#sec-Float"><span class="spec-secid">3.1.2</span>Float</a></li>
+<li id="_sidebar_3.1.3"><a href="#sec-Null"><span class="spec-secid">3.1.3</span>Null</a></li>
+<li id="_sidebar_3.1.4"><a href="#sec-String"><span class="spec-secid">3.1.4</span>String</a></li>
+</ol>
+</li>
+<li id="_sidebar_3.2"><a href="#sec-Composite-Data-Types"><span class="spec-secid">3.2</span>Composite Data Types</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_3.2" /><label for="_sidebar_toggle_3.2"></label>
+<ol>
+<li id="_sidebar_3.2.1"><a href="#sec-Array"><span class="spec-secid">3.2.1</span>Array</a></li>
+<li id="_sidebar_3.2.2"><a href="#sec-Object"><span class="spec-secid">3.2.2</span>Object</a></li>
+<li id="_sidebar_3.2.3"><a href="#sec-Pair"><span class="spec-secid">3.2.3</span>Pair</a></li>
+<li id="_sidebar_3.2.4"><a href="#sec-Range"><span class="spec-secid">3.2.4</span>Range</a></li>
+</ol>
+</li>
+<li id="_sidebar_3.3"><a href="#sec-Subtypes"><span class="spec-secid">3.3</span>Subtypes</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_3.3" /><label for="_sidebar_toggle_3.3"></label>
+<ol>
+<li id="_sidebar_3.3.1"><a href="#sec-Datetime"><span class="spec-secid">3.3.1</span>Datetime</a></li>
+<li id="_sidebar_3.3.2"><a href="#sec-Reference"><span class="spec-secid">3.3.2</span>Reference</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li id="_sidebar_4"><a href="#sec-undefined.Operators"><span class="spec-secid">4</span>Operators</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_4" /><label for="_sidebar_toggle_4"></label>
+<ol>
+<li id="_sidebar_4.1"><a href="#sec-Logical-Operators"><span class="spec-secid">4.1</span>Logical Operators</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_4.1" /><label for="_sidebar_toggle_4.1"></label>
+<ol>
+<li id="_sidebar_4.1.1"><a href="#sec-Logical-And"><span class="spec-secid">4.1.1</span>Logical And</a></li>
+<li id="_sidebar_4.1.2"><a href="#sec-Logical-Or"><span class="spec-secid">4.1.2</span>Logical Or</a></li>
+<li id="_sidebar_4.1.3"><a href="#sec-Logical-Not"><span class="spec-secid">4.1.3</span>Logical Not</a></li>
+</ol>
+</li>
+<li id="_sidebar_4.2"><a href="#sec-Comparison-Operators"><span class="spec-secid">4.2</span>Comparison Operators</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_4.2" /><label for="_sidebar_toggle_4.2"></label>
+<ol>
+<li id="_sidebar_4.2.1"><a href="#sec-Equality"><span class="spec-secid">4.2.1</span>Equality</a></li>
+<li id="_sidebar_4.2.2"><a href="#sec-Inequality"><span class="spec-secid">4.2.2</span>Inequality</a></li>
+<li id="_sidebar_4.2.3"><a href="#sec-Greater-Than"><span class="spec-secid">4.2.3</span>Greater Than</a></li>
+<li id="_sidebar_4.2.4"><a href="#sec-Lesser-Than"><span class="spec-secid">4.2.4</span>Lesser Than</a></li>
+<li id="_sidebar_4.2.5"><a href="#sec-Greater-Than-or-Equal"><span class="spec-secid">4.2.5</span>Greater Than or Equal</a></li>
+<li id="_sidebar_4.2.6"><a href="#sec-Lesser-Than-or-Equal"><span class="spec-secid">4.2.6</span>Lesser Than or Equal</a></li>
+<li id="_sidebar_4.2.7"><a href="#sec-Compound-Type-Membership"><span class="spec-secid">4.2.7</span>Compound Type Membership</a></li>
+</ol>
+</li>
+<li id="_sidebar_4.3"><a href="#sec-Access-Operators"><span class="spec-secid">4.3</span>Access Operators</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_4.3" /><label for="_sidebar_toggle_4.3"></label>
+<ol>
+<li id="_sidebar_4.3.1"><a href="#sec-Everything"><span class="spec-secid">4.3.1</span>Everything</a></li>
+<li id="_sidebar_4.3.2"><a href="#sec-This"><span class="spec-secid">4.3.2</span>This</a></li>
+<li id="_sidebar_4.3.3"><a href="#sec-Parent"><span class="spec-secid">4.3.3</span>Parent</a></li>
+<li id="_sidebar_4.3.4"><a href="#sec-Access-Operators.Object-Attribute-Access"><span class="spec-secid">4.3.4</span>Object Attribute Access</a></li>
+<li id="_sidebar_4.3.5"><a href="#sec-Access-Operators.Object-Attribute-Access"><span class="spec-secid">4.3.5</span>Object Attribute Access</a></li>
+<li id="_sidebar_4.3.6"><a href="#sec-Reference-Access"><span class="spec-secid">4.3.6</span>Reference Access</a></li>
+<li id="_sidebar_4.3.7"><a href="#sec-Array-Element-Access"><span class="spec-secid">4.3.7</span>Array Element Access</a></li>
+<li id="_sidebar_4.3.8"><a href="#sec-Array-Slice"><span class="spec-secid">4.3.8</span>Array Slice</a></li>
+<li id="_sidebar_4.3.9"><a href="#sec-Array-Filter"><span class="spec-secid">4.3.9</span>Array Filter</a></li>
+<li id="_sidebar_4.3.10"><a href="#sec-Array-Traversal"><span class="spec-secid">4.3.10</span>Array Traversal</a></li>
+<li id="_sidebar_4.3.11"><a href="#sec-Array-Object-Expansion"><span class="spec-secid">4.3.11</span>Array/Object Expansion</a></li>
+</ol>
+</li>
+<li id="_sidebar_4.4"><a href="#sec-Arithmetic-Operators"><span class="spec-secid">4.4</span>Arithmetic Operators</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_4.4" /><label for="_sidebar_toggle_4.4"></label>
+<ol>
+<li id="_sidebar_4.4.1"><a href="#sec-Addition-and-Concatenation"><span class="spec-secid">4.4.1</span>Addition and Concatenation</a></li>
+<li id="_sidebar_4.4.2"><a href="#sec-Subtraction"><span class="spec-secid">4.4.2</span>Subtraction</a></li>
+<li id="_sidebar_4.4.3"><a href="#sec-Multiplication"><span class="spec-secid">4.4.3</span>Multiplication</a></li>
+<li id="_sidebar_4.4.4"><a href="#sec-Division"><span class="spec-secid">4.4.4</span>Division</a></li>
+<li id="_sidebar_4.4.5"><a href="#sec-Exponentiation"><span class="spec-secid">4.4.5</span>Exponentiation</a></li>
+<li id="_sidebar_4.4.6"><a href="#sec-Modulo"><span class="spec-secid">4.4.6</span>Modulo</a></li>
+</ol>
+</li>
+<li id="_sidebar_4.5"><a href="#sec-Full-Text-Search-Operators"><span class="spec-secid">4.5</span>Full-Text Search Operators</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_4.5" /><label for="_sidebar_toggle_4.5"></label>
+<ol>
+<li id="_sidebar_4.5.1"><a href="#sec-Full-text-Search"><span class="spec-secid">4.5.1</span>Full-text Search</a></li>
+</ol>
+</li>
+<li id="_sidebar_4.6"><a href="#sec-Pipeline-Operators"><span class="spec-secid">4.6</span>Pipeline Operators</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_4.6" /><label for="_sidebar_toggle_4.6"></label>
+<ol>
+<li id="_sidebar_4.6.1"><a href="#sec-Pipe-Operator"><span class="spec-secid">4.6.1</span>Pipe Operator</a></li>
+</ol>
+</li>
+<li id="_sidebar_4.7"><a href="#sec-Operator-Precedence"><span class="spec-secid">4.7</span>Operator Precedence</a></li>
+</ol>
+</li>
+<li id="_sidebar_5"><a href="#sec-Parameters"><span class="spec-secid">5</span>Parameters</a></li>
+<li id="_sidebar_6"><a href="#sec-undefined.Pipeline-Expressions"><span class="spec-secid">6</span>Pipeline Expressions</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_6" /><label for="_sidebar_toggle_6"></label>
+<ol>
+<li id="_sidebar_6.1"><a href="#sec-Filter-Expression"><span class="spec-secid">6.1</span>Filter Expression</a></li>
+<li id="_sidebar_6.2"><a href="#sec-Slice-Expression"><span class="spec-secid">6.2</span>Slice Expression</a></li>
+<li id="_sidebar_6.3"><a href="#sec-Subscript-Expression"><span class="spec-secid">6.3</span>Subscript Expression</a></li>
+<li id="_sidebar_6.4"><a href="#sec-Projection-Expression"><span class="spec-secid">6.4</span>Projection Expression</a></li>
+<li id="_sidebar_6.5"><a href="#sec-Map-Expression"><span class="spec-secid">6.5</span>Map Expression</a></li>
+<li id="_sidebar_6.6"><a href="#sec-Order-Expression"><span class="spec-secid">6.6</span>Order Expression</a></li>
+</ol>
+</li>
+<li id="_sidebar_7"><a href="#sec-undefined.Functions"><span class="spec-secid">7</span>Functions</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_7" /><label for="_sidebar_toggle_7"></label>
+<ol>
+<li id="_sidebar_7.1"><a href="#sec-coalesce"><span class="spec-secid">7.1</span>coalesce</a></li>
+<li id="_sidebar_7.2"><a href="#sec-count"><span class="spec-secid">7.2</span>count</a></li>
+<li id="_sidebar_7.3"><a href="#sec-defined"><span class="spec-secid">7.3</span>defined</a></li>
+<li id="_sidebar_7.4"><a href="#sec-length"><span class="spec-secid">7.4</span>length</a></li>
+<li id="_sidebar_7.5"><a href="#sec-now"><span class="spec-secid">7.5</span>now</a></li>
+<li id="_sidebar_7.6"><a href="#sec-references"><span class="spec-secid">7.6</span>references</a></li>
+<li id="_sidebar_7.7"><a href="#sec-round"><span class="spec-secid">7.7</span>round</a></li>
+<li id="_sidebar_7.8"><a href="#sec-select"><span class="spec-secid">7.8</span>select</a></li>
+</ol>
+</li>
+<li id="_sidebar_8"><a href="#sec-Joins"><span class="spec-secid">8</span>Joins</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_8" /><label for="_sidebar_toggle_8"></label>
+<ol>
+<li id="_sidebar_8.1"><a href="#sec-Outer-Joins"><span class="spec-secid">8.1</span>Outer Joins</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_8.1" /><label for="_sidebar_toggle_8.1"></label>
+<ol>
+<li id="_sidebar_8.1.1"><a href="#sec-Left-Outer-Join"><span class="spec-secid">8.1.1</span>Left Outer Join</a></li>
+<li id="_sidebar_8.1.2"><a href="#sec-Right-Outer-Joins"><span class="spec-secid">8.1.2</span>Right Outer Joins</a></li>
+<li id="_sidebar_8.1.3"><a href="#sec-Full-Outer-Joins"><span class="spec-secid">8.1.3</span>Full Outer Joins</a></li>
+</ol>
+</li>
+<li id="_sidebar_8.2"><a href="#sec-Inner-Joins"><span class="spec-secid">8.2</span>Inner Joins</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_8.2" /><label for="_sidebar_toggle_8.2"></label>
+<ol>
+<li id="_sidebar_8.2.1"><a href="#sec-Equijoins"><span class="spec-secid">8.2.1</span>Equijoins</a></li>
+<li id="_sidebar_8.2.2"><a href="#sec-Non-Equijoins"><span class="spec-secid">8.2.2</span>Non-Equijoins</a></li>
+<li id="_sidebar_8.2.3"><a href="#sec---joins"><span class="spec-secid">8.2.3</span>θ-joins</a></li>
+<li id="_sidebar_8.2.4"><a href="#sec-Semijoins"><span class="spec-secid">8.2.4</span>Semijoins</a></li>
+<li id="_sidebar_8.2.5"><a href="#sec-Antijoins"><span class="spec-secid">8.2.5</span>Antijoins</a></li>
+<li id="_sidebar_8.2.6"><a href="#sec-Natural-Joins"><span class="spec-secid">8.2.6</span>Natural Joins</a></li>
+</ol>
+</li>
+<li id="_sidebar_8.3"><a href="#sec-Other-Joins"><span class="spec-secid">8.3</span>Other Joins</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_8.3" /><label for="_sidebar_toggle_8.3"></label>
+<ol>
+<li id="_sidebar_8.3.1"><a href="#sec-Self-joins"><span class="spec-secid">8.3.1</span>Self-joins</a></li>
+<li id="_sidebar_8.3.2"><a href="#sec-Cross-Joins"><span class="spec-secid">8.3.2</span>Cross Joins</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li id="_sidebar_index"><a href="#index"><span class="spec-secid">§</span>Index</a></li>
+</ol>
+</div>
+<script>(function (){
+var currentSection;
+var numberedSections = [];
+
+var sections = document.getElementsByTagName('section');
+for (var i = 0; i < sections.length; i++) {
+  if (sections[i].getAttribute('secid')) {
+    numberedSections.push(sections[i]);
+  }
+}
+
+var scrollPos = window.scrollY;
+var pending = false;
+window.addEventListener('scroll', function (e) {
+  scrollPos = window.scrollY;
+  if (!pending) {
+    pending = true;
+    window.requestAnimationFrame(function () {
+      updateSectionFocus(scrollPos);
+      pending = false;
+    });
+  }
+});
+
+function updateSectionFocus(pos) {
+  var readLine = pos + document.documentElement.clientHeight / 4;
+
+  var focusedSection;
+  for (var n = numberedSections.length - 1; n >= 0; n--) {
+    if (numberedSections[n].offsetTop < readLine) {
+      focusedSection = numberedSections[n];
+      break;
+    }
+  }
+
+  var secid = focusedSection && focusedSection.getAttribute('secid');
+  if (secid !== currentSection) {
+    currentSection && fold(currentSection, false);
+    secid && fold(secid, true);
+    currentSection = secid;
+  }
+}
+
+function fold(secid, check) {
+  document.getElementById('_sidebar_' + secid).className = check ? 'viewing' : '';
+  var sections = secid.split('.');
+  while (sections.length) {
+    var toggle = document.getElementById('_sidebar_toggle_' + sections.join('.'));
+    if (toggle) {
+      toggle.checked = check;
+    }
+    sections.pop();
+  }
+}
+
+updateSectionFocus(window.scrollY);
+})()</script>
+</div>
+</body>
+</html>
