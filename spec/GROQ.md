@@ -39,15 +39,21 @@ Conformance requirements expressed as algorithms can be fulfilled by an implemen
 
 # [Syntax](Section%202%20--%20Syntax.md)
 
-# [Data Types](Section%203%20--%20Data%20Types.md)
+# [Execution](Section%203%20--%20Execution.md)
 
-# [Operators](Section%204%20--%20Operators.md)
+# [Data types](Section%204%20--%20Data%20types.md)
 
-# [Parameters](Section%205%20--%20Parameters.md)
+# [Equality and comparison](Section%205%20--%20Equality%20and%20comparison.md)
 
-# [Pipeline Expressions](Section%206%20--%20Pipeline%20Expressions.md)
+# [Simple expressions](Section%206%20--%20Simple%20expressions.md)
 
-# [Functions](Section%207%20--%20Functions.md)
+# [Compound expressions](Section%207%20--%20Compound%20expressions.md)
 
-# [Joins](Section%208%20--%20Joins.md)
+# [Operators](Section%208%20--%20Operators.md)
+
+# [Precedence and associativity](Section%209%20--%20Precedence%20and%20associativity.md)
+
+# [Functions](Section%2010%20--%20Functions.md)
+
+# [Pipe functions](Section%2011%20--%20Pipe%20functions.md)
 
