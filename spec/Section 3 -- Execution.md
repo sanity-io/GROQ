@@ -30,6 +30,8 @@ The parent expression (`^`) let's you refer to parent scopes, and this enables w
 
 While executing the inner filter (`[_type == "person" && parentId == ^.id]`) the expression `^.id` returns the `id` attribute of the parent scope's *this* value. The parent scope is here the scope created by the projection (`{id, name, …}`).
 
+It's possible for a query to be *invalid*. This can happen when you e.g. use an unknown function or call a function with incorrect number of arguments.
+
 ## Query context
 
 A query context consists of:
@@ -63,9 +65,18 @@ NewRootScope(context):
 * Set the query context of {newScope} to {context}.
 * Return {newScope}.
 
+## Expression validation
+
+An expression can be validated. This will only check that it's on a valid form, and will not execute anything. If an expression type does not have an explicitly defined validator in this specifiction, it has an implicit validator which runs {Validate} on all its child expressions.
+
+Validate(expr):
+
+* Let {validator} be the validator of {expr}.
+* Execute the {validator}.
+
 ## Expression evaluation
 
-An expression is evaluated in a scope. Every expression type has their own evaluator function in their respective section in this specification (e.g. the evaluator of {ParenthesisExpression} is {EvaluateParenthesis()}).
+An expression is evaluated in a scope. You must successfully validate an expression before you attempt to evaluate it. [](undefined)Every expression type has their own evaluator function in their respective section in this specification (e.g. the evaluator of {ParenthesisExpression} is {EvaluateParenthesis()}).
 
 Evaluate(expr, scope):
 

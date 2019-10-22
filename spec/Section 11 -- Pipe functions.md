@@ -19,8 +19,6 @@ The order function sorts an array based on arbitrary expressions.
 
 order(base, args, scope):
 
-* If the length of {args} is 0:
-  * Return {null}.
 * Let {cmp }be a function which takes two arguments and returns either {Less}, {Equal} or {Greater}.
 * Define {cmp(left, right)} as follows:
   * Let {leftScope} be the result of {NewNestedScope(left, scope)}.
@@ -44,4 +42,9 @@ order(base, args, scope):
           * Return {order}.
   * Return {Equal}.
 * Return a sorted array using {cmp} as the comparator function.
+
+orderValidate(args):
+
+* If the length of {args} is 0:
+  * Report an error.
 

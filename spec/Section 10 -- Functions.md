@@ -34,14 +34,17 @@ count(args, scope):
 * Otherwise:
   * Return {null}.
 
+countValidate(args):
+
+* If the length of {args} is not 1:
+  * Report an error.
+
 ## defined
 
 The defined function checks if the argument is not {null}.
 
 defined(args, scope):
 
-* If the length of {args} is not 1:
-  * Return {null}.
 * Let {baseNode} be the first element of {args}.
 * Let {base} be the result of {Evaluate(baseNode, scope)}.
 * If {base} is {null}:
@@ -49,14 +52,17 @@ defined(args, scope):
 * Otherwise:
   * Return {true}.
 
+definedValidate(args):
+
+* If the length of {args} is not 1:
+  * Report an error.
+
 ## length
 
 The length function returns the length of a string or an array.
 
 length(args, scope):
 
-* If the length of {args} is not 1:
-  * Return {null}.
 * Let {baseNode} be the first element of {args}.
 * Let {base} be the result of {Evaluate(baseNode, scope)}.
 * If {base} is a string:
@@ -65,14 +71,17 @@ length(args, scope):
   * Return the length of {base}.
 * Return {null}.
 
+lengthValidate(args):
+
+* If the length of {args} is not 1:
+  * Report an error.
+
 ## references
 
 The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.
 
 references(args, scope):
 
-* If the length of {args} is not 1:
-  * Return {null}.
 * Let {pathNode} be the first element of {args}.
 * Let {path} be the result of {Evaluate(pathNode, scope)}.
 * If {path} is not a string:
@@ -98,14 +107,17 @@ HasReferenceTo(base, path):
           * Return {true}.
 * Return {false}.
 
+referencesValidate(args):
+
+* If the length of {args} is not 1:
+  * Report an error.
+
 ## round
 
 The round function accepts a number and rounds it to a certain precision.
 
 round(args, scope):
 
-* If the length of {args} is less than 1 or greater than 2:
-  * Return {null}.
 * Let {numNode} be the first element of {args}.
 * Let {num} be the result of {Evaluate(numNode, scope)}.
 * If {num} is not a number:
@@ -118,6 +130,11 @@ round(args, scope):
 * Otherwise:
   * Let {prec} be 0.
 * Return {num} rounded to {prec} number of digits after the decimal point.
+
+roundValidate(args):
+
+* If the length of {args} is less than 1 or greater than 2:
+  * Report an error.
 
 ## select
 
@@ -134,4 +151,13 @@ select(args, scope):
           * Return the result of {Evaluate(resultNode, scope)}.
   * Otherwise:
       * Return the result of {Evaluate(arg, scope)}.
+
+selectValidate(args):
+
+* Let {seenDefault} be {false}.
+* For each {arg} in {args}:
+  * If {seenDefault} is {true}:
+      * Report an error.
+  * If {arg} is not a {Pair}:
+      * Set {seenDefault} to {true}.
 
