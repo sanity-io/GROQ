@@ -10,7 +10,7 @@ const writeFile = util.promisify(fs.writeFile);
 
 const client = sanityClient({
   projectId: '3do82whm',
-  dataset: 'production',
+  dataset: 'next',
   useCdn: false,
   token: process.env.SANITY_TOKEN
 })
