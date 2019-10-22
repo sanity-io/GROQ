@@ -3,7 +3,7 @@ Pipe functions
 
 # Pipe functions
 
-Pipe functions provide additional functionalty to GROQ queries. They are invoked through a [Pipe function call expression](#sec-Pipe-function-call-expression). They differ from regular functions in that they always accept an array as input and returns another array (or {null}). As such, the syntax is optimized for chaining (the array it works on comes on the left-hand side instead of being argument):
+Pipe functions provide additional functionalty to GROQ queries. They are invoked through a [Pipe function call expression](#sec-Pipe-function-call-expression). They differ from regular functions in that they always accept an array as input and returns another array (or {null}). As such, the syntax is optimized for chaining (the array it works on comes on the left-hand side instead of being an argument):
 
 ```
 *[_type == "person"] | order(name) | {age}
@@ -19,7 +19,7 @@ The order function sorts an array based on arbitrary expressions.
 
 order(base, args, scope):
 
-* Let {cmp }be a function which takes two arguments and returns either {Less}, {Equal} or {Greater}.
+* Let {cmp} be a function which takes two arguments and returns either {Less}, {Equal} or {Greater}.
 * Define {cmp(left, right)} as follows:
   * Let {leftScope} be the result of {NewNestedScope(left, scope)}.
   * Let {rightScope} be the result of {NewNestedScope(right, scope)}.
