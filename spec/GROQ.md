@@ -57,3 +57,5 @@ Conformance requirements expressed as algorithms can be fulfilled by an implemen
 
 # [Pipe functions](Section%2011%20--%20Pipe%20functions.md)
 
+# [Vendor functions](Section%2012%20--%20Vendor%20functions.md)
+
