@@ -97,12 +97,19 @@ FuncCallArgs :
 EvaluateFuncCall(scope):
 
 * Let {name} be the string value of the {Identifier}.
-* If there is no function named {name}:
-  * Return {null}.
 * Let {args} be an empty array.
 * For each {Expression} in {FuncCallArgs}:
   * Let {argumentNode} be the {Expression}.
   * Append {argumentNode} to {args}.
 * Let {func} be the function defined under the name {name}.
 * Return the result of {func(args, scope)}.
+
+ValidateFuncCall():
+
+* Let {name} be the string value of the {Identifier}.
+* If there is no function named {name}:
+  * Stop and report an error.
+* Let {args} be an array of the {Expression}s in {FuncCallArgs}.
+* Let {validator} be the validator for the function under the name {name}.
+* Execute {validator(args)}.
 

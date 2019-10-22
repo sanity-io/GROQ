@@ -183,7 +183,23 @@ DetermineName(node):
 * If {node} is a {Projection}, {ElementAccess}, {Slice}, or {Filter}:
   * Let {base} be the first {Expression} of {expr}.
   * Return the result of {DetermineName(base)}.
-* Otherwise: Return an error.
+
+ValidateObject():
+
+* For each {ObjectAttribute}:
+  * If the {ObjectAttribute} does not contain a {String}:
+      * Let {expr} be the {Expression}.
+    * Execute {ValidateObjectAttribute(expr)}.
+
+ValidateObjectAttribute(expr):
+
+* If {node} is an {ThisAttribute}:
+  * Stop.
+* If {node} is a {Projection}, {ElementAccess}, {Slice}, or {Filter}:
+  * Let {base} be the first {Expression} of {expr}.
+  * Execute {ValidateObjectAttribute(base)}.
+* Otherwise:
+  * Report an error.
 
 ## Pair
 

@@ -172,12 +172,21 @@ EvaluatePipeFuncCall(scope):
 * If {base} is not an array:
   * Return {null}.
 * Let {name} be the string value of the {Identifier }of the {FuncCall}.
-* If there is no pipe function named {name}:
-  * Return {null}.
 * Let {args} be an empty array.
 * For each {Expression} in the {FuncCallArgs} of the {FuncCall}.
   * Let {argumentNode} be the {Expression}.
   * Append {argumentNode} to {args}.
 * Let {func} be the pipe function defined under the name {name}.
 * Return the result of {func(base, args, scope)}.
+
+ValidatePipeFuncCall():
+
+* Let {base} be the first {Expression}.
+* Execute {Validate(base)}.
+* Let {name} be the string value of the {Identifier }of the {FuncCall}.
+* If there is no pipe function named {name}:
+  * Stop and report an error.
+* Let {args} be an array of the {Expression}s in the {FuncCallArgs} of the {FuncCall}.
+* Let {validator} be the validator for the pipe function under the name {name}.
+* Execute {validator(args)}.
 
