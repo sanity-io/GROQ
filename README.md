@@ -1,7 +1,8 @@
 # GROQ
-[Specification for GROQ - (**G**raph-**R**elational **O**bject **Q**ueries)](https://sanity-io.github.io/GROQ/)
 
-This is a working draft. We will open this repository for contributions some time in the future.
+Go to [GROQ Arcade](https://groq.dev) to try out GROQ with any JSON data.
+
+This is a working draft of the [specification for GROQ - (**G**raph-**R**elational **O**bject **Q**ueries)](https://sanity-io.github.io/GROQ/). We will open this repository for contributions some time in the future.
 
 Read the [announcement blog post](https://www.sanity.io/blog/we-re-open-sourcing-groq-a-query-language-for-json-documents), and the [getting started guide](https://www.sanity.io/docs/data-store/how-queries-work).
 
