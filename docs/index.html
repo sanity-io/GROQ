@@ -10,77 +10,6 @@
   max-width: 780px;
 }
 
-/* Selections */
-
-.outdated-selection-link,
-.selection-link {
-  position: absolute;
-  display: block;
-  color: #fff;
-  background: #cacee0;
-  border-radius: 4px;
-  font-size: 36px;
-  height: 23px;
-  line-height: 48px;
-  text-align: center;
-  text-decoration: none;
-  width: 25px;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-}
-
-.outdated-selection-link:hover,
-.selection-link:hover {
-  text-decoration: none;
-}
-
-.outdated-selection-link:before,
-.selection-link:before {
-  border: 5px solid transparent;
-  border-left-color: #cacee0;
-  border-right: 0;
-  content: '';
-  height: 0;
-  margin-top: -5px;
-  margin-right: -5px;
-  position: absolute;
-  right: 1px;
-  top: 50%;
-  width: 0;
-}
-
-.selection-link:hover {
-  background: #3b5998;
-}
-
-.selection-link:hover:before {
-  border-left-color: #3b5998;
-}
-
-.outdated-selection-link {
-  background: #f0babe;
-  font-size: 21px;
-  font-weight: 800;
-  line-height: 27px;
-}
-
-.outdated-selection-link:before {
-  border-left-color: #f0babe;
-}
-
-.outdated-selection-link:hover:after {
-  content: "This selection content has changed since this link was created.";
-  font: 9pt/11pt Cambria, "Palatino Linotype", Palatino, "Liberation Serif", serif;
-  position: absolute;
-  display: block;
-  white-space: nowrap;
-  padding: 2px 5px 1px;
-  top: -20px;
-  background: black;
-  color: white;
-}
 
 /* Links */
 
@@ -265,13 +194,6 @@ footer {
   padding: 0 0 5rem 30px;
   box-sizing: border-box;
   background: #f0f0f0;
-}
-
-.spec-sidebar {
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
 }
 
 .spec-sidebar-toggle:checked ~ .spec-sidebar {
@@ -865,8 +787,34 @@ pre[class*="language-"] {
 	cursor: help;
 }
 </style>
-<script>(function(){var e,t=document.getElementsByTagName("style")[0].sheet;function n(){e&&(t.deleteRule(e),e=void 0)}document.documentElement.addEventListener("mouseover",function(a){var u,d=a.target.attributes["data-name"];d&&(u=d.value,n(),e=t.insertRule('*[data-name="'+u+'"] { background: #FBF8D0; }',t.cssRules.length))}),document.documentElement.addEventListener("mouseout",n);})()</script>
-<script>(function(){var e,n,t,o,r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";function a(e){c(new URL(e.target.href))}function i(){c(window.location)}function c(e){var n=e.hash.match(/^#sel-([A-Za-z0-9-_]+)$/);if(n){o=n[1];var a=(t=function(e){for(var n=new Array(64),t=0;t<64;t++)n[r.charCodeAt(t)]=t;var o=0,a=m(),i=m(),c=m(),d=w(),l=i.pop(),f=u(a.concat(i)),h=c.pop(),g=u(a.concat(c)),v=document.createRange();return v.setStart(f,l),v.setEnd(g,h),v.isOutdated=void 0!==d&&d!==s(v.toString()),v;function w(){for(var t=0,r=0;o<e.length;){var a=n[e.charCodeAt(o++)];if(t|=(31&a)<<r,r+=5,a<32)return t}}function m(){var e=w();if(null!=e){for(var n=new Array(e),t=0;t<e;t++)n[t]=w();return n}}}(o)).getBoundingClientRect(),i=Math.max(20,Math.floor(.4*(window.innerHeight-a.height)));window.scrollTo(0,window.scrollY+a.y-i);var c=document.getSelection();c.empty(),c.addRange(t),d()}}function d(){n||(n=document.getElementsByTagName("article")[0]),e||(e=document.createElement("a"),document.body.appendChild(e)),e.href="#sel-"+o,e.onclick=a,e.className=t.isOutdated?"outdated-selection-link":"selection-link",e.innerText=t.isOutdated?"!":"‟";var r=n.getBoundingClientRect().x,i=t.getBoundingClientRect().y;e.style.left=Math.floor(r+window.scrollX-37)+"px",e.style.top=Math.floor(i+window.scrollY-3)+"px"}function l(e){for(var n=[];e!=document.body;){var t=e.parentNode;n.push(Array.prototype.indexOf.call(t.childNodes,e)),e=t}return n.reverse()}function u(e){for(var n=document.body,t=0;t<e.length&&n;t++)n=n.childNodes[e[t]];return n}function s(e){for(var n=2166136261,t=0;t<e.length;++t)n^=e.charCodeAt(t),n+=(n<<1)+(n<<4)+(n<<7)+(n<<8)+(n<<24);return 32767&(n>>15^n)}document.addEventListener("selectionchange",function(n){var a=document.getSelection();if(a.isCollapsed)e&&(e.parentNode.removeChild(e),e=null);else{var i=a.getRangeAt(0);t&&0===i.compareBoundaryPoints(Range.START_TO_START,t)&&0===i.compareBoundaryPoints(Range.END_TO_END,t)||(o=function(e){var n="",t=l(e.startContainer),o=l(e.endContainer),a=function(e,n){var t=0;for(;t<e.length&&t<n.length&&e[t]===n[t];)t++;return e.slice(0,t)}(t,o);return c(a),c(t.slice(a.length).concat(e.startOffset)),c(o.slice(a.length).concat(e.endOffset)),i(s(e.toString())),n;function i(e){do{n+=r[31&e|(e>31?32:0)],e>>=5}while(e>0)}function c(e){i(e.length);for(var n=0;n<e.length;n++)i(e[n])}}(t=i),d())}}),window.addEventListener("resize",d),window.addEventListener("hashchange",i),window.addEventListener("load",i);})()</script>
+<script>(function (){
+var styleSheet = document.getElementsByTagName('style')[0].sheet;
+var ruleIndex;
+
+function removeHighlight() {
+  if (ruleIndex) {
+    styleSheet.deleteRule(ruleIndex);
+    ruleIndex = void 0;
+  }
+}
+
+function highlightKeyword(name) {
+  removeHighlight();
+  ruleIndex = styleSheet.insertRule(
+    '*[data-name="' + name + '"] { background: #FBF8D0; }',
+    styleSheet.cssRules.length
+  );
+}
+
+document.documentElement.addEventListener('mouseover', function (event) {
+  var nameAttribute = event.target.attributes['data-name'];
+  if (nameAttribute) {
+    highlightKeyword(nameAttribute.value);
+  }
+});
+
+document.documentElement.addEventListener('mouseout', removeHighlight);
+})()</script>
 </head>
 <body><article>
 <header>
@@ -919,8 +867,9 @@ pre[class*="language-"] {
 <li><a href="#sec-Execution.Overview"><span class="spec-secid">3.1</span>Overview</a></li>
 <li><a href="#sec-Query-context"><span class="spec-secid">3.2</span>Query context</a></li>
 <li><a href="#sec-Scope"><span class="spec-secid">3.3</span>Scope</a></li>
-<li><a href="#sec-Expression-evaluation"><span class="spec-secid">3.4</span>Expression evaluation</a></li>
-<li><a href="#sec-Query-execution"><span class="spec-secid">3.5</span>Query execution</a></li>
+<li><a href="#sec-Expression-validation"><span class="spec-secid">3.4</span>Expression validation</a></li>
+<li><a href="#sec-Expression-evaluation"><span class="spec-secid">3.5</span>Expression evaluation</a></li>
+<li><a href="#sec-Query-execution"><span class="spec-secid">3.6</span>Query execution</a></li>
 </ol>
 </li>
 <li><a href="#sec-Data-types"><span class="spec-secid">4</span>Data types</a>
@@ -1006,6 +955,12 @@ pre[class*="language-"] {
 <input hidden class="toggle" type="checkbox" checked id="_toggle_11" /><label for="_toggle_11"></label>
 <ol>
 <li><a href="#sec-order"><span class="spec-secid">11.1</span>order</a></li>
+</ol>
+</li>
+<li><a href="#sec-Vendor-functions"><span class="spec-secid">12</span>Vendor functions</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_12" /><label for="_toggle_12"></label>
+<ol>
+<li><a href="#sec-identity-"><span class="spec-secid">12.1</span>identity()</a></li>
 </ol>
 </li>
 <li><a href="#index"><span class="spec-secid">§</span>Index</a></li>
@@ -1200,6 +1155,7 @@ The following sub&#8208;section is a non&#8208;normative overview of the executi
 }
 </code></pre>
 <p>While executing the inner filter (<code>[_type == &quot;person&quot; &amp;&amp; parentId == ^.id]</code>) the expression <code>^.id</code> returns the <code>id</code> attribute of the parent scope&rsquo;s <em>this</em> value. The parent scope is here the scope created by the projection (<code>{id, name, …}</code>).</p>
+<p>It&rsquo;s possible for a query to be <em>invalid</em>. This can happen when you e.g. use an unknown function or call a function with incorrect number of arguments.</p>
 </section>
 <section id="sec-Query-context" secid="3.2">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Query-context">3.2</a></span>Query context</h3>
@@ -1237,9 +1193,19 @@ The following sub&#8208;section is a non&#8208;normative overview of the executi
 </ol>
 </div>
 </section>
-<section id="sec-Expression-evaluation" secid="3.4">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Expression-evaluation">3.4</a></span>Expression evaluation</h3>
-<p>An expression is evaluated in a scope. Every expression type has their own evaluator function in their respective section in this specification (e.g. the evaluator of <span class="spec-nt"><span data-name="ParenthesisExpression">ParenthesisExpression</span></span> is <span class="spec-call"><a href="#EvaluateParenthesis()" data-name="EvaluateParenthesis">EvaluateParenthesis</a>()</span>).</p>
+<section id="sec-Expression-validation" secid="3.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Expression-validation">3.4</a></span>Expression validation</h3>
+<p>An expression can be validated. This will only check that it&rsquo;s on a valid form, and will not execute anything. If an expression type does not have an explicitly defined validator in this specifiction, it has an implicit validator which runs <span class="spec-nt"><span data-name="Validate">Validate</span></span> on all its child expressions.</p>
+<div class="spec-algo" id="Validate()">
+<span class="spec-call"><a href="#Validate()" data-name="Validate">Validate</a>(<var data-name="expr">expr</var>)</span><ol>
+<li>Let <var data-name="validator">validator</var> be the validator of <var data-name="expr">expr</var>.</li>
+<li>Execute the <var data-name="validator">validator</var>.</li>
+</ol>
+</div>
+</section>
+<section id="sec-Expression-evaluation" secid="3.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Expression-evaluation">3.5</a></span>Expression evaluation</h3>
+<p>An expression is evaluated in a scope. You must successfully validate an expression before you attempt to evaluate it. <a href="undefined"></a>Every expression type has their own evaluator function in their respective section in this specification (e.g. the evaluator of <span class="spec-nt"><span data-name="ParenthesisExpression">ParenthesisExpression</span></span> is <span class="spec-call"><a href="#EvaluateParenthesis()" data-name="EvaluateParenthesis">EvaluateParenthesis</a>()</span>).</p>
 <div class="spec-algo" id="Evaluate()">
 <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="expr">expr</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="evaluator">evaluator</var> be the evaluator of <var data-name="expr">expr</var>.</li>
@@ -1247,8 +1213,8 @@ The following sub&#8208;section is a non&#8208;normative overview of the executi
 </ol>
 </div>
 </section>
-<section id="sec-Query-execution" secid="3.5">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Query-execution">3.5</a></span>Query execution</h3>
+<section id="sec-Query-execution" secid="3.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Query-execution">3.6</a></span>Query execution</h3>
 <p>To execute a query you must first construct a query context, and then evaluate the query expression inside a root scope.</p>
 <div class="spec-algo" id="ExecuteQuery()">
 <span class="spec-call"><a href="#ExecuteQuery()" data-name="ExecuteQuery">ExecuteQuery</a>(<var data-name="query">query</var>, <var data-name="context">context</var>)</span><ol>
@@ -1481,7 +1447,35 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <li>Return the result of <span class="spec-call"><a href="#DetermineName()" data-name="DetermineName">DetermineName</a>(<var data-name="base">base</var>)</span>.</li>
 </ol>
 </li>
-<li>Otherwise: Return an error.</li>
+</ol>
+</div>
+<div class="spec-algo" id="ValidateObject()">
+<span class="spec-call"><a href="#ValidateObject()" data-name="ValidateObject">ValidateObject</a>()</span><ol>
+<li>For each <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span>:<ol>
+<li>If the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> does not contain a <span class="spec-nt"><a href="#String" data-name="String">String</a></span>:<ol>
+<li>Let <var data-name="expr">expr</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
+</ol>
+</li>
+<li>Execute <span class="spec-call"><a href="#ValidateObjectAttribute()" data-name="ValidateObjectAttribute">ValidateObjectAttribute</a>(<var data-name="expr">expr</var>)</span>.</li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="spec-algo" id="ValidateObjectAttribute()">
+<span class="spec-call"><a href="#ValidateObjectAttribute()" data-name="ValidateObjectAttribute">ValidateObjectAttribute</a>(<var data-name="expr">expr</var>)</span><ol>
+<li>If <var data-name="node">node</var> is an <span class="spec-nt"><a href="#ThisAttribute" data-name="ThisAttribute">ThisAttribute</a></span>:<ol>
+<li>Stop.</li>
+</ol>
+</li>
+<li>If <var data-name="node">node</var> is a <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#Slice" data-name="Slice">Slice</a></span>, or <span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>:<ol>
+<li>Let <var data-name="base">base</var> be the first <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of <var data-name="expr">expr</var>.</li>
+<li>Execute <span class="spec-call"><a href="#ValidateObjectAttribute()" data-name="ValidateObjectAttribute">ValidateObjectAttribute</a>(<var data-name="base">base</var>)</span>.</li>
+</ol>
+</li>
+<li>Otherwise:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
 </ol>
 </div>
 </section>
@@ -1752,10 +1746,6 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <div class="spec-algo" id="EvaluateFuncCall()">
 <span class="spec-call"><a href="#EvaluateFuncCall()" data-name="EvaluateFuncCall">EvaluateFuncCall</a>(<var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>.</li>
-<li>If there is no function named <var data-name="name">name</var>:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</li>
 <li>Let <var data-name="args">args</var> be an empty array.</li>
 <li>For each <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> in <span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span>:<ol>
 <li>Let <var data-name="argumentNode">argumentNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
@@ -1764,6 +1754,18 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 </li>
 <li>Let <var data-name="func">func</var> be the function defined under the name <var data-name="name">name</var>.</li>
 <li>Return the result of <span class="spec-call"><span data-name="func">func</span>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="ValidateFuncCall()">
+<span class="spec-call"><a href="#ValidateFuncCall()" data-name="ValidateFuncCall">ValidateFuncCall</a>()</span><ol>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>.</li>
+<li>If there is no function named <var data-name="name">name</var>:<ol>
+<li>Stop and report an error.</li>
+</ol>
+</li>
+<li>Let <var data-name="args">args</var> be an array of the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>s in <span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span>.</li>
+<li>Let <var data-name="validator">validator</var> be the validator for the function under the name <var data-name="name">name</var>.</li>
+<li>Execute <span class="spec-call"><span data-name="validator">validator</span>(<var data-name="args">args</var>)</span>.</li>
 </ol>
 </div>
 </section>
@@ -1957,10 +1959,6 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </ol>
 </li>
 <li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>of the <span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span>.</li>
-<li>If there is no pipe function named <var data-name="name">name</var>:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</li>
 <li>Let <var data-name="args">args</var> be an empty array.</li>
 <li>For each <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> in the <span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span> of the <span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span>.<ol>
 <li>Let <var data-name="argumentNode">argumentNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
@@ -1969,6 +1967,20 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </li>
 <li>Let <var data-name="func">func</var> be the pipe function defined under the name <var data-name="name">name</var>.</li>
 <li>Return the result of <span class="spec-call"><span data-name="func">func</span>(<var data-name="base">base</var>, <var data-name="args">args</var>, <var data-name="scope">scope</var>)</span>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="ValidatePipeFuncCall()">
+<span class="spec-call"><a href="#ValidatePipeFuncCall()" data-name="ValidatePipeFuncCall">ValidatePipeFuncCall</a>()</span><ol>
+<li>Let <var data-name="base">base</var> be the first <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
+<li>Execute <span class="spec-call"><a href="#Validate()" data-name="Validate">Validate</a>(<var data-name="base">base</var>)</span>.</li>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>of the <span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span>.</li>
+<li>If there is no pipe function named <var data-name="name">name</var>:<ol>
+<li>Stop and report an error.</li>
+</ol>
+</li>
+<li>Let <var data-name="args">args</var> be an array of the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>s in the <span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span> of the <span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span>.</li>
+<li>Let <var data-name="validator">validator</var> be the validator for the pipe function under the name <var data-name="name">name</var>.</li>
+<li>Execute <span class="spec-call"><span data-name="validator">validator</span>(<var data-name="args">args</var>)</span>.</li>
 </ol>
 </div>
 </section>
@@ -2463,16 +2475,20 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </li>
 </ol>
 </div>
+<div class="spec-algo" id="countValidate()">
+<span class="spec-call"><a href="#countValidate()" data-name="countValidate">countValidate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
 </section>
 <section id="sec-defined" secid="10.3">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-defined">10.3</a></span>defined</h3>
 <p>The defined function checks if the argument is not <span class="spec-keyword">null</span>.</p>
 <div class="spec-algo" id="defined()">
 <span class="spec-call"><a href="#defined()" data-name="defined">defined</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 1:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</li>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <var data-name="base">base</var> is <span class="spec-keyword">null</span>:<ol>
@@ -2485,16 +2501,20 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </li>
 </ol>
 </div>
+<div class="spec-algo" id="definedValidate()">
+<span class="spec-call"><a href="#definedValidate()" data-name="definedValidate">definedValidate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
 </section>
 <section id="sec-length" secid="10.4">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-length">10.4</a></span>length</h3>
 <p>The length function returns the length of a string or an array.</p>
 <div class="spec-algo" id="length()">
 <span class="spec-call"><a href="#length()" data-name="length">length</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 1:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</li>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <var data-name="base">base</var> is a string:<ol>
@@ -2508,16 +2528,20 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Return <span class="spec-keyword">null</span>.</li>
 </ol>
 </div>
+<div class="spec-algo" id="lengthValidate()">
+<span class="spec-call"><a href="#lengthValidate()" data-name="lengthValidate">lengthValidate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
 </section>
 <section id="sec-references" secid="10.5">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-references">10.5</a></span>references</h3>
 <p>The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.</p>
 <div class="spec-algo" id="references()">
 <span class="spec-call"><a href="#references()" data-name="references">references</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 1:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</li>
 <li>Let <var data-name="pathNode">pathNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="path">path</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="pathNode">pathNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <var data-name="path">path</var> is not a string:<ol>
@@ -2561,16 +2585,20 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Return <span class="spec-keyword">false</span>.</li>
 </ol>
 </div>
+<div class="spec-algo" id="referencesValidate()">
+<span class="spec-call"><a href="#referencesValidate()" data-name="referencesValidate">referencesValidate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
 </section>
 <section id="sec-round" secid="10.6">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-round">10.6</a></span>round</h3>
 <p>The round function accepts a number and rounds it to a certain precision.</p>
 <div class="spec-algo" id="round()">
 <span class="spec-call"><a href="#round()" data-name="round">round</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is less than 1 or greater than 2:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</li>
 <li>Let <var data-name="numNode">numNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="num">num</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="numNode">numNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <var data-name="num">num</var> is not a number:<ol>
@@ -2591,6 +2619,14 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </ol>
 </li>
 <li>Return <var data-name="num">num</var> rounded to <var data-name="prec">prec</var> number of digits after the decimal point.</li>
+</ol>
+</div>
+<div class="spec-algo" id="roundValidate()">
+<span class="spec-call"><a href="#roundValidate()" data-name="roundValidate">roundValidate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is less than 1 or greater than 2:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
 </ol>
 </div>
 </section>
@@ -2620,11 +2656,27 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </li>
 </ol>
 </div>
+<div class="spec-algo" id="selectValidate()">
+<span class="spec-call"><a href="#selectValidate()" data-name="selectValidate">selectValidate</a>(<var data-name="args">args</var>)</span><ol>
+<li>Let <var data-name="seenDefault">seenDefault</var> be <span class="spec-keyword">false</span>.</li>
+<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ol>
+<li>If <var data-name="seenDefault">seenDefault</var> is <span class="spec-keyword">true</span>:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+<li>If <var data-name="arg">arg</var> is not a <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>:<ol>
+<li>Set <var data-name="seenDefault">seenDefault</var> to <span class="spec-keyword">true</span>.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
 </section>
 </section>
 <section id="sec-Pipe-functions" secid="11">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-functions">11</a></span>Pipe functions</h2>
-<p>Pipe functions provide additional functionalty to GROQ queries. They are invoked through a <a href="#sec-Pipe-function-call-expression">Pipe function call expression</a>. They differ from regular functions in that they always accept an array as input and returns another array (or <span class="spec-keyword">null</span>). As such, the syntax is optimized for chaining (the array it works on comes on the left&#8208;hand side instead of being argument):</p>
+<p>Pipe functions provide additional functionalty to GROQ queries. They are invoked through a <a href="#sec-Pipe-function-call-expression">Pipe function call expression</a>. They differ from regular functions in that they always accept an array as input and returns another array (or <span class="spec-keyword">null</span>). As such, the syntax is optimized for chaining (the array it works on comes on the left&#8208;hand side instead of being an argument):</p>
 <pre><code>*[_type == &quot;person&quot;] | order(name) | {age}
 </code></pre>
 <div id="note-88a44" class="spec-note">
@@ -2636,11 +2688,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <p>The order function sorts an array based on arbitrary expressions.</p>
 <div class="spec-algo" id="order()">
 <span class="spec-call"><a href="#order()" data-name="order">order</a>(<var data-name="base">base</var>, <var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is 0:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</li>
-<li>Let <var data-name="cmp">cmp</var>be a function which takes two arguments and returns either <span class="spec-nt"><span data-name="Less">Less</span></span>, <span class="spec-nt"><span data-name="Equal">Equal</span></span> or <span class="spec-nt"><span data-name="Greater">Greater</span></span>.</li>
+<li>Let <var data-name="cmp">cmp</var> be a function which takes two arguments and returns either <span class="spec-nt"><span data-name="Less">Less</span></span>, <span class="spec-nt"><span data-name="Equal">Equal</span></span> or <span class="spec-nt"><span data-name="Greater">Greater</span></span>.</li>
 <li>Define <span class="spec-call"><span data-name="cmp">cmp</span>(<var data-name="left">left</var>, <var data-name="right">right</var>)</span> as follows:<ol>
 <li>Let <var data-name="leftScope">leftScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="left">left</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="rightScope">rightScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="right">right</var>, <var data-name="scope">scope</var>)</span>.</li>
@@ -2681,9 +2729,25 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Return a sorted array using <var data-name="cmp">cmp</var> as the comparator function.</li>
 </ol>
 </div>
+<div class="spec-algo" id="orderValidate()">
+<span class="spec-call"><a href="#orderValidate()" data-name="orderValidate">orderValidate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is 0:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
 </section>
 </section>
-<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#And">And</a></li><li><a href="#Array">Array</a></li><li><a href="#ArrayElement">ArrayElement</a></li><li><a href="#ArrayElements">ArrayElements</a></li><li><a href="#Asc">Asc</a></li><li><a href="#AttributeAccess">AttributeAccess</a></li><li><a href="#Boolean">Boolean</a></li><li><a href="#Comment">Comment</a></li><li><a href="#CommentChar">CommentChar</a></li><li><a href="#Comparison">Comparison</a></li><li><a href="#ComparisonOperator">ComparisonOperator</a></li><li><a href="#CompoundExpression">CompoundExpression</a></li><li><a href="#Decimal">Decimal</a></li><li><a href="#Dereference">Dereference</a></li><li><a href="#Desc">Desc</a></li><li><a href="#DetermineName()">DetermineName</a></li><li><a href="#Digit">Digit</a></li><li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li><li><a href="#ElementAccess">ElementAccess</a></li><li><a href="#Equal()">Equal</a></li><li><a href="#Equality">Equality</a></li><li><a href="#EqualityOperator">EqualityOperator</a></li><li><a href="#EscapeSequence">EscapeSequence</a></li><li><a href="#Evaluate()">Evaluate</a></li><li><a href="#EvaluateAnd()">EvaluateAnd</a></li><li><a href="#EvaluateArray()">EvaluateArray</a></li><li><a href="#EvaluateAsc()">EvaluateAsc</a></li><li><a href="#EvaluateAttributeAccess()">EvaluateAttributeAccess</a></li><li><a href="#EvaluateComparison()">EvaluateComparison</a></li><li><a href="#EvaluateDereference()">EvaluateDereference</a></li><li><a href="#EvaluateDesc()">EvaluateDesc</a></li><li><a href="#EvaluateElementAccess()">EvaluateElementAccess</a></li><li><a href="#EvaluateEquality()">EvaluateEquality</a></li><li><a href="#EvaluateEverything()">EvaluateEverything</a></li><li><a href="#EvaluateFilter()">EvaluateFilter</a></li><li><a href="#EvaluateFuncCall()">EvaluateFuncCall</a></li><li><a href="#EvaluateIn()">EvaluateIn</a></li><li><a href="#EvaluateMinus()">EvaluateMinus</a></li><li><a href="#EvaluateNot()">EvaluateNot</a></li><li><a href="#EvaluateObject()">EvaluateObject</a></li><li><a href="#EvaluateOr()">EvaluateOr</a></li><li><a href="#EvaluatePair()">EvaluatePair</a></li><li><a href="#EvaluateParent()">EvaluateParent</a></li><li><a href="#EvaluateParenthesis()">EvaluateParenthesis</a></li><li><a href="#EvaluatePercent()">EvaluatePercent</a></li><li><a href="#EvaluatePipeFuncCall()">EvaluatePipeFuncCall</a></li><li><a href="#EvaluatePlus()">EvaluatePlus</a></li><li><a href="#EvaluateProjection()">EvaluateProjection</a></li><li><a href="#EvaluateRange()">EvaluateRange</a></li><li><a href="#EvaluateSlash()">EvaluateSlash</a></li><li><a href="#EvaluateSlice()">EvaluateSlice</a></li><li><a href="#EvaluateStar()">EvaluateStar</a></li><li><a href="#EvaluateStarStar()">EvaluateStarStar</a></li><li><a href="#EvaluateThis()">EvaluateThis</a></li><li><a href="#EvaluateThisAttribute()">EvaluateThisAttribute</a></li><li><a href="#EvaluateUnaryMinus()">EvaluateUnaryMinus</a></li><li><a href="#EvaluateUnaryPlus()">EvaluateUnaryPlus</a></li><li><a href="#Everything">Everything</a></li><li><a href="#ExclusiveRange">ExclusiveRange</a></li><li><a href="#ExecuteQuery()">ExecuteQuery</a></li><li><a href="#ExponentMarker">ExponentMarker</a></li><li><a href="#Expression">Expression</a></li><li><a href="#Filter">Filter</a></li><li><a href="#Fractional">Fractional</a></li><li><a href="#FuncCall">FuncCall</a></li><li><a href="#FuncCallArgs">FuncCallArgs</a></li><li><a href="#HasReferenceTo()">HasReferenceTo</a></li><li><a href="#HexDigit">HexDigit</a></li><li><a href="#HexLetter">HexLetter</a></li><li><a href="#Identifier">Identifier</a></li><li><a href="#In">In</a></li><li><a href="#InclusiveRange">InclusiveRange</a></li><li><a href="#Integer">Integer</a></li><li><a href="#Literal">Literal</a></li><li><a href="#Match">Match</a></li><li><a href="#Minus">Minus</a></li><li><a href="#NewNestedScope()">NewNestedScope</a></li><li><a href="#NewRootScope()">NewRootScope</a></li><li><a href="#Not">Not</a></li><li><a href="#Null">Null</a></li><li><a href="#Number">Number</a></li><li><a href="#Object">Object</a></li><li><a href="#ObjectAttribute">ObjectAttribute</a></li><li><a href="#ObjectAttributes">ObjectAttributes</a></li><li><a href="#OperatorCall">OperatorCall</a></li><li><a href="#Or">Or</a></li><li><a href="#Pair">Pair</a></li><li><a href="#Parent">Parent</a></li><li><a href="#Parenthesis">Parenthesis</a></li><li><a href="#PartialCompare()">PartialCompare</a></li><li><a href="#Percent">Percent</a></li><li><a href="#PipeFuncCall">PipeFuncCall</a></li><li><a href="#Plus">Plus</a></li><li><a href="#Projection">Projection</a></li><li><a href="#Range">Range</a></li><li><a href="#ScientificNotation">ScientificNotation</a></li><li><a href="#Sign">Sign</a></li><li><a href="#SimpleExpression">SimpleExpression</a></li><li><a href="#SingleEscapeSequence">SingleEscapeSequence</a></li><li><a href="#SingleStringCharacter">SingleStringCharacter</a></li><li><a href="#Slash">Slash</a></li><li><a href="#Slice">Slice</a></li><li><a href="#SourceCharacter">SourceCharacter</a></li><li><a href="#Star">Star</a></li><li><a href="#StarStar">StarStar</a></li><li><a href="#String">String</a></li><li><a href="#This">This</a></li><li><a href="#ThisAttribute">ThisAttribute</a></li><li><a href="#TotalCompare()">TotalCompare</a></li><li><a href="#TypeOrder()">TypeOrder</a></li><li><a href="#UnaryMinus">UnaryMinus</a></li><li><a href="#UnaryPlus">UnaryPlus</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li><li><a href="#WhiteSpace">WhiteSpace</a></li><li><a href="#coalesce()">coalesce</a></li><li><a href="#count()">count</a></li><li><a href="#defined()">defined</a></li><li><a href="#length()">length</a></li><li><a href="#order()">order</a></li><li><a href="#references()">references</a></li><li><a href="#round()">round</a></li><li><a href="#select()">select</a></li></ol></section></article>
+<section id="sec-Vendor-functions" secid="12">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Vendor-functions">12</a></span>Vendor functions</h2>
+<p>An implementation is free to introduce additional functions than what is presented in this specification, but this is problematic if a function with the same name is introduced in a future version. The following section defines optional <em>vendor functions</em> which are guaranteed to never be a regular function in a future specfication. There&rsquo;s also a short description of each vendor function so different implementations can attempt to be compatible with each other. The description is intentially brief and it&rsquo;s up to the vendor to define it completely.</p>
+<section id="sec-identity-" secid="12.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-identity-">12.1</a></span>identity()</h3>
+<p>The identity function should accept zero arguments and return a string which represents the identity of the client executing the query.</p>
+</section>
+</section>
+<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#And">And</a></li><li><a href="#Array">Array</a></li><li><a href="#ArrayElement">ArrayElement</a></li><li><a href="#ArrayElements">ArrayElements</a></li><li><a href="#Asc">Asc</a></li><li><a href="#AttributeAccess">AttributeAccess</a></li><li><a href="#Boolean">Boolean</a></li><li><a href="#Comment">Comment</a></li><li><a href="#CommentChar">CommentChar</a></li><li><a href="#Comparison">Comparison</a></li><li><a href="#ComparisonOperator">ComparisonOperator</a></li><li><a href="#CompoundExpression">CompoundExpression</a></li><li><a href="#Decimal">Decimal</a></li><li><a href="#Dereference">Dereference</a></li><li><a href="#Desc">Desc</a></li><li><a href="#DetermineName()">DetermineName</a></li><li><a href="#Digit">Digit</a></li><li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li><li><a href="#ElementAccess">ElementAccess</a></li><li><a href="#Equal()">Equal</a></li><li><a href="#Equality">Equality</a></li><li><a href="#EqualityOperator">EqualityOperator</a></li><li><a href="#EscapeSequence">EscapeSequence</a></li><li><a href="#Evaluate()">Evaluate</a></li><li><a href="#EvaluateAnd()">EvaluateAnd</a></li><li><a href="#EvaluateArray()">EvaluateArray</a></li><li><a href="#EvaluateAsc()">EvaluateAsc</a></li><li><a href="#EvaluateAttributeAccess()">EvaluateAttributeAccess</a></li><li><a href="#EvaluateComparison()">EvaluateComparison</a></li><li><a href="#EvaluateDereference()">EvaluateDereference</a></li><li><a href="#EvaluateDesc()">EvaluateDesc</a></li><li><a href="#EvaluateElementAccess()">EvaluateElementAccess</a></li><li><a href="#EvaluateEquality()">EvaluateEquality</a></li><li><a href="#EvaluateEverything()">EvaluateEverything</a></li><li><a href="#EvaluateFilter()">EvaluateFilter</a></li><li><a href="#EvaluateFuncCall()">EvaluateFuncCall</a></li><li><a href="#EvaluateIn()">EvaluateIn</a></li><li><a href="#EvaluateMinus()">EvaluateMinus</a></li><li><a href="#EvaluateNot()">EvaluateNot</a></li><li><a href="#EvaluateObject()">EvaluateObject</a></li><li><a href="#EvaluateOr()">EvaluateOr</a></li><li><a href="#EvaluatePair()">EvaluatePair</a></li><li><a href="#EvaluateParent()">EvaluateParent</a></li><li><a href="#EvaluateParenthesis()">EvaluateParenthesis</a></li><li><a href="#EvaluatePercent()">EvaluatePercent</a></li><li><a href="#EvaluatePipeFuncCall()">EvaluatePipeFuncCall</a></li><li><a href="#EvaluatePlus()">EvaluatePlus</a></li><li><a href="#EvaluateProjection()">EvaluateProjection</a></li><li><a href="#EvaluateRange()">EvaluateRange</a></li><li><a href="#EvaluateSlash()">EvaluateSlash</a></li><li><a href="#EvaluateSlice()">EvaluateSlice</a></li><li><a href="#EvaluateStar()">EvaluateStar</a></li><li><a href="#EvaluateStarStar()">EvaluateStarStar</a></li><li><a href="#EvaluateThis()">EvaluateThis</a></li><li><a href="#EvaluateThisAttribute()">EvaluateThisAttribute</a></li><li><a href="#EvaluateUnaryMinus()">EvaluateUnaryMinus</a></li><li><a href="#EvaluateUnaryPlus()">EvaluateUnaryPlus</a></li><li><a href="#Everything">Everything</a></li><li><a href="#ExclusiveRange">ExclusiveRange</a></li><li><a href="#ExecuteQuery()">ExecuteQuery</a></li><li><a href="#ExponentMarker">ExponentMarker</a></li><li><a href="#Expression">Expression</a></li><li><a href="#Filter">Filter</a></li><li><a href="#Fractional">Fractional</a></li><li><a href="#FuncCall">FuncCall</a></li><li><a href="#FuncCallArgs">FuncCallArgs</a></li><li><a href="#HasReferenceTo()">HasReferenceTo</a></li><li><a href="#HexDigit">HexDigit</a></li><li><a href="#HexLetter">HexLetter</a></li><li><a href="#Identifier">Identifier</a></li><li><a href="#In">In</a></li><li><a href="#InclusiveRange">InclusiveRange</a></li><li><a href="#Integer">Integer</a></li><li><a href="#Literal">Literal</a></li><li><a href="#Match">Match</a></li><li><a href="#Minus">Minus</a></li><li><a href="#NewNestedScope()">NewNestedScope</a></li><li><a href="#NewRootScope()">NewRootScope</a></li><li><a href="#Not">Not</a></li><li><a href="#Null">Null</a></li><li><a href="#Number">Number</a></li><li><a href="#Object">Object</a></li><li><a href="#ObjectAttribute">ObjectAttribute</a></li><li><a href="#ObjectAttributes">ObjectAttributes</a></li><li><a href="#OperatorCall">OperatorCall</a></li><li><a href="#Or">Or</a></li><li><a href="#Pair">Pair</a></li><li><a href="#Parent">Parent</a></li><li><a href="#Parenthesis">Parenthesis</a></li><li><a href="#PartialCompare()">PartialCompare</a></li><li><a href="#Percent">Percent</a></li><li><a href="#PipeFuncCall">PipeFuncCall</a></li><li><a href="#Plus">Plus</a></li><li><a href="#Projection">Projection</a></li><li><a href="#Range">Range</a></li><li><a href="#ScientificNotation">ScientificNotation</a></li><li><a href="#Sign">Sign</a></li><li><a href="#SimpleExpression">SimpleExpression</a></li><li><a href="#SingleEscapeSequence">SingleEscapeSequence</a></li><li><a href="#SingleStringCharacter">SingleStringCharacter</a></li><li><a href="#Slash">Slash</a></li><li><a href="#Slice">Slice</a></li><li><a href="#SourceCharacter">SourceCharacter</a></li><li><a href="#Star">Star</a></li><li><a href="#StarStar">StarStar</a></li><li><a href="#String">String</a></li><li><a href="#This">This</a></li><li><a href="#ThisAttribute">ThisAttribute</a></li><li><a href="#TotalCompare()">TotalCompare</a></li><li><a href="#TypeOrder()">TypeOrder</a></li><li><a href="#UnaryMinus">UnaryMinus</a></li><li><a href="#UnaryPlus">UnaryPlus</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li><li><a href="#Validate()">Validate</a></li><li><a href="#ValidateFuncCall()">ValidateFuncCall</a></li><li><a href="#ValidateObject()">ValidateObject</a></li><li><a href="#ValidateObjectAttribute()">ValidateObjectAttribute</a></li><li><a href="#ValidatePipeFuncCall()">ValidatePipeFuncCall</a></li><li><a href="#WhiteSpace">WhiteSpace</a></li><li><a href="#coalesce()">coalesce</a></li><li><a href="#count()">count</a></li><li><a href="#countValidate()">countValidate</a></li><li><a href="#defined()">defined</a></li><li><a href="#definedValidate()">definedValidate</a></li><li><a href="#length()">length</a></li><li><a href="#lengthValidate()">lengthValidate</a></li><li><a href="#order()">order</a></li><li><a href="#orderValidate()">orderValidate</a></li><li><a href="#references()">references</a></li><li><a href="#referencesValidate()">referencesValidate</a></li><li><a href="#round()">round</a></li><li><a href="#roundValidate()">roundValidate</a></li><li><a href="#select()">select</a></li><li><a href="#selectValidate()">selectValidate</a></li></ol></section></article>
 <footer>
 Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</footer>
 <input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden>&#x2630;</label>
@@ -2708,8 +2772,9 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_3.1"><a href="#sec-Execution.Overview"><span class="spec-secid">3.1</span>Overview</a></li>
 <li id="_sidebar_3.2"><a href="#sec-Query-context"><span class="spec-secid">3.2</span>Query context</a></li>
 <li id="_sidebar_3.3"><a href="#sec-Scope"><span class="spec-secid">3.3</span>Scope</a></li>
-<li id="_sidebar_3.4"><a href="#sec-Expression-evaluation"><span class="spec-secid">3.4</span>Expression evaluation</a></li>
-<li id="_sidebar_3.5"><a href="#sec-Query-execution"><span class="spec-secid">3.5</span>Query execution</a></li>
+<li id="_sidebar_3.4"><a href="#sec-Expression-validation"><span class="spec-secid">3.4</span>Expression validation</a></li>
+<li id="_sidebar_3.5"><a href="#sec-Expression-evaluation"><span class="spec-secid">3.5</span>Expression evaluation</a></li>
+<li id="_sidebar_3.6"><a href="#sec-Query-execution"><span class="spec-secid">3.6</span>Query execution</a></li>
 </ol>
 </li>
 <li id="_sidebar_4"><a href="#sec-Data-types"><span class="spec-secid">4</span>Data types</a>
@@ -2797,10 +2862,72 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_11.1"><a href="#sec-order"><span class="spec-secid">11.1</span>order</a></li>
 </ol>
 </li>
+<li id="_sidebar_12"><a href="#sec-Vendor-functions"><span class="spec-secid">12</span>Vendor functions</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_12" /><label for="_sidebar_toggle_12"></label>
+<ol>
+<li id="_sidebar_12.1"><a href="#sec-identity-"><span class="spec-secid">12.1</span>identity()</a></li>
+</ol>
+</li>
 <li id="_sidebar_index"><a href="#index"><span class="spec-secid">§</span>Index</a></li>
 </ol>
 </div>
-<script>(function(){for(var e,t=[],n=document.getElementsByTagName("section"),o=0;o<n.length;o++)n[o].getAttribute("secid")&&t.push(n[o]);var i=window.scrollY,r=!1;function c(n){for(var o,i=n+document.documentElement.clientHeight/4,r=t.length-1;r>=0;r--)if(t[r].offsetTop<i){o=t[r];break}var c=o&&o.getAttribute("secid");c!==e&&(e&&d(e,!1),c&&d(c,!0),e=c)}function d(e,t){document.getElementById("_sidebar_"+e).className=t?"viewing":"";for(var n=e.split(".");n.length;){var o=document.getElementById("_sidebar_toggle_"+n.join("."));o&&(o.checked=t),n.pop()}}window.addEventListener("scroll",function(e){i=window.scrollY,r||(r=!0,window.requestAnimationFrame(function(){c(i),r=!1}))}),c(window.scrollY);})()</script>
+<script>(function (){
+var currentSection;
+var numberedSections = [];
+
+var sections = document.getElementsByTagName('section');
+for (var i = 0; i < sections.length; i++) {
+  if (sections[i].getAttribute('secid')) {
+    numberedSections.push(sections[i]);
+  }
+}
+
+var scrollPos = window.scrollY;
+var pending = false;
+window.addEventListener('scroll', function (e) {
+  scrollPos = window.scrollY;
+  if (!pending) {
+    pending = true;
+    window.requestAnimationFrame(function () {
+      updateSectionFocus(scrollPos);
+      pending = false;
+    });
+  }
+});
+
+function updateSectionFocus(pos) {
+  var readLine = pos + document.documentElement.clientHeight / 4;
+
+  var focusedSection;
+  for (var n = numberedSections.length - 1; n >= 0; n--) {
+    if (numberedSections[n].offsetTop < readLine) {
+      focusedSection = numberedSections[n];
+      break;
+    }
+  }
+
+  var secid = focusedSection && focusedSection.getAttribute('secid');
+  if (secid !== currentSection) {
+    currentSection && fold(currentSection, false);
+    secid && fold(secid, true);
+    currentSection = secid;
+  }
+}
+
+function fold(secid, check) {
+  document.getElementById('_sidebar_' + secid).className = check ? 'viewing' : '';
+  var sections = secid.split('.');
+  while (sections.length) {
+    var toggle = document.getElementById('_sidebar_toggle_' + sections.join('.'));
+    if (toggle) {
+      toggle.checked = check;
+    }
+    sections.pop();
+  }
+}
+
+updateSectionFocus(window.scrollY);
+})()</script>
 </div>
 </body>
 </html>
