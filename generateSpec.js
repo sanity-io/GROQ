@@ -8,11 +8,19 @@ const PortableText = require('@sanity/block-content-to-markdown')
 const groq = require('groq')
 const writeFile = util.promisify(fs.writeFile);
 
+const token = process.env.SANITY_TOKEN
+
+if (!token) {
+  console.log("ERR: SANITY_TOKEN is required.")
+  console.log("ERR: Run `sanity debug --secrets` to retrive it.")
+  process.exit(1)
+}
+
 const client = sanityClient({
   projectId: '3do82whm',
   dataset: 'next',
   useCdn: false,
-  token: process.env.SANITY_TOKEN
+  token,
 })
 
 function renderChildren(props, divider = '') {
