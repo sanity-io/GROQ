@@ -1499,7 +1499,7 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <section id="sec-Range" secid="4.8">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Range">4.8</a></span>Range</h3>
 <p>An interval containing all values that are ordered between the start and end values. The starting value is always included, while the end may be either included or excluded. A right&#8208;inclusive range is expressed as two values separated by <code>..</code>, e.g. <code>1..3</code>, while a right&#8208;exclusive range is separated by <code>...</code>, e.g. <code>1...3</code>.</p>
-<p>Ranges can have endpoints of any basic data type, but both endpoints must be of the same type (except integers and floats which can be used interchangeably). Ranges with incompatible or invalid endpoints types will yield <code>null</code>.</p>
+<p>Ranges can have endpoints of any comparable data type, but both endpoints must be of the same type (except integers and floats which can be used interchangeably). Ranges with incompatible or invalid endpoints types will yield <code>null</code>.</p>
 <p>Ranges are mainly used internally, e.g. with the <code>in</code> operator and array slice access operator. The endpoints may have context&#8208;dependant semantics, e.g. in array slices the range <code>[2..-1]</code> will cover the range from the third array element to the last element, while the same range is considered empty when used with <code>in</code>. For more details, see the documentation for the relevant operators.</p>
 <div class="spec-production" id="Range">
 <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#InclusiveRange" data-name="InclusiveRange">InclusiveRange</a></span></div>
@@ -1517,7 +1517,7 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <li>Let <var data-name="endNode">endNode</var> be the second <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
 <li>Let <var data-name="start">start</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="startNode">startNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="end">end</var> be the result of <span class="spec-call"><span data-name="Evalaute">Evalaute</span>(<var data-name="endNode">endNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If the type of <var data-name="start">start</var> is not the same as the type of <var data-name="end">end</var>:<ol>
+<li>If <span class="spec-call"><a href="#PartialCompare()" data-name="PartialCompare">PartialCompare</a>(<var data-name="start">start</var>, <var data-name="end">end</var>)</span> is <span class="spec-keyword">null</span>:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
 </ol>
 </li>

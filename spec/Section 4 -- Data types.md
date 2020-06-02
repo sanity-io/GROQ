@@ -220,7 +220,7 @@ EvaluatePair(scope):
 
 An interval containing all values that are ordered between the start and end values. The starting value is always included, while the end may be either included or excluded. A right-inclusive range is expressed as two values separated by `..`, e.g. `1..3`, while a right-exclusive range is separated by `...`, e.g. `1...3`.
 
-Ranges can have endpoints of any basic data type, but both endpoints must be of the same type (except integers and floats which can be used interchangeably). Ranges with incompatible or invalid endpoints types will yield `null`.
+Ranges can have endpoints of any comparable data type, but both endpoints must be of the same type (except integers and floats which can be used interchangeably). Ranges with incompatible or invalid endpoints types will yield `null`.
 
 Ranges are mainly used internally, e.g. with the `in` operator and array slice access operator. The endpoints may have context-dependant semantics, e.g. in array slices the range `[2..-1]` will cover the range from the third array element to the last element, while the same range is considered empty when used with `in`. For more details, see the documentation for the relevant operators.
 
@@ -239,7 +239,7 @@ EvaluateRange(scope):
 * Let {endNode} be the second {Expression}.
 * Let {start} be the result of {Evaluate(startNode, scope)}.
 * Let {end} be the result of {Evalaute(endNode, scope)}.
-* If the type of {start} is not the same as the type of {end}:
+* If {PartialCompare(start, end)} is {null}:
   * Return {null}.
 * Let {result} be a new range.
 * Set the start value of {result} to {start}.
