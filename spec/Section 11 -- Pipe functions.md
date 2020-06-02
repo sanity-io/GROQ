@@ -26,15 +26,15 @@ order(base, args, scope):
   * For each {argNode} of {args}:
       * Let {direction} be {Normal}.
     * Let {valueNode} be {argNode}.
-    * If {valueNode} is an {Asc }operator:
-          * Set {valueNode} to be the Expression of the Asc operator.
+    * If {valueNode} is an {Asc} operator:
+          * Set {valueNode} to be the Expression of the {Asc} operator.
     * Else if {valueNode} is a {Desc} operator:
           * Set direction to {Reverse}.
       * Set {valueNode} to be the Expression of the {Desc} operator.
     * Let {leftValue} be the result of {Evaluate(valueNode, leftScope)}.
     * Let {rightValue} be the result of {Evaluate(valueNode, rightScope)}.
     * Let {order} be the result of {TotalCompare(leftValue, rightValue)}.
-    * If {direction }is {Reverse} and {order} is {Less}:
+    * If {direction} is {Reverse} and {order} is {Less}:
           * Set {order} to {Greater}.
     * Else if {direction} is {Reverse} and {order} is {Greater}:
           * Set {order} to {Less}.

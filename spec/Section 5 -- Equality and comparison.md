@@ -13,7 +13,7 @@ Note: In GROQ `1 == null` returns `false` (which is different from e.g. SQL).
 
 Equal(a, b):
 
-* If both {a} and {b} is null:
+* If both {a} and {b} is {null}:
   * Return {true}.
 * Let {cmp} be the result of {PartialCompare(a, b)}.
 * If {cmp} is {Equal}:

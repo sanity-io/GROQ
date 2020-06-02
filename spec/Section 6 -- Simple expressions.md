@@ -72,7 +72,7 @@ EvaluateParent(scope):
 
 * Let {level} be the number of `^` in the parent expression.
 * Let {currentScope} be {scope}.
-* While {level }is greater than zero:
+* While {level} is greater than zero:
   * Set {currentScope} to the parent of {currentScope}. 
   * If {currentScope} is now {null}, return {null}.
   * Decrease {level} by one.

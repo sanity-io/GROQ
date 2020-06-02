@@ -1343,8 +1343,8 @@ The following sub&#8208;section is a non&#8208;normative overview of the executi
 <span class="spec-call"><a href="#EvaluateArray()" data-name="EvaluateArray">EvaluateArray</a>(<var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="result">result</var> be a new empty array.</li>
 <li>For each <span class="spec-nt"><a href="#ArrayElement" data-name="ArrayElement">ArrayElement</a></span>:<ol>
-<li>Let <var data-name="elementNode">elementNode</var>be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#ArrayElement" data-name="ArrayElement">ArrayElement</a></span>.</li>
-<li>Let <var data-name="element">element</var>be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="elementNode">elementNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="elementNode">elementNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#ArrayElement" data-name="ArrayElement">ArrayElement</a></span>.</li>
+<li>Let <var data-name="element">element</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="elementNode">elementNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If the <span class="spec-nt"><a href="#ArrayElement" data-name="ArrayElement">ArrayElement</a></span> contains <span class="spec-t">...</span>:<ol>
 <li>If <var data-name="element">element</var> is an array:<ol>
 <li>Concatenate <var data-name="element">element</var> to <var data-name="result">result</var>.</li>
@@ -1364,7 +1364,7 @@ The following sub&#8208;section is a non&#8208;normative overview of the executi
 </section>
 <section id="sec-Object" secid="4.6">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Object">4.6</a></span>Object</h3>
-<p>An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. <code>{&quot;a&quot;: 1, &quot;b&quot;: 2}</code>. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used. An object can not store <span class="spec-keyword">null</span>values, and setting an attribute value to <span class="spec-keyword">null</span> is equivalent to removing it from the object.</p>
+<p>An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. <code>{&quot;a&quot;: 1, &quot;b&quot;: 2}</code>. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used. An object can not store <span class="spec-keyword">null</span> values, and setting an attribute value to <span class="spec-keyword">null</span> is equivalent to removing it from the object.</p>
 <p>The values of an object literal can use the full power of expressions: </p>
 <pre><code>*[_type == &quot;rect&quot;]{&quot;area&quot;: width * height}
 </code></pre>
@@ -1541,7 +1541,7 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 In GROQ <code>1 == null</code> returns <code>false</code> (which is different from e.g. SQL). </div>
 <div class="spec-algo" id="Equal()">
 <span class="spec-call"><a href="#Equal()" data-name="Equal">Equal</a>(<var data-name="a">a</var>, <var data-name="b">b</var>)</span><ol>
-<li>If both <var data-name="a">a</var> and <var data-name="b">b</var> is null:<ol>
+<li>If both <var data-name="a">a</var> and <var data-name="b">b</var> is <span class="spec-keyword">null</span>:<ol>
 <li>Return <span class="spec-keyword">true</span>.</li>
 </ol>
 </li>
@@ -1720,7 +1720,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <span class="spec-call"><a href="#EvaluateParent()" data-name="EvaluateParent">EvaluateParent</a>(<var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="level">level</var> be the number of <code>^</code> in the parent expression.</li>
 <li>Let <var data-name="currentScope">currentScope</var> be <var data-name="scope">scope</var>.</li>
-<li>While <var data-name="level">level</var>is greater than zero:<ol>
+<li>While <var data-name="level">level</var> is greater than zero:<ol>
 <li>Set <var data-name="currentScope">currentScope</var> to the parent of <var data-name="currentScope">currentScope</var>. </li>
 <li>If <var data-name="currentScope">currentScope</var> is now <span class="spec-keyword">null</span>, return <span class="spec-keyword">null</span>.</li>
 <li>Decrease <var data-name="level">level</var> by one.</li>
@@ -1859,7 +1859,7 @@ This expression is syntactially a subset of a filter expression.</div>
 <li>Let <var data-name="leftNode">leftNode</var> be the left value of the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span>.</li>
 <li>Let <var data-name="left">left</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="leftNode">leftNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <var data-name="left">left</var> is not a number, return <span class="spec-keyword">null</span>.</li>
-<li>If <var data-name="left">left</var>is negative, add the length of <var data-name="base">base</var> to <var data-name="left">left</var>.</li>
+<li>If <var data-name="left">left</var> is negative, add the length of <var data-name="base">base</var> to <var data-name="left">left</var>.</li>
 <li>Clamp <var data-name="left">left</var> between 0 and (the length of <var data-name="base">base</var> minus 1).</li>
 </ol>
 </li>
@@ -1867,12 +1867,12 @@ This expression is syntactially a subset of a filter expression.</div>
 <li>Let <var data-name="rightNode">rightNode</var> be the right value of the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span>.</li>
 <li>Let <var data-name="right">right</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rightNode">rightNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <var data-name="right">right</var> is not a number, return <span class="spec-keyword">null</span>.</li>
-<li>If <var data-name="right">right</var>is negative, add the length of <var data-name="base">base</var> to <var data-name="right">right</var>.</li>
+<li>If <var data-name="right">right</var> is negative, add the length of <var data-name="base">base</var> to <var data-name="right">right</var>.</li>
 <li>If the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span> is exclusive, subtract one from <var data-name="right">right</var>.</li>
 <li>Clamp <var data-name="right">right</var> between 0 and (the length of <var data-name="base">base</var> minus 1).</li>
 </ol>
 </li>
-<li>Let <var data-name="result">result</var> be an array containing the elements of <var data-name="base">base</var> from position <var data-name="left">left</var>up to and including position <var data-name="right">right</var>.</li>
+<li>Let <var data-name="result">result</var> be an array containing the elements of <var data-name="base">base</var> from position <var data-name="left">left</var> up to and including position <var data-name="right">right</var>.</li>
 <li>Return <var data-name="result">result</var>.</li>
 </ol>
 </div>
@@ -1958,7 +1958,7 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Return <span class="spec-keyword">null</span>.</li>
 </ol>
 </li>
-<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>of the <span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span>.</li>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span> of the <span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span>.</li>
 <li>Let <var data-name="args">args</var> be an empty array.</li>
 <li>For each <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> in the <span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span> of the <span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span>.<ol>
 <li>Let <var data-name="argumentNode">argumentNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
@@ -1973,7 +1973,7 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <span class="spec-call"><a href="#ValidatePipeFuncCall()" data-name="ValidatePipeFuncCall">ValidatePipeFuncCall</a>()</span><ol>
 <li>Let <var data-name="base">base</var> be the first <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
 <li>Execute <span class="spec-call"><a href="#Validate()" data-name="Validate">Validate</a>(<var data-name="base">base</var>)</span>.</li>
-<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>of the <span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span>.</li>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span> of the <span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span>.</li>
 <li>If there is no pipe function named <var data-name="name">name</var>:<ol>
 <li>Stop and report an error.</li>
 </ol>
@@ -2153,7 +2153,7 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Let <var data-name="leftCmp">leftCmp</var> be the result of <span class="spec-call"><a href="#PartialCompare()" data-name="PartialCompare">PartialCompare</a>(<var data-name="left">left</var>, <var data-name="lower">lower</var>)</span>.</li>
 <li>Let <var data-name="rightCmp">rightCmp</var> be the result of <span class="spec-call"><a href="#PartialCompare()" data-name="PartialCompare">PartialCompare</a>(<var data-name="left">left</var>, <var data-name="upper">upper</var>)</span>.</li>
 <li>If <var data-name="leftCmp">leftCmp</var> or <var data-name="rightCmp">rightCmp</var> is <span class="spec-keyword">null</span>:<ol>
-<li>Return null.</li>
+<li>Return <span class="spec-keyword">null</span>.</li>
 </ol>
 </li>
 <li>If <var data-name="leftCmp">leftCmp</var> is <span class="spec-nt"><span data-name="Less">Less</span></span>:<ol>
@@ -2161,7 +2161,7 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </ol>
 </li>
 <li>If <var data-name="rightCmp">rightCmp</var> is <span class="spec-nt"><span data-name="Greater">Greater</span></span>:<ol>
-<li>Return false.</li>
+<li>Return <span class="spec-keyword">false</span>.</li>
 </ol>
 </li>
 <li>If the <var data-name="right">right</var> range is exclusive and <var data-name="rightCmp">rightCmp</var> is <span class="spec-nt"><span data-name="Equal">Equal</span></span>:<ol>
@@ -2183,25 +2183,25 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </section>
 <section id="sec-Asc-operator" secid="8.8">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Asc-operator">8.8</a></span>Asc operator</h3>
-<p>The asc operator is used by the <span class="spec-call"><a href="#order()" data-name="order">order</a>()</span> function to signal that you want ascending sorting. Evaluating it in any other context returns <span class="spec-keyword">null</span>.</p>
+<p>The asc operator is used by the <span class="spec-call"><a href="#order()" data-name="order">order</a>()</span> function to signal that you want ascending sorting. Evaluating it in any other context is not allowed.</p>
 <div class="spec-production" id="Asc">
 <span class="spec-nt"><a href="#Asc" data-name="Asc">Asc</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">asc</span></div>
 </div>
-<div class="spec-algo" id="EvaluateAsc()">
-<span class="spec-call"><a href="#EvaluateAsc()" data-name="EvaluateAsc">EvaluateAsc</a>(<var data-name="scope">scope</var>)</span><ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
+<div class="spec-algo" id="ValidateAsc()">
+<span class="spec-call"><a href="#ValidateAsc()" data-name="ValidateAsc">ValidateAsc</a>()</span><ol>
+<li>Report an error.</li>
 </ol>
 </div>
 </section>
 <section id="sec-Desc-operator" secid="8.9">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Desc-operator">8.9</a></span>Desc operator</h3>
-<p>The desc operator is used by the <span class="spec-call"><a href="#order()" data-name="order">order</a>()</span> function to signal that you want descending sorting. Evaluating it in any other context returns <span class="spec-keyword">null</span>.</p>
+<p>The desc operator is used by the <span class="spec-call"><a href="#order()" data-name="order">order</a>()</span> function to signal that you want descending sorting. Evaluating it in any other context is not allowed.</p>
 <div class="spec-production" id="Desc">
 <span class="spec-nt"><a href="#Desc" data-name="Desc">Desc</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">desc</span></div>
 </div>
-<div class="spec-algo" id="EvaluateDesc()">
-<span class="spec-call"><a href="#EvaluateDesc()" data-name="EvaluateDesc">EvaluateDesc</a>(<var data-name="scope">scope</var>)</span><ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
+<div class="spec-algo" id="ValidateDesc()">
+<span class="spec-call"><a href="#ValidateDesc()" data-name="ValidateDesc">ValidateDesc</a>()</span><ol>
+<li>Report an error.</li>
 </ol>
 </div>
 </section>
@@ -2296,7 +2296,7 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Return the multiplication of <var data-name="left">left</var> and <var data-name="right">right</var>.</li>
 </ol>
 </li>
-<li>Return null.</li>
+<li>Return <span class="spec-keyword">null</span>.</li>
 </ol>
 </div>
 </section>
@@ -2545,7 +2545,7 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Let <var data-name="pathNode">pathNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="path">path</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="pathNode">pathNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <var data-name="path">path</var> is not a string:<ol>
-<li>Return null.</li>
+<li>Return <span class="spec-keyword">null</span>.</li>
 </ol>
 </li>
 <li>Let <var data-name="base">base</var> be the this value of <var data-name="scope">scope</var>.</li>
@@ -2697,8 +2697,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </li>
 <li>Let <var data-name="valueNode">valueNode</var> be <var data-name="argNode">argNode</var>.<ol>
-<li>If <var data-name="valueNode">valueNode</var> is an <span class="spec-nt"><a href="#Asc" data-name="Asc">Asc</a></span>operator:<ol>
-<li>Set <var data-name="valueNode">valueNode</var> to be the Expression of the Asc operator.</li>
+<li>If <var data-name="valueNode">valueNode</var> is an <span class="spec-nt"><a href="#Asc" data-name="Asc">Asc</a></span> operator:<ol>
+<li>Set <var data-name="valueNode">valueNode</var> to be the Expression of the <span class="spec-nt"><a href="#Asc" data-name="Asc">Asc</a></span> operator.</li>
 </ol>
 </li>
 <li>Else if <var data-name="valueNode">valueNode</var> is a <span class="spec-nt"><a href="#Desc" data-name="Desc">Desc</a></span> operator:<ol>
@@ -2709,7 +2709,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Let <var data-name="leftValue">leftValue</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="valueNode">valueNode</var>, <var data-name="leftScope">leftScope</var>)</span>.</li>
 <li>Let <var data-name="rightValue">rightValue</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="valueNode">valueNode</var>, <var data-name="rightScope">rightScope</var>)</span>.</li>
 <li>Let <var data-name="order">order</var> be the result of <span class="spec-call"><a href="#TotalCompare()" data-name="TotalCompare">TotalCompare</a>(<var data-name="leftValue">leftValue</var>, <var data-name="rightValue">rightValue</var>)</span>.</li>
-<li>If <var data-name="direction">direction</var>is <span class="spec-nt"><span data-name="Reverse">Reverse</span></span> and <var data-name="order">order</var> is <span class="spec-nt"><span data-name="Less">Less</span></span>:<ol>
+<li>If <var data-name="direction">direction</var> is <span class="spec-nt"><span data-name="Reverse">Reverse</span></span> and <var data-name="order">order</var> is <span class="spec-nt"><span data-name="Less">Less</span></span>:<ol>
 <li>Set <var data-name="order">order</var> to <span class="spec-nt"><span data-name="Greater">Greater</span></span>.</li>
 </ol>
 </li>
@@ -2747,7 +2747,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <p>The identity function should accept zero arguments and return a string which represents the identity of the client executing the query.</p>
 </section>
 </section>
-<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#And">And</a></li><li><a href="#Array">Array</a></li><li><a href="#ArrayElement">ArrayElement</a></li><li><a href="#ArrayElements">ArrayElements</a></li><li><a href="#Asc">Asc</a></li><li><a href="#AttributeAccess">AttributeAccess</a></li><li><a href="#Boolean">Boolean</a></li><li><a href="#Comment">Comment</a></li><li><a href="#CommentChar">CommentChar</a></li><li><a href="#Comparison">Comparison</a></li><li><a href="#ComparisonOperator">ComparisonOperator</a></li><li><a href="#CompoundExpression">CompoundExpression</a></li><li><a href="#Decimal">Decimal</a></li><li><a href="#Dereference">Dereference</a></li><li><a href="#Desc">Desc</a></li><li><a href="#DetermineName()">DetermineName</a></li><li><a href="#Digit">Digit</a></li><li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li><li><a href="#ElementAccess">ElementAccess</a></li><li><a href="#Equal()">Equal</a></li><li><a href="#Equality">Equality</a></li><li><a href="#EqualityOperator">EqualityOperator</a></li><li><a href="#EscapeSequence">EscapeSequence</a></li><li><a href="#Evaluate()">Evaluate</a></li><li><a href="#EvaluateAnd()">EvaluateAnd</a></li><li><a href="#EvaluateArray()">EvaluateArray</a></li><li><a href="#EvaluateAsc()">EvaluateAsc</a></li><li><a href="#EvaluateAttributeAccess()">EvaluateAttributeAccess</a></li><li><a href="#EvaluateComparison()">EvaluateComparison</a></li><li><a href="#EvaluateDereference()">EvaluateDereference</a></li><li><a href="#EvaluateDesc()">EvaluateDesc</a></li><li><a href="#EvaluateElementAccess()">EvaluateElementAccess</a></li><li><a href="#EvaluateEquality()">EvaluateEquality</a></li><li><a href="#EvaluateEverything()">EvaluateEverything</a></li><li><a href="#EvaluateFilter()">EvaluateFilter</a></li><li><a href="#EvaluateFuncCall()">EvaluateFuncCall</a></li><li><a href="#EvaluateIn()">EvaluateIn</a></li><li><a href="#EvaluateMinus()">EvaluateMinus</a></li><li><a href="#EvaluateNot()">EvaluateNot</a></li><li><a href="#EvaluateObject()">EvaluateObject</a></li><li><a href="#EvaluateOr()">EvaluateOr</a></li><li><a href="#EvaluatePair()">EvaluatePair</a></li><li><a href="#EvaluateParent()">EvaluateParent</a></li><li><a href="#EvaluateParenthesis()">EvaluateParenthesis</a></li><li><a href="#EvaluatePercent()">EvaluatePercent</a></li><li><a href="#EvaluatePipeFuncCall()">EvaluatePipeFuncCall</a></li><li><a href="#EvaluatePlus()">EvaluatePlus</a></li><li><a href="#EvaluateProjection()">EvaluateProjection</a></li><li><a href="#EvaluateRange()">EvaluateRange</a></li><li><a href="#EvaluateSlash()">EvaluateSlash</a></li><li><a href="#EvaluateSlice()">EvaluateSlice</a></li><li><a href="#EvaluateStar()">EvaluateStar</a></li><li><a href="#EvaluateStarStar()">EvaluateStarStar</a></li><li><a href="#EvaluateThis()">EvaluateThis</a></li><li><a href="#EvaluateThisAttribute()">EvaluateThisAttribute</a></li><li><a href="#EvaluateUnaryMinus()">EvaluateUnaryMinus</a></li><li><a href="#EvaluateUnaryPlus()">EvaluateUnaryPlus</a></li><li><a href="#Everything">Everything</a></li><li><a href="#ExclusiveRange">ExclusiveRange</a></li><li><a href="#ExecuteQuery()">ExecuteQuery</a></li><li><a href="#ExponentMarker">ExponentMarker</a></li><li><a href="#Expression">Expression</a></li><li><a href="#Filter">Filter</a></li><li><a href="#Fractional">Fractional</a></li><li><a href="#FuncCall">FuncCall</a></li><li><a href="#FuncCallArgs">FuncCallArgs</a></li><li><a href="#HasReferenceTo()">HasReferenceTo</a></li><li><a href="#HexDigit">HexDigit</a></li><li><a href="#HexLetter">HexLetter</a></li><li><a href="#Identifier">Identifier</a></li><li><a href="#In">In</a></li><li><a href="#InclusiveRange">InclusiveRange</a></li><li><a href="#Integer">Integer</a></li><li><a href="#Literal">Literal</a></li><li><a href="#Match">Match</a></li><li><a href="#Minus">Minus</a></li><li><a href="#NewNestedScope()">NewNestedScope</a></li><li><a href="#NewRootScope()">NewRootScope</a></li><li><a href="#Not">Not</a></li><li><a href="#Null">Null</a></li><li><a href="#Number">Number</a></li><li><a href="#Object">Object</a></li><li><a href="#ObjectAttribute">ObjectAttribute</a></li><li><a href="#ObjectAttributes">ObjectAttributes</a></li><li><a href="#OperatorCall">OperatorCall</a></li><li><a href="#Or">Or</a></li><li><a href="#Pair">Pair</a></li><li><a href="#Parent">Parent</a></li><li><a href="#Parenthesis">Parenthesis</a></li><li><a href="#PartialCompare()">PartialCompare</a></li><li><a href="#Percent">Percent</a></li><li><a href="#PipeFuncCall">PipeFuncCall</a></li><li><a href="#Plus">Plus</a></li><li><a href="#Projection">Projection</a></li><li><a href="#Range">Range</a></li><li><a href="#ScientificNotation">ScientificNotation</a></li><li><a href="#Sign">Sign</a></li><li><a href="#SimpleExpression">SimpleExpression</a></li><li><a href="#SingleEscapeSequence">SingleEscapeSequence</a></li><li><a href="#SingleStringCharacter">SingleStringCharacter</a></li><li><a href="#Slash">Slash</a></li><li><a href="#Slice">Slice</a></li><li><a href="#SourceCharacter">SourceCharacter</a></li><li><a href="#Star">Star</a></li><li><a href="#StarStar">StarStar</a></li><li><a href="#String">String</a></li><li><a href="#This">This</a></li><li><a href="#ThisAttribute">ThisAttribute</a></li><li><a href="#TotalCompare()">TotalCompare</a></li><li><a href="#TypeOrder()">TypeOrder</a></li><li><a href="#UnaryMinus">UnaryMinus</a></li><li><a href="#UnaryPlus">UnaryPlus</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li><li><a href="#Validate()">Validate</a></li><li><a href="#ValidateFuncCall()">ValidateFuncCall</a></li><li><a href="#ValidateObject()">ValidateObject</a></li><li><a href="#ValidateObjectAttribute()">ValidateObjectAttribute</a></li><li><a href="#ValidatePipeFuncCall()">ValidatePipeFuncCall</a></li><li><a href="#WhiteSpace">WhiteSpace</a></li><li><a href="#coalesce()">coalesce</a></li><li><a href="#count()">count</a></li><li><a href="#countValidate()">countValidate</a></li><li><a href="#defined()">defined</a></li><li><a href="#definedValidate()">definedValidate</a></li><li><a href="#length()">length</a></li><li><a href="#lengthValidate()">lengthValidate</a></li><li><a href="#order()">order</a></li><li><a href="#orderValidate()">orderValidate</a></li><li><a href="#references()">references</a></li><li><a href="#referencesValidate()">referencesValidate</a></li><li><a href="#round()">round</a></li><li><a href="#roundValidate()">roundValidate</a></li><li><a href="#select()">select</a></li><li><a href="#selectValidate()">selectValidate</a></li></ol></section></article>
+<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#And">And</a></li><li><a href="#Array">Array</a></li><li><a href="#ArrayElement">ArrayElement</a></li><li><a href="#ArrayElements">ArrayElements</a></li><li><a href="#Asc">Asc</a></li><li><a href="#AttributeAccess">AttributeAccess</a></li><li><a href="#Boolean">Boolean</a></li><li><a href="#Comment">Comment</a></li><li><a href="#CommentChar">CommentChar</a></li><li><a href="#Comparison">Comparison</a></li><li><a href="#ComparisonOperator">ComparisonOperator</a></li><li><a href="#CompoundExpression">CompoundExpression</a></li><li><a href="#Decimal">Decimal</a></li><li><a href="#Dereference">Dereference</a></li><li><a href="#Desc">Desc</a></li><li><a href="#DetermineName()">DetermineName</a></li><li><a href="#Digit">Digit</a></li><li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li><li><a href="#ElementAccess">ElementAccess</a></li><li><a href="#Equal()">Equal</a></li><li><a href="#Equality">Equality</a></li><li><a href="#EqualityOperator">EqualityOperator</a></li><li><a href="#EscapeSequence">EscapeSequence</a></li><li><a href="#Evaluate()">Evaluate</a></li><li><a href="#EvaluateAnd()">EvaluateAnd</a></li><li><a href="#EvaluateArray()">EvaluateArray</a></li><li><a href="#EvaluateAttributeAccess()">EvaluateAttributeAccess</a></li><li><a href="#EvaluateComparison()">EvaluateComparison</a></li><li><a href="#EvaluateDereference()">EvaluateDereference</a></li><li><a href="#EvaluateElementAccess()">EvaluateElementAccess</a></li><li><a href="#EvaluateEquality()">EvaluateEquality</a></li><li><a href="#EvaluateEverything()">EvaluateEverything</a></li><li><a href="#EvaluateFilter()">EvaluateFilter</a></li><li><a href="#EvaluateFuncCall()">EvaluateFuncCall</a></li><li><a href="#EvaluateIn()">EvaluateIn</a></li><li><a href="#EvaluateMinus()">EvaluateMinus</a></li><li><a href="#EvaluateNot()">EvaluateNot</a></li><li><a href="#EvaluateObject()">EvaluateObject</a></li><li><a href="#EvaluateOr()">EvaluateOr</a></li><li><a href="#EvaluatePair()">EvaluatePair</a></li><li><a href="#EvaluateParent()">EvaluateParent</a></li><li><a href="#EvaluateParenthesis()">EvaluateParenthesis</a></li><li><a href="#EvaluatePercent()">EvaluatePercent</a></li><li><a href="#EvaluatePipeFuncCall()">EvaluatePipeFuncCall</a></li><li><a href="#EvaluatePlus()">EvaluatePlus</a></li><li><a href="#EvaluateProjection()">EvaluateProjection</a></li><li><a href="#EvaluateRange()">EvaluateRange</a></li><li><a href="#EvaluateSlash()">EvaluateSlash</a></li><li><a href="#EvaluateSlice()">EvaluateSlice</a></li><li><a href="#EvaluateStar()">EvaluateStar</a></li><li><a href="#EvaluateStarStar()">EvaluateStarStar</a></li><li><a href="#EvaluateThis()">EvaluateThis</a></li><li><a href="#EvaluateThisAttribute()">EvaluateThisAttribute</a></li><li><a href="#EvaluateUnaryMinus()">EvaluateUnaryMinus</a></li><li><a href="#EvaluateUnaryPlus()">EvaluateUnaryPlus</a></li><li><a href="#Everything">Everything</a></li><li><a href="#ExclusiveRange">ExclusiveRange</a></li><li><a href="#ExecuteQuery()">ExecuteQuery</a></li><li><a href="#ExponentMarker">ExponentMarker</a></li><li><a href="#Expression">Expression</a></li><li><a href="#Filter">Filter</a></li><li><a href="#Fractional">Fractional</a></li><li><a href="#FuncCall">FuncCall</a></li><li><a href="#FuncCallArgs">FuncCallArgs</a></li><li><a href="#HasReferenceTo()">HasReferenceTo</a></li><li><a href="#HexDigit">HexDigit</a></li><li><a href="#HexLetter">HexLetter</a></li><li><a href="#Identifier">Identifier</a></li><li><a href="#In">In</a></li><li><a href="#InclusiveRange">InclusiveRange</a></li><li><a href="#Integer">Integer</a></li><li><a href="#Literal">Literal</a></li><li><a href="#Match">Match</a></li><li><a href="#Minus">Minus</a></li><li><a href="#NewNestedScope()">NewNestedScope</a></li><li><a href="#NewRootScope()">NewRootScope</a></li><li><a href="#Not">Not</a></li><li><a href="#Null">Null</a></li><li><a href="#Number">Number</a></li><li><a href="#Object">Object</a></li><li><a href="#ObjectAttribute">ObjectAttribute</a></li><li><a href="#ObjectAttributes">ObjectAttributes</a></li><li><a href="#OperatorCall">OperatorCall</a></li><li><a href="#Or">Or</a></li><li><a href="#Pair">Pair</a></li><li><a href="#Parent">Parent</a></li><li><a href="#Parenthesis">Parenthesis</a></li><li><a href="#PartialCompare()">PartialCompare</a></li><li><a href="#Percent">Percent</a></li><li><a href="#PipeFuncCall">PipeFuncCall</a></li><li><a href="#Plus">Plus</a></li><li><a href="#Projection">Projection</a></li><li><a href="#Range">Range</a></li><li><a href="#ScientificNotation">ScientificNotation</a></li><li><a href="#Sign">Sign</a></li><li><a href="#SimpleExpression">SimpleExpression</a></li><li><a href="#SingleEscapeSequence">SingleEscapeSequence</a></li><li><a href="#SingleStringCharacter">SingleStringCharacter</a></li><li><a href="#Slash">Slash</a></li><li><a href="#Slice">Slice</a></li><li><a href="#SourceCharacter">SourceCharacter</a></li><li><a href="#Star">Star</a></li><li><a href="#StarStar">StarStar</a></li><li><a href="#String">String</a></li><li><a href="#This">This</a></li><li><a href="#ThisAttribute">ThisAttribute</a></li><li><a href="#TotalCompare()">TotalCompare</a></li><li><a href="#TypeOrder()">TypeOrder</a></li><li><a href="#UnaryMinus">UnaryMinus</a></li><li><a href="#UnaryPlus">UnaryPlus</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li><li><a href="#Validate()">Validate</a></li><li><a href="#ValidateAsc()">ValidateAsc</a></li><li><a href="#ValidateDesc()">ValidateDesc</a></li><li><a href="#ValidateFuncCall()">ValidateFuncCall</a></li><li><a href="#ValidateObject()">ValidateObject</a></li><li><a href="#ValidateObjectAttribute()">ValidateObjectAttribute</a></li><li><a href="#ValidatePipeFuncCall()">ValidatePipeFuncCall</a></li><li><a href="#WhiteSpace">WhiteSpace</a></li><li><a href="#coalesce()">coalesce</a></li><li><a href="#count()">count</a></li><li><a href="#countValidate()">countValidate</a></li><li><a href="#defined()">defined</a></li><li><a href="#definedValidate()">definedValidate</a></li><li><a href="#length()">length</a></li><li><a href="#lengthValidate()">lengthValidate</a></li><li><a href="#order()">order</a></li><li><a href="#orderValidate()">orderValidate</a></li><li><a href="#references()">references</a></li><li><a href="#referencesValidate()">referencesValidate</a></li><li><a href="#round()">round</a></li><li><a href="#roundValidate()">roundValidate</a></li><li><a href="#select()">select</a></li><li><a href="#selectValidate()">selectValidate</a></li></ol></section></article>
 <footer>
 Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</footer>
 <input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden>&#x2630;</label>

@@ -89,16 +89,16 @@ EvaluateSlice(scope):
   * Let {leftNode} be the left value of the {Range}.
   * Let {left} be the result of {Evaluate(leftNode, scope)}.
   * If {left} is not a number, return {null}.
-  * If {left }is negative, add the length of {base} to {left}.
+  * If {left} is negative, add the length of {base} to {left}.
   * Clamp {left} between 0 and (the length of {base} minus 1).
 * Process the right index:
   * Let {rightNode} be the right value of the {Range}.
   * Let {right} be the result of {Evaluate(rightNode, scope)}.
   * If {right} is not a number, return {null}.
-  * If {right }is negative, add the length of {base} to {right}.
+  * If {right} is negative, add the length of {base} to {right}.
   * If the {Range} is exclusive, subtract one from {right}.
   * Clamp {right} between 0 and (the length of {base} minus 1).
-* Let {result} be an array containing the elements of {base} from position {left }up to and including position {right}.
+* Let {result} be an array containing the elements of {base} from position {left} up to and including position {right}.
 * Return {result}.
 
 ## Filter expression
@@ -171,7 +171,7 @@ EvaluatePipeFuncCall(scope):
 * Let {base} be the result of {Evaluate(baseNode, scope)}.
 * If {base} is not an array:
   * Return {null}.
-* Let {name} be the string value of the {Identifier }of the {FuncCall}.
+* Let {name} be the string value of the {Identifier} of the {FuncCall}.
 * Let {args} be an empty array.
 * For each {Expression} in the {FuncCallArgs} of the {FuncCall}.
   * Let {argumentNode} be the {Expression}.
@@ -183,7 +183,7 @@ ValidatePipeFuncCall():
 
 * Let {base} be the first {Expression}.
 * Execute {Validate(base)}.
-* Let {name} be the string value of the {Identifier }of the {FuncCall}.
+* Let {name} be the string value of the {Identifier} of the {FuncCall}.
 * If there is no pipe function named {name}:
   * Stop and report an error.
 * Let {args} be an array of the {Expression}s in the {FuncCallArgs} of the {FuncCall}.

@@ -113,11 +113,11 @@ EvaluateIn(scope):
   * Let {leftCmp} be the result of {PartialCompare(left, lower)}.
   * Let {rightCmp} be the result of {PartialCompare(left, upper)}.
   * If {leftCmp} or {rightCmp} is {null}:
-      * Return null.
+      * Return {null}.
   * If {leftCmp} is {Less}:
       * Return {false}.
   * If {rightCmp} is {Greater}:
-      * Return false.
+      * Return {false}.
   * If the {right} range is exclusive and {rightCmp} is {Equal}:
       * Return {false}.
   * Return {true}.
@@ -129,23 +129,23 @@ Match : Expression match Expression
 
 ## Asc operator
 
-The asc operator is used by the {order()} function to signal that you want ascending sorting. Evaluating it in any other context returns {null}.
+The asc operator is used by the {order()} function to signal that you want ascending sorting. Evaluating it in any other context is not allowed.
 
 Asc : Expression `asc`
 
-EvaluateAsc(scope):
+ValidateAsc():
 
-* Return {null}.
+* Report an error.
 
 ## Desc operator
 
-The desc operator is used by the {order()} function to signal that you want descending sorting. Evaluating it in any other context returns {null}.
+The desc operator is used by the {order()} function to signal that you want descending sorting. Evaluating it in any other context is not allowed.
 
 Desc : Expression `desc`
 
-EvaluateDesc(scope):
+ValidateDesc():
 
-* Return {null}.
+* Report an error.
 
 ## Unary plus operator
 
@@ -213,7 +213,7 @@ EvaluateStar(scope):
 * Let {right} be the result of {Evaluate(rightNode, scope)}.
 * If both {left} and {right} are numbers:
   * Return the multiplication of {left} and {right}.
-* Return null.
+* Return {null}.
 
 ## Binary slash operator
 

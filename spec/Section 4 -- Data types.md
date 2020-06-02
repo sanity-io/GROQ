@@ -109,8 +109,8 @@ EvaluateArray(scope):
 
 1. Let {result} be a new empty array.
 2. For each {ArrayElement}:
-  1. Let {elementNode }be the {Expression} of the {ArrayElement}.
-  2. Let {element }be the result of {Evaluate(elementNode, scope)}.
+  1. Let {elementNode} be the {Expression} of the {ArrayElement}.
+  2. Let {element} be the result of {Evaluate(elementNode, scope)}.
   3. If the {ArrayElement} contains {...}:
       1. If {element} is an array:
           1. Concatenate {element} to {result}.
@@ -120,7 +120,7 @@ EvaluateArray(scope):
 
 ## Object
 
-An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. `{"a": 1, "b": 2}`. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used. An object can not store {null }values, and setting an attribute value to {null} is equivalent to removing it from the object.
+An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. `{"a": 1, "b": 2}`. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used. An object can not store {null} values, and setting an attribute value to {null} is equivalent to removing it from the object.
 
 The values of an object literal can use the full power of expressions: 
 

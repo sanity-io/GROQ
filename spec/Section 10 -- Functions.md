@@ -85,7 +85,7 @@ references(args, scope):
 * Let {pathNode} be the first element of {args}.
 * Let {path} be the result of {Evaluate(pathNode, scope)}.
 * If {path} is not a string:
-  * Return null.
+  * Return {null}.
 * Let {base} be the this value of {scope}.
 * Return the result of {HasReferenceTo(base, path)}.
 
