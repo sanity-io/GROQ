@@ -2545,7 +2545,7 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Let <var data-name="pathNode">pathNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="path">path</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="pathNode">pathNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <var data-name="path">path</var> is not a string:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
+<li>Return <span class="spec-keyword">false</span>.</li>
 </ol>
 </li>
 <li>Let <var data-name="base">base</var> be the this value of <var data-name="scope">scope</var>.</li>
