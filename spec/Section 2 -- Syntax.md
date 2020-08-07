@@ -3,7 +3,7 @@ Syntax
 
 # Syntax
 
-A GROQ query is a string consisting of Unicode characters. The encoding of the query string is implementation-defined, but UTF-8 is be the preferred choice. A query consist of a single {Expression}, with {WhiteSpace }and {Comment} allowed anywhere with no effect on the interpratation.
+A GROQ query is a string consisting of Unicode characters. The encoding of the query string is implementation-defined, but UTF-8 is the preferred choice. A query consist of a single {Expression}, with {WhiteSpace} and {Comment} allowed anywhere with no effect on the interpratation.
 
 SourceCharacter : "any Unicode character"
 
@@ -34,7 +34,7 @@ GROQ's syntax is a superset of JSON, so any valid JSON value is a valid GROQ exp
 
 Whitespace is not significant in GROQ, except for acting as a token separator and comment terminator. Any sequence of the following characters is considered whitespace.
 
-WhiteSpace :
+WhiteSpace:
 
 * "Tab U+0009"
 * "Newline U+000A"
