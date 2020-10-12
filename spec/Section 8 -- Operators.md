@@ -185,6 +185,10 @@ EvaluatePlus(scope):
   * Return the string concatenation of {left} and {right}.
 * If both {left} and {right} are numbers:
   * Return the addition of {left} and {right}.
+* If both {left} and {right} are arrays:
+  * Return the concatenation of {left} and {right}.
+* If both {left} and {right} are objects:
+  * Return the merged object of {left} and {right}. For duplicate fields the value from {right} takes precedence.
 * Return {null}.
 
 ## Binary minus operator

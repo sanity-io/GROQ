@@ -2258,6 +2258,14 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Return the addition of <var data-name="left">left</var> and <var data-name="right">right</var>.</li>
 </ol>
 </li>
+<li>If both <var data-name="left">left</var> and <var data-name="right">right</var> are arrays:<ol>
+<li>Return the concatenation of <var data-name="left">left</var> and <var data-name="right">right</var>.</li>
+</ol>
+</li>
+<li>If both <var data-name="left">left</var> and <var data-name="right">right</var> are objects:<ol>
+<li>Return the merged object of <var data-name="left">left</var> and <var data-name="right">right</var>. For duplicate fields the value from <var data-name="right">right</var> takes precedence.</li>
+</ol>
+</li>
 <li>Return <span class="spec-keyword">null</span>.</li>
 </ol>
 </div>
