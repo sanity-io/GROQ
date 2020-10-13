@@ -125,7 +125,50 @@ EvaluateIn(scope):
 
 ## Match operator
 
+The match operator is defined in terms of *patterns* and *tokens*: It returns true when any of patterns matches all of the tokens. The exact way of tokenizing text and interpreting patterns is left as an implementation detail.
+
 Match : Expression match Expression
+
+EvaluateMatch(scope):
+
+* Let {leftNode} be the first {Expression}.
+* Let {left} be the result of {Evaluate(leftNode, scope)}.
+* Let {rightNode} be the last {Expression}.
+* Let {right} be the result of {Evaluate(rightNode, scope)}.
+* Let {tokens} be an empty array.
+* If {left} is a string:
+  * Concatenate {MatchTokenize(left)} to {tokens}.
+* If {left} is an array:
+  * For each {value} in {left}:
+      * If {value} is a string:
+          * Concatenate {MatchTokenize(value)} to {tokens}.
+* Let {patterns} be an empty array. 
+* If {right} is a string:
+  * Concatenate {MatchTokenizePattern(right)} to {patterns}.
+* If {right} is an array:
+  * For each {value} in {right}:
+      * If {value} is a string:
+          * Concatenate {MatchTokenizePattern(value)} to {patterns}.
+    * Otherwise:
+          * Return {false}.
+* If {patterns} is empty:
+  * Return {false}.
+* For each {token} in {tokens}:
+  * Let {ok} be true.
+  * For each {pattern} in {patterns}:
+      * If {pattern} does not matches {token}:
+          * Set {ok} to {false}.
+  * If {ok} is {true}:
+      * Return {true}.
+* Return {false}.
+
+MatchTokenize(value):
+
+* Return an array of tokens. 
+
+MatchTokenizePattern(value):
+
+* Return an array of tokenized patterns.
 
 ## Asc operator
 
