@@ -144,31 +144,27 @@ EvaluateMatch(scope):
           * Concatenate {MatchTokenize(value)} to {tokens}.
 * Let {patterns} be an empty array. 
 * If {right} is a string:
-  * Concatenate {MatchTokenizePattern(right)} to {patterns}.
+  * Append {MatchAnalyzePattern(right)} to {patterns}.
 * If {right} is an array:
   * For each {value} in {right}:
       * If {value} is a string:
-          * Concatenate {MatchTokenizePattern(value)} to {patterns}.
+          * Append {MatchAnalyzePattern(value)} to {patterns}.
     * Otherwise:
           * Return {false}.
 * If {patterns} is empty:
   * Return {false}.
-* For each {token} in {tokens}:
-  * Let {ok} be true.
-  * For each {pattern} in {patterns}:
-      * If {pattern} does not matches {token}:
-          * Set {ok} to {false}.
-  * If {ok} is {true}:
-      * Return {true}.
-* Return {false}.
+* For each {pattern} in {patterns}:
+  * If {pattern} does not matches {tokens}:
+      * Return {false}.
+* Return {true}.
 
 MatchTokenize(value):
 
 * Return an array of tokens. 
 
-MatchTokenizePattern(value):
+MatchAnalyzePattern(value):
 
-* Return an array of tokenized patterns.
+* Return a pattern for the given string.
 
 ## Asc operator
 
