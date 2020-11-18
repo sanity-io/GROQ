@@ -78,7 +78,7 @@ people[0..10]
 
 Slice : Expression `[` Range `]`
 
-Note: This expression is syntactially a subset of a filter expression.
+Note: This expression is syntactically a subset of a filter expression.
 
 EvaluateSlice(scope):
 
