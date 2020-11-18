@@ -1364,7 +1364,7 @@ The following sub&#8208;section is a non&#8208;normative overview of the executi
 </section>
 <section id="sec-Object" secid="4.6">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Object">4.6</a></span>Object</h3>
-<p>An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. <code>{&quot;a&quot;: 1, &quot;b&quot;: 2}</code>. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used. An object can not store <span class="spec-keyword">null</span> values, and setting an attribute value to <span class="spec-keyword">null</span> is equivalent to removing it from the object.</p>
+<p>An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. <code>{&quot;a&quot;: 1, &quot;b&quot;: 2}</code>. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used.</p>
 <p>The values of an object literal can use the full power of expressions: </p>
 <pre><code>*[_type == &quot;rect&quot;]{&quot;area&quot;: width * height}
 </code></pre>
@@ -1421,14 +1421,7 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <li>Let <var data-name="name">name</var> be the result of <span class="spec-call"><a href="#DetermineName()" data-name="DetermineName">DetermineName</a>(<var data-name="valueNode">valueNode</var>)</span>.</li>
 </ol>
 </li>
-<li>If <var data-name="value">value</var> is <span class="spec-keyword">null</span>:<ol>
-<li>Remove the attribute <var data-name="name">name</var> in <var data-name="result">result</var>.</li>
-</ol>
-</li>
-<li>Otherwise:<ol>
 <li>Set the attribute <var data-name="name">name</var> to <var data-name="value">value</var> in <var data-name="result">result</var>.</li>
-</ol>
-</li>
 </ol>
 </li>
 </ol>

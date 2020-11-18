@@ -120,7 +120,7 @@ EvaluateArray(scope):
 
 ## Object
 
-An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. `{"a": 1, "b": 2}`. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used. An object can not store {null} values, and setting an attribute value to {null} is equivalent to removing it from the object.
+An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. `{"a": 1, "b": 2}`. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used.
 
 The values of an object literal can use the full power of expressions: 
 
@@ -170,10 +170,7 @@ EvaluateObject(scope):
           1. Let {name} be the string value of the {String}.
     4. Otherwise:
           1. Let {name} be the result of {DetermineName(valueNode)}.
-    5. If {value} is {null}:
-          1. Remove the attribute {name} in {result}.
-    6. Otherwise:
-          1. Set the attribute {name} to {value} in {result}.
+    5. Set the attribute {name} to {value} in {result}.
 3. Return {result}.
 
 DetermineName(node):
