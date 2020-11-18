@@ -161,3 +161,27 @@ selectValidate(args):
   * If {arg} is not a {Pair}:
       * Set {seenDefault} to {true}.
 
+## string
+
+The string function returns the string representation of scalar values or {null} for any other values.
+
+string(args, scope):
+
+* Let {node} be the first element of {args}.
+* Let {val} be the result of {Evaluate(node, scope)}.
+* If {val} is {true}:
+  * Return the string `"true"`
+* If {val} is {false}:
+  * Return the string `"false"`
+* If {val} is a string:
+  * Return {val}.
+* If {val} is a number:
+  * Return a string representation of the number.
+* Otherwise:
+  * Return {null}.
+
+stringValidate(args):
+
+* If the length of {args} is not 1:
+  * Report an error.
+
