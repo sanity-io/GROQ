@@ -200,7 +200,9 @@ ValidateObjectAttribute(expr):
 
 ## Pair
 
-A pair of values, e.g. `"a" => 1`. Pairs can contain any combination of other types, including other pairs, and are mainly used internally with e.g. projection conditionals and`select()`. In serialized JSON, pairs are represented as arrays with two values.
+A pair of values, e.g. `"a" => 1`. Pairs can contain any combination of other types, including other pairs, and are mainly used internally with e.g. projection conditionals and`select()`.
+
+In serialized JSON, pairs are represented as a string on the form `fst => snd` where `fst` and `snd` are the serialized JSON for the first and the second expression.
 
 Pair : Expression `=>` Expression
 
@@ -220,6 +222,8 @@ An interval containing all values that are ordered between the start and end val
 Ranges can have endpoints of any comparable data type, but both endpoints must be of the same type (except integers and floats which can be used interchangeably). Ranges with incompatible or invalid endpoints types will yield `null`.
 
 Ranges are mainly used internally, e.g. with the `in` operator and array slice access operator. The endpoints may have context-dependant semantics, e.g. in array slices the range `[2..-1]` will cover the range from the third array element to the last element, while the same range is considered empty when used with `in`. For more details, see the documentation for the relevant operators.
+
+In serialized JSON, ranges are represented as a string on the form `start..end` (for inclusive ranges) and `start...end` (for exclusive ranges) where `start` and `end` are the serialized JSON for the start and the end expression.
 
 Range :
 

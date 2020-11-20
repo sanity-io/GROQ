@@ -1474,7 +1474,8 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 </section>
 <section id="sec-Pair" secid="4.7">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Pair">4.7</a></span>Pair</h3>
-<p>A pair of values, e.g. <code>&quot;a&quot; =&gt; 1</code>. Pairs can contain any combination of other types, including other pairs, and are mainly used internally with e.g. projection conditionals and<code>select()</code>. In serialized JSON, pairs are represented as arrays with two values.</p>
+<p>A pair of values, e.g. <code>&quot;a&quot; =&gt; 1</code>. Pairs can contain any combination of other types, including other pairs, and are mainly used internally with e.g. projection conditionals and<code>select()</code>.</p>
+<p>In serialized JSON, pairs are represented as a string on the form <code>fst =&gt; snd</code> where <code>fst</code> and <code>snd</code> are the serialized JSON for the first and the second expression.</p>
 <div class="spec-production" id="Pair">
 <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">=&gt;</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1494,6 +1495,7 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <p>An interval containing all values that are ordered between the start and end values. The starting value is always included, while the end may be either included or excluded. A right&#8208;inclusive range is expressed as two values separated by <code>..</code>, e.g. <code>1..3</code>, while a right&#8208;exclusive range is separated by <code>...</code>, e.g. <code>1...3</code>.</p>
 <p>Ranges can have endpoints of any comparable data type, but both endpoints must be of the same type (except integers and floats which can be used interchangeably). Ranges with incompatible or invalid endpoints types will yield <code>null</code>.</p>
 <p>Ranges are mainly used internally, e.g. with the <code>in</code> operator and array slice access operator. The endpoints may have context&#8208;dependant semantics, e.g. in array slices the range <code>[2..-1]</code> will cover the range from the third array element to the last element, while the same range is considered empty when used with <code>in</code>. For more details, see the documentation for the relevant operators.</p>
+<p>In serialized JSON, ranges are represented as a string on the form <code>start..end</code> (for inclusive ranges) and <code>start...end</code> (for exclusive ranges) where <code>start</code> and <code>end</code> are the serialized JSON for the start and the end expression.</p>
 <div class="spec-production" id="Range">
 <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#InclusiveRange" data-name="InclusiveRange">InclusiveRange</a></span></div>
 <div class="spec-rhs"><span class="spec-nt"><a href="#ExclusiveRange" data-name="ExclusiveRange">ExclusiveRange</a></span></div>
