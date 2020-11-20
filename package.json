@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rimraf spec/*.md docs/*.html",
-    "build": "export NODE_ENV=prod; npm run clean && node generateSpec",
-    "start": "npm run clean && node generateSpec"
+    "clean-html": "rimraf docs/*.html",
+    "clean-md": "rimraf spec/*.md",
+    "build": "node scripts/generate-html.js",
+    "fetch": "npm run clean-md && node scripts/fetch-spec.js",
+    "fetch-and-build": "npm run fetch && npm run build",
+    "watch": "node scripts/watch-spec.js npm run fetch-and-build"
   },
   "repository": {
     "type": "git",
@@ -25,10 +28,17 @@
     "@sanity/client": "^0.141.6",
     "dotenv": "^8.0.0",
     "groq": "^0.141.5",
+    "lodash": "^4.17.20",
     "rimraf": "^2.6.3",
     "spec-md": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "bracketSpacing": false,
+    "singleQuote": true
   }
 }
