@@ -883,6 +883,7 @@ document.documentElement.addEventListener('mouseout', removeHighlight);
 <li><a href="#sec-Object"><span class="spec-secid">4.6</span>Object</a></li>
 <li><a href="#sec-Pair"><span class="spec-secid">4.7</span>Pair</a></li>
 <li><a href="#sec-Range"><span class="spec-secid">4.8</span>Range</a></li>
+<li><a href="#sec-Datetime"><span class="spec-secid">4.9</span>Datetime</a></li>
 </ol>
 </li>
 <li><a href="#sec-Equality-and-comparison"><span class="spec-secid">5</span>Equality and comparison</a>
@@ -944,11 +945,12 @@ document.documentElement.addEventListener('mouseout', removeHighlight);
 <ol>
 <li><a href="#sec-coalesce"><span class="spec-secid">10.1</span>coalesce</a></li>
 <li><a href="#sec-count"><span class="spec-secid">10.2</span>count</a></li>
-<li><a href="#sec-defined"><span class="spec-secid">10.3</span>defined</a></li>
-<li><a href="#sec-length"><span class="spec-secid">10.4</span>length</a></li>
-<li><a href="#sec-references"><span class="spec-secid">10.5</span>references</a></li>
-<li><a href="#sec-round"><span class="spec-secid">10.6</span>round</a></li>
-<li><a href="#sec-select"><span class="spec-secid">10.7</span>select</a></li>
+<li><a href="#sec-dateTime"><span class="spec-secid">10.3</span>dateTime</a></li>
+<li><a href="#sec-defined"><span class="spec-secid">10.4</span>defined</a></li>
+<li><a href="#sec-length"><span class="spec-secid">10.5</span>length</a></li>
+<li><a href="#sec-references"><span class="spec-secid">10.6</span>references</a></li>
+<li><a href="#sec-round"><span class="spec-secid">10.7</span>round</a></li>
+<li><a href="#sec-select"><span class="spec-secid">10.8</span>select</a></li>
 </ol>
 </li>
 <li><a href="#sec-Pipe-functions"><span class="spec-secid">11</span>Pipe functions</a>
@@ -1365,12 +1367,12 @@ The following sub&#8208;section is a non&#8208;normative overview of the executi
 <section id="sec-Object" secid="4.6">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Object">4.6</a></span>Object</h3>
 <p>An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. <code>{&quot;a&quot;: 1, &quot;b&quot;: 2}</code>. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used.</p>
-<p>The values of an object literal can use the full power of expressions: </p>
+<p>The values of an object literal can use the full power of expressions:</p>
 <pre><code>*[_type == &quot;rect&quot;]{&quot;area&quot;: width * height}
 </code></pre>
 <div id="note-bb598" class="spec-note">
 <a href="#note-bb598">Note</a>
-A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span> expression is just an expression with an object literal to the right of it. </div>
+A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span> expression is just an expression with an object literal to the right of it.</div>
 <p>Object literal supports syntactical sugar when the attribute name and value is equivalent:</p>
 <pre><code>// These two are equivalent
 *[_type == &quot;person&quot;]{name}
@@ -1524,6 +1526,12 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 </ol>
 </div>
 </section>
+<section id="sec-Datetime" secid="4.9">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Datetime">4.9</a></span>Datetime</h3>
+<p>A datetime is a combination of a Gregorian&#8208;calendar date and a time in a specific time zone. Datetimes support date/time arithmetic. Only valid date/time combinations can be represented.</p>
+<p>Datetimes cannot be constructed from literals, but must be constructed with the <code>dateTime()</code> function.</p>
+<p>In serialized JSON, datetimes are represented as a string with using <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> timestamp format, e.g. <code>2006-01-02T15:04:05Z07:00</code>. </p>
+</section>
 </section>
 <section id="sec-Equality-and-comparison" secid="5">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Equality-and-comparison">5</a></span>Equality and comparison</h2>
@@ -1576,6 +1584,21 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 </li>
 </ol>
 </li>
+<li>If <var data-name="a">a</var> is a datetime, consider the datetimes as absolute points in time in the UTC time zone:<ol>
+<li>If a &lt; b:<ol>
+<li>Return <span class="spec-nt"><span data-name="Less">Less</span></span>.</li>
+</ol>
+</li>
+<li>If a &gt; b:<ol>
+<li>Return <span class="spec-nt"><span data-name="Greater">Greater</span></span>.</li>
+</ol>
+</li>
+<li>If a = b:<ol>
+<li>Return <span class="spec-nt"><span data-name="Equal">Equal</span></span>.</li>
+</ol>
+</li>
+</ol>
+</li>
 <li>If <var data-name="a">a</var> is a string:<ol>
 <li>For each Unicode code point (<var data-name="aCodePoint">aCodePoint</var>, <var data-name="bCodePoint">bCodePoint</var>) in <var data-name="a">a</var> and <var data-name="b">b</var>:<ol>
 <li>If <var data-name="aCodePoint">aCodePoint</var> &lt; <var data-name="bCodePoint">bCodePoint</var>:<ol>
@@ -1612,19 +1635,23 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <p>A total comparison between two values return either <span class="spec-nt"><span data-name="Greater">Greater</span></span>, <span class="spec-nt"><span data-name="Equal">Equal</span></span> or <span class="spec-nt"><span data-name="Less">Less</span></span>. It provides a consistent ordering of values of different types (for string, numbers and boolean) and considers all other types to be equal to each other. This is used by the <span class="spec-call"><a href="#order()" data-name="order">order</a>()</span> function.</p>
 <div class="spec-algo" id="TypeOrder()">
 <span class="spec-call"><a href="#TypeOrder()" data-name="TypeOrder">TypeOrder</a>(<var data-name="val">val</var>)</span><ol>
-<li>If <var data-name="val">val</var> is number:<ol>
+<li>If <var data-name="val">val</var> is datetime:<ol>
 <li>Return 1.</li>
 </ol>
 </li>
-<li>If <var data-name="val">val</var> is a string:<ol>
+<li>If <var data-name="val">val</var> is number:<ol>
 <li>Return 2.</li>
 </ol>
 </li>
-<li>If <var data-name="val">val</var> is a boolean:<ol>
+<li>If <var data-name="val">val</var> is a string:<ol>
 <li>Return 3.</li>
 </ol>
 </li>
+<li>If <var data-name="val">val</var> is a boolean:<ol>
 <li>Return 4.</li>
+</ol>
+</li>
+<li>Return 5.</li>
 </ol>
 </div>
 <div class="spec-algo" id="TotalCompare()">
@@ -1640,10 +1667,8 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <li>Return <span class="spec-nt"><span data-name="Equal">Equal</span></span>.</li>
 </ol>
 </li>
-<li>Otherwise:<ol>
-<li>Return <var data-name="result">result</var>.</li>
-</ol>
-</li>
+<li>Otherwise:</li>
+<li>Return <var data-name="result">result</var>. </li>
 </ol>
 </div>
 </section>
@@ -2326,6 +2351,10 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Return the merged object of <var data-name="left">left</var> and <var data-name="right">right</var>. For duplicate fields the value from <var data-name="right">right</var> takes precedence.</li>
 </ol>
 </li>
+<li>If <var data-name="left">left</var> is a datetime and <var data-name="right">right</var> is a number:<ol>
+<li>Return a new datetime that adds (or subtracts, if negative) <var data-name="right">right</var> as a number of seconds to <var data-name="left">left</var>.</li>
+</ol>
+</li>
 <li>Return <span class="spec-keyword">null</span>.</li>
 </ol>
 </div>
@@ -2343,6 +2372,14 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Let <var data-name="right">right</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rightNode">rightNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If both <var data-name="left">left</var> and <var data-name="right">right</var> are numbers:<ol>
 <li>Return the subtraction of <var data-name="left">left</var> from <var data-name="right">right</var>.</li>
+</ol>
+</li>
+<li>If both <var data-name="left">left</var> and <var data-name="right">right</var> are datetimes:<ol>
+<li>Return the difference, in seconds, between <var data-name="left">left</var> from <var data-name="right">right</var>.</li>
+</ol>
+</li>
+<li>If <var data-name="left">left</var> is a datetime and <var data-name="right">right</var> is a number:<ol>
+<li>Return a new datetime being <var data-name="left">left</var> minus <var data-name="right">right</var> as seconds.</li>
 </ol>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
@@ -2552,8 +2589,41 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </ol>
 </div>
 </section>
-<section id="sec-defined" secid="10.3">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-defined">10.3</a></span>defined</h3>
+<section id="sec-dateTime" secid="10.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-dateTime">10.3</a></span>dateTime</h3>
+<p>The <code>dateTime</code> function takes a string, returning a datetime value.</p>
+<div class="spec-algo" id="dateTime()">
+<span class="spec-call"><a href="#dateTime()" data-name="dateTime">dateTime</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="base">base</var> is a string:<ol>
+<li>Try to parse <var data-name="base">base</var> as a datetime using the <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> timestamp format.<ol>
+<li>If the input is a valid datetime:<ol>
+<li>Return the datetime.</li>
+</ol>
+</li>
+<li>Otherwise:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="dateTimeValidate()">
+<span class="spec-call"><a href="#dateTimeValidate()" data-name="dateTimeValidate">dateTimeValidate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
+</section>
+<section id="sec-defined" secid="10.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-defined">10.4</a></span>defined</h3>
 <p>The defined function checks if the argument is not <span class="spec-keyword">null</span>.</p>
 <div class="spec-algo" id="defined()">
 <span class="spec-call"><a href="#defined()" data-name="defined">defined</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2578,8 +2648,8 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </ol>
 </div>
 </section>
-<section id="sec-length" secid="10.4">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-length">10.4</a></span>length</h3>
+<section id="sec-length" secid="10.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-length">10.5</a></span>length</h3>
 <p>The length function returns the length of a string or an array.</p>
 <div class="spec-algo" id="length()">
 <span class="spec-call"><a href="#length()" data-name="length">length</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2605,8 +2675,8 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </ol>
 </div>
 </section>
-<section id="sec-references" secid="10.5">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-references">10.5</a></span>references</h3>
+<section id="sec-references" secid="10.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-references">10.6</a></span>references</h3>
 <p>The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.</p>
 <div class="spec-algo" id="references()">
 <span class="spec-call"><a href="#references()" data-name="references">references</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2662,8 +2732,8 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </ol>
 </div>
 </section>
-<section id="sec-round" secid="10.6">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-round">10.6</a></span>round</h3>
+<section id="sec-round" secid="10.7">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-round">10.7</a></span>round</h3>
 <p>The round function accepts a number and rounds it to a certain precision.</p>
 <div class="spec-algo" id="round()">
 <span class="spec-call"><a href="#round()" data-name="round">round</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2698,8 +2768,8 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </ol>
 </div>
 </section>
-<section id="sec-select" secid="10.7">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-select">10.7</a></span>select</h3>
+<section id="sec-select" secid="10.8">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-select">10.8</a></span>select</h3>
 <p>The select function chooses takes a variable number of arguments that are either pairs or any other type and iterates over them. When encountering a pair whose left&#8208;hand value evaluates to <span class="spec-keyword">true</span>, the right&#8208;hand value is returned immediately. When encountering a non&#8208;pair argument, that argument is returned immediately. Falls back to returning <span class="spec-keyword">null</span>.</p>
 <div class="spec-algo" id="select()">
 <span class="spec-call"><a href="#select()" data-name="select">select</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2815,7 +2885,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <p>The identity function should accept zero arguments and return a string which represents the identity of the client executing the query.</p>
 </section>
 </section>
-<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#And">And</a></li><li><a href="#Array">Array</a></li><li><a href="#ArrayElement">ArrayElement</a></li><li><a href="#ArrayElements">ArrayElements</a></li><li><a href="#Asc">Asc</a></li><li><a href="#AttributeAccess">AttributeAccess</a></li><li><a href="#Boolean">Boolean</a></li><li><a href="#Comment">Comment</a></li><li><a href="#CommentChar">CommentChar</a></li><li><a href="#Comparison">Comparison</a></li><li><a href="#ComparisonOperator">ComparisonOperator</a></li><li><a href="#CompoundExpression">CompoundExpression</a></li><li><a href="#Decimal">Decimal</a></li><li><a href="#Dereference">Dereference</a></li><li><a href="#Desc">Desc</a></li><li><a href="#DetermineName()">DetermineName</a></li><li><a href="#Digit">Digit</a></li><li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li><li><a href="#ElementAccess">ElementAccess</a></li><li><a href="#Equal()">Equal</a></li><li><a href="#Equality">Equality</a></li><li><a href="#EqualityOperator">EqualityOperator</a></li><li><a href="#EscapeSequence">EscapeSequence</a></li><li><a href="#Evaluate()">Evaluate</a></li><li><a href="#EvaluateAnd()">EvaluateAnd</a></li><li><a href="#EvaluateArray()">EvaluateArray</a></li><li><a href="#EvaluateAttributeAccess()">EvaluateAttributeAccess</a></li><li><a href="#EvaluateComparison()">EvaluateComparison</a></li><li><a href="#EvaluateDereference()">EvaluateDereference</a></li><li><a href="#EvaluateElementAccess()">EvaluateElementAccess</a></li><li><a href="#EvaluateEquality()">EvaluateEquality</a></li><li><a href="#EvaluateEverything()">EvaluateEverything</a></li><li><a href="#EvaluateFilter()">EvaluateFilter</a></li><li><a href="#EvaluateFuncCall()">EvaluateFuncCall</a></li><li><a href="#EvaluateIn()">EvaluateIn</a></li><li><a href="#EvaluateMatch()">EvaluateMatch</a></li><li><a href="#EvaluateMinus()">EvaluateMinus</a></li><li><a href="#EvaluateNot()">EvaluateNot</a></li><li><a href="#EvaluateObject()">EvaluateObject</a></li><li><a href="#EvaluateOr()">EvaluateOr</a></li><li><a href="#EvaluatePair()">EvaluatePair</a></li><li><a href="#EvaluateParent()">EvaluateParent</a></li><li><a href="#EvaluateParenthesis()">EvaluateParenthesis</a></li><li><a href="#EvaluatePercent()">EvaluatePercent</a></li><li><a href="#EvaluatePipeFuncCall()">EvaluatePipeFuncCall</a></li><li><a href="#EvaluatePlus()">EvaluatePlus</a></li><li><a href="#EvaluateProjection()">EvaluateProjection</a></li><li><a href="#EvaluateRange()">EvaluateRange</a></li><li><a href="#EvaluateSlash()">EvaluateSlash</a></li><li><a href="#EvaluateSlice()">EvaluateSlice</a></li><li><a href="#EvaluateStar()">EvaluateStar</a></li><li><a href="#EvaluateStarStar()">EvaluateStarStar</a></li><li><a href="#EvaluateThis()">EvaluateThis</a></li><li><a href="#EvaluateThisAttribute()">EvaluateThisAttribute</a></li><li><a href="#EvaluateUnaryMinus()">EvaluateUnaryMinus</a></li><li><a href="#EvaluateUnaryPlus()">EvaluateUnaryPlus</a></li><li><a href="#Everything">Everything</a></li><li><a href="#ExclusiveRange">ExclusiveRange</a></li><li><a href="#ExecuteQuery()">ExecuteQuery</a></li><li><a href="#ExponentMarker">ExponentMarker</a></li><li><a href="#Expression">Expression</a></li><li><a href="#Filter">Filter</a></li><li><a href="#Fractional">Fractional</a></li><li><a href="#FuncCall">FuncCall</a></li><li><a href="#FuncCallArgs">FuncCallArgs</a></li><li><a href="#HasReferenceTo()">HasReferenceTo</a></li><li><a href="#HexDigit">HexDigit</a></li><li><a href="#HexLetter">HexLetter</a></li><li><a href="#Identifier">Identifier</a></li><li><a href="#In">In</a></li><li><a href="#InclusiveRange">InclusiveRange</a></li><li><a href="#Integer">Integer</a></li><li><a href="#Literal">Literal</a></li><li><a href="#Match">Match</a></li><li><a href="#MatchAnalyzePattern()">MatchAnalyzePattern</a></li><li><a href="#MatchTokenize()">MatchTokenize</a></li><li><a href="#Minus">Minus</a></li><li><a href="#NewNestedScope()">NewNestedScope</a></li><li><a href="#NewRootScope()">NewRootScope</a></li><li><a href="#Not">Not</a></li><li><a href="#Null">Null</a></li><li><a href="#Number">Number</a></li><li><a href="#Object">Object</a></li><li><a href="#ObjectAttribute">ObjectAttribute</a></li><li><a href="#ObjectAttributes">ObjectAttributes</a></li><li><a href="#OperatorCall">OperatorCall</a></li><li><a href="#Or">Or</a></li><li><a href="#Pair">Pair</a></li><li><a href="#Parent">Parent</a></li><li><a href="#Parenthesis">Parenthesis</a></li><li><a href="#PartialCompare()">PartialCompare</a></li><li><a href="#Percent">Percent</a></li><li><a href="#PipeFuncCall">PipeFuncCall</a></li><li><a href="#Plus">Plus</a></li><li><a href="#Projection">Projection</a></li><li><a href="#Range">Range</a></li><li><a href="#ScientificNotation">ScientificNotation</a></li><li><a href="#Sign">Sign</a></li><li><a href="#SimpleExpression">SimpleExpression</a></li><li><a href="#SingleEscapeSequence">SingleEscapeSequence</a></li><li><a href="#SingleStringCharacter">SingleStringCharacter</a></li><li><a href="#Slash">Slash</a></li><li><a href="#Slice">Slice</a></li><li><a href="#SourceCharacter">SourceCharacter</a></li><li><a href="#Star">Star</a></li><li><a href="#StarStar">StarStar</a></li><li><a href="#String">String</a></li><li><a href="#This">This</a></li><li><a href="#ThisAttribute">ThisAttribute</a></li><li><a href="#TotalCompare()">TotalCompare</a></li><li><a href="#TypeOrder()">TypeOrder</a></li><li><a href="#UnaryMinus">UnaryMinus</a></li><li><a href="#UnaryPlus">UnaryPlus</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li><li><a href="#Validate()">Validate</a></li><li><a href="#ValidateAsc()">ValidateAsc</a></li><li><a href="#ValidateDesc()">ValidateDesc</a></li><li><a href="#ValidateFuncCall()">ValidateFuncCall</a></li><li><a href="#ValidateObject()">ValidateObject</a></li><li><a href="#ValidateObjectAttribute()">ValidateObjectAttribute</a></li><li><a href="#ValidatePipeFuncCall()">ValidatePipeFuncCall</a></li><li><a href="#WhiteSpace">WhiteSpace</a></li><li><a href="#coalesce()">coalesce</a></li><li><a href="#count()">count</a></li><li><a href="#countValidate()">countValidate</a></li><li><a href="#defined()">defined</a></li><li><a href="#definedValidate()">definedValidate</a></li><li><a href="#length()">length</a></li><li><a href="#lengthValidate()">lengthValidate</a></li><li><a href="#order()">order</a></li><li><a href="#orderValidate()">orderValidate</a></li><li><a href="#references()">references</a></li><li><a href="#referencesValidate()">referencesValidate</a></li><li><a href="#round()">round</a></li><li><a href="#roundValidate()">roundValidate</a></li><li><a href="#select()">select</a></li><li><a href="#selectValidate()">selectValidate</a></li></ol></section></article>
+<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#And">And</a></li><li><a href="#Array">Array</a></li><li><a href="#ArrayElement">ArrayElement</a></li><li><a href="#ArrayElements">ArrayElements</a></li><li><a href="#Asc">Asc</a></li><li><a href="#AttributeAccess">AttributeAccess</a></li><li><a href="#Boolean">Boolean</a></li><li><a href="#Comment">Comment</a></li><li><a href="#CommentChar">CommentChar</a></li><li><a href="#Comparison">Comparison</a></li><li><a href="#ComparisonOperator">ComparisonOperator</a></li><li><a href="#CompoundExpression">CompoundExpression</a></li><li><a href="#Decimal">Decimal</a></li><li><a href="#Dereference">Dereference</a></li><li><a href="#Desc">Desc</a></li><li><a href="#DetermineName()">DetermineName</a></li><li><a href="#Digit">Digit</a></li><li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li><li><a href="#ElementAccess">ElementAccess</a></li><li><a href="#Equal()">Equal</a></li><li><a href="#Equality">Equality</a></li><li><a href="#EqualityOperator">EqualityOperator</a></li><li><a href="#EscapeSequence">EscapeSequence</a></li><li><a href="#Evaluate()">Evaluate</a></li><li><a href="#EvaluateAnd()">EvaluateAnd</a></li><li><a href="#EvaluateArray()">EvaluateArray</a></li><li><a href="#EvaluateAttributeAccess()">EvaluateAttributeAccess</a></li><li><a href="#EvaluateComparison()">EvaluateComparison</a></li><li><a href="#EvaluateDereference()">EvaluateDereference</a></li><li><a href="#EvaluateElementAccess()">EvaluateElementAccess</a></li><li><a href="#EvaluateEquality()">EvaluateEquality</a></li><li><a href="#EvaluateEverything()">EvaluateEverything</a></li><li><a href="#EvaluateFilter()">EvaluateFilter</a></li><li><a href="#EvaluateFuncCall()">EvaluateFuncCall</a></li><li><a href="#EvaluateIn()">EvaluateIn</a></li><li><a href="#EvaluateMatch()">EvaluateMatch</a></li><li><a href="#EvaluateMinus()">EvaluateMinus</a></li><li><a href="#EvaluateNot()">EvaluateNot</a></li><li><a href="#EvaluateObject()">EvaluateObject</a></li><li><a href="#EvaluateOr()">EvaluateOr</a></li><li><a href="#EvaluatePair()">EvaluatePair</a></li><li><a href="#EvaluateParent()">EvaluateParent</a></li><li><a href="#EvaluateParenthesis()">EvaluateParenthesis</a></li><li><a href="#EvaluatePercent()">EvaluatePercent</a></li><li><a href="#EvaluatePipeFuncCall()">EvaluatePipeFuncCall</a></li><li><a href="#EvaluatePlus()">EvaluatePlus</a></li><li><a href="#EvaluateProjection()">EvaluateProjection</a></li><li><a href="#EvaluateRange()">EvaluateRange</a></li><li><a href="#EvaluateSlash()">EvaluateSlash</a></li><li><a href="#EvaluateSlice()">EvaluateSlice</a></li><li><a href="#EvaluateStar()">EvaluateStar</a></li><li><a href="#EvaluateStarStar()">EvaluateStarStar</a></li><li><a href="#EvaluateThis()">EvaluateThis</a></li><li><a href="#EvaluateThisAttribute()">EvaluateThisAttribute</a></li><li><a href="#EvaluateUnaryMinus()">EvaluateUnaryMinus</a></li><li><a href="#EvaluateUnaryPlus()">EvaluateUnaryPlus</a></li><li><a href="#Everything">Everything</a></li><li><a href="#ExclusiveRange">ExclusiveRange</a></li><li><a href="#ExecuteQuery()">ExecuteQuery</a></li><li><a href="#ExponentMarker">ExponentMarker</a></li><li><a href="#Expression">Expression</a></li><li><a href="#Filter">Filter</a></li><li><a href="#Fractional">Fractional</a></li><li><a href="#FuncCall">FuncCall</a></li><li><a href="#FuncCallArgs">FuncCallArgs</a></li><li><a href="#HasReferenceTo()">HasReferenceTo</a></li><li><a href="#HexDigit">HexDigit</a></li><li><a href="#HexLetter">HexLetter</a></li><li><a href="#Identifier">Identifier</a></li><li><a href="#In">In</a></li><li><a href="#InclusiveRange">InclusiveRange</a></li><li><a href="#Integer">Integer</a></li><li><a href="#Literal">Literal</a></li><li><a href="#Match">Match</a></li><li><a href="#MatchAnalyzePattern()">MatchAnalyzePattern</a></li><li><a href="#MatchTokenize()">MatchTokenize</a></li><li><a href="#Minus">Minus</a></li><li><a href="#NewNestedScope()">NewNestedScope</a></li><li><a href="#NewRootScope()">NewRootScope</a></li><li><a href="#Not">Not</a></li><li><a href="#Null">Null</a></li><li><a href="#Number">Number</a></li><li><a href="#Object">Object</a></li><li><a href="#ObjectAttribute">ObjectAttribute</a></li><li><a href="#ObjectAttributes">ObjectAttributes</a></li><li><a href="#OperatorCall">OperatorCall</a></li><li><a href="#Or">Or</a></li><li><a href="#Pair">Pair</a></li><li><a href="#Parent">Parent</a></li><li><a href="#Parenthesis">Parenthesis</a></li><li><a href="#PartialCompare()">PartialCompare</a></li><li><a href="#Percent">Percent</a></li><li><a href="#PipeFuncCall">PipeFuncCall</a></li><li><a href="#Plus">Plus</a></li><li><a href="#Projection">Projection</a></li><li><a href="#Range">Range</a></li><li><a href="#ScientificNotation">ScientificNotation</a></li><li><a href="#Sign">Sign</a></li><li><a href="#SimpleExpression">SimpleExpression</a></li><li><a href="#SingleEscapeSequence">SingleEscapeSequence</a></li><li><a href="#SingleStringCharacter">SingleStringCharacter</a></li><li><a href="#Slash">Slash</a></li><li><a href="#Slice">Slice</a></li><li><a href="#SourceCharacter">SourceCharacter</a></li><li><a href="#Star">Star</a></li><li><a href="#StarStar">StarStar</a></li><li><a href="#String">String</a></li><li><a href="#This">This</a></li><li><a href="#ThisAttribute">ThisAttribute</a></li><li><a href="#TotalCompare()">TotalCompare</a></li><li><a href="#TypeOrder()">TypeOrder</a></li><li><a href="#UnaryMinus">UnaryMinus</a></li><li><a href="#UnaryPlus">UnaryPlus</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li><li><a href="#Validate()">Validate</a></li><li><a href="#ValidateAsc()">ValidateAsc</a></li><li><a href="#ValidateDesc()">ValidateDesc</a></li><li><a href="#ValidateFuncCall()">ValidateFuncCall</a></li><li><a href="#ValidateObject()">ValidateObject</a></li><li><a href="#ValidateObjectAttribute()">ValidateObjectAttribute</a></li><li><a href="#ValidatePipeFuncCall()">ValidatePipeFuncCall</a></li><li><a href="#WhiteSpace">WhiteSpace</a></li><li><a href="#coalesce()">coalesce</a></li><li><a href="#count()">count</a></li><li><a href="#countValidate()">countValidate</a></li><li><a href="#dateTime()">dateTime</a></li><li><a href="#dateTimeValidate()">dateTimeValidate</a></li><li><a href="#defined()">defined</a></li><li><a href="#definedValidate()">definedValidate</a></li><li><a href="#length()">length</a></li><li><a href="#lengthValidate()">lengthValidate</a></li><li><a href="#order()">order</a></li><li><a href="#orderValidate()">orderValidate</a></li><li><a href="#references()">references</a></li><li><a href="#referencesValidate()">referencesValidate</a></li><li><a href="#round()">round</a></li><li><a href="#roundValidate()">roundValidate</a></li><li><a href="#select()">select</a></li><li><a href="#selectValidate()">selectValidate</a></li></ol></section></article>
 <footer>
 Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</footer>
 <input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden>&#x2630;</label>
@@ -2856,6 +2926,7 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_4.6"><a href="#sec-Object"><span class="spec-secid">4.6</span>Object</a></li>
 <li id="_sidebar_4.7"><a href="#sec-Pair"><span class="spec-secid">4.7</span>Pair</a></li>
 <li id="_sidebar_4.8"><a href="#sec-Range"><span class="spec-secid">4.8</span>Range</a></li>
+<li id="_sidebar_4.9"><a href="#sec-Datetime"><span class="spec-secid">4.9</span>Datetime</a></li>
 </ol>
 </li>
 <li id="_sidebar_5"><a href="#sec-Equality-and-comparison"><span class="spec-secid">5</span>Equality and comparison</a>
@@ -2917,11 +2988,12 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <ol>
 <li id="_sidebar_10.1"><a href="#sec-coalesce"><span class="spec-secid">10.1</span>coalesce</a></li>
 <li id="_sidebar_10.2"><a href="#sec-count"><span class="spec-secid">10.2</span>count</a></li>
-<li id="_sidebar_10.3"><a href="#sec-defined"><span class="spec-secid">10.3</span>defined</a></li>
-<li id="_sidebar_10.4"><a href="#sec-length"><span class="spec-secid">10.4</span>length</a></li>
-<li id="_sidebar_10.5"><a href="#sec-references"><span class="spec-secid">10.5</span>references</a></li>
-<li id="_sidebar_10.6"><a href="#sec-round"><span class="spec-secid">10.6</span>round</a></li>
-<li id="_sidebar_10.7"><a href="#sec-select"><span class="spec-secid">10.7</span>select</a></li>
+<li id="_sidebar_10.3"><a href="#sec-dateTime"><span class="spec-secid">10.3</span>dateTime</a></li>
+<li id="_sidebar_10.4"><a href="#sec-defined"><span class="spec-secid">10.4</span>defined</a></li>
+<li id="_sidebar_10.5"><a href="#sec-length"><span class="spec-secid">10.5</span>length</a></li>
+<li id="_sidebar_10.6"><a href="#sec-references"><span class="spec-secid">10.6</span>references</a></li>
+<li id="_sidebar_10.7"><a href="#sec-round"><span class="spec-secid">10.7</span>round</a></li>
+<li id="_sidebar_10.8"><a href="#sec-select"><span class="spec-secid">10.8</span>select</a></li>
 </ol>
 </li>
 <li id="_sidebar_11"><a href="#sec-Pipe-functions"><span class="spec-secid">11</span>Pipe functions</a>
