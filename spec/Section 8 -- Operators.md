@@ -228,6 +228,8 @@ EvaluatePlus(scope):
   * Return the concatenation of {left} and {right}.
 * If both {left} and {right} are objects:
   * Return the merged object of {left} and {right}. For duplicate fields the value from {right} takes precedence.
+* If {left} is a datetime and {right} is a number:
+  * Return a new datetime that adds (or subtracts, if negative) {right} as a number of seconds to {left}.
 * Return {null}.
 
 ## Binary minus operator
@@ -242,6 +244,10 @@ EvaluateMinus(scope):
 * Let {right} be the result of {Evaluate(rightNode, scope)}.
 * If both {left} and {right} are numbers:
   * Return the subtraction of {left} from {right}.
+* If both {left} and {right} are datetimes:
+  * Return the difference, in seconds, between {left} from {right}.
+* If {left} is a datetime and {right} is a number:
+  * Return a new datetime being {left} minus {right} as seconds.
 * Return {null}.
 
 ## Binary star operator
