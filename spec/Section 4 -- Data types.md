@@ -250,7 +250,7 @@ EvaluateRange(scope):
 
 ## Datetime
 
-A datetime is a combination of a Georgian-calendar date and a time in a specific time zone. Datetimes support date/time arithmetic. Only valid date/time combinations can be represented.
+A datetime is a combination of a Gregorian-calendar date and a time in a specific time zone. Datetimes support date/time arithmetic. Only valid date/time combinations can be represented.
 
 Datetimes cannot be constructed from literals, but must be constructed with the `dateTime()` function.
 
