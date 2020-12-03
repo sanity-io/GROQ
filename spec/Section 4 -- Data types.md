@@ -122,13 +122,13 @@ EvaluateArray(scope):
 
 An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. `{"a": 1, "b": 2}`. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used.
 
-The values of an object literal can use the full power of expressions: 
+The values of an object literal can use the full power of expressions:
 
 ```
 *[_type == "rect"]{"area": width * height}
 ```
 
-Note: A {Projection} expression is just an expression with an object literal to the right of it. 
+Note: A {Projection} expression is just an expression with an object literal to the right of it.
 
 Object literal supports syntactical sugar when the attribute name and value is equivalent:
 
@@ -248,3 +248,10 @@ EvaluateRange(scope):
 * Mark the range as inclusive or exclusive.
 * Return {result}.
 
+## Datetime
+
+A datetime is a combination of a Georgian-calendar date and a time in a specific time zone. Datetimes support date/time arithmetic. Only valid date/time combinations can be represented.
+
+Datetimes cannot be constructed from literals, but must be constructed with the `dateTime()` function.
+
+In serialized JSON, datetimes are represented as a string with using [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format, e.g. `2006-01-02T15:04:05Z07:00`.
