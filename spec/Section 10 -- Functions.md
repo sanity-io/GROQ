@@ -49,10 +49,8 @@ dateTime(args, scope):
 * Let {base} be the result of {Evaluate(baseNode, scope)}.
 * If {base} is a string:
   * Try to parse {base} as a datetime using the [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
-    * If the input is a valid datetime:
+  * If the input is a valid datetime:
       * Return the datetime.
-    * Otherwise:
-      * Return {null}.
 * Return {null}.
 
 dateTimeValidate(args):

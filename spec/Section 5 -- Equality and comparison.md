@@ -29,14 +29,14 @@ PartialCompare(a, b):
 
 * If the type of {a} is different from the type of {b}:
   * Return {null}.
-* If {a} is a number:
+* If {a} is a datetime, consider the datetimes as absolute points in time in the UTC time zone:
   * If a < b:
       * Return {Less}.
   * If a > b:
       * Return {Greater}.
   * If a = b:
       * Return {Equal}.
-* If {a} is a datetime, consider the datetimes as absolute points in time in the UTC time zone:
+* If  {a} is a number:
   * If a < b:
       * Return {Less}.
   * If a > b:
@@ -64,9 +64,9 @@ A total comparison between two values return either {Greater}, {Equal} or {Less}
 
 TypeOrder(val):
 
-* If {val} is datetime:
+* If {val} is a datetime:
   * Return 1.
-* If {val} is number:
+* If {val} is a number:
   * Return 2.
 * If {val} is a string:
   * Return 3.
@@ -85,3 +85,4 @@ TotalCompare(a, b):
   * Return {Equal}.
 * Otherwise:
   * Return {result}.
+

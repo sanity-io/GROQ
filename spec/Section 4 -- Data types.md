@@ -252,6 +252,7 @@ EvaluateRange(scope):
 
 A datetime is a combination of a Gregorian-calendar date and a time in a specific time zone. Datetimes support date/time arithmetic. Only valid date/time combinations can be represented.
 
-Datetimes cannot be constructed from literals, but must be constructed with the `dateTime()` function.
+Datetimes cannot be constructed from literals, but must be constructed with the {dateTime} function.
 
 In serialized JSON, datetimes are represented as a string with using [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format, e.g. `2006-01-02T15:04:05Z07:00`.
+
