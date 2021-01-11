@@ -112,4 +112,3 @@ ValidateFuncCall():
 * Let {args} be an array of the {Expression}s in {FuncCallArgs}.
 * Let {validator} be the validator for the function under the name {name}.
 * Execute {validator(args)}.
-

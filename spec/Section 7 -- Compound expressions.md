@@ -189,4 +189,3 @@ ValidatePipeFuncCall():
 * Let {args} be an array of the {Expression}s in the {FuncCallArgs} of the {FuncCall}.
 * Let {validator} be the validator for the pipe function under the name {name}.
 * Execute {validator(args)}.
-

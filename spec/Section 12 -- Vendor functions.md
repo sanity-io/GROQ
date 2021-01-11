@@ -8,4 +8,3 @@ An implementation is free to introduce additional functions than what is present
 ## identity()
 
 The identity function should accept zero arguments and return a string which represents the identity of the client executing the query.
-

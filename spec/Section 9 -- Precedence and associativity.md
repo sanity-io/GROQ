@@ -19,4 +19,3 @@ From highest to lowest:
 * Level 3, left-associative: `&&`.
 * Level 2, left-associative: `||`.
 * Level 1, non-associative: `=>`.
-

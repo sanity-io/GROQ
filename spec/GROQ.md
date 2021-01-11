@@ -34,7 +34,6 @@ A conforming implementation of GROQ may provide additional functionality, but mu
 Algorithm steps phrased in imperative grammar (e.g. “Return the result”) are to be interpreted with the same level of requirement as the algorithm it is contained within. Any algorithm referenced within an algorithm step (e.g. “Let completedResult be the result of calling CompleteValue()”) is to be interpreted as having at least the same level of requirement as the algorithm containing that step.
 
 Conformance requirements expressed as algorithms can be fulfilled by an implementation of this specification in any way as long as the perceived result is equivalent. Algorithms described in this document are written to be easy to understand. Implementers are encouraged to include equivalent but optimized implementations.
-
 # [Overview](Section%201%20--%20Overview.md)
 
 # [Syntax](Section%202%20--%20Syntax.md)

@@ -47,4 +47,3 @@ orderValidate(args):
 
 * If the length of {args} is 0:
   * Report an error.
-

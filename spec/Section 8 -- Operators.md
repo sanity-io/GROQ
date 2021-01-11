@@ -338,4 +338,3 @@ EvaluateDereference(scope):
   * Otherwise:
       * Return {null}.
 * Return {result}.
-

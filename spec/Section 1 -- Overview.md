@@ -34,4 +34,3 @@ Will result in the following JSON document:
   { "name": "Rocket"}
 ]
 ```
-

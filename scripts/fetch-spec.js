@@ -49,7 +49,6 @@ function chapterTemplate({title, body}) {
 -------
 
 ${PortableText(body, {serializers})}
-
 `
 }
 

@@ -93,4 +93,3 @@ ExecuteQuery(query, context):
 * Let {expr} be the expression of {query}.
 * Let {result} be the result of {Evalute(expr, scope)}.
 * Return {result}.
-

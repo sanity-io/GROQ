@@ -85,4 +85,3 @@ TotalCompare(a, b):
   * Return {Equal}.
 * Otherwise:
   * Return {result}.
-

@@ -205,4 +205,3 @@ stringValidate(args):
 
 * If the length of {args} is not 1:
   * Report an error.
-
