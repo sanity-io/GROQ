@@ -66,7 +66,7 @@ async function generateDocs() {
       return `# [${title}](${encodeURI(generateSectionFileName(title, i))}.md)\n\n`
     })
     .join('')
-  await writeMDFile('GROQ', chapterTemplate(GROQ) + toc)
+  await writeMDFile('GROQ', chapterTemplate(GROQ) + '\n' + toc)
   await Promise.all(
     chapters.map(({title, body}, i) => {
       const md = chapterTemplate({title, body})
