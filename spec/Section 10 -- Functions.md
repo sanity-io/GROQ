@@ -194,12 +194,12 @@ string(args, scope):
   * Return the string `"true"`
 * If {val} is {false}:
   * Return the string `"false"`
-* If {val} is {null}:
-  * Return the string `"null"`
 * If {val} is a string:
   * Return {val}.
 * If {val} is a number:
   * Return a string representation of the number.
+* If {val} is a datetime:
+  * Return the datetime in the [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format with a Z suffix.
 * Otherwise:
   * Return {null}.
 
