@@ -101,34 +101,42 @@ The references function implicitly takes this value of the current scope and rec
 
 references(args, scope):
 
-* Let {pathNode} be the first element of {args}.
-* Let {path} be the result of {Evaluate(pathNode, scope)}.
-* If {path} is not a string:
+* Let {pathSet} be an empty array.
+* For each {arg} of {args}:
+  * Let {path} be the result of {Evaluate(arg, scope)}.
+  * If {path} is a string:
+      * Append {path} to {pathSet}.
+  * If {path} is an array:
+      * Concatenate all strings of {path} to {pathSet}.
+* If {pathSet} is empty:
   * Return {false}.
 * Let {base} be the this value of {scope}.
-* Return the result of {HasReferenceTo(base, path)}.
+* Return the result of {HasReferenceTo(base, pathSet)}.
 
-HasReferenceTo(base, path):
+HasReferenceTo(base, pathSet):
 
 * If {base} is an array:
   * For each {value} in {base}:
-      * Let {result} be the result of {HasReferenceTo(value, base)}.
+      * Let {result} be the result of {HasReferenceTo(value, pathSet)}.
     * If {result} is {true}:
           * Return {true}.
   * Return {false}.
 * If {base} is an object:
   * If {base} has an attribute "_ref":
       * Let {ref} be the value of the attribute "_ref" in {base}.
-    * Return the result of {Equal(ref, path)}.
+    * If {ref} exists in {pathSet}:
+          * Return {true}.
+    * Otherwise:
+          * Return {false}.
   * For each {key} and {value} in {base}:
-      * Let {result} be the result of {HasReferenceTo(value, base)}.
+      * Let {result} be the result of {HasReferenceTo(value, pathSet)}.
     * If {result} is {true}:
           * Return {true}.
 * Return {false}.
 
 referencesValidate(args):
 
-* If the length of {args} is not 1:
+* If the length of {args} is 0:
   * Report an error.
 
 ## round
