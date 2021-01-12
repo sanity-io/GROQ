@@ -8,3 +8,7 @@ An implementation is free to introduce additional functions than what is present
 ## identity()
 
 The identity function should accept zero arguments and return a string which represents the identity of the client executing the query.
+
+## path()
+
+The path function should accept a single argument and return a path object.
