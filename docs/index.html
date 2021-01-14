@@ -1530,9 +1530,14 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 </section>
 <section id="sec-Datetime" secid="4.9">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Datetime">4.9</a></span>Datetime</h3>
-<p>A datetime is a combination of a Gregorian&#8208;calendar date and a time in a specific time zone. Datetimes support date/time arithmetic. Only valid date/time combinations can be represented.</p>
+<p>A datetime is a combination of a Gregorian&#8208;calendar date and a time in UTC. It&rsquo;s stored in millisecond precision, but an implementation can choose to support even finer granularity. Datetimes support date/time arithmetic. Only valid date/time combinations can be represented.</p>
 <p>Datetimes cannot be constructed from literals, but must be constructed with the <var data-name="dateTime">dateTime</var> function.</p>
-<p>In serialized JSON, datetimes are represented as a string with using <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> timestamp format, e.g. <code>2006-01-02T15:04:05Z07:00</code>. </p>
+<p>In serialized JSON, datetimes are represented as a string with using <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> timestamp format, e.g. <code>2006-01-02T15:04:05Z</code> using the following rules:</p>
+<ol>
+<li>If there is no millisecond information in the datetime, format it without any fractional digits: <code>2006-01-02T15:04:05Z</code></li>
+<li>If there is millisecond information in the datetime, format it with 3 fractional digits: <code>2006-01-02T15:04:05.508Z</code></li>
+<li>If the datetime contains even finer granularity, it&rsquo;s implementation dependent how the additional fractional digits are formatted. </li>
+</ol>
 </section>
 </section>
 <section id="sec-Equality-and-comparison" secid="5">
