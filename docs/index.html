@@ -952,6 +952,8 @@ document.documentElement.addEventListener('mouseout', removeHighlight);
 <li><a href="#sec-round"><span class="spec-secid">10.7</span>round</a></li>
 <li><a href="#sec-select"><span class="spec-secid">10.8</span>select</a></li>
 <li><a href="#sec-string"><span class="spec-secid">10.9</span>string</a></li>
+<li><a href="#sec-lower"><span class="spec-secid">10.10</span>lower</a></li>
+<li><a href="#sec-upper"><span class="spec-secid">10.11</span>upper</a></li>
 </ol>
 </li>
 <li><a href="#sec-Pipe-functions"><span class="spec-secid">11</span>Pipe functions</a>
@@ -1759,12 +1761,21 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 </section>
 <section id="sec-Function-call-expression" secid="6.5">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Function-call-expression">6.5</a></span>Function call expression</h3>
-<p>GROQ comes with a set of built&#8208;in functions which provides additional features. See the <a href="#sec-Functions">&ldquo;Functions&rdquo;</a> for available functions.</p>
+<p>GROQ comes with a set of built&#8208;in functions which provides additional features. See the <a href="#sec-Functions">&ldquo;Functions&rdquo;</a> for available functions and their namespaces.</p>
 <pre><code>*{&quot;score&quot;: round(score, 2)}
+           ~~~~~~~~~~~~~~~
+
+*{&quot;description&quot;: string::lower(description)}
            ~~~~~~~~~~~~~~~
 </code></pre>
 <div class="spec-production" id="FuncCall">
-<span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span><span class="spec-t">(</span><span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span><span class="spec-t">)</span></div>
+<span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span><div class="spec-rhs"><span class="spec-quantified"><span class="spec-nt"><a href="#FuncNamespace" data-name="FuncNamespace">FuncNamespace</a></span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span><span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span><span class="spec-t">(</span><span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span><span class="spec-t">)</span></div>
+</div>
+<div class="spec-production" id="FuncNamespace">
+<span class="spec-nt"><a href="#FuncNamespace" data-name="FuncNamespace">FuncNamespace</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span><span class="spec-prose">::</span></div>
+</div>
+<div class="spec-production" id="FuncIdentifier">
+<span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span></div>
 </div>
 <div class="spec-production" id="FuncCallArgs">
 <span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
@@ -1772,21 +1783,27 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 </div>
 <div class="spec-algo" id="EvaluateFuncCall()">
 <span class="spec-call"><a href="#EvaluateFuncCall()" data-name="EvaluateFuncCall">EvaluateFuncCall</a>(<var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>.</li>
+<li>Let <var data-name="namespace">namespace</var> be the string value of the <span class="spec-nt"><a href="#FuncNamespace" data-name="FuncNamespace">FuncNamespace</a></span>.</li>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span>.</li>
 <li>Let <var data-name="args">args</var> be an empty array.</li>
 <li>For each <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> in <span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span>:<ol>
 <li>Let <var data-name="argumentNode">argumentNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
 <li>Append <var data-name="argumentNode">argumentNode</var> to <var data-name="args">args</var>.</li>
 </ol>
 </li>
-<li>Let <var data-name="func">func</var> be the function defined under the name <var data-name="name">name</var>.</li>
+<li>Let <var data-name="func">func</var> be the function defined under the name <var data-name="name">name</var> in <var data-name="namespace">namespace</var> namespace.</li>
 <li>Return the result of <span class="spec-call"><span data-name="func">func</span>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span>.</li>
 </ol>
 </div>
 <div class="spec-algo" id="ValidateFuncCall()">
 <span class="spec-call"><a href="#ValidateFuncCall()" data-name="ValidateFuncCall">ValidateFuncCall</a>()</span><ol>
-<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>.</li>
-<li>If there is no function named <var data-name="name">name</var>:<ol>
+<li>Let <var data-name="namespace">namespace</var> be the string value of the <span class="spec-nt"><a href="#FuncNamespace" data-name="FuncNamespace">FuncNamespace</a></span>.</li>
+<li>If there is no namespace named <var data-name="namespace">namespace</var>:<ol>
+<li>Stop and report an error.</li>
+</ol>
+</li>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span>.</li>
+<li>If there is no function named <var data-name="name">name</var> defined in <var data-name="namespace">namespace</var>:<ol>
 <li>Stop and report an error.</li>
 </ol>
 </li>
@@ -2548,327 +2565,338 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <section id="sec-Functions" secid="10">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Functions">10</a></span>Functions</h2>
 <p>Functions provide additional functionalty to GROQ queries. They are invoked through a <a href="#sec-Function-call-expression">Function call expression</a>. Note that function arguments are not evaluated eagerly, and it&rsquo;s up to the function to decide which scope the arguments are evaluated it. As such, all functions below take an array of nodes.</p>
+<p>Functions are namespaced which allows to group functions by logical scope. A function may be associated with multiple namespaces and behave differently. When a function is called without a namespace, it is by default associated with a &ldquo;<strong>global</strong>&rdquo; namespace.</p>
 <p>An implementation may provide additional functions, but should be aware that this can cause problems when interopting with future versions of GROQ.</p>
 <section id="sec-coalesce" secid="10.1">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-coalesce">10.1</a></span>coalesce</h3>
 <p>The coalesce function returns the first value of the arguments which is not <span class="spec-keyword">null</span>.</p>
-<div class="spec-algo" id="coalesce()">
-<span class="spec-call"><a href="#coalesce()" data-name="coalesce">coalesce</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ol>
+<p>global::coalesce(args, scope):</p>
+<ul>
+<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ul>
 <li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="arg">arg</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="value">value</var> is not <span class="spec-keyword">null</span>:<ol>
+<li>If <var data-name="value">value</var> is not <span class="spec-keyword">null</span>:<ul>
 <li>Return <var data-name="value">value</var>.</li>
-</ol>
+</ul>
 </li>
-</ol>
+</ul>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</div>
+</ul>
 </section>
 <section id="sec-count" secid="10.2">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-count">10.2</a></span>count</h3>
 <p>The count function returns the length of an array.</p>
-<div class="spec-algo" id="count()">
-<span class="spec-call"><a href="#count()" data-name="count">count</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 1:<ol>
+<p>global::count(args, scope):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
+</ul>
 </li>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is an array:<ol>
+<li>If <var data-name="base">base</var> is an array:<ul>
 <li>Return the length of <var data-name="base">base</var>.</li>
-</ol>
+</ul>
 </li>
-<li>Otherwise:<ol>
+<li>Otherwise:<ul>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
+</ul>
 </li>
-</ol>
-</div>
-<div class="spec-algo" id="countValidate()">
-<span class="spec-call"><a href="#countValidate()" data-name="countValidate">countValidate</a>(<var data-name="args">args</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 1:<ol>
+</ul>
+<p>global::countValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
 <li>Report an error.</li>
-</ol>
+</ul>
 </li>
-</ol>
-</div>
+</ul>
 </section>
 <section id="sec-dateTime" secid="10.3">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-dateTime">10.3</a></span>dateTime</h3>
 <p>The <code>dateTime</code> function takes a string, returning a datetime value.</p>
-<div class="spec-algo" id="dateTime()">
-<span class="spec-call"><a href="#dateTime()" data-name="dateTime">dateTime</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<p>global::dateTime(args, scope):</p>
+<ul>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is a string:<ol>
+<li>If <var data-name="base">base</var> is a string:<ul>
 <li>Try to parse <var data-name="base">base</var> as a datetime using the <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> timestamp format.</li>
-<li>If the input is a valid datetime:<ol>
+<li>If the input is a valid datetime:<ul>
 <li>Return the datetime.</li>
-</ol>
+</ul>
 </li>
-</ol>
+</ul>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</div>
-<div class="spec-algo" id="dateTimeValidate()">
-<span class="spec-call"><a href="#dateTimeValidate()" data-name="dateTimeValidate">dateTimeValidate</a>(<var data-name="args">args</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 1:<ol>
+</ul>
+<p>global::dateTimeValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
 <li>Report an error.</li>
-</ol>
+</ul>
 </li>
-</ol>
-</div>
+</ul>
 </section>
 <section id="sec-defined" secid="10.4">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-defined">10.4</a></span>defined</h3>
 <p>The defined function checks if the argument is not <span class="spec-keyword">null</span>.</p>
-<div class="spec-algo" id="defined()">
-<span class="spec-call"><a href="#defined()" data-name="defined">defined</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<p>global::defined(args, scope):</p>
+<ul>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is <span class="spec-keyword">null</span>:<ol>
+<li>If <var data-name="base">base</var> is <span class="spec-keyword">null</span>:<ul>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ol>
+</ul>
 </li>
-<li>Otherwise:<ol>
+<li>Otherwise:<ul>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ol>
+</ul>
 </li>
-</ol>
-</div>
-<div class="spec-algo" id="definedValidate()">
-<span class="spec-call"><a href="#definedValidate()" data-name="definedValidate">definedValidate</a>(<var data-name="args">args</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 1:<ol>
+</ul>
+<p>global::definedValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
 <li>Report an error.</li>
-</ol>
+</ul>
 </li>
-</ol>
-</div>
+</ul>
 </section>
 <section id="sec-length" secid="10.5">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-length">10.5</a></span>length</h3>
 <p>The length function returns the length of a string or an array.</p>
-<div class="spec-algo" id="length()">
-<span class="spec-call"><a href="#length()" data-name="length">length</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<p>global::length(args, scope):</p>
+<ul>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is a string:<ol>
+<li>If <var data-name="base">base</var> is a string:<ul>
 <li>Return the length of <var data-name="base">base</var>.</li>
-</ol>
+</ul>
 </li>
-<li>If <var data-name="base">base</var> is an array:<ol>
+<li>If <var data-name="base">base</var> is an array:<ul>
 <li>Return the length of <var data-name="base">base</var>.</li>
-</ol>
+</ul>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</div>
-<div class="spec-algo" id="lengthValidate()">
-<span class="spec-call"><a href="#lengthValidate()" data-name="lengthValidate">lengthValidate</a>(<var data-name="args">args</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 1:<ol>
+</ul>
+<p>global::lengthValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
 <li>Report an error.</li>
-</ol>
+</ul>
 </li>
-</ol>
-</div>
+</ul>
 </section>
 <section id="sec-references" secid="10.6">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-references">10.6</a></span>references</h3>
 <p>The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.</p>
-<div class="spec-algo" id="references()">
-<span class="spec-call"><a href="#references()" data-name="references">references</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<p>global::references(args, scope):</p>
+<ul>
 <li>Let <var data-name="pathSet">pathSet</var> be an empty array.</li>
-<li>For each <var data-name="arg">arg</var> of <var data-name="args">args</var>:<ol>
+<li>For each <var data-name="arg">arg</var> of <var data-name="args">args</var>:<ul>
 <li>Let <var data-name="path">path</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="arg">arg</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="path">path</var> is a string:<ol>
+<li>If <var data-name="path">path</var> is a string:<ul>
 <li>Append <var data-name="path">path</var> to <var data-name="pathSet">pathSet</var>.</li>
-</ol>
+</ul>
 </li>
-<li>If <var data-name="path">path</var> is an array:<ol>
+<li>If <var data-name="path">path</var> is an array:<ul>
 <li>Concatenate all strings of <var data-name="path">path</var> to <var data-name="pathSet">pathSet</var>.</li>
-</ol>
+</ul>
 </li>
-</ol>
+</ul>
 </li>
-<li>If <var data-name="pathSet">pathSet</var> is empty:<ol>
+<li>If <var data-name="pathSet">pathSet</var> is empty:<ul>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ol>
+</ul>
 </li>
 <li>Let <var data-name="base">base</var> be the this value of <var data-name="scope">scope</var>.</li>
-<li>Return the result of <span class="spec-call"><a href="#HasReferenceTo()" data-name="HasReferenceTo">HasReferenceTo</a>(<var data-name="base">base</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
-</ol>
-</div>
-<div class="spec-algo" id="HasReferenceTo()">
-<span class="spec-call"><a href="#HasReferenceTo()" data-name="HasReferenceTo">HasReferenceTo</a>(<var data-name="base">base</var>, <var data-name="pathSet">pathSet</var>)</span><ol>
-<li>If <var data-name="base">base</var> is an array:<ol>
-<li>For each <var data-name="value">value</var> in <var data-name="base">base</var>:<ol>
-<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><a href="#HasReferenceTo()" data-name="HasReferenceTo">HasReferenceTo</a>(<var data-name="value">value</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
-</ol>
+<li>Return the result of <span class="spec-call"><span data-name="HasReferenceTo">HasReferenceTo</span>(<var data-name="base">base</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
+</ul>
+<p>global::HasReferenceTo(base, pathSet):</p>
+<ul>
+<li>If <var data-name="base">base</var> is an array:<ul>
+<li>For each <var data-name="value">value</var> in <var data-name="base">base</var>:<ul>
+<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><span data-name="HasReferenceTo">HasReferenceTo</span>(<var data-name="value">value</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
+</ul>
 </li>
-<li>If <var data-name="result">result</var> is <span class="spec-keyword">true</span>:<ol>
+<li>If <var data-name="result">result</var> is <span class="spec-keyword">true</span>:<ul>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ol>
+</ul>
 </li>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ol>
+</ul>
 </li>
-<li>If <var data-name="base">base</var> is an object:<ol>
-<li>If <var data-name="base">base</var> has an attribute &ldquo;_ref&rdquo;:<ol>
+<li>If <var data-name="base">base</var> is an object:<ul>
+<li>If <var data-name="base">base</var> has an attribute &ldquo;_ref&rdquo;:<ul>
 <li>Let <var data-name="ref">ref</var> be the value of the attribute &ldquo;_ref&rdquo; in <var data-name="base">base</var>.</li>
-</ol>
+</ul>
 </li>
-<li>If <var data-name="ref">ref</var> exists in <var data-name="pathSet">pathSet</var>:<ol>
+<li>If <var data-name="ref">ref</var> exists in <var data-name="pathSet">pathSet</var>:<ul>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ol>
+</ul>
 </li>
-<li>Otherwise:<ol>
+<li>Otherwise:<ul>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ol>
+</ul>
 </li>
-<li>For each <var data-name="key">key</var> and <var data-name="value">value</var> in <var data-name="base">base</var>:<ol>
-<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><a href="#HasReferenceTo()" data-name="HasReferenceTo">HasReferenceTo</a>(<var data-name="value">value</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
-</ol>
+<li>For each <var data-name="key">key</var> and <var data-name="value">value</var> in <var data-name="base">base</var>:<ul>
+<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><span data-name="HasReferenceTo">HasReferenceTo</span>(<var data-name="value">value</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
+</ul>
 </li>
-<li>If <var data-name="result">result</var> is <span class="spec-keyword">true</span>:<ol>
+<li>If <var data-name="result">result</var> is <span class="spec-keyword">true</span>:<ul>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ol>
+</ul>
 </li>
-</ol>
+</ul>
 </li>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ol>
-</div>
-<div class="spec-algo" id="referencesValidate()">
-<span class="spec-call"><a href="#referencesValidate()" data-name="referencesValidate">referencesValidate</a>(<var data-name="args">args</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is 0:<ol>
+</ul>
+<p>global::referencesValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is 0:<ul>
 <li>Report an error.</li>
-</ol>
+</ul>
 </li>
-</ol>
-</div>
+</ul>
 </section>
 <section id="sec-round" secid="10.7">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-round">10.7</a></span>round</h3>
 <p>The round function accepts a number and rounds it to a certain precision.</p>
-<div class="spec-algo" id="round()">
-<span class="spec-call"><a href="#round()" data-name="round">round</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<p>global::round(args, scope):</p>
+<ul>
 <li>Let <var data-name="numNode">numNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="num">num</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="numNode">numNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="num">num</var> is not a number:<ol>
+<li>If <var data-name="num">num</var> is not a number:<ul>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
+</ul>
 </li>
-<li>If the length of <var data-name="args">args</var> is 2:<ol>
+<li>If the length of <var data-name="args">args</var> is 2:<ul>
 <li>Let <var data-name="precNode">precNode</var> be the second element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="prec">prec</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="precNode">precNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="prec">prec</var> is not a number:<ol>
+<li>If <var data-name="prec">prec</var> is not a number:<ul>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
+</ul>
 </li>
-</ol>
+</ul>
 </li>
-<li>Otherwise:<ol>
+<li>Otherwise:<ul>
 <li>Let <var data-name="prec">prec</var> be 0.</li>
-</ol>
+</ul>
 </li>
 <li>Return <var data-name="num">num</var> rounded to <var data-name="prec">prec</var> number of digits after the decimal point.</li>
-</ol>
-</div>
-<div class="spec-algo" id="roundValidate()">
-<span class="spec-call"><a href="#roundValidate()" data-name="roundValidate">roundValidate</a>(<var data-name="args">args</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is less than 1 or greater than 2:<ol>
+</ul>
+<p>global::roundValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is less than 1 or greater than 2:<ul>
 <li>Report an error.</li>
-</ol>
+</ul>
 </li>
-</ol>
-</div>
+</ul>
 </section>
 <section id="sec-select" secid="10.8">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-select">10.8</a></span>select</h3>
 <p>The select function chooses takes a variable number of arguments that are either pairs or any other type and iterates over them. When encountering a pair whose left&#8208;hand value evaluates to <span class="spec-keyword">true</span>, the right&#8208;hand value is returned immediately. When encountering a non&#8208;pair argument, that argument is returned immediately. Falls back to returning <span class="spec-keyword">null</span>.</p>
-<div class="spec-algo" id="select()">
-<span class="spec-call"><a href="#select()" data-name="select">select</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ol>
-<li>If <var data-name="arg">arg</var> is a <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>:<ol>
+<p>global::select(args, scope):</p>
+<ul>
+<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ul>
+<li>If <var data-name="arg">arg</var> is a <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>:<ul>
 <li>Let <var data-name="condNode">condNode</var> be the first <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>.</li>
-</ol>
+</ul>
 </li>
-<li>Let <var data-name="resultNode">resultNode</var> be the second <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>.<ol>
+<li>Let <var data-name="resultNode">resultNode</var> be the second <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>.<ul>
 <li>Let <var data-name="cond">cond</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="condNode">condNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="cond">cond</var> is <span class="spec-keyword">true</span>:<ol>
+<li>If <var data-name="cond">cond</var> is <span class="spec-keyword">true</span>:<ul>
 <li>Return the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="resultNode">resultNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-</ol>
+</ul>
 </li>
-</ol>
+</ul>
 </li>
-<li>Otherwise:<ol>
+<li>Otherwise:<ul>
 <li>Return the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="arg">arg</var>, <var data-name="scope">scope</var>)</span>.</li>
-</ol>
+</ul>
 </li>
-</ol>
+</ul>
 </li>
-</ol>
-</div>
-<div class="spec-algo" id="selectValidate()">
-<span class="spec-call"><a href="#selectValidate()" data-name="selectValidate">selectValidate</a>(<var data-name="args">args</var>)</span><ol>
+</ul>
+<p>global::selectValidate(args):</p>
+<ul>
 <li>Let <var data-name="seenDefault">seenDefault</var> be <span class="spec-keyword">false</span>.</li>
-<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ol>
-<li>If <var data-name="seenDefault">seenDefault</var> is <span class="spec-keyword">true</span>:<ol>
+<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ul>
+<li>If <var data-name="seenDefault">seenDefault</var> is <span class="spec-keyword">true</span>:<ul>
 <li>Report an error.</li>
-</ol>
+</ul>
 </li>
-<li>If <var data-name="arg">arg</var> is not a <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>:<ol>
+<li>If <var data-name="arg">arg</var> is not a <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>:<ul>
 <li>Set <var data-name="seenDefault">seenDefault</var> to <span class="spec-keyword">true</span>.</li>
-</ol>
+</ul>
 </li>
-</ol>
+</ul>
 </li>
-</ol>
-</div>
+</ul>
 </section>
 <section id="sec-string" secid="10.9">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-string">10.9</a></span>string</h3>
 <p>The string function returns the string representation of scalar values or <span class="spec-keyword">null</span> for any other values.</p>
-<div class="spec-algo" id="string()">
-<span class="spec-call"><a href="#string()" data-name="string">string</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<p>global::string(args, scope):</p>
+<ul>
 <li>Let <var data-name="node">node</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="val">val</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="node">node</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="val">val</var> is <span class="spec-keyword">true</span>:<ol>
+<li>If <var data-name="val">val</var> is <span class="spec-keyword">true</span>:<ul>
 <li>Return the string <code>&quot;true&quot;</code></li>
-</ol>
+</ul>
 </li>
-<li>If <var data-name="val">val</var> is <span class="spec-keyword">false</span>:<ol>
+<li>If <var data-name="val">val</var> is <span class="spec-keyword">false</span>:<ul>
 <li>Return the string <code>&quot;false&quot;</code></li>
-</ol>
+</ul>
 </li>
-<li>If <var data-name="val">val</var> is a string:<ol>
+<li>If <var data-name="val">val</var> is a string:<ul>
 <li>Return <var data-name="val">val</var>.</li>
-</ol>
+</ul>
 </li>
-<li>If <var data-name="val">val</var> is a number:<ol>
+<li>If <var data-name="val">val</var> is a number:<ul>
 <li>Return a string representation of the number.</li>
-</ol>
+</ul>
 </li>
-<li>If <var data-name="val">val</var> is a datetime:<ol>
+<li>If <var data-name="val">val</var> is a datetime:<ul>
 <li>Return the datetime in the <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> timestamp format with a Z suffix.</li>
-</ol>
+</ul>
 </li>
-<li>Otherwise:<ol>
+<li>Otherwise:<ul>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
+</ul>
 </li>
-</ol>
-</div>
-<div class="spec-algo" id="stringValidate()">
-<span class="spec-call"><a href="#stringValidate()" data-name="stringValidate">stringValidate</a>(<var data-name="args">args</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 1:</li>
-<li>Report an error. </li>
-</ol>
-</div>
+</ul>
+<p>global::stringValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+<li>Report an error.</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-lower" secid="10.10">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-lower">10.10</a></span>lower</h3>
+<p>The lower function returns lowercased string.</p>
+<p>string::lower(args, scope):</p>
+<ul>
+<li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="arg">arg</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="value">value</var> is not <span class="spec-keyword">null</span>:<ul>
+<li>Return lowercase form of <var data-name="value">value</var>.</li>
+</ul>
+</li>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</section>
+<section id="sec-upper" secid="10.11">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-upper">10.11</a></span>upper</h3>
+<p>The upper function returns uppercased string.</p>
+<p>string::upper(args, scope):</p>
+<ul>
+<li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="arg">arg</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="value">value</var> is not <span class="spec-keyword">null</span>:<ul>
+<li>Return uppercase form of <var data-name="value">value</var>.</li>
+</ul>
+</li>
+<li>Return <span class="spec-keyword">null</span>. </li>
+</ul>
 </section>
 </section>
 <section id="sec-Pipe-functions" secid="11">
@@ -2946,7 +2974,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <p>The path function should accept a single argument and return a path object. </p>
 </section>
 </section>
-<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#And">And</a></li><li><a href="#Array">Array</a></li><li><a href="#ArrayElement">ArrayElement</a></li><li><a href="#ArrayElements">ArrayElements</a></li><li><a href="#Asc">Asc</a></li><li><a href="#AttributeAccess">AttributeAccess</a></li><li><a href="#Boolean">Boolean</a></li><li><a href="#Comment">Comment</a></li><li><a href="#CommentChar">CommentChar</a></li><li><a href="#Comparison">Comparison</a></li><li><a href="#ComparisonOperator">ComparisonOperator</a></li><li><a href="#CompoundExpression">CompoundExpression</a></li><li><a href="#Decimal">Decimal</a></li><li><a href="#Dereference">Dereference</a></li><li><a href="#Desc">Desc</a></li><li><a href="#DetermineName()">DetermineName</a></li><li><a href="#Digit">Digit</a></li><li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li><li><a href="#ElementAccess">ElementAccess</a></li><li><a href="#Equal()">Equal</a></li><li><a href="#Equality">Equality</a></li><li><a href="#EqualityOperator">EqualityOperator</a></li><li><a href="#EscapeSequence">EscapeSequence</a></li><li><a href="#Evaluate()">Evaluate</a></li><li><a href="#EvaluateAnd()">EvaluateAnd</a></li><li><a href="#EvaluateArray()">EvaluateArray</a></li><li><a href="#EvaluateAttributeAccess()">EvaluateAttributeAccess</a></li><li><a href="#EvaluateComparison()">EvaluateComparison</a></li><li><a href="#EvaluateDereference()">EvaluateDereference</a></li><li><a href="#EvaluateElementAccess()">EvaluateElementAccess</a></li><li><a href="#EvaluateEquality()">EvaluateEquality</a></li><li><a href="#EvaluateEverything()">EvaluateEverything</a></li><li><a href="#EvaluateFilter()">EvaluateFilter</a></li><li><a href="#EvaluateFuncCall()">EvaluateFuncCall</a></li><li><a href="#EvaluateIn()">EvaluateIn</a></li><li><a href="#EvaluateMatch()">EvaluateMatch</a></li><li><a href="#EvaluateMinus()">EvaluateMinus</a></li><li><a href="#EvaluateNot()">EvaluateNot</a></li><li><a href="#EvaluateObject()">EvaluateObject</a></li><li><a href="#EvaluateOr()">EvaluateOr</a></li><li><a href="#EvaluatePair()">EvaluatePair</a></li><li><a href="#EvaluateParent()">EvaluateParent</a></li><li><a href="#EvaluateParenthesis()">EvaluateParenthesis</a></li><li><a href="#EvaluatePercent()">EvaluatePercent</a></li><li><a href="#EvaluatePipeFuncCall()">EvaluatePipeFuncCall</a></li><li><a href="#EvaluatePlus()">EvaluatePlus</a></li><li><a href="#EvaluateProjection()">EvaluateProjection</a></li><li><a href="#EvaluateRange()">EvaluateRange</a></li><li><a href="#EvaluateSlash()">EvaluateSlash</a></li><li><a href="#EvaluateSlice()">EvaluateSlice</a></li><li><a href="#EvaluateStar()">EvaluateStar</a></li><li><a href="#EvaluateStarStar()">EvaluateStarStar</a></li><li><a href="#EvaluateThis()">EvaluateThis</a></li><li><a href="#EvaluateThisAttribute()">EvaluateThisAttribute</a></li><li><a href="#EvaluateUnaryMinus()">EvaluateUnaryMinus</a></li><li><a href="#EvaluateUnaryPlus()">EvaluateUnaryPlus</a></li><li><a href="#Everything">Everything</a></li><li><a href="#ExclusiveRange">ExclusiveRange</a></li><li><a href="#ExecuteQuery()">ExecuteQuery</a></li><li><a href="#ExponentMarker">ExponentMarker</a></li><li><a href="#Expression">Expression</a></li><li><a href="#Filter">Filter</a></li><li><a href="#Fractional">Fractional</a></li><li><a href="#FuncCall">FuncCall</a></li><li><a href="#FuncCallArgs">FuncCallArgs</a></li><li><a href="#HasReferenceTo()">HasReferenceTo</a></li><li><a href="#HexDigit">HexDigit</a></li><li><a href="#HexLetter">HexLetter</a></li><li><a href="#Identifier">Identifier</a></li><li><a href="#In">In</a></li><li><a href="#InclusiveRange">InclusiveRange</a></li><li><a href="#Integer">Integer</a></li><li><a href="#Literal">Literal</a></li><li><a href="#Match">Match</a></li><li><a href="#MatchAnalyzePattern()">MatchAnalyzePattern</a></li><li><a href="#MatchTokenize()">MatchTokenize</a></li><li><a href="#Minus">Minus</a></li><li><a href="#NewNestedScope()">NewNestedScope</a></li><li><a href="#NewRootScope()">NewRootScope</a></li><li><a href="#Not">Not</a></li><li><a href="#Null">Null</a></li><li><a href="#Number">Number</a></li><li><a href="#Object">Object</a></li><li><a href="#ObjectAttribute">ObjectAttribute</a></li><li><a href="#ObjectAttributes">ObjectAttributes</a></li><li><a href="#OperatorCall">OperatorCall</a></li><li><a href="#Or">Or</a></li><li><a href="#Pair">Pair</a></li><li><a href="#Parent">Parent</a></li><li><a href="#Parenthesis">Parenthesis</a></li><li><a href="#PartialCompare()">PartialCompare</a></li><li><a href="#Percent">Percent</a></li><li><a href="#PipeFuncCall">PipeFuncCall</a></li><li><a href="#Plus">Plus</a></li><li><a href="#Projection">Projection</a></li><li><a href="#Range">Range</a></li><li><a href="#ScientificNotation">ScientificNotation</a></li><li><a href="#Sign">Sign</a></li><li><a href="#SimpleExpression">SimpleExpression</a></li><li><a href="#SingleEscapeSequence">SingleEscapeSequence</a></li><li><a href="#SingleStringCharacter">SingleStringCharacter</a></li><li><a href="#Slash">Slash</a></li><li><a href="#Slice">Slice</a></li><li><a href="#SourceCharacter">SourceCharacter</a></li><li><a href="#Star">Star</a></li><li><a href="#StarStar">StarStar</a></li><li><a href="#String">String</a></li><li><a href="#This">This</a></li><li><a href="#ThisAttribute">ThisAttribute</a></li><li><a href="#TotalCompare()">TotalCompare</a></li><li><a href="#TypeOrder()">TypeOrder</a></li><li><a href="#UnaryMinus">UnaryMinus</a></li><li><a href="#UnaryPlus">UnaryPlus</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li><li><a href="#Validate()">Validate</a></li><li><a href="#ValidateAsc()">ValidateAsc</a></li><li><a href="#ValidateDesc()">ValidateDesc</a></li><li><a href="#ValidateFuncCall()">ValidateFuncCall</a></li><li><a href="#ValidateObject()">ValidateObject</a></li><li><a href="#ValidateObjectAttribute()">ValidateObjectAttribute</a></li><li><a href="#ValidatePipeFuncCall()">ValidatePipeFuncCall</a></li><li><a href="#WhiteSpace">WhiteSpace</a></li><li><a href="#coalesce()">coalesce</a></li><li><a href="#count()">count</a></li><li><a href="#countValidate()">countValidate</a></li><li><a href="#dateTime()">dateTime</a></li><li><a href="#dateTimeValidate()">dateTimeValidate</a></li><li><a href="#defined()">defined</a></li><li><a href="#definedValidate()">definedValidate</a></li><li><a href="#length()">length</a></li><li><a href="#lengthValidate()">lengthValidate</a></li><li><a href="#order()">order</a></li><li><a href="#orderValidate()">orderValidate</a></li><li><a href="#references()">references</a></li><li><a href="#referencesValidate()">referencesValidate</a></li><li><a href="#round()">round</a></li><li><a href="#roundValidate()">roundValidate</a></li><li><a href="#select()">select</a></li><li><a href="#selectValidate()">selectValidate</a></li><li><a href="#string()">string</a></li><li><a href="#stringValidate()">stringValidate</a></li></ol></section></article>
+<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#And">And</a></li><li><a href="#Array">Array</a></li><li><a href="#ArrayElement">ArrayElement</a></li><li><a href="#ArrayElements">ArrayElements</a></li><li><a href="#Asc">Asc</a></li><li><a href="#AttributeAccess">AttributeAccess</a></li><li><a href="#Boolean">Boolean</a></li><li><a href="#Comment">Comment</a></li><li><a href="#CommentChar">CommentChar</a></li><li><a href="#Comparison">Comparison</a></li><li><a href="#ComparisonOperator">ComparisonOperator</a></li><li><a href="#CompoundExpression">CompoundExpression</a></li><li><a href="#Decimal">Decimal</a></li><li><a href="#Dereference">Dereference</a></li><li><a href="#Desc">Desc</a></li><li><a href="#DetermineName()">DetermineName</a></li><li><a href="#Digit">Digit</a></li><li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li><li><a href="#ElementAccess">ElementAccess</a></li><li><a href="#Equal()">Equal</a></li><li><a href="#Equality">Equality</a></li><li><a href="#EqualityOperator">EqualityOperator</a></li><li><a href="#EscapeSequence">EscapeSequence</a></li><li><a href="#Evaluate()">Evaluate</a></li><li><a href="#EvaluateAnd()">EvaluateAnd</a></li><li><a href="#EvaluateArray()">EvaluateArray</a></li><li><a href="#EvaluateAttributeAccess()">EvaluateAttributeAccess</a></li><li><a href="#EvaluateComparison()">EvaluateComparison</a></li><li><a href="#EvaluateDereference()">EvaluateDereference</a></li><li><a href="#EvaluateElementAccess()">EvaluateElementAccess</a></li><li><a href="#EvaluateEquality()">EvaluateEquality</a></li><li><a href="#EvaluateEverything()">EvaluateEverything</a></li><li><a href="#EvaluateFilter()">EvaluateFilter</a></li><li><a href="#EvaluateFuncCall()">EvaluateFuncCall</a></li><li><a href="#EvaluateIn()">EvaluateIn</a></li><li><a href="#EvaluateMatch()">EvaluateMatch</a></li><li><a href="#EvaluateMinus()">EvaluateMinus</a></li><li><a href="#EvaluateNot()">EvaluateNot</a></li><li><a href="#EvaluateObject()">EvaluateObject</a></li><li><a href="#EvaluateOr()">EvaluateOr</a></li><li><a href="#EvaluatePair()">EvaluatePair</a></li><li><a href="#EvaluateParent()">EvaluateParent</a></li><li><a href="#EvaluateParenthesis()">EvaluateParenthesis</a></li><li><a href="#EvaluatePercent()">EvaluatePercent</a></li><li><a href="#EvaluatePipeFuncCall()">EvaluatePipeFuncCall</a></li><li><a href="#EvaluatePlus()">EvaluatePlus</a></li><li><a href="#EvaluateProjection()">EvaluateProjection</a></li><li><a href="#EvaluateRange()">EvaluateRange</a></li><li><a href="#EvaluateSlash()">EvaluateSlash</a></li><li><a href="#EvaluateSlice()">EvaluateSlice</a></li><li><a href="#EvaluateStar()">EvaluateStar</a></li><li><a href="#EvaluateStarStar()">EvaluateStarStar</a></li><li><a href="#EvaluateThis()">EvaluateThis</a></li><li><a href="#EvaluateThisAttribute()">EvaluateThisAttribute</a></li><li><a href="#EvaluateUnaryMinus()">EvaluateUnaryMinus</a></li><li><a href="#EvaluateUnaryPlus()">EvaluateUnaryPlus</a></li><li><a href="#Everything">Everything</a></li><li><a href="#ExclusiveRange">ExclusiveRange</a></li><li><a href="#ExecuteQuery()">ExecuteQuery</a></li><li><a href="#ExponentMarker">ExponentMarker</a></li><li><a href="#Expression">Expression</a></li><li><a href="#Filter">Filter</a></li><li><a href="#Fractional">Fractional</a></li><li><a href="#FuncCall">FuncCall</a></li><li><a href="#FuncCallArgs">FuncCallArgs</a></li><li><a href="#FuncIdentifier">FuncIdentifier</a></li><li><a href="#FuncNamespace">FuncNamespace</a></li><li><a href="#HexDigit">HexDigit</a></li><li><a href="#HexLetter">HexLetter</a></li><li><a href="#Identifier">Identifier</a></li><li><a href="#In">In</a></li><li><a href="#InclusiveRange">InclusiveRange</a></li><li><a href="#Integer">Integer</a></li><li><a href="#Literal">Literal</a></li><li><a href="#Match">Match</a></li><li><a href="#MatchAnalyzePattern()">MatchAnalyzePattern</a></li><li><a href="#MatchTokenize()">MatchTokenize</a></li><li><a href="#Minus">Minus</a></li><li><a href="#NewNestedScope()">NewNestedScope</a></li><li><a href="#NewRootScope()">NewRootScope</a></li><li><a href="#Not">Not</a></li><li><a href="#Null">Null</a></li><li><a href="#Number">Number</a></li><li><a href="#Object">Object</a></li><li><a href="#ObjectAttribute">ObjectAttribute</a></li><li><a href="#ObjectAttributes">ObjectAttributes</a></li><li><a href="#OperatorCall">OperatorCall</a></li><li><a href="#Or">Or</a></li><li><a href="#Pair">Pair</a></li><li><a href="#Parent">Parent</a></li><li><a href="#Parenthesis">Parenthesis</a></li><li><a href="#PartialCompare()">PartialCompare</a></li><li><a href="#Percent">Percent</a></li><li><a href="#PipeFuncCall">PipeFuncCall</a></li><li><a href="#Plus">Plus</a></li><li><a href="#Projection">Projection</a></li><li><a href="#Range">Range</a></li><li><a href="#ScientificNotation">ScientificNotation</a></li><li><a href="#Sign">Sign</a></li><li><a href="#SimpleExpression">SimpleExpression</a></li><li><a href="#SingleEscapeSequence">SingleEscapeSequence</a></li><li><a href="#SingleStringCharacter">SingleStringCharacter</a></li><li><a href="#Slash">Slash</a></li><li><a href="#Slice">Slice</a></li><li><a href="#SourceCharacter">SourceCharacter</a></li><li><a href="#Star">Star</a></li><li><a href="#StarStar">StarStar</a></li><li><a href="#String">String</a></li><li><a href="#This">This</a></li><li><a href="#ThisAttribute">ThisAttribute</a></li><li><a href="#TotalCompare()">TotalCompare</a></li><li><a href="#TypeOrder()">TypeOrder</a></li><li><a href="#UnaryMinus">UnaryMinus</a></li><li><a href="#UnaryPlus">UnaryPlus</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li><li><a href="#Validate()">Validate</a></li><li><a href="#ValidateAsc()">ValidateAsc</a></li><li><a href="#ValidateDesc()">ValidateDesc</a></li><li><a href="#ValidateFuncCall()">ValidateFuncCall</a></li><li><a href="#ValidateObject()">ValidateObject</a></li><li><a href="#ValidateObjectAttribute()">ValidateObjectAttribute</a></li><li><a href="#ValidatePipeFuncCall()">ValidatePipeFuncCall</a></li><li><a href="#WhiteSpace">WhiteSpace</a></li><li><a href="#order()">order</a></li><li><a href="#orderValidate()">orderValidate</a></li></ol></section></article>
 <footer>
 Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</footer>
 <input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden>&#x2630;</label>
@@ -3056,6 +3084,8 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_10.7"><a href="#sec-round"><span class="spec-secid">10.7</span>round</a></li>
 <li id="_sidebar_10.8"><a href="#sec-select"><span class="spec-secid">10.8</span>select</a></li>
 <li id="_sidebar_10.9"><a href="#sec-string"><span class="spec-secid">10.9</span>string</a></li>
+<li id="_sidebar_10.10"><a href="#sec-lower"><span class="spec-secid">10.10</span>lower</a></li>
+<li id="_sidebar_10.11"><a href="#sec-upper"><span class="spec-secid">10.11</span>upper</a></li>
 </ol>
 </li>
 <li id="_sidebar_11"><a href="#sec-Pipe-functions"><span class="spec-secid">11</span>Pipe functions</a>

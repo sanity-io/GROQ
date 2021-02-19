@@ -80,14 +80,21 @@ EvaluateParent(scope):
 
 ## Function call expression
 
-GROQ comes with a set of built-in functions which provides additional features. See the ["Functions"](#sec-Functions) for available functions.
+GROQ comes with a set of built-in functions which provides additional features. See the ["Functions"](#sec-Functions) for available functions and their namespaces.
 
 ```
 *{"score": round(score, 2)}
            ~~~~~~~~~~~~~~~
+
+*{"description": string::lower(description)}
+           ~~~~~~~~~~~~~~~
 ```
 
-FuncCall : Identifier ( FuncCallArgs )
+FuncCall : FuncNamespace? FuncIdentifier ( FuncCallArgs )
+
+FuncNamespace : Identifier "::"
+
+FuncIdentifier : Identifier
 
 FuncCallArgs :
 
@@ -96,18 +103,22 @@ FuncCallArgs :
 
 EvaluateFuncCall(scope):
 
-* Let {name} be the string value of the {Identifier}.
+* Let {namespace} be the string value of the {FuncNamespace}.
+* Let {name} be the string value of the {FuncIdentifier}.
 * Let {args} be an empty array.
 * For each {Expression} in {FuncCallArgs}:
   * Let {argumentNode} be the {Expression}.
   * Append {argumentNode} to {args}.
-* Let {func} be the function defined under the name {name}.
+* Let {func} be the function defined under the name {name} in {namespace} namespace.
 * Return the result of {func(args, scope)}.
 
 ValidateFuncCall():
 
-* Let {name} be the string value of the {Identifier}.
-* If there is no function named {name}:
+* Let {namespace} be the string value of the {FuncNamespace}.
+* If there is no namespace named {namespace}:
+  * Stop and report an error.
+* Let {name} be the string value of the {FuncIdentifier}.
+* If there is no function named {name} defined in {namespace}:
   * Stop and report an error.
 * Let {args} be an array of the {Expression}s in {FuncCallArgs}.
 * Let {validator} be the validator for the function under the name {name}.
