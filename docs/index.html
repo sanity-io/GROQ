@@ -2613,7 +2613,7 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </section>
 <section id="sec-dateTime" secid="10.3">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-dateTime">10.3</a></span>dateTime</h3>
-<p>The <code>dateTime</code> function takes a string, returning a datetime value.</p>
+<p>The <code>dateTime</code> function takes a string or another datatime value, returning a datetime value. This function is idempotent.</p>
 <p>global::dateTime(args, scope):</p>
 <ul>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
@@ -2624,6 +2624,10 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Return the datetime.</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>If <var data-name="base">base</var> is a datetime value:<ul>
+<li>Return <var data-name="base">base</var>.</li>
 </ul>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
