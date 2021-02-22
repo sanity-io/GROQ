@@ -43,7 +43,7 @@ global::countValidate(args):
 
 ## dateTime
 
-The `dateTime` function takes a string, returning a datetime value.
+The `dateTime` function takes a string or another datatime value, returning a datetime value. This function is idempotent.
 
 global::dateTime(args, scope):
 
@@ -53,6 +53,8 @@ global::dateTime(args, scope):
   * Try to parse {base} as a datetime using the [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
   * If the input is a valid datetime:
       * Return the datetime.
+* If {base} is a datetime value:
+  * Return {base}.
 * Return {null}.
 
 global::dateTimeValidate(args):
