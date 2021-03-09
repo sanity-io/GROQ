@@ -79,7 +79,9 @@ score(base, args, scope):
       * Let {elementScope} be the result of {NewNestedScope(element, scope)}.
       * Let {newElement} be a new empty {Object}
       * Add the attributes from {element} to it.
-      * Let {scoreSum} be 1.0.
+      * If {element} already has a `_score`:
+        * Let {scoreSum} be the current value of `_score`.
+        * Otherwise let {scoreSum} be 1.0.
       * For each {predicateNode} of {args}:
         * Let {scoreValue} be the result of {EvaluateScore(predicateNode, elementScope)}.
         * Add {scoreValue} to {scoreSum}.
