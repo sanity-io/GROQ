@@ -47,3 +47,54 @@ orderValidate(args):
 
 * If the length of {args} is 0:
   * Report an error.
+
+## score
+
+The `score` function assigns a score to an array of results, based on one or more scoring expressions. The `score` function may only be used as a pipe function.
+
+```groq
+*[_type == "listing"] | score(body match "jacuzzi")
+```
+
+In this query, anything where `body match "jacuzzi"` returns true will be scored higher than other results. Multiple expressions can be used:
+
+```groq
+*[_type == "listing"] | score(body match "jacuzzi", bedrooms > 2, available && !inContract)
+```
+
+When multiple expressions are provided, the scores are merged into a single score for each result.
+
+Only predicate expressions that evaluate to a single boolean value may be used.
+
+Each score is assigned to the result as the new attribute `_score`, set to a positive number.
+
+score(base, args, scope):
+
+* Let {baseNode} be the {Expression}.
+* Let {base} be the result of {Evaluate(baseNode, scope)}.
+* If {base} is an array:
+  * Let {result} be an empty {Array}.
+  * For each {element} of {base}:
+    * If {element} is an object:
+      * Let {elementScope} be the result of {NewNestedScope(element, scope)}.
+      * Let {newElement} be a new empty {Object}
+      * Add the attributes from {element} to it.
+      * Let {scoreSum} be 1.0.
+      * For each {predicateNode} of {args}:
+        * Let {scoreValue} be the result of {EvaluateScore(predicateNode, elementScope)}.
+        * Add {scoreValue} to {scoreSum}.
+      * Add the attribute `_score` set to {scoreSum}.
+      * Add {newElement} to {result}.
+    * Otherwise add {element} to {result}.
+  * Return {result} sorted by the score, in descending order.
+* Return {null}.
+
+EvaluateScore(expr, scope):
+
+* Let {evaluator} be the score evaluator of {expr}.
+* Return the result of {evaluator(scope)}.
+
+scoreValidate(args):
+
+* If the length of {args} is 0:
+  * Report an error.
