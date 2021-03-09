@@ -64,9 +64,11 @@ In this query, anything where `body match "jacuzzi"` returns true will be scored
 
 When multiple expressions are provided, the scores are merged into a single score for each result.
 
-Only predicate expressions that evaluate to a single boolean value may be used.
+Only predicate expressions that evaluate to a single boolean value may be used, including `boost()`.
 
 Each score is assigned to the result as the new attribute `_score`, set to a positive number.
+
+Scoring is additive. That is `* | score(a == 1) | score(b == 2)` is equivalent to `* | score(a == 1, b == 2)`.
 
 score(base, args, scope):
 
