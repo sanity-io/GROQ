@@ -239,3 +239,34 @@ string::upper(args, scope):
 * If {value} is not {null}:
     * Return uppercase form of {value}.
 * Return {null}.
+
+## boost
+
+The `boost` function accepts an expression and a boost value, and increases or decreases the score computed by `score()` (see ["Pipe functions"](#sec-Pipe-functions)) accordingly. `boost` can only be used within the argument list to `score()`.
+
+```groq
+* | score(boost(title matches "milk", 5.0), body matches "milk")
+```
+
+The expression must be a predicate expressions that evaluates to a single boolean value. Any other result value is ignored.
+
+The value argument must be a number >= 0.
+
+The return value is the same as the input predicate. Internally, the scoring execution model uses the provided boost value to increase the computed score if the predicate matches.
+
+boost(args, scope):
+
+* Let {numNode} be the first element of {args}.
+* Let {num} be the result of {Evaluate(numNode, scope)}.
+* Let {predicateNode} be the first element of {args}.
+* Let {predicate} be the result of {Evaluate(predicateNode, scope)}.
+* If {num} is not a number:
+  * Return {null}.
+* If {num} is negative:
+  * Return {null}.
+* Return {predicate}.
+
+boostValidate(args):
+
+* If the length of {args} is not 2:
+  * Report an error.

@@ -83,6 +83,20 @@ Evaluate(expr, scope):
 * Let {evaluator} be the evaluator of {expr}.
 * Return the result of {evaluator(scope)}.
 
+## Score evaluation
+
+When evaluating {score}, a predicate returning `true` should evaluate to the score `1.0`, and a `false` predicate should evaluate to the score `0.0`. For example, the expression:
+
+```
+* | score(a > 1)
+```
+
+should assign a score of 2.0 to any document where `a > 1`, and a score of 1.0 to any non-matching document.
+
+The scoring function for `match` is left as an implementation detail and not covered by this specification. For example, an implementation may choose to use a TD/IDF scoring function that uses the text corpus and language configuration for the given field to compute a text score.
+
+A boosted predicate simply adds the boost value to the score. For example, `boost(a > 1, 10)` would return `11` for any expression matching `a > 1`.
+
 ## Query execution
 
 To execute a query you must first construct a query context, and then evaluate the query expression inside a root scope.
