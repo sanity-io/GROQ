@@ -27,7 +27,7 @@ An attribute access expression returns an attribute of an object.
 ```
 person.name
       ~~~~~
-      
+
 person["Full Name"]
       ~~~~~~~~~~~~~
 ```
@@ -103,7 +103,7 @@ EvaluateSlice(scope):
 
 ## Filter expression
 
-A filter expression filters an array using another expression. 
+A filter expression filters an array using another expression.
 
 ```
 *[_type == "person"]
@@ -129,7 +129,7 @@ EvaluateFilter(scope):
 
 ## Projection expression
 
-A projection expression iterates over an array and creates new objects for each element. 
+A projection expression iterates over an array and creates new objects for each element.
 
 ```
 *[_type == "person"]{name, "isLegal": age >= 18}
@@ -149,7 +149,7 @@ EvaluateProjection(scope):
 * Otherwise:
   * Let {result} be a new empty array.
   * For each element {value} in {base}:
-      * Let {elementScope} be the result of {NewNestedScope(value, scope)}.
+    * Let {elementScope} be the result of {NewNestedScope(value, scope)}.
     * Let {newValue} be the result of {Evaluate(objNode, elementScope)}.
     * Append {newValue} to {result}.
 * Return {result}.
