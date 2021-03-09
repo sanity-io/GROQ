@@ -76,7 +76,7 @@ Validate(expr):
 
 ## Expression evaluation
 
-An expression is evaluated in a scope. You must successfully validate an expression before you attempt to evaluate it. [](undefined)Every expression type has their own evaluator function in their respective section in this specification (e.g. the evaluator of {ParenthesisExpression} is {EvaluateParenthesis()}).
+An expression is evaluated in a scope. You must successfully validate an expression before you attempt to evaluate it. Every expression type has their own evaluator function in their respective section in this specification (e.g. the evaluator of {ParenthesisExpression} is {EvaluateParenthesis()}).
 
 Evaluate(expr, scope):
 

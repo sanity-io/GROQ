@@ -153,25 +153,25 @@ ObjectAttribute :
 
 EvaluateObject(scope):
 
-1. Let {result} be a new empty object.
-2. For each {ObjectAttribute}:
-  1. If the {ObjectAttribute} contains `...`:
-      1. If the {ObjectAttribute} constains an {Expression}:
-          1. Let {baseNode} be the {Expression}.
-      2. Let {base} be the result of {Evaluate(baseNode, scope)}.
-    2. Otherwise:
-          1. Let {base} be the this value of {scope}.
-    3. For each {name} and {value} of {base}:
-          1. Set the attribute {name} to {value} in {result}.
-  2. Otherwise:
-      1. Let {valueNode} be the {Expression} of the {ObjectAttribute}.
-    2. Let {value} be the result of {Evaluate(valueNode, scope)}.
-    3. If the {ObjectAttribute} contains a {String}:
-          1. Let {name} be the string value of the {String}.
-    4. Otherwise:
-          1. Let {name} be the result of {DetermineName(valueNode)}.
-    5. Set the attribute {name} to {value} in {result}.
-3. Return {result}.
+* Let {result} be a new empty object.
+* For each {ObjectAttribute}:
+  * If the {ObjectAttribute} contains `...`:
+      * If the {ObjectAttribute} constains an {Expression}:
+        * Let {baseNode} be the {Expression}.
+      * Let {base} be the result of {Evaluate(baseNode, scope)}.
+    * Otherwise:
+      * Let {base} be the this value of {scope}.
+    * For each {name} and {value} of {base}:
+      * Set the attribute {name} to {value} in {result}.
+  * Otherwise:
+    * Let {valueNode} be the {Expression} of the {ObjectAttribute}.
+    * Let {value} be the result of {Evaluate(valueNode, scope)}.
+    * If the {ObjectAttribute} contains a {String}:
+      * Let {name} be the string value of the {String}.
+    * Otherwise:
+      * Let {name} be the result of {DetermineName(valueNode)}.
+    * Set the attribute {name} to {value} in {result}.
+* Return {result}.
 
 DetermineName(node):
 
