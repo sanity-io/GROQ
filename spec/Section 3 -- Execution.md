@@ -85,7 +85,7 @@ Evaluate(expr, scope):
 
 ## Score evaluation
 
-When evaluating {score}, a predicate returning `true` should evaluate to the score `1.0`, and a `false` predicate should evaluate to the score `0.0`. For example, the expression:
+When evaluating {score}, a predicate returning `true` should have its score computed as 1.0, and all other values should receive a score of 0.0. All results involved in scoring start with a score of 1.0. The scores are evaluated once per result, and then added together. For example:
 
 ```
 * | score(a > 1)
@@ -93,9 +93,16 @@ When evaluating {score}, a predicate returning `true` should evaluate to the sco
 
 should assign a score of 2.0 to any document where `a > 1`, and a score of 1.0 to any non-matching document.
 
-The scoring function for `match` is left as an implementation detail and not covered by this specification. For example, an implementation may choose to use a TD/IDF scoring function that uses the text corpus and language configuration for the given field to compute a text score.
+For logical expressions, the score is the sum of the clauses of the expression evaluates to `true`, otherwise 0.0. In other words:
 
-A boosted predicate simply adds the boost value to the score. For example, `boost(a > 1, 10)` would return `11` for any expression matching `a > 1`.
+* `true && false` receives the score 0.0.
+* `true && true` receives the score 2.0.
+* `true || true` receives the score 2.0.
+* `true || false` receives the score 1.0.
+
+The scoring function for `match` is left as an implementation detail and not covered by this specification. For example, an implementation may choose to use a TD/IDF or similar text scoring function that uses the text corpus and language configuration for the given field to compute a text score.
+
+A boosted predicate simply adds the boost value to the score if the predicate matches. For example, `boost(a > 1, 10)` would result in a score of 11 for any expression matching `a > 1`.
 
 ## Query execution
 

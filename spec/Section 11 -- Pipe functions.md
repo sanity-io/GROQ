@@ -62,9 +62,9 @@ In this query, anything where `body match "jacuzzi"` returns true will be scored
 *[_type == "listing"] | score(body match "jacuzzi", bedrooms > 2, available && !inContract)
 ```
 
-When multiple expressions are provided, the scores are merged into a single score for each result.
+When multiple expressions are provided, the scores are merged into a single score for each result (see [score evaluation](#sec-Score-evaluation))
 
-Only predicate expressions that evaluate to a single boolean value may be used, including `boost()`.
+Only predicate expressions — that is, expressions that evaluate to a single boolean value or to `null` — may be used, including `boost()`. However, an implementation can put further constraints on which expressions are permitted as a score expression for optimization purposes.
 
 Each score is assigned to the result as the new attribute `_score`, set to a positive number.
 

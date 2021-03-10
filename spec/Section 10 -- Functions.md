@@ -256,15 +256,15 @@ The return value is the same as the input predicate. Internally, the scoring exe
 
 boost(args, scope):
 
-* Let {numNode} be the first element of {args}.
-* Let {num} be the result of {Evaluate(numNode, scope)}.
 * Let {predicateNode} be the first element of {args}.
-* Let {predicate} be the result of {Evaluate(predicateNode, scope)}.
+* Let {result} be the result of {Evaluate(predicateNode, scope)}.
+* Let {numNode} be the second element of {args}.
+* Let {num} be the result of {Evaluate(numNode, scope)}.
 * If {num} is not a number:
   * Return {null}.
 * If {num} is negative:
   * Return {null}.
-* Return {predicate}.
+* Return {result}.
 
 boostValidate(args):
 
