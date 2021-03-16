@@ -100,7 +100,7 @@ For logical expressions, the score is the sum of the clauses of the expression e
 * `true || true` receives the score 2.0.
 * `true || false` receives the score 1.0.
 
-The scoring function for `match` is left as an implementation detail and not covered by this specification. For example, an implementation may choose to use a TD/IDF or similar text scoring function that uses the text corpus and language configuration for the given field to compute a text score.
+The scoring function for `match` is left as an implementation detail and not covered by this specification. For example, an implementation may choose to use a TF/IDF or similar text scoring function that uses the text corpus and language configuration for the given field to compute a text score.
 
 A boosted predicate simply adds the boost value to the score if the predicate matches. For example, `boost(a > 1, 10)` would result in a score of 11 for any expression matching `a > 1`.
 
