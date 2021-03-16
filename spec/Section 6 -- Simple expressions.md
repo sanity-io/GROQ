@@ -87,7 +87,7 @@ GROQ comes with a set of built-in functions which provides additional features. 
            ~~~~~~~~~~~~~~~
 
 *{"description": string::lower(description)}
-           ~~~~~~~~~~~~~~~
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 FuncCall : FuncNamespace? FuncIdentifier ( FuncCallArgs )
@@ -109,7 +109,7 @@ EvaluateFuncCall(scope):
 * For each {Expression} in {FuncCallArgs}:
   * Let {argumentNode} be the {Expression}.
   * Append {argumentNode} to {args}.
-* Let {func} be the function defined under the name {name} in {namespace} namespace.
+* Let {func} be the function defined under the name {name} in either {namespace} namespace if provided, or "global" namespace.
 * Return the result of {func(args, scope)}.
 
 ValidateFuncCall():
@@ -118,7 +118,7 @@ ValidateFuncCall():
 * If there is no namespace named {namespace}:
   * Stop and report an error.
 * Let {name} be the string value of the {FuncIdentifier}.
-* If there is no function named {name} defined in {namespace}:
+* If there is no function named {name} defined in either {namespace} namespace if provided, or  or "global" namespace:
   * Stop and report an error.
 * Let {args} be an array of the {Expression}s in {FuncCallArgs}.
 * Let {validator} be the validator for the function under the name {name}.

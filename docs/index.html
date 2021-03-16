@@ -869,7 +869,8 @@ document.documentElement.addEventListener('mouseout', removeHighlight);
 <li><a href="#sec-Scope"><span class="spec-secid">3.3</span>Scope</a></li>
 <li><a href="#sec-Expression-validation"><span class="spec-secid">3.4</span>Expression validation</a></li>
 <li><a href="#sec-Expression-evaluation"><span class="spec-secid">3.5</span>Expression evaluation</a></li>
-<li><a href="#sec-Query-execution"><span class="spec-secid">3.6</span>Query execution</a></li>
+<li><a href="#sec-Score-evaluation"><span class="spec-secid">3.6</span>Score evaluation</a></li>
+<li><a href="#sec-Query-execution"><span class="spec-secid">3.7</span>Query execution</a></li>
 </ol>
 </li>
 <li><a href="#sec-Data-types"><span class="spec-secid">4</span>Data types</a>
@@ -954,12 +955,14 @@ document.documentElement.addEventListener('mouseout', removeHighlight);
 <li><a href="#sec-string"><span class="spec-secid">10.9</span>string</a></li>
 <li><a href="#sec-lower"><span class="spec-secid">10.10</span>lower</a></li>
 <li><a href="#sec-upper"><span class="spec-secid">10.11</span>upper</a></li>
+<li><a href="#sec-boost"><span class="spec-secid">10.12</span>boost</a></li>
 </ol>
 </li>
 <li><a href="#sec-Pipe-functions"><span class="spec-secid">11</span>Pipe functions</a>
 <input hidden class="toggle" type="checkbox" checked id="_toggle_11" /><label for="_toggle_11"></label>
 <ol>
 <li><a href="#sec-order"><span class="spec-secid">11.1</span>order</a></li>
+<li><a href="#sec-score"><span class="spec-secid">11.2</span>score</a></li>
 </ol>
 </li>
 <li><a href="#sec-Vendor-functions"><span class="spec-secid">12</span>Vendor functions</a>
@@ -967,6 +970,29 @@ document.documentElement.addEventListener('mouseout', removeHighlight);
 <ol>
 <li><a href="#sec-identity-"><span class="spec-secid">12.1</span>identity()</a></li>
 <li><a href="#sec-path-"><span class="spec-secid">12.2</span>path()</a></li>
+</ol>
+</li>
+<li><a href="#sec-Extensions"><span class="spec-secid">13</span>Extensions</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_13" /><label for="_toggle_13"></label>
+<ol>
+<li><a href="#sec-Portable-Text-Extension"><span class="spec-secid">13.1</span>Portable Text Extension</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_13.1" /><label for="_toggle_13.1"></label>
+<ol>
+<li><a href="#sec-pt-type"><span class="spec-secid">13.1.1</span>pt type</a></li>
+<li><a href="#sec-global-pt-"><span class="spec-secid">13.1.2</span>global::pt()</a></li>
+<li><a href="#sec-pt-text-"><span class="spec-secid">13.1.3</span>pt::text()</a></li>
+</ol>
+</li>
+<li><a href="#sec-Geo-Extension"><span class="spec-secid">13.2</span>Geo Extension</a>
+<input hidden class="toggle" type="checkbox" checked id="_toggle_13.2" /><label for="_toggle_13.2"></label>
+<ol>
+<li><a href="#sec-geo-type"><span class="spec-secid">13.2.1</span>geo type</a></li>
+<li><a href="#sec-global-geo-"><span class="spec-secid">13.2.2</span>global::geo()</a></li>
+<li><a href="#sec-geo-contains-"><span class="spec-secid">13.2.3</span>geo::contains()</a></li>
+<li><a href="#sec-geo-intersects-"><span class="spec-secid">13.2.4</span>geo::intersects()</a></li>
+<li><a href="#sec-geo-distance-"><span class="spec-secid">13.2.5</span>geo::distance()</a></li>
+</ol>
+</li>
 </ol>
 </li>
 <li><a href="#index"><span class="spec-secid">§</span>Index</a></li>
@@ -1211,7 +1237,7 @@ The following sub&#8208;section is a non&#8208;normative overview of the executi
 </section>
 <section id="sec-Expression-evaluation" secid="3.5">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Expression-evaluation">3.5</a></span>Expression evaluation</h3>
-<p>An expression is evaluated in a scope. You must successfully validate an expression before you attempt to evaluate it. <a href="undefined"></a>Every expression type has their own evaluator function in their respective section in this specification (e.g. the evaluator of <span class="spec-nt"><span data-name="ParenthesisExpression">ParenthesisExpression</span></span> is <span class="spec-call"><a href="#EvaluateParenthesis()" data-name="EvaluateParenthesis">EvaluateParenthesis</a>()</span>).</p>
+<p>An expression is evaluated in a scope. You must successfully validate an expression before you attempt to evaluate it. Every expression type has their own evaluator function in their respective section in this specification (e.g. the evaluator of <span class="spec-nt"><span data-name="ParenthesisExpression">ParenthesisExpression</span></span> is <span class="spec-call"><a href="#EvaluateParenthesis()" data-name="EvaluateParenthesis">EvaluateParenthesis</a>()</span>).</p>
 <div class="spec-algo" id="Evaluate()">
 <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="expr">expr</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="evaluator">evaluator</var> be the evaluator of <var data-name="expr">expr</var>.</li>
@@ -1219,8 +1245,24 @@ The following sub&#8208;section is a non&#8208;normative overview of the executi
 </ol>
 </div>
 </section>
-<section id="sec-Query-execution" secid="3.6">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Query-execution">3.6</a></span>Query execution</h3>
+<section id="sec-Score-evaluation" secid="3.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Score-evaluation">3.6</a></span>Score evaluation</h3>
+<p>When evaluating <var data-name="score">score</var>, a predicate returning <code>true</code> should have its score computed as 1.0, and all other values should receive a score of 0.0. All results involved in scoring start with a score of 1.0. The scores are evaluated once per result, and then added together. For example:</p>
+<pre><code>* | score(a &gt; 1)
+</code></pre>
+<p>should assign a score of 2.0 to any document where <code>a &gt; 1</code>, and a score of 1.0 to any non&#8208;matching document.</p>
+<p>For logical expressions, the score is the sum of the clauses of the expression evaluates to <code>true</code>, otherwise 0.0. In other words:</p>
+<ul>
+<li><code>true &amp;&amp; false</code> receives the score 0.0.</li>
+<li><code>true &amp;&amp; true</code> receives the score 2.0.</li>
+<li><code>true || true</code> receives the score 2.0.</li>
+<li><code>true || false</code> receives the score 1.0.</li>
+</ul>
+<p>The scoring function for <code>match</code> is left as an implementation detail and not covered by this specification. For example, an implementation may choose to use a TF/IDF or similar text scoring function that uses the text corpus and language configuration for the given field to compute a text score.</p>
+<p>A boosted predicate simply adds the boost value to the score if the predicate matches. For example, <code>boost(a &gt; 1, 10)</code> would result in a score of 11 for any expression matching <code>a &gt; 1</code>.</p>
+</section>
+<section id="sec-Query-execution" secid="3.7">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Query-execution">3.7</a></span>Query execution</h3>
 <p>To execute a query you must first construct a query context, and then evaluate the query expression inside a root scope.</p>
 <div class="spec-algo" id="ExecuteQuery()">
 <span class="spec-call"><a href="#ExecuteQuery()" data-name="ExecuteQuery">ExecuteQuery</a>(<var data-name="query">query</var>, <var data-name="context">context</var>)</span><ol>
@@ -1416,9 +1458,7 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 </li>
 <li>Otherwise:<ol>
 <li>Let <var data-name="valueNode">valueNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span>.</li>
-</ol>
-</li>
-<li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="valueNode">valueNode</var>, <var data-name="scope">scope</var>)</span>.<ol>
+<li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="valueNode">valueNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> contains a <span class="spec-nt"><a href="#String" data-name="String">String</a></span>:<ol>
 <li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#String" data-name="String">String</a></span>.</li>
 </ol>
@@ -1766,7 +1806,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
            ~~~~~~~~~~~~~~~
 
 *{&quot;description&quot;: string::lower(description)}
-           ~~~~~~~~~~~~~~~
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 </code></pre>
 <div class="spec-production" id="FuncCall">
 <span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span><div class="spec-rhs"><span class="spec-quantified"><span class="spec-nt"><a href="#FuncNamespace" data-name="FuncNamespace">FuncNamespace</a></span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span><span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span><span class="spec-t">(</span><span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span><span class="spec-t">)</span></div>
@@ -1791,7 +1831,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <li>Append <var data-name="argumentNode">argumentNode</var> to <var data-name="args">args</var>.</li>
 </ol>
 </li>
-<li>Let <var data-name="func">func</var> be the function defined under the name <var data-name="name">name</var> in <var data-name="namespace">namespace</var> namespace.</li>
+<li>Let <var data-name="func">func</var> be the function defined under the name <var data-name="name">name</var> in either <var data-name="namespace">namespace</var> namespace if provided, or &ldquo;global&rdquo; namespace.</li>
 <li>Return the result of <span class="spec-call"><span data-name="func">func</span>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span>.</li>
 </ol>
 </div>
@@ -1803,7 +1843,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 </ol>
 </li>
 <li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span>.</li>
-<li>If there is no function named <var data-name="name">name</var> defined in <var data-name="namespace">namespace</var>:<ol>
+<li>If there is no function named <var data-name="name">name</var> defined in either <var data-name="namespace">namespace</var> namespace if provided, or or &ldquo;global&rdquo; namespace:<ol>
 <li>Stop and report an error.</li>
 </ol>
 </li>
@@ -1838,7 +1878,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <p>An attribute access expression returns an attribute of an object.</p>
 <pre><code>person.name
       ~~~~~
-      
+
 person[&quot;Full Name&quot;]
       ~~~~~~~~~~~~~
 </code></pre>
@@ -1923,7 +1963,7 @@ This expression is syntactically a subset of a filter expression.</div>
 </section>
 <section id="sec-Filter-expression" secid="7.5">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Filter-expression">7.5</a></span>Filter expression</h3>
-<p>A filter expression filters an array using another expression. </p>
+<p>A filter expression filters an array using another expression.</p>
 <pre><code>*[_type == &quot;person&quot;]
  ~~~~~~~~~~~~~~~~~~~
 </code></pre>
@@ -1952,7 +1992,7 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </section>
 <section id="sec-Projection-expression" secid="7.6">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Projection-expression">7.6</a></span>Projection expression</h3>
-<p>A projection expression iterates over an array and creates new objects for each element. </p>
+<p>A projection expression iterates over an array and creates new objects for each element.</p>
 <pre><code>*[_type == &quot;person&quot;]{name, &quot;isLegal&quot;: age &gt;= 18}
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 </code></pre>
@@ -1973,9 +2013,7 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Let <var data-name="result">result</var> be a new empty array.</li>
 <li>For each element <var data-name="value">value</var> in <var data-name="base">base</var>:<ol>
 <li>Let <var data-name="elementScope">elementScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="value">value</var>, <var data-name="scope">scope</var>)</span>.</li>
-</ol>
-</li>
-<li>Let <var data-name="newValue">newValue</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="objNode">objNode</var>, <var data-name="elementScope">elementScope</var>)</span>.<ol>
+<li>Let <var data-name="newValue">newValue</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="objNode">objNode</var>, <var data-name="elementScope">elementScope</var>)</span>.</li>
 <li>Append <var data-name="newValue">newValue</var> to <var data-name="result">result</var>.</li>
 </ol>
 </li>
@@ -2564,7 +2602,7 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 </section>
 <section id="sec-Functions" secid="10">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Functions">10</a></span>Functions</h2>
-<p>Functions provide additional functionalty to GROQ queries. They are invoked through a <a href="#sec-Function-call-expression">Function call expression</a>. Note that function arguments are not evaluated eagerly, and it&rsquo;s up to the function to decide which scope the arguments are evaluated it. As such, all functions below take an array of nodes.</p>
+<p>Functions provide additional functionality to GROQ queries. They are invoked through a <a href="#sec-Function-call-expression">Function call expression</a>. Note that function arguments are not evaluated eagerly, and it&rsquo;s up to the function to decide which scope the arguments are evaluated it. As such, all functions below take an array of nodes.</p>
 <p>Functions are namespaced which allows to group functions by logical scope. A function may be associated with multiple namespaces and behave differently. When a function is called without a namespace, it is by default associated with a &ldquo;<strong>global</strong>&rdquo; namespace.</p>
 <p>An implementation may provide additional functions, but should be aware that this can cause problems when interopting with future versions of GROQ.</p>
 <section id="sec-coalesce" secid="10.1">
@@ -2899,8 +2937,40 @@ If the second Expression is a string/integer/range literal, this is parsed as an
 <li>Return uppercase form of <var data-name="value">value</var>.</li>
 </ul>
 </li>
-<li>Return <span class="spec-keyword">null</span>. </li>
+<li>Return <span class="spec-keyword">null</span>.</li>
 </ul>
+</section>
+<section id="sec-boost" secid="10.12">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-boost">10.12</a></span>boost</h3>
+<p>The <code>boost</code> function accepts an expression and a boost value, and increases or decreases the score computed by <code>score()</code> (see <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a>) accordingly. <code>boost</code> can only be used within the argument list to <code>score()</code>.</p>
+<pre><code>* | score(boost(title matches &quot;milk&quot;, 5.0), body matches &quot;milk&quot;)
+</code></pre>
+<p>The expression must be a predicate expressions that evaluates to a single boolean value. Any other result value is ignored.</p>
+<p>The value argument must be a number &ge; 0.</p>
+<p>The return value is the same as the input predicate. Internally, the scoring execution model uses the provided boost value to increase the computed score if the predicate matches.</p>
+<div class="spec-algo" id="boost()">
+<span class="spec-call"><a href="#boost()" data-name="boost">boost</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="predicateNode">predicateNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="predicateNode">predicateNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="numNode">numNode</var> be the second element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="num">num</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="numNode">numNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="num">num</var> is not a number:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>If <var data-name="num">num</var> is negative:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="boostValidate()">
+<span class="spec-call"><a href="#boostValidate()" data-name="boostValidate">boostValidate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 2:</li>
+<li>Report an error. </li>
+</ol>
+</div>
 </section>
 </section>
 <section id="sec-Pipe-functions" secid="11">
@@ -2960,6 +3030,67 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </div>
 <div class="spec-algo" id="orderValidate()">
 <span class="spec-call"><a href="#orderValidate()" data-name="orderValidate">orderValidate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is 0:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
+</section>
+<section id="sec-score" secid="11.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-score">11.2</a></span>score</h3>
+<p>The <code>score</code> function assigns a score to an array of results, based on one or more scoring expressions. The <code>score</code> function may only be used as a pipe function.</p>
+<pre><code>*[_type == &quot;listing&quot;] | score(body match &quot;jacuzzi&quot;)
+</code></pre>
+<p>In this query, anything where <code>body match &quot;jacuzzi&quot;</code> returns true will be scored higher than other results. Multiple expressions can be used:</p>
+<pre><code>*[_type == &quot;listing&quot;] | score(body match &quot;jacuzzi&quot;, bedrooms &gt; 2, available &amp;&amp; !inContract)
+</code></pre>
+<p>When multiple expressions are provided, the scores are merged into a single score for each result (see <a href="#sec-Score-evaluation">score evaluation</a>)</p>
+<p>Only predicate expressions &mdash; that is, expressions that evaluate to a single boolean value or to <code>null</code> &mdash; may be used, including <code>boost()</code>. However, an implementation can put further constraints on which expressions are permitted as a score expression for optimization purposes.</p>
+<p>Each score is assigned to the result as the new attribute <code>_score</code>, set to a positive number.</p>
+<p>Scoring is additive. That is <code>* | score(a == 1) | score(b == 2)</code> is equivalent to <code>* | score(a == 1, b == 2)</code>.</p>
+<div class="spec-algo" id="score()">
+<span class="spec-call"><a href="#score()" data-name="score">score</a>(<var data-name="base">base</var>, <var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="baseNode">baseNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
+<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="base">base</var> is an array:<ol>
+<li>Let <var data-name="result">result</var> be an empty <span class="spec-nt"><a href="#Array" data-name="Array">Array</a></span>.</li>
+<li>For each <var data-name="element">element</var> of <var data-name="base">base</var>:<ol>
+<li>If <var data-name="element">element</var> is an object:<ol>
+<li>Let <var data-name="elementScope">elementScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="element">element</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="newElement">newElement</var> be a new empty <span class="spec-nt"><a href="#Object" data-name="Object">Object</a></span></li>
+<li>Add the attributes from <var data-name="element">element</var> to it.</li>
+<li>If <var data-name="element">element</var> already has a <code>_score</code>:<ol>
+<li>Let <var data-name="scoreSum">scoreSum</var> be the current value of <code>_score</code>.</li>
+<li>Otherwise let <var data-name="scoreSum">scoreSum</var> be 1.0.</li>
+</ol>
+</li>
+<li>For each <var data-name="predicateNode">predicateNode</var> of <var data-name="args">args</var>:<ol>
+<li>Let <var data-name="scoreValue">scoreValue</var> be the result of <span class="spec-call"><a href="#EvaluateScore()" data-name="EvaluateScore">EvaluateScore</a>(<var data-name="predicateNode">predicateNode</var>, <var data-name="elementScope">elementScope</var>)</span>.</li>
+<li>Add <var data-name="scoreValue">scoreValue</var> to <var data-name="scoreSum">scoreSum</var>.</li>
+</ol>
+</li>
+<li>Add the attribute <code>_score</code> set to <var data-name="scoreSum">scoreSum</var>.</li>
+<li>Add <var data-name="newElement">newElement</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+<li>Otherwise add <var data-name="element">element</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+<li>Return <var data-name="result">result</var> sorted by the score, in descending order.</li>
+</ol>
+</li>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="EvaluateScore()">
+<span class="spec-call"><a href="#EvaluateScore()" data-name="EvaluateScore">EvaluateScore</a>(<var data-name="expr">expr</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="evaluator">evaluator</var> be the score evaluator of <var data-name="expr">expr</var>.</li>
+<li>Return the result of <span class="spec-call"><span data-name="evaluator">evaluator</span>(<var data-name="scope">scope</var>)</span>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="scoreValidate()">
+<span class="spec-call"><a href="#scoreValidate()" data-name="scoreValidate">scoreValidate</a>(<var data-name="args">args</var>)</span><ol>
 <li>If the length of <var data-name="args">args</var> is 0:</li>
 <li>Report an error. </li>
 </ol>
@@ -2978,7 +3109,265 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <p>The path function should accept a single argument and return a path object. </p>
 </section>
 </section>
-<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#And">And</a></li><li><a href="#Array">Array</a></li><li><a href="#ArrayElement">ArrayElement</a></li><li><a href="#ArrayElements">ArrayElements</a></li><li><a href="#Asc">Asc</a></li><li><a href="#AttributeAccess">AttributeAccess</a></li><li><a href="#Boolean">Boolean</a></li><li><a href="#Comment">Comment</a></li><li><a href="#CommentChar">CommentChar</a></li><li><a href="#Comparison">Comparison</a></li><li><a href="#ComparisonOperator">ComparisonOperator</a></li><li><a href="#CompoundExpression">CompoundExpression</a></li><li><a href="#Decimal">Decimal</a></li><li><a href="#Dereference">Dereference</a></li><li><a href="#Desc">Desc</a></li><li><a href="#DetermineName()">DetermineName</a></li><li><a href="#Digit">Digit</a></li><li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li><li><a href="#ElementAccess">ElementAccess</a></li><li><a href="#Equal()">Equal</a></li><li><a href="#Equality">Equality</a></li><li><a href="#EqualityOperator">EqualityOperator</a></li><li><a href="#EscapeSequence">EscapeSequence</a></li><li><a href="#Evaluate()">Evaluate</a></li><li><a href="#EvaluateAnd()">EvaluateAnd</a></li><li><a href="#EvaluateArray()">EvaluateArray</a></li><li><a href="#EvaluateAttributeAccess()">EvaluateAttributeAccess</a></li><li><a href="#EvaluateComparison()">EvaluateComparison</a></li><li><a href="#EvaluateDereference()">EvaluateDereference</a></li><li><a href="#EvaluateElementAccess()">EvaluateElementAccess</a></li><li><a href="#EvaluateEquality()">EvaluateEquality</a></li><li><a href="#EvaluateEverything()">EvaluateEverything</a></li><li><a href="#EvaluateFilter()">EvaluateFilter</a></li><li><a href="#EvaluateFuncCall()">EvaluateFuncCall</a></li><li><a href="#EvaluateIn()">EvaluateIn</a></li><li><a href="#EvaluateMatch()">EvaluateMatch</a></li><li><a href="#EvaluateMinus()">EvaluateMinus</a></li><li><a href="#EvaluateNot()">EvaluateNot</a></li><li><a href="#EvaluateObject()">EvaluateObject</a></li><li><a href="#EvaluateOr()">EvaluateOr</a></li><li><a href="#EvaluatePair()">EvaluatePair</a></li><li><a href="#EvaluateParent()">EvaluateParent</a></li><li><a href="#EvaluateParenthesis()">EvaluateParenthesis</a></li><li><a href="#EvaluatePercent()">EvaluatePercent</a></li><li><a href="#EvaluatePipeFuncCall()">EvaluatePipeFuncCall</a></li><li><a href="#EvaluatePlus()">EvaluatePlus</a></li><li><a href="#EvaluateProjection()">EvaluateProjection</a></li><li><a href="#EvaluateRange()">EvaluateRange</a></li><li><a href="#EvaluateSlash()">EvaluateSlash</a></li><li><a href="#EvaluateSlice()">EvaluateSlice</a></li><li><a href="#EvaluateStar()">EvaluateStar</a></li><li><a href="#EvaluateStarStar()">EvaluateStarStar</a></li><li><a href="#EvaluateThis()">EvaluateThis</a></li><li><a href="#EvaluateThisAttribute()">EvaluateThisAttribute</a></li><li><a href="#EvaluateUnaryMinus()">EvaluateUnaryMinus</a></li><li><a href="#EvaluateUnaryPlus()">EvaluateUnaryPlus</a></li><li><a href="#Everything">Everything</a></li><li><a href="#ExclusiveRange">ExclusiveRange</a></li><li><a href="#ExecuteQuery()">ExecuteQuery</a></li><li><a href="#ExponentMarker">ExponentMarker</a></li><li><a href="#Expression">Expression</a></li><li><a href="#Filter">Filter</a></li><li><a href="#Fractional">Fractional</a></li><li><a href="#FuncCall">FuncCall</a></li><li><a href="#FuncCallArgs">FuncCallArgs</a></li><li><a href="#FuncIdentifier">FuncIdentifier</a></li><li><a href="#FuncNamespace">FuncNamespace</a></li><li><a href="#HexDigit">HexDigit</a></li><li><a href="#HexLetter">HexLetter</a></li><li><a href="#Identifier">Identifier</a></li><li><a href="#In">In</a></li><li><a href="#InclusiveRange">InclusiveRange</a></li><li><a href="#Integer">Integer</a></li><li><a href="#Literal">Literal</a></li><li><a href="#Match">Match</a></li><li><a href="#MatchAnalyzePattern()">MatchAnalyzePattern</a></li><li><a href="#MatchTokenize()">MatchTokenize</a></li><li><a href="#Minus">Minus</a></li><li><a href="#NewNestedScope()">NewNestedScope</a></li><li><a href="#NewRootScope()">NewRootScope</a></li><li><a href="#Not">Not</a></li><li><a href="#Null">Null</a></li><li><a href="#Number">Number</a></li><li><a href="#Object">Object</a></li><li><a href="#ObjectAttribute">ObjectAttribute</a></li><li><a href="#ObjectAttributes">ObjectAttributes</a></li><li><a href="#OperatorCall">OperatorCall</a></li><li><a href="#Or">Or</a></li><li><a href="#Pair">Pair</a></li><li><a href="#Parent">Parent</a></li><li><a href="#Parenthesis">Parenthesis</a></li><li><a href="#PartialCompare()">PartialCompare</a></li><li><a href="#Percent">Percent</a></li><li><a href="#PipeFuncCall">PipeFuncCall</a></li><li><a href="#Plus">Plus</a></li><li><a href="#Projection">Projection</a></li><li><a href="#Range">Range</a></li><li><a href="#ScientificNotation">ScientificNotation</a></li><li><a href="#Sign">Sign</a></li><li><a href="#SimpleExpression">SimpleExpression</a></li><li><a href="#SingleEscapeSequence">SingleEscapeSequence</a></li><li><a href="#SingleStringCharacter">SingleStringCharacter</a></li><li><a href="#Slash">Slash</a></li><li><a href="#Slice">Slice</a></li><li><a href="#SourceCharacter">SourceCharacter</a></li><li><a href="#Star">Star</a></li><li><a href="#StarStar">StarStar</a></li><li><a href="#String">String</a></li><li><a href="#This">This</a></li><li><a href="#ThisAttribute">ThisAttribute</a></li><li><a href="#TotalCompare()">TotalCompare</a></li><li><a href="#TypeOrder()">TypeOrder</a></li><li><a href="#UnaryMinus">UnaryMinus</a></li><li><a href="#UnaryPlus">UnaryPlus</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li><li><a href="#Validate()">Validate</a></li><li><a href="#ValidateAsc()">ValidateAsc</a></li><li><a href="#ValidateDesc()">ValidateDesc</a></li><li><a href="#ValidateFuncCall()">ValidateFuncCall</a></li><li><a href="#ValidateObject()">ValidateObject</a></li><li><a href="#ValidateObjectAttribute()">ValidateObjectAttribute</a></li><li><a href="#ValidatePipeFuncCall()">ValidatePipeFuncCall</a></li><li><a href="#WhiteSpace">WhiteSpace</a></li><li><a href="#order()">order</a></li><li><a href="#orderValidate()">orderValidate</a></li></ol></section></article>
+<section id="sec-Extensions" secid="13">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Extensions">13</a></span>Extensions</h2>
+<p>Extensions are the capabilities which extend GROQ queries beyond basic Spec. These capabilities can include function namespaces, functions and operators. However, extensions can not introduce a new syntax.</p>
+<section id="sec-Portable-Text-Extension" secid="13.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Portable-Text-Extension">13.1</a></span>Portable Text Extension</h3>
+<section id="sec-pt-type" secid="13.1.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-pt-type">13.1.1</a></span>pt type</h4>
+<p>PT type represents an object following <a href="undefined">portable text spec</a>.</p>
+</section>
+<section id="sec-global-pt-" secid="13.1.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-global-pt-">13.1.2</a></span>global::pt()</h4>
+<p>It takes in an object or an array of objects, and returns a PT value.</p>
+<p>global::pt(args, scope):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+<li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="base">base</var> is an object:<ul>
+<li>Try to parse it as Portable Text Block:</li>
+<li>If <var data-name="base">base</var>is a valid Portable Text Block:<ul>
+<li>Return <var data-name="base">base</var>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>If <var data-name="base">base</var> is an array of objects:<ul>
+<li>Try to parse it as an array of Portable Text blocks:</li>
+<li>If all elements in <var data-name="base">base</var> array are valid Portable Text blocks:<ul>
+<li>Return <var data-name="base">base</var>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Otherwise:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+</ul>
+<p>global::ptValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+<li>Report an error.</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-pt-text-" secid="13.1.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-pt-text-">13.1.3</a></span>pt::text()</h4>
+<p>It takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (<code>\n\n</code>) in the string version. </p>
+<p>pt::text(args, scope):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+<li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="base">base</var> is an object:<ul>
+<li>Try to parse it as Portable Text Block:</li>
+<li>If <var data-name="base">base</var>is a valid Portable Text Block:<ul>
+<li>Return string version of text in <var data-name="base">base</var>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>If <var data-name="base">base</var> is an array of objects:<ul>
+<li>Try to parse it as an array of Portable Text blocks:</li>
+<li>If all elements in <var data-name="base">base</var> array are valid Portable Text blocks:<ul>
+<li>Return string version of text in <var data-name="base">base</var>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Otherwise:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+</ul>
+<p>pt::textValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+<li>Report an error.</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="sec-Geo-Extension" secid="13.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Geo-Extension">13.2</a></span>Geo Extension</h3>
+<section id="sec-geo-type" secid="13.2.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-geo-type">13.2.1</a></span>geo type</h4>
+<p>Geo type represents a geography and can contain points, lines, polygons which are representable as a Geo Point or in GeoJSON. Concretely, an object is coerced to geo type if:</p>
+<ol>
+<li>If the object is Geo Point, that is it has a key <code>lat</code> for lattitude and a key <code>lng</code> or <code>lon</code> for longitude (but not both).</li>
+<li>If the object has <a href="https://tools.ietf.org/html/rfc7946">GeoJSON</a> representation.</li>
+</ol>
+<p>Geo type supports following GeoJSON Geometry Objects:</p>
+<ol>
+<li><code>Position</code></li>
+<li><code>Point</code></li>
+<li><code>MultiPoint</code></li>
+<li><code>LineString</code></li>
+<li><code>MultiLineString</code></li>
+<li><code>Polygon</code></li>
+<li><code>MultiPolygon</code>.</li>
+</ol>
+<p>And, it does not support:</p>
+<ol>
+<li>GeoJSON Geometry Object <code>GeometryCollection</code>.</li>
+<li>GeoJSON Object <code>Feature</code> and <code>FeatureCollection</code>. </li>
+<li>Array of GeoJSON Points, instead a GeoJSON MultiPoint should be used.</li>
+</ol>
+</section>
+<section id="sec-global-geo-" secid="13.2.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-global-geo-">13.2.2</a></span>global::geo()</h4>
+<p>This function is a constructor for geo value of geo type. It takes an object or another geo value, returning a geo value.</p>
+<p>global::geo(args, scope):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+<li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="base">base</var> is an object:<ul>
+<li>Try to parse it as Geo Point and GeoJSON:</li>
+<li>If <var data-name="base">base</var>is a valid geo value:<ul>
+<li>Return <var data-name="base">base</var>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>If <var data-name="base">base</var> is a geo value:<ul>
+<li>Return <var data-name="base">base</var>.</li>
+</ul>
+</li>
+<li>Otherwise:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+</ul>
+<p>global::geoValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+<li>Report an error.</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-geo-contains-" secid="13.2.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-geo-contains-">13.2.3</a></span>geo::contains()</h4>
+<p>Returns true if when first geo value is completely contains the second one, that is polygon created by first geo value contains all the points represented in second geo value.</p>
+<p>geo::contains(args, scope):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 2:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+<li>Let <var data-name="firstNode">firstNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="secondNode">secondNode</var> be the second element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="first">first</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="firstNode">firstNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="second">second</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="secondNode">secondNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a geo value:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+<li>If <var data-name="first">first</var> completely contains <var data-name="second">second</var>:<ul>
+<li>Return <span class="spec-keyword">true</span>.</li>
+</ul>
+</li>
+<li>Otherwise:<ul>
+<li>Return <span class="spec-keyword">false</span>.</li>
+</ul>
+</li>
+</ul>
+<p>geo::containsValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 2:<ul>
+<li>Report an error.</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-geo-intersects-" secid="13.2.4">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-geo-intersects-">13.2.4</a></span>geo::intersects()</h4>
+<p>It takes in two geo point arguments and returns true if first geo value intersects the second one, that is polygon created by first geo value intersects with or contains atleast one of the edge represented in second geo value polygon.</p>
+<p>geo::intersects(args, scope):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 2:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+<li>Let <var data-name="firstNode">firstNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="secondNode">secondNode</var> be the second element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="first">first</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="firstNode">firstNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="second">second</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="secondNode">secondNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a geo value:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+<li>If <var data-name="first">first</var> intersects <var data-name="second">second</var>:<ul>
+<li>Return <span class="spec-keyword">true</span>.</li>
+</ul>
+</li>
+<li>Otherwise:<ul>
+<li>Return <span class="spec-keyword">false</span>.</li>
+</ul>
+</li>
+</ul>
+<p>geo::intersectsValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 2:<ul>
+<li>Report an error.</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-geo-distance-" secid="13.2.5">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-geo-distance-">13.2.5</a></span>geo::distance()</h4>
+<p>It accepts two Geo Points or GeoJSON Points and returns the distance in meters. Lines/Polygons are not supported.</p>
+<p>geo::distance(args, scope):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 2:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+<li>Let <var data-name="firstNode">firstNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="secondNode">secondNode</var> be the second element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="first">first</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="firstNode">firstNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="second">second</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="secondNode">secondNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a geo value:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a Geo Point or GeoJSON Point:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+<li>Let <var data-name="distance">distance</var> be the <a href="https://en.wikipedia.org/wiki/Haversine_formula">HaverSine distance</a> between <var data-name="first">first</var> and <var data-name="second">second</var>:<ul>
+<li>Return <var data-name="distance">distance</var>.</li>
+</ul>
+</li>
+<li>Otherwise:<ul>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ul>
+</li>
+</ul>
+<p>geo::distanceValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 2:</li>
+<li>Report an error. </li>
+</ul>
+</section>
+</section>
+</section>
+<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#And">And</a></li><li><a href="#Array">Array</a></li><li><a href="#ArrayElement">ArrayElement</a></li><li><a href="#ArrayElements">ArrayElements</a></li><li><a href="#Asc">Asc</a></li><li><a href="#AttributeAccess">AttributeAccess</a></li><li><a href="#Boolean">Boolean</a></li><li><a href="#Comment">Comment</a></li><li><a href="#CommentChar">CommentChar</a></li><li><a href="#Comparison">Comparison</a></li><li><a href="#ComparisonOperator">ComparisonOperator</a></li><li><a href="#CompoundExpression">CompoundExpression</a></li><li><a href="#Decimal">Decimal</a></li><li><a href="#Dereference">Dereference</a></li><li><a href="#Desc">Desc</a></li><li><a href="#DetermineName()">DetermineName</a></li><li><a href="#Digit">Digit</a></li><li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li><li><a href="#ElementAccess">ElementAccess</a></li><li><a href="#Equal()">Equal</a></li><li><a href="#Equality">Equality</a></li><li><a href="#EqualityOperator">EqualityOperator</a></li><li><a href="#EscapeSequence">EscapeSequence</a></li><li><a href="#Evaluate()">Evaluate</a></li><li><a href="#EvaluateAnd()">EvaluateAnd</a></li><li><a href="#EvaluateArray()">EvaluateArray</a></li><li><a href="#EvaluateAttributeAccess()">EvaluateAttributeAccess</a></li><li><a href="#EvaluateComparison()">EvaluateComparison</a></li><li><a href="#EvaluateDereference()">EvaluateDereference</a></li><li><a href="#EvaluateElementAccess()">EvaluateElementAccess</a></li><li><a href="#EvaluateEquality()">EvaluateEquality</a></li><li><a href="#EvaluateEverything()">EvaluateEverything</a></li><li><a href="#EvaluateFilter()">EvaluateFilter</a></li><li><a href="#EvaluateFuncCall()">EvaluateFuncCall</a></li><li><a href="#EvaluateIn()">EvaluateIn</a></li><li><a href="#EvaluateMatch()">EvaluateMatch</a></li><li><a href="#EvaluateMinus()">EvaluateMinus</a></li><li><a href="#EvaluateNot()">EvaluateNot</a></li><li><a href="#EvaluateObject()">EvaluateObject</a></li><li><a href="#EvaluateOr()">EvaluateOr</a></li><li><a href="#EvaluatePair()">EvaluatePair</a></li><li><a href="#EvaluateParent()">EvaluateParent</a></li><li><a href="#EvaluateParenthesis()">EvaluateParenthesis</a></li><li><a href="#EvaluatePercent()">EvaluatePercent</a></li><li><a href="#EvaluatePipeFuncCall()">EvaluatePipeFuncCall</a></li><li><a href="#EvaluatePlus()">EvaluatePlus</a></li><li><a href="#EvaluateProjection()">EvaluateProjection</a></li><li><a href="#EvaluateRange()">EvaluateRange</a></li><li><a href="#EvaluateScore()">EvaluateScore</a></li><li><a href="#EvaluateSlash()">EvaluateSlash</a></li><li><a href="#EvaluateSlice()">EvaluateSlice</a></li><li><a href="#EvaluateStar()">EvaluateStar</a></li><li><a href="#EvaluateStarStar()">EvaluateStarStar</a></li><li><a href="#EvaluateThis()">EvaluateThis</a></li><li><a href="#EvaluateThisAttribute()">EvaluateThisAttribute</a></li><li><a href="#EvaluateUnaryMinus()">EvaluateUnaryMinus</a></li><li><a href="#EvaluateUnaryPlus()">EvaluateUnaryPlus</a></li><li><a href="#Everything">Everything</a></li><li><a href="#ExclusiveRange">ExclusiveRange</a></li><li><a href="#ExecuteQuery()">ExecuteQuery</a></li><li><a href="#ExponentMarker">ExponentMarker</a></li><li><a href="#Expression">Expression</a></li><li><a href="#Filter">Filter</a></li><li><a href="#Fractional">Fractional</a></li><li><a href="#FuncCall">FuncCall</a></li><li><a href="#FuncCallArgs">FuncCallArgs</a></li><li><a href="#FuncIdentifier">FuncIdentifier</a></li><li><a href="#FuncNamespace">FuncNamespace</a></li><li><a href="#HexDigit">HexDigit</a></li><li><a href="#HexLetter">HexLetter</a></li><li><a href="#Identifier">Identifier</a></li><li><a href="#In">In</a></li><li><a href="#InclusiveRange">InclusiveRange</a></li><li><a href="#Integer">Integer</a></li><li><a href="#Literal">Literal</a></li><li><a href="#Match">Match</a></li><li><a href="#MatchAnalyzePattern()">MatchAnalyzePattern</a></li><li><a href="#MatchTokenize()">MatchTokenize</a></li><li><a href="#Minus">Minus</a></li><li><a href="#NewNestedScope()">NewNestedScope</a></li><li><a href="#NewRootScope()">NewRootScope</a></li><li><a href="#Not">Not</a></li><li><a href="#Null">Null</a></li><li><a href="#Number">Number</a></li><li><a href="#Object">Object</a></li><li><a href="#ObjectAttribute">ObjectAttribute</a></li><li><a href="#ObjectAttributes">ObjectAttributes</a></li><li><a href="#OperatorCall">OperatorCall</a></li><li><a href="#Or">Or</a></li><li><a href="#Pair">Pair</a></li><li><a href="#Parent">Parent</a></li><li><a href="#Parenthesis">Parenthesis</a></li><li><a href="#PartialCompare()">PartialCompare</a></li><li><a href="#Percent">Percent</a></li><li><a href="#PipeFuncCall">PipeFuncCall</a></li><li><a href="#Plus">Plus</a></li><li><a href="#Projection">Projection</a></li><li><a href="#Range">Range</a></li><li><a href="#ScientificNotation">ScientificNotation</a></li><li><a href="#Sign">Sign</a></li><li><a href="#SimpleExpression">SimpleExpression</a></li><li><a href="#SingleEscapeSequence">SingleEscapeSequence</a></li><li><a href="#SingleStringCharacter">SingleStringCharacter</a></li><li><a href="#Slash">Slash</a></li><li><a href="#Slice">Slice</a></li><li><a href="#SourceCharacter">SourceCharacter</a></li><li><a href="#Star">Star</a></li><li><a href="#StarStar">StarStar</a></li><li><a href="#String">String</a></li><li><a href="#This">This</a></li><li><a href="#ThisAttribute">ThisAttribute</a></li><li><a href="#TotalCompare()">TotalCompare</a></li><li><a href="#TypeOrder()">TypeOrder</a></li><li><a href="#UnaryMinus">UnaryMinus</a></li><li><a href="#UnaryPlus">UnaryPlus</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li><li><a href="#Validate()">Validate</a></li><li><a href="#ValidateAsc()">ValidateAsc</a></li><li><a href="#ValidateDesc()">ValidateDesc</a></li><li><a href="#ValidateFuncCall()">ValidateFuncCall</a></li><li><a href="#ValidateObject()">ValidateObject</a></li><li><a href="#ValidateObjectAttribute()">ValidateObjectAttribute</a></li><li><a href="#ValidatePipeFuncCall()">ValidatePipeFuncCall</a></li><li><a href="#WhiteSpace">WhiteSpace</a></li><li><a href="#boost()">boost</a></li><li><a href="#boostValidate()">boostValidate</a></li><li><a href="#order()">order</a></li><li><a href="#orderValidate()">orderValidate</a></li><li><a href="#score()">score</a></li><li><a href="#scoreValidate()">scoreValidate</a></li></ol></section></article>
 <footer>
 Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</footer>
 <input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden>&#x2630;</label>
@@ -3005,7 +3394,8 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_3.3"><a href="#sec-Scope"><span class="spec-secid">3.3</span>Scope</a></li>
 <li id="_sidebar_3.4"><a href="#sec-Expression-validation"><span class="spec-secid">3.4</span>Expression validation</a></li>
 <li id="_sidebar_3.5"><a href="#sec-Expression-evaluation"><span class="spec-secid">3.5</span>Expression evaluation</a></li>
-<li id="_sidebar_3.6"><a href="#sec-Query-execution"><span class="spec-secid">3.6</span>Query execution</a></li>
+<li id="_sidebar_3.6"><a href="#sec-Score-evaluation"><span class="spec-secid">3.6</span>Score evaluation</a></li>
+<li id="_sidebar_3.7"><a href="#sec-Query-execution"><span class="spec-secid">3.7</span>Query execution</a></li>
 </ol>
 </li>
 <li id="_sidebar_4"><a href="#sec-Data-types"><span class="spec-secid">4</span>Data types</a>
@@ -3090,12 +3480,14 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_10.9"><a href="#sec-string"><span class="spec-secid">10.9</span>string</a></li>
 <li id="_sidebar_10.10"><a href="#sec-lower"><span class="spec-secid">10.10</span>lower</a></li>
 <li id="_sidebar_10.11"><a href="#sec-upper"><span class="spec-secid">10.11</span>upper</a></li>
+<li id="_sidebar_10.12"><a href="#sec-boost"><span class="spec-secid">10.12</span>boost</a></li>
 </ol>
 </li>
 <li id="_sidebar_11"><a href="#sec-Pipe-functions"><span class="spec-secid">11</span>Pipe functions</a>
 <input hidden class="toggle" type="checkbox" id="_sidebar_toggle_11" /><label for="_sidebar_toggle_11"></label>
 <ol>
 <li id="_sidebar_11.1"><a href="#sec-order"><span class="spec-secid">11.1</span>order</a></li>
+<li id="_sidebar_11.2"><a href="#sec-score"><span class="spec-secid">11.2</span>score</a></li>
 </ol>
 </li>
 <li id="_sidebar_12"><a href="#sec-Vendor-functions"><span class="spec-secid">12</span>Vendor functions</a>
@@ -3103,6 +3495,29 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <ol>
 <li id="_sidebar_12.1"><a href="#sec-identity-"><span class="spec-secid">12.1</span>identity()</a></li>
 <li id="_sidebar_12.2"><a href="#sec-path-"><span class="spec-secid">12.2</span>path()</a></li>
+</ol>
+</li>
+<li id="_sidebar_13"><a href="#sec-Extensions"><span class="spec-secid">13</span>Extensions</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_13" /><label for="_sidebar_toggle_13"></label>
+<ol>
+<li id="_sidebar_13.1"><a href="#sec-Portable-Text-Extension"><span class="spec-secid">13.1</span>Portable Text Extension</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_13.1" /><label for="_sidebar_toggle_13.1"></label>
+<ol>
+<li id="_sidebar_13.1.1"><a href="#sec-pt-type"><span class="spec-secid">13.1.1</span>pt type</a></li>
+<li id="_sidebar_13.1.2"><a href="#sec-global-pt-"><span class="spec-secid">13.1.2</span>global::pt()</a></li>
+<li id="_sidebar_13.1.3"><a href="#sec-pt-text-"><span class="spec-secid">13.1.3</span>pt::text()</a></li>
+</ol>
+</li>
+<li id="_sidebar_13.2"><a href="#sec-Geo-Extension"><span class="spec-secid">13.2</span>Geo Extension</a>
+<input hidden class="toggle" type="checkbox" id="_sidebar_toggle_13.2" /><label for="_sidebar_toggle_13.2"></label>
+<ol>
+<li id="_sidebar_13.2.1"><a href="#sec-geo-type"><span class="spec-secid">13.2.1</span>geo type</a></li>
+<li id="_sidebar_13.2.2"><a href="#sec-global-geo-"><span class="spec-secid">13.2.2</span>global::geo()</a></li>
+<li id="_sidebar_13.2.3"><a href="#sec-geo-contains-"><span class="spec-secid">13.2.3</span>geo::contains()</a></li>
+<li id="_sidebar_13.2.4"><a href="#sec-geo-intersects-"><span class="spec-secid">13.2.4</span>geo::intersects()</a></li>
+<li id="_sidebar_13.2.5"><a href="#sec-geo-distance-"><span class="spec-secid">13.2.5</span>geo::distance()</a></li>
+</ol>
+</li>
 </ol>
 </li>
 <li id="_sidebar_index"><a href="#index"><span class="spec-secid">§</span>Index</a></li>

@@ -87,7 +87,7 @@ Evaluate(expr, scope):
 
 When evaluating {score}, a predicate returning `true` should have its score computed as 1.0, and all other values should receive a score of 0.0. All results involved in scoring start with a score of 1.0. The scores are evaluated once per result, and then added together. For example:
 
-```
+```groq
 * | score(a > 1)
 ```
 
