@@ -20,6 +20,10 @@ Read the [announcement blog post](https://www.sanity.io/blog/we-re-open-sourcing
 
 >This module exports a single function that can be called with an ES2015 template string to signal that it represents a GROQ-query.
 
+[GROQ test suite](https://github.com/sanity-io/groq-test-suite)
+
+> Test suite for GROQ queries.
+
 ### Syntax highlighting
 
 - [VS Code](https://github.com/sanity-io/vscode-sanity)
