@@ -9,11 +9,11 @@ Extensions are the capabilities which extend GROQ queries beyond basic Spec. The
 
 ### pt type
 
-PT type represents an object following [portable text spec](undefined).
+PT type represents an object following [portable text spec](https://github.com/portabletext/portabletext).
 
 ### global::pt()
 
-It takes in an object or an array of objects, and returns a PT value.
+This function takes in an object or an array of objects, and returns a PT value.
 
 global::pt(args, scope):
 
@@ -23,11 +23,11 @@ global::pt(args, scope):
 * Let {base} be the result of {Evaluate(baseNode, scope)}.
 * If {base} is an object:
   * Try to parse it as Portable Text Block:
-  * If {base }is a valid Portable Text Block:
+  * If {base} is a valid Portable Text Block:
       * Return {base}.
 * If {base} is an array of objects:
   * Try to parse it as an array of Portable Text blocks:
-  * If all elements in {base} array are valid Portable Text blocks:
+    * If all elements in {base} array are valid Portable Text blocks:
       * Return {base}.
 * Otherwise:
   * Return {null}.
@@ -39,7 +39,7 @@ global::ptValidate(args):
 
 ### pt::text()
 
-It takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (`\n\n`) in the string version. 
+This function takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (`\n\n`) in the string version. 
 
 pt::text(args, scope):
 
@@ -63,13 +63,13 @@ pt::textValidate(args):
 * If the length of {args} is not 1:
   * Report an error.
 
-## Geo Extension
+## Geography Extension
 
 ### geo type
 
-Geo type represents a geography and can contain points, lines, polygons which are representable as a Geo Point or in GeoJSON. Concretely, an object is coerced to geo type if:
+The geo type represents a geography and can contain points, lines, and polygons which can be expressed with a single latitude/longitude coordinate, or as a GeoJSON object. Concretely, an object is coerced to the geo type if:
 
-1. If the object is Geo Point, that is it has a key `lat` for lattitude and a key `lng` or `lon` for longitude (but not both).
+1. If the object is coerced to a geographic point, that is it has a key `lat` for latitude and a key `lng` or `lon` for longitude (but not both).
 2. If the object has [GeoJSON](https://tools.ietf.org/html/rfc7946) representation.
 
 Geo type supports following GeoJSON Geometry Objects:
@@ -80,17 +80,16 @@ Geo type supports following GeoJSON Geometry Objects:
 4. `LineString`
 5. `MultiLineString`
 6. `Polygon`
-7. `MultiPolygon`.
+7. `MultiPolygon`
+8. `GeometryCollection`
 
 And, it does not support:
-
-1. GeoJSON Geometry Object  `GeometryCollection`.
-2. GeoJSON Object `Feature` and `FeatureCollection`. 
-3. Array of GeoJSON Points, instead a GeoJSON MultiPoint should be used.
+1. GeoJSON Object `Feature` and `FeatureCollection`. 
+2. Arrays of geographic values. Instead, one of the GeoJSON `Multi` types should be used.
 
 ### global::geo()
 
-This function is a constructor for geo value of geo type. It takes an object or another geo value, returning a geo value.
+This function is a constructor for geographic value. It takes an object or another geo value, returning a geo value.
 
 global::geo(args, scope):
 
@@ -100,7 +99,7 @@ global::geo(args, scope):
 * Let {base} be the result of {Evaluate(baseNode, scope)}.
 * If {base} is an object:
   * Try to parse it as Geo Point and GeoJSON:
-  * If {base }is a valid geo value:
+  * If {base} is a valid geo value:
       * Return {base}.
 * If {base} is a geo value:
   * Return {base}.
@@ -114,7 +113,7 @@ global::geoValidate(args):
 
 ### geo::contains()
 
-Returns true if when first geo value is completely contains the second one, that is polygon created by first geo value contains all the points represented in second geo value.
+Returns true if first geo argument completely contains the second one, using a planar (non-spherical) coordinate system. The first geo argument can be any geo value. The second must be a GeoJSON `Polygon` or `MultiPolygon`. A geo value is considered contained if all its points are within the boundaries of the first geo value. For `MultiPolygon`, it's sufficient that only one of the polygons contains the first geo value.
 
 geo::contains(args, scope):
 
@@ -138,7 +137,7 @@ geo::containsValidate(args):
 
 ### geo::intersects()
 
-It takes in two geo point arguments and returns true if first geo value intersects the second one, that is polygon created by first geo value intersects with or contains atleast one of the edge represented in second geo value polygon.
+This function takes two geo values, and returns true if they intersect in a planar (non-spherical) coordinate system. The arguments can be any geo values. A geo value intersects with another if it shares any geometric points with the second value; for example, a line crossing a polygon.
 
 geo::intersects(args, scope):
 
@@ -162,7 +161,7 @@ geo::intersectsValidate(args):
 
 ### geo::distance()
 
-It accepts two Geo Points or GeoJSON Points and returns the distance in meters. Lines/Polygons are not supported.
+This functions accepts two geo values, which must be point values, and returns the distance in meters. While exact algorithm is implementation-defined — for example, it may use the [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula) — it should use as close an approximation to a real Earth distance as possible.
 
 geo::distance(args, scope):
 
@@ -176,7 +175,7 @@ geo::distance(args, scope):
   * Return {null}.
 * If {first} or {second} is a not a Geo Point or GeoJSON Point:
   * Return {null}.
-* Let {distance} be the [HaverSine distance](https://en.wikipedia.org/wiki/Haversine_formula) between {first} and {second}:
+* Let {distance} be the geographic distance between {first} and {second}:
   * Return {distance}.
 * Otherwise:
   * Return {null}.
