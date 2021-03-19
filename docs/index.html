@@ -983,7 +983,7 @@ document.documentElement.addEventListener('mouseout', removeHighlight);
 <li><a href="#sec-pt-text-"><span class="spec-secid">13.1.3</span>pt::text()</a></li>
 </ol>
 </li>
-<li><a href="#sec-Geo-Extension"><span class="spec-secid">13.2</span>Geo Extension</a>
+<li><a href="#sec-Geography-Extension"><span class="spec-secid">13.2</span>Geography Extension</a>
 <input hidden class="toggle" type="checkbox" checked id="_toggle_13.2" /><label for="_toggle_13.2"></label>
 <ol>
 <li><a href="#sec-geo-type"><span class="spec-secid">13.2.1</span>geo type</a></li>
@@ -1831,7 +1831,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <li>Append <var data-name="argumentNode">argumentNode</var> to <var data-name="args">args</var>.</li>
 </ol>
 </li>
-<li>Let <var data-name="func">func</var> be the function defined under the name <var data-name="name">name</var> in either <var data-name="namespace">namespace</var> namespace if provided, or &ldquo;global&rdquo; namespace.</li>
+<li>Let <var data-name="func">func</var> be the function defined under the name <var data-name="name">name</var> in either <var data-name="namespace">namespace</var> namespace if provided, or the <code>global</code> namespace.</li>
 <li>Return the result of <span class="spec-call"><span data-name="func">func</span>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span>.</li>
 </ol>
 </div>
@@ -1843,7 +1843,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 </ol>
 </li>
 <li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span>.</li>
-<li>If there is no function named <var data-name="name">name</var> defined in either <var data-name="namespace">namespace</var> namespace if provided, or or &ldquo;global&rdquo; namespace:<ol>
+<li>If there is no function named <var data-name="name">name</var> defined in either <var data-name="namespace">namespace</var> namespace if provided, or the <code>global</code> namespace:<ol>
 <li>Stop and report an error.</li>
 </ol>
 </li>
@@ -3116,11 +3116,11 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-Portable-Text-Extension">13.1</a></span>Portable Text Extension</h3>
 <section id="sec-pt-type" secid="13.1.1">
 <h4><span class="spec-secid" title="link to this section"><a href="#sec-pt-type">13.1.1</a></span>pt type</h4>
-<p>PT type represents an object following <a href="undefined">portable text spec</a>.</p>
+<p>PT type represents an object following <a href="https://github.com/portabletext/portabletext">portable text spec</a>.</p>
 </section>
 <section id="sec-global-pt-" secid="13.1.2">
 <h4><span class="spec-secid" title="link to this section"><a href="#sec-global-pt-">13.1.2</a></span>global::pt()</h4>
-<p>It takes in an object or an array of objects, and returns a PT value.</p>
+<p>This function takes in an object or an array of objects, and returns a PT value.</p>
 <p>global::pt(args, scope):</p>
 <ul>
 <li>If the length of <var data-name="args">args</var> is not 1:<ul>
@@ -3131,16 +3131,18 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <var data-name="base">base</var> is an object:<ul>
 <li>Try to parse it as Portable Text Block:</li>
-<li>If <var data-name="base">base</var>is a valid Portable Text Block:<ul>
+<li>If <var data-name="base">base</var> is a valid Portable Text Block:<ul>
 <li>Return <var data-name="base">base</var>.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>If <var data-name="base">base</var> is an array of objects:<ul>
-<li>Try to parse it as an array of Portable Text blocks:</li>
+<li>Try to parse it as an array of Portable Text blocks:<ul>
 <li>If all elements in <var data-name="base">base</var> array are valid Portable Text blocks:<ul>
 <li>Return <var data-name="base">base</var>.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -3160,7 +3162,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </section>
 <section id="sec-pt-text-" secid="13.1.3">
 <h4><span class="spec-secid" title="link to this section"><a href="#sec-pt-text-">13.1.3</a></span>pt::text()</h4>
-<p>It takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (<code>\n\n</code>) in the string version. </p>
+<p>This function takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (<code>\n\n</code>) in the string version. </p>
 <p>pt::text(args, scope):</p>
 <ul>
 <li>If the length of <var data-name="args">args</var> is not 1:<ul>
@@ -3199,13 +3201,13 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ul>
 </section>
 </section>
-<section id="sec-Geo-Extension" secid="13.2">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Geo-Extension">13.2</a></span>Geo Extension</h3>
+<section id="sec-Geography-Extension" secid="13.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Geography-Extension">13.2</a></span>Geography Extension</h3>
 <section id="sec-geo-type" secid="13.2.1">
 <h4><span class="spec-secid" title="link to this section"><a href="#sec-geo-type">13.2.1</a></span>geo type</h4>
-<p>Geo type represents a geography and can contain points, lines, polygons which are representable as a Geo Point or in GeoJSON. Concretely, an object is coerced to geo type if:</p>
+<p>The geo type represents a geography and can contain points, lines, and polygons which can be expressed with a single latitude/longitude coordinate, or as a GeoJSON object. Concretely, an object is coerced to the geo type if:</p>
 <ol>
-<li>If the object is Geo Point, that is it has a key <code>lat</code> for lattitude and a key <code>lng</code> or <code>lon</code> for longitude (but not both).</li>
+<li>If the object is coerced to a geographic point, that is it has a key <code>lat</code> for latitude and a key <code>lng</code> or <code>lon</code> for longitude (but not both).</li>
 <li>If the object has <a href="https://tools.ietf.org/html/rfc7946">GeoJSON</a> representation.</li>
 </ol>
 <p>Geo type supports following GeoJSON Geometry Objects:</p>
@@ -3216,18 +3218,18 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><code>LineString</code></li>
 <li><code>MultiLineString</code></li>
 <li><code>Polygon</code></li>
-<li><code>MultiPolygon</code>.</li>
+<li><code>MultiPolygon</code></li>
+<li><code>GeometryCollection</code></li>
 </ol>
 <p>And, it does not support:</p>
 <ol>
-<li>GeoJSON Geometry Object <code>GeometryCollection</code>.</li>
 <li>GeoJSON Object <code>Feature</code> and <code>FeatureCollection</code>. </li>
-<li>Array of GeoJSON Points, instead a GeoJSON MultiPoint should be used.</li>
+<li>Arrays of geographic values. Instead, one of the GeoJSON <code>Multi</code> types should be used.</li>
 </ol>
 </section>
 <section id="sec-global-geo-" secid="13.2.2">
 <h4><span class="spec-secid" title="link to this section"><a href="#sec-global-geo-">13.2.2</a></span>global::geo()</h4>
-<p>This function is a constructor for geo value of geo type. It takes an object or another geo value, returning a geo value.</p>
+<p>This function is a constructor for geographic value. It takes an object or another geo value, returning a geo value.</p>
 <p>global::geo(args, scope):</p>
 <ul>
 <li>If the length of <var data-name="args">args</var> is not 1:<ul>
@@ -3238,7 +3240,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <var data-name="base">base</var> is an object:<ul>
 <li>Try to parse it as Geo Point and GeoJSON:</li>
-<li>If <var data-name="base">base</var>is a valid geo value:<ul>
+<li>If <var data-name="base">base</var> is a valid geo value:<ul>
 <li>Return <var data-name="base">base</var>.</li>
 </ul>
 </li>
@@ -3263,7 +3265,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </section>
 <section id="sec-geo-contains-" secid="13.2.3">
 <h4><span class="spec-secid" title="link to this section"><a href="#sec-geo-contains-">13.2.3</a></span>geo::contains()</h4>
-<p>Returns true if when first geo value is completely contains the second one, that is polygon created by first geo value contains all the points represented in second geo value.</p>
+<p>Returns true if first geo argument completely contains the second one, using a planar (non&#8208;spherical) coordinate system. The first geo argument can be any geo value. The second must be a GeoJSON <code>Polygon</code> or <code>MultiPolygon</code>. A geo value is considered contained if all its points are within the boundaries of the first geo value. For <code>MultiPolygon</code>, it&rsquo;s sufficient that only one of the polygons contains the first geo value.</p>
 <p>geo::contains(args, scope):</p>
 <ul>
 <li>If the length of <var data-name="args">args</var> is not 2:<ul>
@@ -3297,7 +3299,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </section>
 <section id="sec-geo-intersects-" secid="13.2.4">
 <h4><span class="spec-secid" title="link to this section"><a href="#sec-geo-intersects-">13.2.4</a></span>geo::intersects()</h4>
-<p>It takes in two geo point arguments and returns true if first geo value intersects the second one, that is polygon created by first geo value intersects with or contains atleast one of the edge represented in second geo value polygon.</p>
+<p>This function takes two geo values, and returns true if they intersect in a planar (non&#8208;spherical) coordinate system. The arguments can be any geo values. A geo value intersects with another if it shares any geometric points with the second value; for example, a line crossing a polygon.</p>
 <p>geo::intersects(args, scope):</p>
 <ul>
 <li>If the length of <var data-name="args">args</var> is not 2:<ul>
@@ -3331,7 +3333,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </section>
 <section id="sec-geo-distance-" secid="13.2.5">
 <h4><span class="spec-secid" title="link to this section"><a href="#sec-geo-distance-">13.2.5</a></span>geo::distance()</h4>
-<p>It accepts two Geo Points or GeoJSON Points and returns the distance in meters. Lines/Polygons are not supported.</p>
+<p>This functions accepts two geo values, which must be point values, and returns the distance in meters. While exact algorithm is implementation&#8208;defined &mdash; for example, it may use the <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a> &mdash; it should use as close an approximation to a real Earth distance as possible.</p>
 <p>geo::distance(args, scope):</p>
 <ul>
 <li>If the length of <var data-name="args">args</var> is not 2:<ul>
@@ -3350,7 +3352,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Return <span class="spec-keyword">null</span>.</li>
 </ul>
 </li>
-<li>Let <var data-name="distance">distance</var> be the <a href="https://en.wikipedia.org/wiki/Haversine_formula">HaverSine distance</a> between <var data-name="first">first</var> and <var data-name="second">second</var>:<ul>
+<li>Let <var data-name="distance">distance</var> be the geographic distance between <var data-name="first">first</var> and <var data-name="second">second</var>:<ul>
 <li>Return <var data-name="distance">distance</var>.</li>
 </ul>
 </li>
@@ -3508,7 +3510,7 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_13.1.3"><a href="#sec-pt-text-"><span class="spec-secid">13.1.3</span>pt::text()</a></li>
 </ol>
 </li>
-<li id="_sidebar_13.2"><a href="#sec-Geo-Extension"><span class="spec-secid">13.2</span>Geo Extension</a>
+<li id="_sidebar_13.2"><a href="#sec-Geography-Extension"><span class="spec-secid">13.2</span>Geography Extension</a>
 <input hidden class="toggle" type="checkbox" id="_sidebar_toggle_13.2" /><label for="_sidebar_toggle_13.2"></label>
 <ol>
 <li id="_sidebar_13.2.1"><a href="#sec-geo-type"><span class="spec-secid">13.2.1</span>geo type</a></li>
