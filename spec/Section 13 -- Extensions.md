@@ -17,8 +17,6 @@ This function takes in an object or an array of objects, and returns a PT value.
 
 global::pt(args, scope):
 
-* If the length of {args} is not 1:
-  * Return {null}.
 * Let {baseNode} be the first element of {args}.
 * Let {base} be the result of {Evaluate(baseNode, scope)}.
 * If {base} is an object:
@@ -43,8 +41,6 @@ This function takes in a PT value and returns a string versions of text. PT valu
 
 pt::text(args, scope):
 
-* If the length of {args} is not 1:
-  * Return {null}.
 * Let {baseNode} be the first element of {args}.
 * Let {base} be the result of {Evaluate(baseNode, scope)}.
 * If {base} is an object:
@@ -93,8 +89,6 @@ This function is a constructor for geographic value. It takes an object or anoth
 
 global::geo(args, scope):
 
-* If the length of {args} is not 1:
-  * Return {null}.
 * Let {baseNode} be the first element of {args}.
 * Let {base} be the result of {Evaluate(baseNode, scope)}.
 * If {base} is an object:
@@ -113,12 +107,10 @@ global::geoValidate(args):
 
 ### geo::contains()
 
-Returns true if first geo argument completely contains the second one, using a planar (non-spherical) coordinate system. The first geo argument can be any geo value. The second must be a GeoJSON `Polygon` or `MultiPolygon`. A geo value is considered contained if all its points are within the boundaries of the first geo value. For `MultiPolygon`, it's sufficient that only one of the polygons contains the first geo value.
+Returns true if first geo argument completely contains the second one, using a planar (non-spherical) coordinate system. Both geo argument can be any geo value. A geo value is considered contained if all its points are within the boundaries of the first geo value. For `MultiPolygon`, it's sufficient that only one of the polygons contains the first geo value.
 
 geo::contains(args, scope):
 
-* If the length of {args} is not 2:
-  * Return {null}.
 * Let {firstNode} be the first element of {args}.
 * Let {secondNode} be the second element of {args}.
 * Let {first} be the result of {Evaluate(firstNode, scope)}.
@@ -141,8 +133,6 @@ This function takes two geo values, and returns true if they intersect in a plan
 
 geo::intersects(args, scope):
 
-* If the length of {args} is not 2:
-  * Return {null}.
 * Let {firstNode} be the first element of {args}.
 * Let {secondNode} be the second element of {args}.
 * Let {first} be the result of {Evaluate(firstNode, scope)}.
@@ -165,8 +155,6 @@ This functions accepts two geo values, which must be point values, and returns t
 
 geo::distance(args, scope):
 
-* If the length of {args} is not 2:
-  * Return {null}.
 * Let {firstNode} be the first element of {args}.
 * Let {secondNode} be the second element of {args}.
 * Let {first} be the result of {Evaluate(firstNode, scope)}.
