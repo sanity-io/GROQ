@@ -7,6 +7,8 @@ Extensions are the capabilities which extend GROQ queries beyond basic Spec. The
 
 ## Portable Text Extension
 
+Functions available in Portable text extension are grouped under `pt` namespace except for the constructor which is global.
+
 ### pt type
 
 PT type represents an object following [portable text spec](https://github.com/portabletext/portabletext).
@@ -60,6 +62,8 @@ pt::textValidate(args):
   * Report an error.
 
 ## Geography Extension
+
+Functions available in Geography extension are grouped under `geo` namespace except for the constructor which is global.
 
 ### geo type
 
