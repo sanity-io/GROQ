@@ -27,8 +27,6 @@ The count function returns the length of an array.
 
 global::count(args, scope):
 
-* If the length of {args} is not 1:
-  * Return {null}.
 * Let {baseNode} be the first element of {args}.
 * Let {base} be the result of {Evaluate(baseNode, scope)}.
 * If {base} is an array:
@@ -229,6 +227,11 @@ string::lower(args, scope):
     * Return lowercase form of {value}.
 * Return {null}.
 
+string::lowerValidate(args):
+
+* If the length of {args} is not 1:
+  * Report an error.
+
 ## upper
 
 The upper function returns uppercased string.
@@ -239,6 +242,11 @@ string::upper(args, scope):
 * If {value} is not {null}:
     * Return uppercase form of {value}.
 * Return {null}.
+
+string::upperValidate(args):
+
+* If the length of {args} is not 1:
+  * Report an error.
 
 ## boost
 
