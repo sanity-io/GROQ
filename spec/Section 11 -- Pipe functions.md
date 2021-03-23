@@ -13,7 +13,7 @@ Note that function arguments are not evaluated eagerly, and it's up to the funct
 
 An implementation may provide additional pipe functions, but should be aware that this can cause problems when interopting with future versions of GROQ.
 
-## order
+## global::order()
 
 The order function sorts an array based on arbitrary expressions.
 
@@ -48,7 +48,7 @@ orderValidate(args):
 * If the length of {args} is 0:
   * Report an error.
 
-## score
+## global::score()
 
 The `score` function assigns a score to an array of results, based on one or more scoring expressions. The `score` function may only be used as a pipe function.
 
