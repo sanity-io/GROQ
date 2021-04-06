@@ -62,7 +62,8 @@ async function main() {
     variant: "Prerelease"
   }]
 
-  const lines = fs.readFileSync(0).toString().trim().split("\n")
+  const input = fs.readFileSync(0).toString().trim() 
+  const lines = input.length > 0 ? input.split("\n") : []
   let isFirst = true;
 
   for (const line of lines) {
