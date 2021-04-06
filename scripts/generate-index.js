@@ -5,7 +5,7 @@ function render(versions) {
   const rows = versions.map(({slug, name, date, variant}) => {
     return `<tr>
       <td>${variant ? `<em>${variant}</em>` : ''}</td>
-      <td><a href="${slug}">${name}</a></td>
+      <td><a href="${slug}/">${name}</a></td>
       <td>${formatDate(date, 'MMM d, yyyy')}</td>
     </tr>`
   })
