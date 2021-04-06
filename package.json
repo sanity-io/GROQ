@@ -4,13 +4,9 @@
   "description": "Specification for GROQ - Graph Oriented Query Language",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "clean-html": "rimraf docs/*.html",
-    "clean-md": "rimraf spec/*.md",
-    "build": "node scripts/generate-html.js",
-    "fetch": "npm run clean-md && node scripts/fetch-spec.js",
-    "fetch-and-build": "npm run fetch && npm run build",
-    "watch": "node scripts/watch-spec.js npm run fetch-and-build"
+    "test": "spec-md spec/GROQ.md > /dev/null",
+    "clean": "rimraf out",
+    "build": "mkdir -p out && spec-md spec/GROQ.md > out/index.html"
   },
   "repository": {
     "type": "git",
@@ -33,6 +29,7 @@
     "spec-md": "^1.0.0"
   },
   "devDependencies": {
+    "date-fns": "^2.19.0",
     "nodemon": "^1.19.1"
   },
   "prettier": {
