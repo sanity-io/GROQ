@@ -1,0 +1,32 @@
+name: Publish to website
+
+on:
+  push:
+    branches:
+    - master
+    tags:
+    - v*
+
+jobs:
+  scheduled:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out this repo
+      uses: actions/checkout@v2
+    - name: Set up Node
+      uses: actions/setup-node@v2
+      with: {node-version: '14'}
+    - name: Install NPM dependencies
+      run: npm i
+    - name: Add gh-pages worktree
+      run: git worktree add ./gh-pages gh-pages
+    - name: Generate HTML
+      run: sh scripts/publish.sh
+    - name: Commit and push if it changed
+      working-directory: gh-pages
+      run: |-
+        git config user.name "Automated"
+        git config user.email "actions@users.noreply.github.com"
+        git add -A
+        git commit -m "Update HTML" || exit 0
+        git push
