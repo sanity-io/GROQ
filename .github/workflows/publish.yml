@@ -19,7 +19,7 @@ jobs:
     - name: Install NPM dependencies
       run: npm i
     - name: Add gh-pages worktree
-      run: git worktree add ./gh-pages gh-pages
+      run: git fetch origin gh-pages && git worktree add ./gh-pages gh-pages
     - name: Generate HTML
       run: sh scripts/publish.sh
     - name: Commit and push if it changed
