@@ -251,40 +251,36 @@ boostValidate(args):
 * If the length of {args} is not 2:
   * Report an error.
 
-In addition to the functions mentioned above, constructors for [extensions](#sec-Extensions) are global as well.
-
-## String namespace
-
-String namespace has functions which will be available string type.
-
-### string::lower()
+### global::lower()
 
 The lower function returns lowercased string.
 
-string::lower(args, scope):
+global::lower(args, scope):
 
 * Let {value} be the result of {Evaluate(arg, scope)}.
 * If {value} is not {null}:
   * Return lowercase form of {value}.
 * Return {null}.
 
-string::lowerValidate(args):
+global::lowerValidate(args):
 
 * If the length of {args} is not 1:
   * Report an error.
 
-### string::upper()
+### global::upper()
 
 The upper function returns uppercased string.
 
-string::upper(args, scope):
+global::upper(args, scope):
 
 * Let {value} be the result of {Evaluate(arg, scope)}.
 * If {value} is not {null}:
   * Return uppercase form of {value}.
 * Return {null}.
 
-string::upperValidate(args):
+global::upperValidate(args):
 
 * If the length of {args} is not 1:
   * Report an error.
+
+In addition to the functions mentioned above, constructors for [extensions](#sec-Extensions) are global as well.
