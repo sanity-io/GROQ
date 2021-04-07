@@ -1,6 +1,3 @@
-Extensions
--------
-
 # Extensions
 
 Extensions are the capabilities which extend GROQ queries beyond basic Spec. These capabilities can include function namespaces, functions and operators. However, extensions can not introduce a new syntax.

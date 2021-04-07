@@ -1,6 +1,3 @@
-Overview
--------
-
 # Overview
 
 GROQ (Graph-Relational Object Queries) is a declarative language designed to query collections of largely schema-less JSON documents. Its primary design goals are expressive filtering, joining of several documents into a single response, and shaping the response to fit the client application.

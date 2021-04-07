@@ -1,6 +1,3 @@
-Functions
--------
-
 # Functions
 
 Functions provide additional functionality to GROQ queries. They are invoked through a [Function call expression](#sec-Function-call-expression). Note that function arguments are not evaluated eagerly, and it's up to the function to decide which scope the arguments are evaluated it. As such, all functions below take an array of nodes.
@@ -128,8 +125,8 @@ global::HasReferenceTo(base, pathSet):
       * Return {true}.
   * Return {false}.
 * If {base} is an object:
-  * If {base} has an attribute "_ref":
-    * Let {ref} be the value of the attribute "_ref" in {base}.
+  * If {base} has an attribute `_ref`:
+    * Let {ref} be the value of the attribute `_ref` in {base}.
     * If {ref} exists in {pathSet}:
       * Return {true}.
     * Otherwise:

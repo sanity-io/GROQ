@@ -19,18 +19,10 @@
     "url": "https://github.com/sanity-io/GROQ/issues"
   },
   "homepage": "https://github.com/sanity-io/GROQ#readme",
-  "dependencies": {
-    "@sanity/block-content-to-markdown": "0.0.5",
-    "@sanity/client": "^0.141.6",
-    "dotenv": "^8.0.0",
-    "groq": "^0.141.5",
-    "lodash": "^4.17.20",
-    "rimraf": "^2.6.3",
-    "spec-md": "^1.0.0"
-  },
   "devDependencies": {
     "date-fns": "^2.19.0",
-    "nodemon": "^1.19.1"
+    "rimraf": "^3.0.2",
+    "spec-md": "^2.2.0"
   },
   "prettier": {
     "semi": false,

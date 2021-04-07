@@ -1,6 +1,3 @@
-Equality and comparison
--------
-
 # Equality and comparison
 
 GROQ provides trivial equality and comparison between numbers, strings and booleans. Other types are considered inequal or incomparable to each other. Incomparability between values are represented by operators returning {null} (e.g. `2 > "1"` is {null}).

@@ -1,6 +1,3 @@
-Compound expressions
--------
-
 # Compound expressions
 
 ## Parenthesis expression

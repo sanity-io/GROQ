@@ -1,6 +1,3 @@
-Pipe functions
--------
-
 # Pipe functions
 
 Pipe functions provide additional functionalty to GROQ queries. They are invoked through a [Pipe function call expression](#sec-Pipe-function-call-expression). They differ from regular functions in that they always accept an array as input and returns another array (or {null}). As such, the syntax is optimized for chaining (the array it works on comes on the left-hand side instead of being an argument):
