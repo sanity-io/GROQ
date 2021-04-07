@@ -86,7 +86,7 @@ GROQ comes with a set of built-in functions which provides additional features. 
 *{"score": round(score, 2)}
            ~~~~~~~~~~~~~~~
 
-*{"description": string::lower(description)}
+*{"description": global::lower(description)}
                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
