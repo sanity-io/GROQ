@@ -1,6 +1,3 @@
-Operators
--------
-
 # Operators
 
 ## And operator
@@ -316,9 +313,9 @@ EvaluateDereference(scope):
 * Let {value} be the result of {Evaluate(valueNode, scope)}.
 * If {value} is not an object:
   * Return {null}.
-* If {value} does not have an attribute "_ref":
+* If {value} does not have an attribute `_ref`:
   * Return {null}.
-* Let {ref} be the value of the attribute "_ref" in {value}.
+* Let {ref} be the value of the attribute `_ref` in {value}.
 * If {ref} is not a string:
   * Return {null}.
 * Let {dataset} be the dataset of the query context of {scope}.
@@ -326,8 +323,8 @@ EvaluateDereference(scope):
   * Return {null}.
 * Let {result} be {null}.
 * For each {document} in {dataset}:
-  * If {document} is an object and has an attribute "_id":
-      * Let {id} be the value of the attribute "_id" in {document}.
+  * If {document} is an object and has an attribute `_id`:
+      * Let {id} be the value of the attribute `_id` in {document}.
     * If {Equal(ref, id)} is {true}:
           * Set {result} to {document}.
       * Stop the loop.

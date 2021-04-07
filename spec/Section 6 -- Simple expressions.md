@@ -1,6 +1,3 @@
-Simple expressions
--------
-
 # Simple expressions
 
 ## This expression

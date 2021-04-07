@@ -1,6 +1,3 @@
-Precedence and associativity
--------
-
 # Precedence and associativity
 
 In this specification the various expressions and operators are defined in ambiguously in terms on precedence and associativity. The table below describes the precedence levels used to determine the correct unambiguous interpretation.

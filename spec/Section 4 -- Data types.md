@@ -1,6 +1,3 @@
-Data types
--------
-
 # Data types
 
 ## Null

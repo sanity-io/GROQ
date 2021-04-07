@@ -1,6 +1,3 @@
-Execution
--------
-
 # Execution
 
 ## Overview
