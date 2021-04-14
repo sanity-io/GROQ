@@ -32,9 +32,9 @@ person["Full Name"]
 AttributeAccess :
 
 * Expression `.` Identifier
-* Expression `[` String `]`
+* Expression `[` Expression `]`
 
-Note: This expression is syntactially a subset of a filter expression.
+Note: {Filter}, {ElementAccess}, {AttributeAccess} are syntactically ambiguous. See ["Disambiguating square backet expressions"](#sec-Disambiguating-square-backet-expressions) for how to disambiguate between them.
 
 EvaluateAttributeAccess(scope):
 
@@ -49,20 +49,29 @@ EvaluateAttributeAccess(scope):
 
 An element access expression returns an element stored in an array. The array is 0-indexed and a negative index accesses the array from the end (i.e. an index of -1 returns the last element; -2 refers to the second last element).
 
-ElementAccess : Expression `[` Integer `]`
+ElementAccess : Expression `[` Expression `]`
 
-Note: This expression is syntactially a subset of a filter expression.
+Note: {Filter}, {ElementAccess}, {AttributeAccess} are syntactically ambiguous. See ["Disambiguating square backet expressions"](#sec-Disambiguating-square-backet-expressions) for how to disambiguate between them.
 
 EvaluateElementAccess(scope):
 
-* Let {baseNode} be the {Expression}.
+* Let {baseNode} be the first {Expression}.
 * Let {base} be the result of {Evaluate(baseNode, scope)}.
 * If {base} is not an array, return {null}.
-* Let {idx} be the number value of {Integer}.
+* Let {idxNode} be the second {Expression}.
+* Let {idx} be the result of {Evaluate(idxNode, scope)}.
+  This value is guaranteed to be an integer due to the validation.
 * If {idx} is negative, add the length of {base} to {idx}.
 * If {idx} is still negative, return {null}.
 * If {idx} is equal to or greater than the length of {base}, return {null}.
 * Return the value stored at position {idx} in {base}.
+
+ValidateElementAccess():
+
+* Let {idxNode} be the second {Expression}.
+* Let {idx} be the result of {ConstantEvaluate(idxNode)}.
+  This value is guaranteed to be a number due to square bracket disambiguation.
+* If {idx} is not an integer: Report an error.
 
 ## Slice expression
 
@@ -75,8 +84,6 @@ people[0..10]
 
 Slice : Expression `[` Range `]`
 
-Note: This expression is syntactically a subset of a filter expression.
-
 EvaluateSlice(scope):
 
 * Let {baseNode} be the {Expression}.
@@ -85,18 +92,27 @@ EvaluateSlice(scope):
 * Process the left index:
   * Let {leftNode} be the left value of the {Range}.
   * Let {left} be the result of {Evaluate(leftNode, scope)}.
-  * If {left} is not a number, return {null}.
+    This value is guaranteed to be an integer due to the validation.
   * If {left} is negative, add the length of {base} to {left}.
   * Clamp {left} between 0 and (the length of {base} minus 1).
 * Process the right index:
   * Let {rightNode} be the right value of the {Range}.
   * Let {right} be the result of {Evaluate(rightNode, scope)}.
-  * If {right} is not a number, return {null}.
+    This value is guaranteed to be an integer due to the validation.
   * If {right} is negative, add the length of {base} to {right}.
   * If the {Range} is exclusive, subtract one from {right}.
   * Clamp {right} between 0 and (the length of {base} minus 1).
 * Let {result} be an array containing the elements of {base} from position {left} up to and including position {right}.
 * Return {result}.
+
+ValidateSlice():
+
+* Let {leftNode} be the left value of the {Range}.
+* Let {leftValue} be the result of {ConstantEvaluate(leftNode)}.
+* If {leftValue} is not an integer: Report an error.
+* Let {rightNode} be the right value of the {Range}.
+* Let {rightValue} be the result of {ConstantEvaluate(rightNode)}.
+* If {rightValue} is not an integer: Report an error.
 
 ## Filter expression
 
@@ -109,7 +125,7 @@ A filter expression filters an array using another expression.
 
 Filter : Expression `[` Expression `]`
 
-Note: If the second Expression is a string/integer literal, this is parsed as an attribute/element access expression instead.
+Note: {Filter}, {ElementAccess}, {AttributeAccess} are syntactically ambiguous. See ["Disambiguating square backet expressions"](#sec-Disambiguating-square-backet-expressions) for how to disambiguate between them.
 
 EvaluateFilter(scope):
 
@@ -186,3 +202,17 @@ ValidatePipeFuncCall():
 * Let {args} be an array of the {Expression}s in the {FuncCallArgs} of the {FuncCall}.
 * Let {validator} be the validator for the pipe function under the name {name}.
 * Execute {validator(args)}.
+
+## Disambiguating square backet expressions
+
+{Filter}, {ElementAccess} and {AttributeAccess} are syntactically ambiguous, and the following algorithm is used to disambiguate between them.
+
+SquareBracketExpression : Expression `[` Expression `]`
+
+DisambiguateSquareBracketExpression():
+
+* Let {valueNode} be the last {Expression}.
+* Let {value} be the result of {ConstantEvaluate(valueNode)}.
+* If {value} is a string: Interpret it as an {AttributeAccess} expression.
+* If {value} is a number: Interpret it as an {ElementAccess} expression.
+* Otherwise: Interpret it as a {Filter} expression.

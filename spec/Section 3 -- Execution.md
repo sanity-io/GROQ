@@ -80,6 +80,18 @@ Evaluate(expr, scope):
 * Let {evaluator} be the evaluator of {expr}.
 * Return the result of {evaluator(scope)}.
 
+## Constant expression evaluation
+
+Some expressions can be evaluated into a constant value. This is used for validate and to disambiguate between different syntactically ambiguous expressions.
+
+ConstantEvaluate(expr):
+
+* If {expr} is one of: {Literal}, {Parenthesis}, {Plus}, {Minus}, {Star}, {Slash}, {Percent}, {StarStar}, {UnaryPlus}, {UnaryMinus}.
+  * Let {evaluator} be the evaluator of {expr}.
+  * Let {result} be the result of executing {evaluator}, but using {ConstantEvaluate()} in-place of every {Evaluate()}.
+  * Return the {result}.
+* Otherwise: Report an error.
+
 ## Score evaluation
 
 When evaluating {score}, a predicate returning `true` should have its score computed as 1.0, and all other values should receive a score of 0.0. All results involved in scoring start with a score of 1.0. The scores are evaluated once per result, and then added together. For example:
