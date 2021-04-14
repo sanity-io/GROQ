@@ -109,7 +109,7 @@ A filter expression filters an array using another expression.
 
 Filter : Expression `[` Expression `]`
 
-Note: If the second Expression is a string/integer/range literal, this is parsed as an attribute access/element access/slice expression instead.
+Note: If the second Expression is a string/integer literal, this is parsed as an attribute/element access expression instead.
 
 EvaluateFilter(scope):
 
