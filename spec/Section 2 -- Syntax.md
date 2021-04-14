@@ -105,8 +105,6 @@ Literal :
 * String
 * Array
 * Object
-* Pair
-* Range
 
 SimpleExpression :
 
