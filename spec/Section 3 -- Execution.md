@@ -82,7 +82,7 @@ Evaluate(expr, scope):
 
 ## Constant expression evaluation
 
-Some expressions can be evaluated into a constant value. This is used for validate and to disambiguate between different syntactically ambiguous expressions.
+Some expressions can be evaluated into a constant value. This is used for validation and to disambiguate between different syntactically ambiguous expressions.
 
 ConstantEvaluate(expr):
 
