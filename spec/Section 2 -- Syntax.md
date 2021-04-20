@@ -117,11 +117,7 @@ SimpleExpression :
 CompoundExpression :
 
 * Parenthesis
-* AttributeAccess
-* ElementAccess
-* Slice
-* Filter
-* Projection
+* TraversalExpression
 * PipeFuncCall
 
 OperatorCall :
@@ -143,4 +139,3 @@ OperatorCall :
 * Slash
 * Percent
 * StarStar
-* Dereference
