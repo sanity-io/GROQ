@@ -81,6 +81,7 @@ Geo type supports following GeoJSON Geometry Objects:
 8. `GeometryCollection`
 
 And, it does not support:
+
 1. GeoJSON Object `Feature` and `FeatureCollection`. 
 2. Arrays of geographic values. Instead, one of the GeoJSON `Multi` types should be used.
 
