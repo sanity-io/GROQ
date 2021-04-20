@@ -22,7 +22,7 @@
   "devDependencies": {
     "date-fns": "^2.19.0",
     "rimraf": "^3.0.2",
-    "spec-md": "^2.2.0"
+    "spec-md": "^3.0.2"
   },
   "prettier": {
     "semi": false,
