@@ -19,7 +19,16 @@ EvaluateParenthesis(scope):
 
 ## Traversal expression
 
-TraversalExpression : Expression Traversal
+A traversal expressions starts a traversal.
+
+```groq
+users.foo.bar[0].sources[]->name
+```
+
+When the left-hand side is an {Everything}, {Array}, or {PipeFuncCall} this is interpreted as if there was an additional explicit {ArrayPostfix} traversal.
+E.g. `*._id` is interpreted as `*[]._id` and therefore returns an array of IDs.
+
+TraversalExpression :  Expression Traversal
 
 Traversal :
 
@@ -31,8 +40,12 @@ Traversal :
 EvaluateTraversalExpression(scope):
 
 * Let {node} be the {Expression}.
+* Let {traversalNode} be the {Traversal}.
 * Let {base} be the result of {Evaluate(node, scope)}.
-* Let {traverse} be the traverse function of the {Traversal}.
+* If {node} is one of {Everything}, {Array}, {PipeFuncCall}:
+  * Let {traverse} be the traversal function for the combination {ArrayPostfix} and {traversalNode}.
+* Otherwise:
+  * Let {traverse} be the traverse function of {traversalNode}.
 * Return {traverse(base, scope)}.
 
 
