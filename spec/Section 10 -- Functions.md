@@ -100,7 +100,10 @@ global::lengthValidate(args):
 
 ### global::now()
 
-The now function returns the current timestamp as a string.
+The now function returns the current point in time as a string.
+
+Note: This function returns a string due to backwards compatibility.
+It's recommended to use `dateTime::now()` instead which returns a proper datetime.
 
 global::now(args, scope):
 
@@ -296,3 +299,21 @@ global::upperValidate(args):
   * Report an error.
 
 In addition to the functions mentioned above, constructors for [extensions](#sec-Extensions) are global as well.
+
+## DateTime namespace
+
+The `dateTime` namespace contains functions to work with datetimes.
+
+### dateTime::now()
+
+The now function in the `dateTime` namespace returns the current point in time as a datetime.
+
+dateTime::now(args, scope):
+
+* Let {result} be a datetime representing the current point in time.
+* Return {result}.
+
+dateTime::nowValidate(args):
+
+* If the length of {args} is not 0:
+  * Report an error.
