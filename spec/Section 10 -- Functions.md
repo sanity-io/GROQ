@@ -98,6 +98,21 @@ global::lengthValidate(args):
 * If the length of {args} is not 1:
   * Report an error.
 
+### global::now()
+
+The now function returns the current timestamp as a string.
+
+global::now(args, scope):
+
+* Let {ts} be a datetime representing the current point in time.
+* Let {result} be a RFC3339 string formatting of {ts}.
+* Return {result}.
+
+global::nowValidate(args):
+
+* If the length of {args} is not 0:
+  * Report an error.
+
 ### global::references()
 
 The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.
