@@ -5,7 +5,7 @@ GROQ
 
 This is the specification for GROQ (**G**raph-**R**elational **O**bject **Q**ueries), a query language and execution engine made at Sanity, Inc, for filtering and projecting JSON documents. The work started in 2015. The development of this open standard started in 2019.
 
-GROQ is authored by [Alexander Staubo](https://twitter.com/purefiction) and [Simen Svale Skogsrud](https://twitter.com/svale). Additional follow up work by [Erik Grinaker](https://twitter.com/erikgrinaker) and [Magnus Holm](https://twitter.com/judofyr).
+GROQ is authored by [Alexander Staubo](https://twitter.com/purefiction) and [Simen Svale Skogsrud](https://twitter.com/svale). Additional follow up work by [Erik Grinaker](https://twitter.com/erikgrinaker), [Magnus Holm](https://twitter.com/judofyr), and [Radhe](https://github.com/j33ty).
 
 This specification should be considered *work in progress* until the first release.
 
