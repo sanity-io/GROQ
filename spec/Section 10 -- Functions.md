@@ -300,7 +300,7 @@ global::upperValidate(args):
 
 In addition to the functions mentioned above, constructors for [extensions](#sec-Extensions) are global as well.
 
-## DateTime namespace
+## Date/time namespace
 
 The `dateTime` namespace contains functions to work with datetimes.
 
