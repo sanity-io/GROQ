@@ -130,13 +130,18 @@
 <li><a href="#sec-global-dateTime-"><span class="spec-secid">11.1.3</span>global::dateTime()</a></li>
 <li><a href="#sec-global-defined-"><span class="spec-secid">11.1.4</span>global::defined()</a></li>
 <li><a href="#sec-global-length-"><span class="spec-secid">11.1.5</span>global::length()</a></li>
-<li><a href="#sec-global-references-"><span class="spec-secid">11.1.6</span>global::references()</a></li>
-<li><a href="#sec-global-round-"><span class="spec-secid">11.1.7</span>global::round()</a></li>
-<li><a href="#sec-global-select-"><span class="spec-secid">11.1.8</span>global::select()</a></li>
-<li><a href="#sec-global-string-"><span class="spec-secid">11.1.9</span>global::string()</a></li>
-<li><a href="#sec-global-boost-"><span class="spec-secid">11.1.10</span>global::boost()</a></li>
-<li><a href="#sec-global-lower-"><span class="spec-secid">11.1.11</span>global::lower()</a></li>
-<li><a href="#sec-global-upper-"><span class="spec-secid">11.1.12</span>global::upper()</a></li>
+<li><a href="#sec-global-now-"><span class="spec-secid">11.1.6</span>global::now()</a></li>
+<li><a href="#sec-global-references-"><span class="spec-secid">11.1.7</span>global::references()</a></li>
+<li><a href="#sec-global-round-"><span class="spec-secid">11.1.8</span>global::round()</a></li>
+<li><a href="#sec-global-select-"><span class="spec-secid">11.1.9</span>global::select()</a></li>
+<li><a href="#sec-global-string-"><span class="spec-secid">11.1.10</span>global::string()</a></li>
+<li><a href="#sec-global-boost-"><span class="spec-secid">11.1.11</span>global::boost()</a></li>
+<li><a href="#sec-global-lower-"><span class="spec-secid">11.1.12</span>global::lower()</a></li>
+<li><a href="#sec-global-upper-"><span class="spec-secid">11.1.13</span>global::upper()</a></li>
+</ol>
+</li>
+<li><a href="#sec-Date-time-namespace"><span class="spec-secid">11.2</span>Date/time namespace</a><ol>
+<li><a href="#sec-dateTime-now-"><span class="spec-secid">11.2.1</span>dateTime::now()</a></li>
 </ol>
 </li>
 </ol>
@@ -1947,8 +1952,28 @@ person["Full Name"]
 </li>
 </ul>
 </section>
-<section id="sec-global-references-" secid="11.1.6">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-references-">11.1.6</a></span>global::references()</h3>
+<section id="sec-global-now-" secid="11.1.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-now-">11.1.6</a></span>global::now()</h3>
+<p>The now function returns the current point in time as a string.</p>
+<div id="note-0ca77" class="spec-note">
+<a href="#note-0ca77">Note</a>
+This function returns a string due to backwards compatibility. It&rsquo;s recommended to use <code>dateTime::now()</code> instead which returns a proper datetime.</div>
+<p>global::now(args, scope):</p>
+<ul>
+<li>Let <var data-name="ts">ts</var> be a datetime representing the current point in time.</li>
+<li>Let <var data-name="result">result</var> be a <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> string formatting of <var data-name="ts">ts</var>.</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ul>
+<p>global::nowValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 0:<ul>
+<li>Report an error.</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-global-references-" secid="11.1.7">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-references-">11.1.7</a></span>global::references()</h3>
 <p>The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.</p>
 <p>global::references(args, scope):</p>
 <ul>
@@ -2019,8 +2044,8 @@ person["Full Name"]
 </li>
 </ul>
 </section>
-<section id="sec-global-round-" secid="11.1.7">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-round-">11.1.7</a></span>global::round()</h3>
+<section id="sec-global-round-" secid="11.1.8">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-round-">11.1.8</a></span>global::round()</h3>
 <p>The round function accepts a number and rounds it to a certain precision.</p>
 <p>global::round(args, scope):</p>
 <ul>
@@ -2053,8 +2078,8 @@ person["Full Name"]
 </li>
 </ul>
 </section>
-<section id="sec-global-select-" secid="11.1.8">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-select-">11.1.8</a></span>global::select()</h3>
+<section id="sec-global-select-" secid="11.1.9">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-select-">11.1.9</a></span>global::select()</h3>
 <p>The select function chooses takes a variable number of arguments that are either pairs or any other type and iterates over them. When encountering a pair whose left-hand value evaluates to <span class="spec-keyword">true</span>, the right-hand value is returned immediately. When encountering a non-pair argument, that argument is returned immediately. Falls back to returning <span class="spec-keyword">null</span>.</p>
 <p>global::select(args, scope):</p>
 <ul>
@@ -2092,8 +2117,8 @@ person["Full Name"]
 </li>
 </ul>
 </section>
-<section id="sec-global-string-" secid="11.1.9">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-string-">11.1.9</a></span>global::string()</h3>
+<section id="sec-global-string-" secid="11.1.10">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-string-">11.1.10</a></span>global::string()</h3>
 <p>The string function returns the string representation of scalar values or <span class="spec-keyword">null</span> for any other values.</p>
 <p>global::string(args, scope):</p>
 <ul>
@@ -2132,8 +2157,8 @@ person["Full Name"]
 </li>
 </ul>
 </section>
-<section id="sec-global-boost-" secid="11.1.10">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-boost-">11.1.10</a></span>global::boost()</h3>
+<section id="sec-global-boost-" secid="11.1.11">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-boost-">11.1.11</a></span>global::boost()</h3>
 <p>The <code>boost</code> function accepts an expression and a boost value, and increases or decreases the score computed by <code>score()</code> (see <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a>) accordingly. <code>boost</code> can only be used within the argument list to <code>score()</code>.</p>
 <pre data-language="groq"><code>* | score(boost(title matches "milk", 5.0), body matches "milk")
 </code></pre>
@@ -2166,8 +2191,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-global-lower-" secid="11.1.11">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-lower-">11.1.11</a></span>global::lower()</h3>
+<section id="sec-global-lower-" secid="11.1.12">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-lower-">11.1.12</a></span>global::lower()</h3>
 <p>The lower function returns lowercased string.</p>
 <p>global::lower(args, scope):</p>
 <ul>
@@ -2186,8 +2211,8 @@ person["Full Name"]
 </li>
 </ul>
 </section>
-<section id="sec-global-upper-" secid="11.1.12">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-upper-">11.1.12</a></span>global::upper()</h3>
+<section id="sec-global-upper-" secid="11.1.13">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-upper-">11.1.13</a></span>global::upper()</h3>
 <p>The upper function returns uppercased string.</p>
 <p>global::upper(args, scope):</p>
 <ul>
@@ -2205,7 +2230,27 @@ person["Full Name"]
 </ul>
 </li>
 </ul>
-<p>In addition to the functions mentioned above, constructors for <a href="#sec-Extensions">extensions</a> are global as well. </p>
+<p>In addition to the functions mentioned above, constructors for <a href="#sec-Extensions">extensions</a> are global as well.</p>
+</section>
+</section>
+<section id="sec-Date-time-namespace" secid="11.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Date-time-namespace">11.2</a></span>Date/time namespace</h2>
+<p>The <code>dateTime</code> namespace contains functions to work with datetimes.</p>
+<section id="sec-dateTime-now-" secid="11.2.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-dateTime-now-">11.2.1</a></span>dateTime::now()</h3>
+<p>The now function in the <code>dateTime</code> namespace returns the current point in time as a datetime.</p>
+<p>dateTime::now(args, scope):</p>
+<ul>
+<li>Let <var data-name="result">result</var> be a datetime representing the current point in time.</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ul>
+<p>dateTime::nowValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 0:<ul>
+<li>Report an error. </li>
+</ul>
+</li>
+</ul>
 </section>
 </section>
 </section>
@@ -2841,13 +2886,20 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_11.1.3"><a href="#sec-global-dateTime-"><span class="spec-secid">11.1.3</span>global::dateTime()</a></li>
 <li id="_sidebar_11.1.4"><a href="#sec-global-defined-"><span class="spec-secid">11.1.4</span>global::defined()</a></li>
 <li id="_sidebar_11.1.5"><a href="#sec-global-length-"><span class="spec-secid">11.1.5</span>global::length()</a></li>
-<li id="_sidebar_11.1.6"><a href="#sec-global-references-"><span class="spec-secid">11.1.6</span>global::references()</a></li>
-<li id="_sidebar_11.1.7"><a href="#sec-global-round-"><span class="spec-secid">11.1.7</span>global::round()</a></li>
-<li id="_sidebar_11.1.8"><a href="#sec-global-select-"><span class="spec-secid">11.1.8</span>global::select()</a></li>
-<li id="_sidebar_11.1.9"><a href="#sec-global-string-"><span class="spec-secid">11.1.9</span>global::string()</a></li>
-<li id="_sidebar_11.1.10"><a href="#sec-global-boost-"><span class="spec-secid">11.1.10</span>global::boost()</a></li>
-<li id="_sidebar_11.1.11"><a href="#sec-global-lower-"><span class="spec-secid">11.1.11</span>global::lower()</a></li>
-<li id="_sidebar_11.1.12"><a href="#sec-global-upper-"><span class="spec-secid">11.1.12</span>global::upper()</a></li>
+<li id="_sidebar_11.1.6"><a href="#sec-global-now-"><span class="spec-secid">11.1.6</span>global::now()</a></li>
+<li id="_sidebar_11.1.7"><a href="#sec-global-references-"><span class="spec-secid">11.1.7</span>global::references()</a></li>
+<li id="_sidebar_11.1.8"><a href="#sec-global-round-"><span class="spec-secid">11.1.8</span>global::round()</a></li>
+<li id="_sidebar_11.1.9"><a href="#sec-global-select-"><span class="spec-secid">11.1.9</span>global::select()</a></li>
+<li id="_sidebar_11.1.10"><a href="#sec-global-string-"><span class="spec-secid">11.1.10</span>global::string()</a></li>
+<li id="_sidebar_11.1.11"><a href="#sec-global-boost-"><span class="spec-secid">11.1.11</span>global::boost()</a></li>
+<li id="_sidebar_11.1.12"><a href="#sec-global-lower-"><span class="spec-secid">11.1.12</span>global::lower()</a></li>
+<li id="_sidebar_11.1.13"><a href="#sec-global-upper-"><span class="spec-secid">11.1.13</span>global::upper()</a></li>
+</ol>
+</li>
+<li id="_sidebar_11.2"><a href="#sec-Date-time-namespace"><span class="spec-secid">11.2</span>Date/time namespace</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_11.2" /><label for="_toggle_11.2"></label>
+<ol>
+<li id="_sidebar_11.2.1"><a href="#sec-dateTime-now-"><span class="spec-secid">11.2.1</span>dateTime::now()</a></li>
 </ol>
 </li>
 </ol>
