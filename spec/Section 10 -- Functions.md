@@ -108,7 +108,7 @@ It's recommended to use `dateTime::now()` instead which returns a proper datetim
 global::now(args, scope):
 
 * Let {ts} be a datetime representing the current point in time.
-* Let {result} be a RFC3339 string formatting of {ts}.
+* Let {result} be a [RFC 3339](https://tools.ietf.org/html/rfc3339) string formatting of {ts}.
 * Return {result}.
 
 global::nowValidate(args):
