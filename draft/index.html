@@ -60,7 +60,15 @@
 <li><a href="#sec-Expression-evaluation"><span class="spec-secid">3.5</span>Expression evaluation</a></li>
 <li><a href="#sec-Constant-expression-evaluation"><span class="spec-secid">3.6</span>Constant expression evaluation</a></li>
 <li><a href="#sec-Score-evaluation"><span class="spec-secid">3.7</span>Score evaluation</a></li>
-<li><a href="#sec-Query-execution"><span class="spec-secid">3.8</span>Query execution</a></li>
+<li><a href="#sec-Traversal-execution"><span class="spec-secid">3.8</span>Traversal execution</a><ol>
+<li><a href="#sec-Combining-traversal"><span class="spec-secid">3.8.1</span>Combining traversal</a></li>
+<li><a href="#sec-Plain-traversal"><span class="spec-secid">3.8.2</span>Plain traversal</a></li>
+<li><a href="#sec-Array-traversals"><span class="spec-secid">3.8.3</span>Array traversals</a></li>
+<li><a href="#sec-Array-source-traversals"><span class="spec-secid">3.8.4</span>Array source traversals</a></li>
+<li><a href="#sec-Array-target-traversals"><span class="spec-secid">3.8.5</span>Array target traversals</a></li>
+</ol>
+</li>
+<li><a href="#sec-Query-execution"><span class="spec-secid">3.9</span>Query execution</a></li>
 </ol>
 </li>
 <li><a href="#sec-Data-types"><span class="spec-secid">4</span>Data types</a><ol>
@@ -91,84 +99,89 @@
 </li>
 <li><a href="#sec-Compound-expressions"><span class="spec-secid">7</span>Compound expressions</a><ol>
 <li><a href="#sec-Parenthesis-expression"><span class="spec-secid">7.1</span>Parenthesis expression</a></li>
-<li><a href="#sec-Attribute-access-expression"><span class="spec-secid">7.2</span>Attribute access expression</a></li>
-<li><a href="#sec-Element-access-expression"><span class="spec-secid">7.3</span>Element access expression</a></li>
-<li><a href="#sec-Slice-expression"><span class="spec-secid">7.4</span>Slice expression</a></li>
-<li><a href="#sec-Filter-expression"><span class="spec-secid">7.5</span>Filter expression</a></li>
-<li><a href="#sec-Projection-expression"><span class="spec-secid">7.6</span>Projection expression</a></li>
-<li><a href="#sec-Pipe-function-call-expression"><span class="spec-secid">7.7</span>Pipe function call expression</a></li>
-<li><a href="#sec-Disambiguating-square-backet-expressions"><span class="spec-secid">7.8</span>Disambiguating square backet expressions</a></li>
+<li><a href="#sec-Traversal-expression"><span class="spec-secid">7.2</span>Traversal expression</a></li>
+<li><a href="#sec-Pipe-function-call-expression"><span class="spec-secid">7.3</span>Pipe function call expression</a></li>
 </ol>
 </li>
-<li><a href="#sec-Operators"><span class="spec-secid">8</span>Operators</a><ol>
-<li><a href="#sec-And-operator"><span class="spec-secid">8.1</span>And operator</a></li>
-<li><a href="#sec-Or-operator"><span class="spec-secid">8.2</span>Or operator</a></li>
-<li><a href="#sec-Not-operator"><span class="spec-secid">8.3</span>Not operator</a></li>
-<li><a href="#sec-Equality-operators"><span class="spec-secid">8.4</span>Equality operators</a></li>
-<li><a href="#sec-Comparison-operators"><span class="spec-secid">8.5</span>Comparison operators</a></li>
-<li><a href="#sec-In-operator"><span class="spec-secid">8.6</span>In operator</a></li>
-<li><a href="#sec-Match-operator"><span class="spec-secid">8.7</span>Match operator</a></li>
-<li><a href="#sec-Asc-operator"><span class="spec-secid">8.8</span>Asc operator</a></li>
-<li><a href="#sec-Desc-operator"><span class="spec-secid">8.9</span>Desc operator</a></li>
-<li><a href="#sec-Unary-plus-operator"><span class="spec-secid">8.10</span>Unary plus operator</a></li>
-<li><a href="#sec-Unary-minus-operator"><span class="spec-secid">8.11</span>Unary minus operator</a></li>
-<li><a href="#sec-Binary-plus-operator"><span class="spec-secid">8.12</span>Binary plus operator</a></li>
-<li><a href="#sec-Binary-minus-operator"><span class="spec-secid">8.13</span>Binary minus operator</a></li>
-<li><a href="#sec-Binary-star-operator"><span class="spec-secid">8.14</span>Binary star operator</a></li>
-<li><a href="#sec-Binary-slash-operator"><span class="spec-secid">8.15</span>Binary slash operator</a></li>
-<li><a href="#sec-Binary-percent-operator"><span class="spec-secid">8.16</span>Binary percent operator</a></li>
-<li><a href="#sec-Binary-double-star-operator"><span class="spec-secid">8.17</span>Binary double star operator</a></li>
-<li><a href="#sec-Dereference-operator"><span class="spec-secid">8.18</span>Dereference operator</a></li>
+<li><a href="#sec-Traversal-operators"><span class="spec-secid">8</span>Traversal operators</a><ol>
+<li><a href="#sec-Attribute-access-traversal"><span class="spec-secid">8.1</span>Attribute access traversal</a></li>
+<li><a href="#sec-Element-access-traversal"><span class="spec-secid">8.2</span>Element access traversal</a></li>
+<li><a href="#sec-Slice-traversal"><span class="spec-secid">8.3</span>Slice traversal</a></li>
+<li><a href="#sec-Filter-traversal"><span class="spec-secid">8.4</span>Filter traversal</a></li>
+<li><a href="#sec-Array-postfix-traversal"><span class="spec-secid">8.5</span>Array postfix traversal</a></li>
+<li><a href="#sec-Projection-traversal"><span class="spec-secid">8.6</span>Projection traversal</a></li>
+<li><a href="#sec-Dereference-traversal"><span class="spec-secid">8.7</span>Dereference traversal</a></li>
+<li><a href="#sec-Disambiguating-square-backet-traversal"><span class="spec-secid">8.8</span>Disambiguating square backet traversal</a></li>
 </ol>
 </li>
-<li><a href="#sec-Precedence-and-associativity"><span class="spec-secid">9</span>Precedence and associativity</a></li>
-<li><a href="#sec-Functions"><span class="spec-secid">10</span>Functions</a></li>
-<li><a href="#sec-Namespaces"><span class="spec-secid">11</span>Namespaces</a><ol>
-<li><a href="#sec-Global-namespace"><span class="spec-secid">11.1</span>Global namespace</a><ol>
-<li><a href="#sec-global-coalesce-"><span class="spec-secid">11.1.1</span>global::coalesce()</a></li>
-<li><a href="#sec-global-count-"><span class="spec-secid">11.1.2</span>global::count()</a></li>
-<li><a href="#sec-global-dateTime-"><span class="spec-secid">11.1.3</span>global::dateTime()</a></li>
-<li><a href="#sec-global-defined-"><span class="spec-secid">11.1.4</span>global::defined()</a></li>
-<li><a href="#sec-global-length-"><span class="spec-secid">11.1.5</span>global::length()</a></li>
-<li><a href="#sec-global-now-"><span class="spec-secid">11.1.6</span>global::now()</a></li>
-<li><a href="#sec-global-references-"><span class="spec-secid">11.1.7</span>global::references()</a></li>
-<li><a href="#sec-global-round-"><span class="spec-secid">11.1.8</span>global::round()</a></li>
-<li><a href="#sec-global-select-"><span class="spec-secid">11.1.9</span>global::select()</a></li>
-<li><a href="#sec-global-string-"><span class="spec-secid">11.1.10</span>global::string()</a></li>
-<li><a href="#sec-global-boost-"><span class="spec-secid">11.1.11</span>global::boost()</a></li>
-<li><a href="#sec-global-lower-"><span class="spec-secid">11.1.12</span>global::lower()</a></li>
-<li><a href="#sec-global-upper-"><span class="spec-secid">11.1.13</span>global::upper()</a></li>
+<li><a href="#sec-Operators"><span class="spec-secid">9</span>Operators</a><ol>
+<li><a href="#sec-And-operator"><span class="spec-secid">9.1</span>And operator</a></li>
+<li><a href="#sec-Or-operator"><span class="spec-secid">9.2</span>Or operator</a></li>
+<li><a href="#sec-Not-operator"><span class="spec-secid">9.3</span>Not operator</a></li>
+<li><a href="#sec-Equality-operators"><span class="spec-secid">9.4</span>Equality operators</a></li>
+<li><a href="#sec-Comparison-operators"><span class="spec-secid">9.5</span>Comparison operators</a></li>
+<li><a href="#sec-In-operator"><span class="spec-secid">9.6</span>In operator</a></li>
+<li><a href="#sec-Match-operator"><span class="spec-secid">9.7</span>Match operator</a></li>
+<li><a href="#sec-Asc-operator"><span class="spec-secid">9.8</span>Asc operator</a></li>
+<li><a href="#sec-Desc-operator"><span class="spec-secid">9.9</span>Desc operator</a></li>
+<li><a href="#sec-Unary-plus-operator"><span class="spec-secid">9.10</span>Unary plus operator</a></li>
+<li><a href="#sec-Unary-minus-operator"><span class="spec-secid">9.11</span>Unary minus operator</a></li>
+<li><a href="#sec-Binary-plus-operator"><span class="spec-secid">9.12</span>Binary plus operator</a></li>
+<li><a href="#sec-Binary-minus-operator"><span class="spec-secid">9.13</span>Binary minus operator</a></li>
+<li><a href="#sec-Binary-star-operator"><span class="spec-secid">9.14</span>Binary star operator</a></li>
+<li><a href="#sec-Binary-slash-operator"><span class="spec-secid">9.15</span>Binary slash operator</a></li>
+<li><a href="#sec-Binary-percent-operator"><span class="spec-secid">9.16</span>Binary percent operator</a></li>
+<li><a href="#sec-Binary-double-star-operator"><span class="spec-secid">9.17</span>Binary double star operator</a></li>
 </ol>
 </li>
-<li><a href="#sec-Date-time-namespace"><span class="spec-secid">11.2</span>Date/time namespace</a><ol>
-<li><a href="#sec-dateTime-now-"><span class="spec-secid">11.2.1</span>dateTime::now()</a></li>
+<li><a href="#sec-Precedence-and-associativity"><span class="spec-secid">10</span>Precedence and associativity</a></li>
+<li><a href="#sec-Functions"><span class="spec-secid">11</span>Functions</a></li>
+<li><a href="#sec-Namespaces"><span class="spec-secid">12</span>Namespaces</a><ol>
+<li><a href="#sec-Global-namespace"><span class="spec-secid">12.1</span>Global namespace</a><ol>
+<li><a href="#sec-global-coalesce-"><span class="spec-secid">12.1.1</span>global::coalesce()</a></li>
+<li><a href="#sec-global-count-"><span class="spec-secid">12.1.2</span>global::count()</a></li>
+<li><a href="#sec-global-dateTime-"><span class="spec-secid">12.1.3</span>global::dateTime()</a></li>
+<li><a href="#sec-global-defined-"><span class="spec-secid">12.1.4</span>global::defined()</a></li>
+<li><a href="#sec-global-length-"><span class="spec-secid">12.1.5</span>global::length()</a></li>
+<li><a href="#sec-global-now-"><span class="spec-secid">12.1.6</span>global::now()</a></li>
+<li><a href="#sec-global-references-"><span class="spec-secid">12.1.7</span>global::references()</a></li>
+<li><a href="#sec-global-round-"><span class="spec-secid">12.1.8</span>global::round()</a></li>
+<li><a href="#sec-global-select-"><span class="spec-secid">12.1.9</span>global::select()</a></li>
+<li><a href="#sec-global-string-"><span class="spec-secid">12.1.10</span>global::string()</a></li>
+<li><a href="#sec-global-boost-"><span class="spec-secid">12.1.11</span>global::boost()</a></li>
+<li><a href="#sec-global-lower-"><span class="spec-secid">12.1.12</span>global::lower()</a></li>
+<li><a href="#sec-global-upper-"><span class="spec-secid">12.1.13</span>global::upper()</a></li>
+</ol>
+</li>
+<li><a href="#sec-Date-time-namespace"><span class="spec-secid">12.2</span>Date/time namespace</a><ol>
+<li><a href="#sec-dateTime-now-"><span class="spec-secid">12.2.1</span>dateTime::now()</a></li>
 </ol>
 </li>
 </ol>
 </li>
-<li><a href="#sec-Pipe-functions"><span class="spec-secid">12</span>Pipe functions</a><ol>
-<li><a href="#sec-global-order-"><span class="spec-secid">12.1</span>global::order()</a></li>
-<li><a href="#sec-global-score-"><span class="spec-secid">12.2</span>global::score()</a></li>
+<li><a href="#sec-Pipe-functions"><span class="spec-secid">13</span>Pipe functions</a><ol>
+<li><a href="#sec-global-order-"><span class="spec-secid">13.1</span>global::order()</a></li>
+<li><a href="#sec-global-score-"><span class="spec-secid">13.2</span>global::score()</a></li>
 </ol>
 </li>
-<li><a href="#sec-Vendor-functions"><span class="spec-secid">13</span>Vendor functions</a><ol>
-<li><a href="#sec-global-identity-"><span class="spec-secid">13.1</span>global::identity()</a></li>
-<li><a href="#sec-global-path-"><span class="spec-secid">13.2</span>global::path()</a></li>
+<li><a href="#sec-Vendor-functions"><span class="spec-secid">14</span>Vendor functions</a><ol>
+<li><a href="#sec-global-identity-"><span class="spec-secid">14.1</span>global::identity()</a></li>
+<li><a href="#sec-global-path-"><span class="spec-secid">14.2</span>global::path()</a></li>
 </ol>
 </li>
-<li><a href="#sec-Extensions"><span class="spec-secid">14</span>Extensions</a><ol>
-<li><a href="#sec-Portable-Text-Extension"><span class="spec-secid">14.1</span>Portable Text Extension</a><ol>
-<li><a href="#sec-pt-type"><span class="spec-secid">14.1.1</span>pt type</a></li>
-<li><a href="#sec-global-pt-"><span class="spec-secid">14.1.2</span>global::pt()</a></li>
-<li><a href="#sec-pt-text-"><span class="spec-secid">14.1.3</span>pt::text()</a></li>
+<li><a href="#sec-Extensions"><span class="spec-secid">15</span>Extensions</a><ol>
+<li><a href="#sec-Portable-Text-Extension"><span class="spec-secid">15.1</span>Portable Text Extension</a><ol>
+<li><a href="#sec-pt-type"><span class="spec-secid">15.1.1</span>pt type</a></li>
+<li><a href="#sec-global-pt-"><span class="spec-secid">15.1.2</span>global::pt()</a></li>
+<li><a href="#sec-pt-text-"><span class="spec-secid">15.1.3</span>pt::text()</a></li>
 </ol>
 </li>
-<li><a href="#sec-Geography-Extension"><span class="spec-secid">14.2</span>Geography Extension</a><ol>
-<li><a href="#sec-geo-type"><span class="spec-secid">14.2.1</span>geo type</a></li>
-<li><a href="#sec-global-geo-"><span class="spec-secid">14.2.2</span>global::geo()</a></li>
-<li><a href="#sec-geo-contains-"><span class="spec-secid">14.2.3</span>geo::contains()</a></li>
-<li><a href="#sec-geo-intersects-"><span class="spec-secid">14.2.4</span>geo::intersects()</a></li>
-<li><a href="#sec-geo-distance-"><span class="spec-secid">14.2.5</span>geo::distance()</a></li>
+<li><a href="#sec-Geography-Extension"><span class="spec-secid">15.2</span>Geography Extension</a><ol>
+<li><a href="#sec-geo-type"><span class="spec-secid">15.2.1</span>geo type</a></li>
+<li><a href="#sec-global-geo-"><span class="spec-secid">15.2.2</span>global::geo()</a></li>
+<li><a href="#sec-geo-contains-"><span class="spec-secid">15.2.3</span>geo::contains()</a></li>
+<li><a href="#sec-geo-intersects-"><span class="spec-secid">15.2.4</span>geo::intersects()</a></li>
+<li><a href="#sec-geo-distance-"><span class="spec-secid">15.2.5</span>geo::distance()</a></li>
 </ol>
 </li>
 </ol>
@@ -311,11 +324,7 @@
 </div>
 <div class="spec-production" id="CompoundExpression">
 <span class="spec-nt"><a href="#CompoundExpression" data-name="CompoundExpression">CompoundExpression</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Parenthesis" data-name="Parenthesis">Parenthesis</a></span></div>
-<div class="spec-rhs"><span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span></div>
-<div class="spec-rhs"><span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span></div>
-<div class="spec-rhs"><span class="spec-nt"><a href="#Slice" data-name="Slice">Slice</a></span></div>
-<div class="spec-rhs"><span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span></div>
-<div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#TraversalExpression" data-name="TraversalExpression">TraversalExpression</a></span></div>
 <div class="spec-rhs"><span class="spec-nt"><a href="#PipeFuncCall" data-name="PipeFuncCall">PipeFuncCall</a></span></div>
 </div>
 <div class="spec-production" id="OperatorCall">
@@ -336,7 +345,6 @@
 <div class="spec-rhs"><span class="spec-nt"><a href="#Slash" data-name="Slash">Slash</a></span></div>
 <div class="spec-rhs"><span class="spec-nt"><a href="#Percent" data-name="Percent">Percent</a></span></div>
 <div class="spec-rhs"><span class="spec-nt"><a href="#StarStar" data-name="StarStar">StarStar</a></span></div>
-<div class="spec-rhs"><span class="spec-nt"><a href="#Dereference" data-name="Dereference">Dereference</a></span></div>
 </div>
 </section>
 </section>
@@ -452,8 +460,211 @@ The following sub-section is a non-normative overview of the execution model. Se
 <p>The scoring function for <code>match</code> is left as an implementation detail and not covered by this specification. For example, an implementation may choose to use a TF/IDF or similar text scoring function that uses the text corpus and language configuration for the given field to compute a text score.</p>
 <p>A boosted predicate simply adds the boost value to the score if the predicate matches. For example, <code>boost(a &gt; 1, 10)</code> would result in a score of 11 for any expression matching <code>a &gt; 1</code>.</p>
 </section>
-<section id="sec-Query-execution" secid="3.8">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Query-execution">3.8</a></span>Query execution</h2>
+<section id="sec-Traversal-execution" secid="3.8">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-execution">3.8</a></span>Traversal execution</h2>
+<p>When working with JSON values you often need to access attributes in deeply nested arrays/objects. In JavaScript this is solved by using helper functions such as <code>map</code>, <code>filter</code> and <code>flatMap</code>. GROQ provides terse syntax for accomplishing the same functionality.</p>
+<pre id="example-63caf" class="spec-example"><a href="#example-63caf">Example № 1</a><code>// The following GROQ:
+*[_type == "user"]._id
+
+// is equivalent to the following JavaScript:
+data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
+</code></pre>
+<p>The following expressions are implemented as a <em>traversal</em>:</p>
+<ul>
+<li><code>user.name</code>: <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span>.</li>
+<li><code>image-&gt;</code>: <span class="spec-nt"><a href="#Dereference" data-name="Dereference">Dereference</a></span>.</li>
+<li><code>users[0]</code>: <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>.</li>
+<li><code>users[0...5]</code>: <span class="spec-nt"><a href="#Slice" data-name="Slice">Slice</a></span>.</li>
+<li><code>users[type == "admin"]</code>: <span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>.</li>
+<li><code>users[]</code>: <span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span>.</li>
+<li><code>user{name}</code>: <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span>.</li>
+</ul>
+<p>When these traversals are combined (e.g. <code>user.roles[0].permissions[priority &gt; 2]{filter}</code>) it triggers a separate traversal logic.</p>
+<p>Informally the traversal logic is based on a few principles:</p>
+<ul>
+<li>Traversal semantics are always statically known. The runtime value of an expression never impacts the overall interpretation of a traversal.</li>
+<li>We categorize traversals into four types (plain, array, array source, array target) based on how they work on arrays. <code>.user.name</code> is considered a <em>plain</em> traversal because it statically only deals with plain values. <code>[_type == "user"]</code> is considered an <em>array</em> traversal because it works on arrays.</li>
+<li>Placing a plain traversal next to an array traversals (<code>[_type == "user"].name.firstName</code>) will execute the plain traversal <em>for each element</em> of the array.</li>
+</ul>
+<p>Formally the semantics are specified as follows:</p>
+<ul>
+<li>Each traversal has a <em>traverse function</em> which describes how it will traverse a value. This function takes a value and a scope as parameters.</li>
+<li>There&rsquo;s a set of traversal combination functions which specifies how two traversals can be combined. This explains exactly how <code>.user.name</code> is mapped over each element of an array.</li>
+<li><span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span>, <span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span>, <span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span>, <span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span> specifies the exact rules for how multiple traversals are combined together.</li>
+<li>The <span class="spec-nt"><a href="#TraversalExpression" data-name="TraversalExpression">TraversalExpression</a></span> node is an <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> for the full set of traversal operators. This kicks off the whole traversal semantics.</li>
+</ul>
+<section id="sec-Combining-traversal" secid="3.8.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Combining-traversal">3.8.1</a></span>Combining traversal</h3>
+<p>Multiple traversals are combined in four different ways:</p>
+<ul>
+<li><em>Joined</em>: In <code>.user.name</code> we want to execute the first traversal (<code>.user</code>), and then apply the second traversal (<code>.name</code>) on the result. This is specified by the <span class="spec-call"><a href="#EvaluateTraversalJoin()" data-name="EvaluateTraversalJoin">EvaluateTraversalJoin</a>()</span> function.</li>
+<li><em>Mapped</em>: In <code>[_type == "user"].id</code> we want to execute the first traversal (<code>[_type == "user"]</code>), and then apply the second traversal (<code>.id</code>) for each element of the array. This is specified by the <span class="spec-call"><a href="#EvaluateTraversalMap()" data-name="EvaluateTraversalMap">EvaluateTraversalMap</a>()</span> function.</li>
+<li><em>Flat-mapped</em>: In <code>[_type == "user"].names[]</code> we want to execute the first traversal (<code>[_type == "user"]</code>), and then apply the second traversal (<code>.names[]</code>) for each element of the array, and then flatten the result. This is specified by the <span class="spec-call"><a href="#EvaluateTraversalFlatMap()" data-name="EvaluateTraversalFlatMap">EvaluateTraversalFlatMap</a>()</span> function.</li>
+<li><em>Inner mapped</em>: In <code>{name,type}[type == "admin"]</code> we want to execute the first traversal (<code>{name,type}</code>) for each element of the array, and then apply the second traversal (<code>[type == "admin"]</code>) on the full array. This is specified by the <span class="spec-call"><a href="#EvaluateTraversalInnerMap()" data-name="EvaluateTraversalInnerMap">EvaluateTraversalInnerMap</a>()</span> function.</li>
+</ul>
+<p>Unless otherwise specified, any two traversal are combined using the <span class="spec-call"><a href="#EvaluateTraversalJoin()" data-name="EvaluateTraversalJoin">EvaluateTraversalJoin</a>()</span> function.</p>
+<div class="spec-algo" id="EvaluateTraversalJoin()">
+<span class="spec-call"><a href="#EvaluateTraversalJoin()" data-name="EvaluateTraversalJoin">EvaluateTraversalJoin</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="traverse">traverse</var> be the traverse function of the first node.</li>
+<li>Let <var data-name="nextTraverse">nextTraverse</var> be the traverse function of the last node.</li>
+<li>Let <var data-name="result">result</var> to be the result of <span class="spec-call"><span data-name="traverse">traverse</span>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Set <var data-name="result">result</var> to be the result of <span class="spec-call"><span data-name="nextTraverse">nextTraverse</span>(<var data-name="result">result</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="EvaluateTraversalMap()">
+<span class="spec-call"><a href="#EvaluateTraversalMap()" data-name="EvaluateTraversalMap">EvaluateTraversalMap</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="traverse">traverse</var> be the traverse function of the first node.</li>
+<li>Let <var data-name="nextTraverse">nextTraverse</var> be the traverse function of the last node.</li>
+<li>Set <var data-name="base">base</var> to be the result of <span class="spec-call"><span data-name="traverse">traverse</span>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="base">base</var> is not an array:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="result">result</var> be an empty array.</li>
+<li>For each <var data-name="value">value</var> in <var data-name="base">base</var>:<ol>
+<li>Let <var data-name="elem">elem</var> be the result of <span class="spec-call"><span data-name="nextTraverse">nextTraverse</span>(<var data-name="value">value</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Append <var data-name="elem">elem</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="EvaluateTraversalFlatMap()">
+<span class="spec-call"><a href="#EvaluateTraversalFlatMap()" data-name="EvaluateTraversalFlatMap">EvaluateTraversalFlatMap</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="traverse">traverse</var> be the traverse function of the first node.</li>
+<li>Let <var data-name="nextTraverse">nextTraverse</var> be the traverse function of the last node.</li>
+<li>Set <var data-name="base">base</var> to be the result of <span class="spec-call"><span data-name="traverse">traverse</span>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="base">base</var> is not an array:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="result">result</var> be an empty array.</li>
+<li>For each <var data-name="value">value</var> in <var data-name="base">base</var>:<ol>
+<li>Let <var data-name="elem">elem</var> be the result of <span class="spec-call"><span data-name="nextTraverse">nextTraverse</span>(<var data-name="value">value</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="elem">elem</var> is an array:<ol>
+<li>Concatenate <var data-name="elem">elem</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="EvaluateTraversalInnerMap()">
+<span class="spec-call"><a href="#EvaluateTraversalInnerMap()" data-name="EvaluateTraversalInnerMap">EvaluateTraversalInnerMap</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="traverse">traverse</var> be the traverse function of the first node.</li>
+<li>Let <var data-name="nextTraverse">nextTraverse</var> be the traverse function of the last node.</li>
+<li>If <var data-name="base">base</var> is not an array:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="result">result</var> be an empty array.</li>
+<li>For each <var data-name="value">value</var> in <var data-name="base">base</var>:<ol>
+<li>Let <var data-name="elem">elem</var> be the result of <span class="spec-call"><span data-name="traverse">traverse</span>(<var data-name="value">value</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Append <var data-name="elem">elem</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+<li>Set <var data-name="result">result</var> to be the result of <span class="spec-call"><span data-name="nextResult">nextResult</span>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ol>
+</div>
+</section>
+<section id="sec-Plain-traversal" secid="3.8.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Plain-traversal">3.8.2</a></span>Plain traversal</h3>
+<p>A plain traversal is a traversal which works on and returns unknown types.</p>
+<ul>
+<li><code>.user.name</code></li>
+<li><code>.users[0].name</code></li>
+<li><code>.image-&gt;{url}</code></li>
+</ul>
+<p>The following are <em>not</em> considered plain traversals:</p>
+<ul>
+<li><code>[_type == "user"].name</code> (because it works on an array)</li>
+<li><code>.users[]</code> (because it returns an array)</li>
+</ul>
+<div class="spec-production" id="BasicTraversalPlain">
+<span class="spec-nt"><a href="#BasicTraversalPlain" data-name="BasicTraversalPlain">BasicTraversalPlain</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Dereference" data-name="Dereference">Dereference</a></span></div>
+</div>
+<div class="spec-production" id="TraversalPlain">
+<span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#BasicTraversalPlain" data-name="BasicTraversalPlain">BasicTraversalPlain</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#BasicTraversalPlain" data-name="BasicTraversalPlain">BasicTraversalPlain</a></span><span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#BasicTraversalPlain" data-name="BasicTraversalPlain">BasicTraversalPlain</a></span><span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span></div>
+</div>
+</section>
+<section id="sec-Array-traversals" secid="3.8.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-traversals">3.8.3</a></span>Array traversals</h3>
+<p>An array traversal is a traversal which statically is known to works on and return an array:</p>
+<ul>
+<li><code>[_type == "user"].id</code></li>
+<li><code>[_type == "user"].names[]</code></li>
+<li><code>{name,type}[type == "admin"]</code></li>
+</ul>
+<p>The following are <em>not</em> considered array traversals:</p>
+<ul>
+<li><code>[_type == "user"].roles[0]</code> (because it returns an unknown type)</li>
+<li><code>.names[]</code> (because it works on a non-array)</li>
+</ul>
+<div class="spec-production" id="BasicTraversalArray">
+<span class="spec-nt"><a href="#BasicTraversalArray" data-name="BasicTraversalArray">BasicTraversalArray</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Slice" data-name="Slice">Slice</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span></div>
+</div>
+<div class="spec-production" id="TraversalArray">
+<span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#BasicTraversalArray" data-name="BasicTraversalArray">BasicTraversalArray</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#BasicTraversalArray" data-name="BasicTraversalArray">BasicTraversalArray</a></span><span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span><span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span><span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#BasicTraversalArray" data-name="BasicTraversalArray">BasicTraversalArray</a></span><span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span><span class="spec-prose">(Evaluated using EvaluateTraversalMap)</span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#BasicTraversalArray" data-name="BasicTraversalArray">BasicTraversalArray</a></span><span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span><span class="spec-prose">(Evaluated using EvaluateTraversalFlatMap)</span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span><span class="spec-prose">(Evaluated using EvaluateTraversalInnerMap)</span></div>
+</div>
+</section>
+<section id="sec-Array-source-traversals" secid="3.8.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-source-traversals">3.8.4</a></span>Array source traversals</h3>
+<p>An array source traversal is a traversal which statically is known to work on an array, but returns an unknown type:</p>
+<ul>
+<li><code>[0].user.name</code></li>
+<li><code>[_type == "user"].roles[0]</code></li>
+<li><code>{name,type}[0]</code></li>
+</ul>
+<p>The following are <em>not</em> considered array source traversals:</p>
+<ul>
+<li><code>[_type == "user"].id</code> (because it returns an array)</li>
+<li><code>.user.name</code> (because it doesn&rsquo;t work on an array)</li>
+</ul>
+<div class="spec-production" id="TraversalArraySource">
+<span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span><span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span><span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#BasicTraversalArray" data-name="BasicTraversalArray">BasicTraversalArray</a></span><span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span><span class="spec-prose">(Evaluated using EvaluateTraversalInnerMap)</span></div>
+</div>
+</section>
+<section id="sec-Array-target-traversals" secid="3.8.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-target-traversals">3.8.5</a></span>Array target traversals</h3>
+<p>An array target traversal is a traversal which statically is known to return on an array, but works on an unknown type:</p>
+<ul>
+<li><code>user.roles[dataset == "production"]</code></li>
+<li><code>{name,type}[]</code></li>
+</ul>
+<p>The following are <em>not</em> considered array source traversals:</p>
+<ul>
+<li><code>[_type == "user"].id</code> (because it also works on an array)</li>
+<li><code>.user.name</code> (because it doesn&rsquo;t work on an array)</li>
+</ul>
+<div class="spec-production" id="TraversalArrayTarget">
+<span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#BasicTraversalPlain" data-name="BasicTraversalPlain">BasicTraversalPlain</a></span><span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#BasicTraversalPlain" data-name="BasicTraversalPlain">BasicTraversalPlain</a></span><span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span></div>
+</div>
+</section>
+</section>
+<section id="sec-Query-execution" secid="3.9">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Query-execution">3.9</a></span>Query execution</h2>
 <p>To execute a query you must first construct a query context, and then evaluate the query expression inside a root scope.</p>
 <div class="spec-algo" id="ExecuteQuery()">
 <span class="spec-call"><a href="#ExecuteQuery()" data-name="ExecuteQuery">ExecuteQuery</a>(<var data-name="query">query</var>, <var data-name="context">context</var>)</span><ol>
@@ -1066,171 +1277,40 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 </ol>
 </div>
 </section>
-<section id="sec-Attribute-access-expression" secid="7.2">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Attribute-access-expression">7.2</a></span>Attribute access expression</h2>
-<p>An attribute access expression returns an attribute of an object.</p>
-<pre><code>person.name
-      ~~~~~
-
-person["Full Name"]
-      ~~~~~~~~~~~~~
+<section id="sec-Traversal-expression" secid="7.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-expression">7.2</a></span>Traversal expression</h2>
+<p>A traversal expressions starts a traversal.</p>
+<pre data-language="groq"><code>users.foo.bar[0].sources[]-&gt;name
 </code></pre>
-<div class="spec-production" id="AttributeAccess">
-<span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">.</span><span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span></div>
-<div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
+<p>When the left-hand side is an <span class="spec-nt"><a href="#Everything" data-name="Everything">Everything</a></span>, <span class="spec-nt"><a href="#Array" data-name="Array">Array</a></span>, or <span class="spec-nt"><a href="#PipeFuncCall" data-name="PipeFuncCall">PipeFuncCall</a></span> this is interpreted as if there was an additional explicit <span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span> traversal. E.g. <code>*._id</code> is interpreted as <code>*[]._id</code> and therefore returns an array of IDs.</p>
+<div class="spec-production" id="TraversalExpression">
+<span class="spec-nt"><a href="#TraversalExpression" data-name="TraversalExpression">TraversalExpression</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-nt"><a href="#Traversal" data-name="Traversal">Traversal</a></span></div>
 </div>
-<div id="note-61749" class="spec-note">
-<a href="#note-61749">Note</a>
-<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-backet-expressions">&ldquo;Disambiguating square backet expressions&rdquo;</a> for how to disambiguate between them.</div>
-<div class="spec-algo" id="EvaluateAttributeAccess()">
-<span class="spec-call"><a href="#EvaluateAttributeAccess()" data-name="EvaluateAttributeAccess">EvaluateAttributeAccess</a>(<var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="baseNode">baseNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
-<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is not an object, return <span class="spec-keyword">null</span>.</li>
-<li>Let <var data-name="name">name</var> be the string value of <span class="spec-nt"><a href="#String" data-name="String">String</a></span> or <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>.</li>
-<li>If <var data-name="base">base</var> does not contain an attribute <var data-name="name">name</var>, return <span class="spec-keyword">null</span>.</li>
-<li>Return the value of the attribute <var data-name="name">name</var> in <var data-name="base">base</var>.</li>
-</ol>
+<div class="spec-production" id="Traversal">
+<span class="spec-nt"><a href="#Traversal" data-name="Traversal">Traversal</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span></div>
 </div>
-</section>
-<section id="sec-Element-access-expression" secid="7.3">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Element-access-expression">7.3</a></span>Element access expression</h2>
-<p>An element access expression returns an element stored in an array. The array is 0-indexed and a negative index accesses the array from the end (i.e. an index of -1 returns the last element; -2 refers to the second last element).</p>
-<div class="spec-production" id="ElementAccess">
-<span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
-</div>
-<div id="note-7c356" class="spec-note">
-<a href="#note-7c356">Note</a>
-<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-backet-expressions">&ldquo;Disambiguating square backet expressions&rdquo;</a> for how to disambiguate between them.</div>
-<div class="spec-algo" id="EvaluateElementAccess()">
-<span class="spec-call"><a href="#EvaluateElementAccess()" data-name="EvaluateElementAccess">EvaluateElementAccess</a>(<var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="baseNode">baseNode</var> be the first <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
-<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is not an array, return <span class="spec-keyword">null</span>.</li>
-<li>Let <var data-name="idxNode">idxNode</var> be the second <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
-<li>Let <var data-name="idx">idx</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="idxNode">idxNode</var>, <var data-name="scope">scope</var>)</span>. This value is guaranteed to be an integer due to the validation.</li>
-<li>If <var data-name="idx">idx</var> is negative, add the length of <var data-name="base">base</var> to <var data-name="idx">idx</var>.</li>
-<li>If <var data-name="idx">idx</var> is still negative, return <span class="spec-keyword">null</span>.</li>
-<li>If <var data-name="idx">idx</var> is equal to or greater than the length of <var data-name="base">base</var>, return <span class="spec-keyword">null</span>.</li>
-<li>Return the value stored at position <var data-name="idx">idx</var> in <var data-name="base">base</var>.</li>
-</ol>
-</div>
-<div class="spec-algo" id="ValidateElementAccess()">
-<span class="spec-call"><a href="#ValidateElementAccess()" data-name="ValidateElementAccess">ValidateElementAccess</a>()</span><ol>
-<li>Let <var data-name="idxNode">idxNode</var> be the second <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
-<li>Let <var data-name="idx">idx</var> be the result of <span class="spec-call"><a href="#ConstantEvaluate()" data-name="ConstantEvaluate">ConstantEvaluate</a>(<var data-name="idxNode">idxNode</var>)</span>. This value is guaranteed to be a number due to square bracket disambiguation.</li>
-<li>If <var data-name="idx">idx</var> is not an integer: Report an error.</li>
-</ol>
-</div>
-</section>
-<section id="sec-Slice-expression" secid="7.4">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Slice-expression">7.4</a></span>Slice expression</h2>
-<p>A slice expression returns a slice of an array.</p>
-<pre><code>people[0..10]
-      ~~~~~~~
-</code></pre>
-<div class="spec-production" id="Slice">
-<span class="spec-nt"><a href="#Slice" data-name="Slice">Slice</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">[</span><span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span><span class="spec-t">]</span></div>
-</div>
-<div class="spec-algo" id="EvaluateSlice()">
-<span class="spec-call"><a href="#EvaluateSlice()" data-name="EvaluateSlice">EvaluateSlice</a>(<var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="baseNode">baseNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
-<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is not an array, return <span class="spec-keyword">null</span>.</li>
-<li>Process the left index:<ol>
-<li>Let <var data-name="leftNode">leftNode</var> be the left value of the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span>.</li>
-<li>Let <var data-name="left">left</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="leftNode">leftNode</var>, <var data-name="scope">scope</var>)</span>. This value is guaranteed to be an integer due to the validation.</li>
-<li>If <var data-name="left">left</var> is negative, add the length of <var data-name="base">base</var> to <var data-name="left">left</var>.</li>
-<li>Clamp <var data-name="left">left</var> between 0 and (the length of <var data-name="base">base</var> minus 1).</li>
-</ol>
-</li>
-<li>Process the right index:<ol>
-<li>Let <var data-name="rightNode">rightNode</var> be the right value of the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span>.</li>
-<li>Let <var data-name="right">right</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rightNode">rightNode</var>, <var data-name="scope">scope</var>)</span>. This value is guaranteed to be an integer due to the validation.</li>
-<li>If <var data-name="right">right</var> is negative, add the length of <var data-name="base">base</var> to <var data-name="right">right</var>.</li>
-<li>If the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span> is exclusive, subtract one from <var data-name="right">right</var>.</li>
-<li>Clamp <var data-name="right">right</var> between 0 and (the length of <var data-name="base">base</var> minus 1).</li>
-</ol>
-</li>
-<li>Let <var data-name="result">result</var> be an array containing the elements of <var data-name="base">base</var> from position <var data-name="left">left</var> up to and including position <var data-name="right">right</var>.</li>
-<li>Return <var data-name="result">result</var>.</li>
-</ol>
-</div>
-<div class="spec-algo" id="ValidateSlice()">
-<span class="spec-call"><a href="#ValidateSlice()" data-name="ValidateSlice">ValidateSlice</a>()</span><ol>
-<li>Let <var data-name="leftNode">leftNode</var> be the left value of the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span>.</li>
-<li>Let <var data-name="leftValue">leftValue</var> be the result of <span class="spec-call"><a href="#ConstantEvaluate()" data-name="ConstantEvaluate">ConstantEvaluate</a>(<var data-name="leftNode">leftNode</var>)</span>.</li>
-<li>If <var data-name="leftValue">leftValue</var> is not an integer: Report an error.</li>
-<li>Let <var data-name="rightNode">rightNode</var> be the right value of the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span>.</li>
-<li>Let <var data-name="rightValue">rightValue</var> be the result of <span class="spec-call"><a href="#ConstantEvaluate()" data-name="ConstantEvaluate">ConstantEvaluate</a>(<var data-name="rightNode">rightNode</var>)</span>.</li>
-<li>If <var data-name="rightValue">rightValue</var> is not an integer: Report an error.</li>
-</ol>
-</div>
-</section>
-<section id="sec-Filter-expression" secid="7.5">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Filter-expression">7.5</a></span>Filter expression</h2>
-<p>A filter expression filters an array using another expression.</p>
-<pre><code>*[_type == "person"]
- ~~~~~~~~~~~~~~~~~~~
-</code></pre>
-<div class="spec-production" id="Filter">
-<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
-</div>
-<div id="note-22d2f" class="spec-note">
-<a href="#note-22d2f">Note</a>
-<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-backet-expressions">&ldquo;Disambiguating square backet expressions&rdquo;</a> for how to disambiguate between them.</div>
-<div class="spec-algo" id="EvaluateFilter()">
-<span class="spec-call"><a href="#EvaluateFilter()" data-name="EvaluateFilter">EvaluateFilter</a>(<var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="baseNode">baseNode</var> be the first <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
-<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is not an array, return <var data-name="base">base</var>.</li>
-<li>Let <var data-name="filterNode">filterNode</var> be the second <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
-<li>Let <var data-name="result">result</var> be a new empty array.</li>
-<li>For each element <var data-name="value">value</var> in <var data-name="baseValue">baseValue</var>:<ol>
-<li>Let <var data-name="elementScope">elementScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="value">value</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="matched">matched</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="filterNode">filterNode</var>, <var data-name="elementScope">elementScope</var>)</span>.</li>
-<li>If <var data-name="matched">matched</var> is <span class="spec-keyword">true</span>, append <var data-name="value">value</var> to <var data-name="result">result</var>.</li>
-</ol>
-</li>
-<li>Return <var data-name="result">result</var>.</li>
-</ol>
-</div>
-</section>
-<section id="sec-Projection-expression" secid="7.6">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Projection-expression">7.6</a></span>Projection expression</h2>
-<p>A projection expression iterates over an array and creates new objects for each element.</p>
-<pre><code>*[_type == "person"]{name, "isLegal": age &gt;= 18}
-                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-</code></pre>
-<div class="spec-production" id="Projection">
-<span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-quantified"><span class="spec-t">|</span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span><span class="spec-nt"><a href="#Object" data-name="Object">Object</a></span></div>
-</div>
-<div class="spec-algo" id="EvaluateProjection()">
-<span class="spec-call"><a href="#EvaluateProjection()" data-name="EvaluateProjection">EvaluateProjection</a>(<var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="baseNode">baseNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
-<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="objNode">objNode</var> be the <span class="spec-nt"><a href="#Object" data-name="Object">Object</a></span>.</li>
-<li>If <var data-name="base">base</var> is not an array:<ol>
-<li>Let <var data-name="elementScope">elementScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="objNode">objNode</var>, <var data-name="elementScope">elementScope</var>)</span>.</li>
+<div class="spec-algo" id="EvaluateTraversalExpression()">
+<span class="spec-call"><a href="#EvaluateTraversalExpression()" data-name="EvaluateTraversalExpression">EvaluateTraversalExpression</a>(<var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="node">node</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
+<li>Let <var data-name="traversalNode">traversalNode</var> be the <span class="spec-nt"><a href="#Traversal" data-name="Traversal">Traversal</a></span>.</li>
+<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="node">node</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="node">node</var> is one of <span class="spec-nt"><a href="#Everything" data-name="Everything">Everything</a></span>, <span class="spec-nt"><a href="#Array" data-name="Array">Array</a></span>, <span class="spec-nt"><a href="#PipeFuncCall" data-name="PipeFuncCall">PipeFuncCall</a></span>:<ol>
+<li>Let <var data-name="traverse">traverse</var> be the traversal function for the combination <span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span> and <var data-name="traversalNode">traversalNode</var>.</li>
 </ol>
 </li>
 <li>Otherwise:<ol>
-<li>Let <var data-name="result">result</var> be a new empty array.</li>
-<li>For each element <var data-name="value">value</var> in <var data-name="base">base</var>:<ol>
-<li>Let <var data-name="elementScope">elementScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="value">value</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="newValue">newValue</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="objNode">objNode</var>, <var data-name="elementScope">elementScope</var>)</span>.</li>
-<li>Append <var data-name="newValue">newValue</var> to <var data-name="result">result</var>.</li>
+<li>Let <var data-name="traverse">traverse</var> be the traverse function of <var data-name="traversalNode">traversalNode</var>.</li>
 </ol>
 </li>
-</ol>
-</li>
-<li>Return <var data-name="result">result</var>.</li>
+<li>Return <span class="spec-call"><span data-name="traverse">traverse</span>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span>.</li>
 </ol>
 </div>
 </section>
-<section id="sec-Pipe-function-call-expression" secid="7.7">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-function-call-expression">7.7</a></span>Pipe function call expression</h2>
+<section id="sec-Pipe-function-call-expression" secid="7.3">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-function-call-expression">7.3</a></span>Pipe function call expression</h2>
 <p>GROQ comes with a set of built-in pipe functions which provides additional features. Pipe functions always accepts an array on the left-hand side and returns another array, and the syntax is optimized for being able to chain it together with other compund expressions. See the <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a> for available functions.</p>
 <pre><code>*[_type == "person"] | order(name) | {age}
                      ~~~~~~~~~~~~~
@@ -1272,27 +1352,242 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Disambiguating-square-backet-expressions" secid="7.8">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Disambiguating-square-backet-expressions">7.8</a></span>Disambiguating square backet expressions</h2>
-<p><span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span> and <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous, and the following algorithm is used to disambiguate between them.</p>
-<div class="spec-production" id="SquareBracketExpression">
-<span class="spec-nt"><a href="#SquareBracketExpression" data-name="SquareBracketExpression">SquareBracketExpression</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
+</section>
+<section id="sec-Traversal-operators" secid="8">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-operators">8</a></span>Traversal operators</h1>
+<section id="sec-Attribute-access-traversal" secid="8.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Attribute-access-traversal">8.1</a></span>Attribute access traversal</h2>
+<p>An attribute access returns an attribute of an object.</p>
+<pre><code>person.name
+      ~~~~~
+
+person["Full Name"]
+      ~~~~~~~~~~~~~
+</code></pre>
+<div class="spec-production" id="AttributeAccess">
+<span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span><div class="spec-rhs"><span class="spec-t">.</span><span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span></div>
+<div class="spec-rhs"><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
 </div>
-<div class="spec-algo" id="DisambiguateSquareBracketExpression()">
-<span class="spec-call"><a href="#DisambiguateSquareBracketExpression()" data-name="DisambiguateSquareBracketExpression">DisambiguateSquareBracketExpression</a>()</span><ol>
-<li>Let <var data-name="valueNode">valueNode</var> be the last <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
+<div id="note-0b75e" class="spec-note">
+<a href="#note-0b75e">Note</a>
+<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-backet-traversal">&ldquo;Disambiguating square backet traversal&rdquo;</a> for how to disambiguate between them.</div>
+<div class="spec-algo" id="EvaluateAttributeAccess()">
+<span class="spec-call"><a href="#EvaluateAttributeAccess()" data-name="EvaluateAttributeAccess">EvaluateAttributeAccess</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If <var data-name="base">base</var> is not an object, return <span class="spec-keyword">null</span>.</li>
+<li>Let <var data-name="name">name</var> be the string value of <span class="spec-nt"><a href="#String" data-name="String">String</a></span> or <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>.</li>
+<li>If <var data-name="base">base</var> does not contain an attribute <var data-name="name">name</var>, return <span class="spec-keyword">null</span>.</li>
+<li>Return the value of the attribute <var data-name="name">name</var> in <var data-name="base">base</var>.</li>
+</ol>
+</div>
+</section>
+<section id="sec-Element-access-traversal" secid="8.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Element-access-traversal">8.2</a></span>Element access traversal</h2>
+<p>An element access returns an element stored in an array. The array is 0-indexed and a negative index accesses the array from the end (i.e. an index of -1 returns the last element; -2 refers to the second last element).</p>
+<div class="spec-production" id="ElementAccess">
+<span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span><div class="spec-rhs"><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
+</div>
+<div id="note-d95ed" class="spec-note">
+<a href="#note-d95ed">Note</a>
+<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-backet-traversal">&ldquo;Disambiguating square backet traversal&rdquo;</a> for how to disambiguate between them.</div>
+<div class="spec-algo" id="EvaluateElementAccess()">
+<span class="spec-call"><a href="#EvaluateElementAccess()" data-name="EvaluateElementAccess">EvaluateElementAccess</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If <var data-name="base">base</var> is not an array, return <span class="spec-keyword">null</span>.</li>
+<li>Let <var data-name="idxNode">idxNode</var> be the second <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
+<li>Let <var data-name="idx">idx</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="idxNode">idxNode</var>, <var data-name="scope">scope</var>)</span>. This value is guaranteed to be an integer due to the validation.</li>
+<li>If <var data-name="idx">idx</var> is negative, add the length of <var data-name="base">base</var> to <var data-name="idx">idx</var>.</li>
+<li>If <var data-name="idx">idx</var> is still negative, return <span class="spec-keyword">null</span>.</li>
+<li>If <var data-name="idx">idx</var> is equal to or greater than the length of <var data-name="base">base</var>, return <span class="spec-keyword">null</span>.</li>
+<li>Return the value stored at position <var data-name="idx">idx</var> in <var data-name="base">base</var>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="ValidateElementAccess()">
+<span class="spec-call"><a href="#ValidateElementAccess()" data-name="ValidateElementAccess">ValidateElementAccess</a>()</span><ol>
+<li>Let <var data-name="idxNode">idxNode</var> be the second <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
+<li>Let <var data-name="idx">idx</var> be the result of <span class="spec-call"><a href="#ConstantEvaluate()" data-name="ConstantEvaluate">ConstantEvaluate</a>(<var data-name="idxNode">idxNode</var>)</span>. This value is guaranteed to be a number due to square bracket disambiguation.</li>
+<li>If <var data-name="idx">idx</var> is not an integer: Report an error.</li>
+</ol>
+</div>
+</section>
+<section id="sec-Slice-traversal" secid="8.3">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Slice-traversal">8.3</a></span>Slice traversal</h2>
+<p>A slice returns a slice of an array.</p>
+<pre><code>people[0..10]
+      ~~~~~~~
+</code></pre>
+<div class="spec-production" id="Slice">
+<span class="spec-nt"><a href="#Slice" data-name="Slice">Slice</a></span><div class="spec-rhs"><span class="spec-t">[</span><span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span><span class="spec-t">]</span></div>
+</div>
+<div class="spec-algo" id="EvaluateSlice()">
+<span class="spec-call"><a href="#EvaluateSlice()" data-name="EvaluateSlice">EvaluateSlice</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="base">base</var> is not an array, return <span class="spec-keyword">null</span>.</li>
+<li>Process the left index:<ol>
+<li>Let <var data-name="leftNode">leftNode</var> be the left value of the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span>.</li>
+<li>Let <var data-name="left">left</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="leftNode">leftNode</var>, <var data-name="scope">scope</var>)</span>. This value is guaranteed to be an integer due to the validation.</li>
+<li>If <var data-name="left">left</var> is negative, add the length of <var data-name="base">base</var> to <var data-name="left">left</var>.</li>
+<li>Clamp <var data-name="left">left</var> between 0 and (the length of <var data-name="base">base</var> minus 1).</li>
+</ol>
+</li>
+<li>Process the right index:<ol>
+<li>Let <var data-name="rightNode">rightNode</var> be the right value of the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span>.</li>
+<li>Let <var data-name="right">right</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rightNode">rightNode</var>, <var data-name="scope">scope</var>)</span>. This value is guaranteed to be an integer due to the validation.</li>
+<li>If <var data-name="right">right</var> is negative, add the length of <var data-name="base">base</var> to <var data-name="right">right</var>.</li>
+<li>If the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span> is exclusive, subtract one from <var data-name="right">right</var>.</li>
+<li>Clamp <var data-name="right">right</var> between 0 and (the length of <var data-name="base">base</var> minus 1).</li>
+</ol>
+</li>
+<li>Let <var data-name="result">result</var> be an array containing the elements of <var data-name="base">base</var> from position <var data-name="left">left</var> up to and including position <var data-name="right">right</var>.</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="ValidateSlice()">
+<span class="spec-call"><a href="#ValidateSlice()" data-name="ValidateSlice">ValidateSlice</a>()</span><ol>
+<li>Let <var data-name="leftNode">leftNode</var> be the left value of the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span>.</li>
+<li>Let <var data-name="leftValue">leftValue</var> be the result of <span class="spec-call"><a href="#ConstantEvaluate()" data-name="ConstantEvaluate">ConstantEvaluate</a>(<var data-name="leftNode">leftNode</var>)</span>.</li>
+<li>If <var data-name="leftValue">leftValue</var> is not an integer: Report an error.</li>
+<li>Let <var data-name="rightNode">rightNode</var> be the right value of the <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span>.</li>
+<li>Let <var data-name="rightValue">rightValue</var> be the result of <span class="spec-call"><a href="#ConstantEvaluate()" data-name="ConstantEvaluate">ConstantEvaluate</a>(<var data-name="rightNode">rightNode</var>)</span>.</li>
+<li>If <var data-name="rightValue">rightValue</var> is not an integer: Report an error.</li>
+</ol>
+</div>
+</section>
+<section id="sec-Filter-traversal" secid="8.4">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Filter-traversal">8.4</a></span>Filter traversal</h2>
+<p>A filter returns an array filtered another expression.</p>
+<pre><code>*[_type == "person"]
+ ~~~~~~~~~~~~~~~~~~~
+</code></pre>
+<div class="spec-production" id="Filter">
+<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span><div class="spec-rhs"><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
+</div>
+<div id="note-c46d6" class="spec-note">
+<a href="#note-c46d6">Note</a>
+<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-backet-traversal">&ldquo;Disambiguating square backet traversal&rdquo;</a> for how to disambiguate between them.</div>
+<div class="spec-algo" id="EvaluateFilter()">
+<span class="spec-call"><a href="#EvaluateFilter()" data-name="EvaluateFilter">EvaluateFilter</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If <var data-name="base">base</var> is not an array, return <var data-name="base">base</var>.</li>
+<li>Let <var data-name="filterNode">filterNode</var> be the second <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
+<li>Let <var data-name="result">result</var> be a new empty array.</li>
+<li>For each element <var data-name="value">value</var> in <var data-name="baseValue">baseValue</var>:<ol>
+<li>Let <var data-name="elementScope">elementScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="value">value</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="matched">matched</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="filterNode">filterNode</var>, <var data-name="elementScope">elementScope</var>)</span>.</li>
+<li>If <var data-name="matched">matched</var> is <span class="spec-keyword">true</span>, append <var data-name="value">value</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ol>
+</div>
+</section>
+<section id="sec-Array-postfix-traversal" secid="8.5">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Array-postfix-traversal">8.5</a></span>Array postfix traversal</h2>
+<p>An array postfix coerces the value into an array.</p>
+<div class="spec-production" id="ArrayPostfix">
+<span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span><div class="spec-rhs"><span class="spec-t">[</span><span class="spec-t">]</span></div>
+</div>
+<div class="spec-algo" id="EvaluateArrayPostfix()">
+<span class="spec-call"><a href="#EvaluateArrayPostfix()" data-name="EvaluateArrayPostfix">EvaluateArrayPostfix</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If <var data-name="base">base</var> is not an array, return <span class="spec-keyword">null</span>.</li>
+<li>Return <var data-name="base">base</var>.</li>
+</ol>
+</div>
+</section>
+<section id="sec-Projection-traversal" secid="8.6">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Projection-traversal">8.6</a></span>Projection traversal</h2>
+<p>A projection operator returns a new object.</p>
+<pre><code>*[_type == "person"]{name, "isLegal": age &gt;= 18}
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</code></pre>
+<div class="spec-production" id="Projection">
+<span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><div class="spec-rhs"><span class="spec-quantified"><span class="spec-t">|</span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span><span class="spec-nt"><a href="#Object" data-name="Object">Object</a></span></div>
+</div>
+<div class="spec-algo" id="EvaluateProjection()">
+<span class="spec-call"><a href="#EvaluateProjection()" data-name="EvaluateProjection">EvaluateProjection</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="objNode">objNode</var> be the <span class="spec-nt"><a href="#Object" data-name="Object">Object</a></span>.</li>
+<li>If <var data-name="base">base</var> is not an object:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="elementScope">elementScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="objNode">objNode</var>, <var data-name="elementScope">elementScope</var>)</span>.</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ol>
+</div>
+</section>
+<section id="sec-Dereference-traversal" secid="8.7">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Dereference-traversal">8.7</a></span>Dereference traversal</h2>
+<div class="spec-production" id="Dereference">
+<span class="spec-nt"><a href="#Dereference" data-name="Dereference">Dereference</a></span><div class="spec-rhs"><span class="spec-t">-&gt;</span><span class="spec-quantified"><span class="spec-nt"><a href="#String" data-name="String">String</a></span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span></div>
+</div>
+<div class="spec-algo" id="EvaluateDereference()">
+<span class="spec-call"><a href="#EvaluateDereference()" data-name="EvaluateDereference">EvaluateDereference</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If <var data-name="base">base</var> is not an object:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>If <var data-name="base">base</var> does not have an attribute <code>_ref</code>:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="ref">ref</var> be the value of the attribute <code>_ref</code> in <var data-name="base">base</var>.</li>
+<li>If <var data-name="ref">ref</var> is not a string:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="dataset">dataset</var> be the dataset of the query context of <var data-name="scope">scope</var>.</li>
+<li>If <var data-name="dataset">dataset</var> is not an array:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="result">result</var> be <span class="spec-keyword">null</span>.</li>
+<li>For each <var data-name="document">document</var> in <var data-name="dataset">dataset</var>:<ol>
+<li>If <var data-name="document">document</var> is an object and has an attribute <code>_id</code>:<ol>
+<li>Let <var data-name="id">id</var> be the value of the attribute <code>_id</code> in <var data-name="document">document</var>.</li>
+<li>If <span class="spec-call"><a href="#Equal()" data-name="Equal">Equal</a>(<var data-name="ref">ref</var>, <var data-name="id">id</var>)</span> is <span class="spec-keyword">true</span>:<ol>
+<li>Set <var data-name="result">result</var> to <var data-name="document">document</var>.</li>
+<li>Stop the loop.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>If the dereference expression contains a <span class="spec-nt"><a href="#String" data-name="String">String</a></span>:<ol>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#String" data-name="String">String</a></span>.</li>
+<li>If <var data-name="result">result</var> is an object and contains an attribute <var data-name="name">name</var>:<ol>
+<li>Return the <var data-name="value">value</var> of the attribute <var data-name="name">name</var> in <var data-name="result">result</var>.</li>
+</ol>
+</li>
+<li>Otherwise:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ol>
+</div>
+</section>
+<section id="sec-Disambiguating-square-backet-traversal" secid="8.8">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Disambiguating-square-backet-traversal">8.8</a></span>Disambiguating square backet traversal</h2>
+<p><span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span> and <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous, and the following algorithm is used to disambiguate between them.</p>
+<div class="spec-production" id="SquareBracketTraversal">
+<span class="spec-nt"><a href="#SquareBracketTraversal" data-name="SquareBracketTraversal">SquareBracketTraversal</a></span><div class="spec-rhs"><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
+</div>
+<div class="spec-algo" id="DisambiguateSquareBracketTraversal()">
+<span class="spec-call"><a href="#DisambiguateSquareBracketTraversal()" data-name="DisambiguateSquareBracketTraversal">DisambiguateSquareBracketTraversal</a>()</span><ol>
+<li>Let <var data-name="valueNode">valueNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
 <li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#ConstantEvaluate()" data-name="ConstantEvaluate">ConstantEvaluate</a>(<var data-name="valueNode">valueNode</var>)</span>.</li>
-<li>If <var data-name="value">value</var> is a string: Interpret it as an <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> expression.</li>
-<li>If <var data-name="value">value</var> is a number: Interpret it as an <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span> expression.</li>
-<li>Otherwise: Interpret it as a <span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span> expression. </li>
+<li>If <var data-name="value">value</var> is a string: Interpret it as an <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> traversal.</li>
+<li>If <var data-name="value">value</var> is a number: Interpret it as an <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span> traversal.</li>
+<li>Otherwise: Interpret it as a <span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span> traversal. </li>
 </ol>
 </div>
 </section>
 </section>
-<section id="sec-Operators" secid="8">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Operators">8</a></span>Operators</h1>
-<section id="sec-And-operator" secid="8.1">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-And-operator">8.1</a></span>And operator</h2>
+<section id="sec-Operators" secid="9">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Operators">9</a></span>Operators</h1>
+<section id="sec-And-operator" secid="9.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-And-operator">9.1</a></span>And operator</h2>
 <div class="spec-production" id="And">
 <span class="spec-nt"><a href="#And" data-name="And">And</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">&amp;&amp;</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1314,8 +1609,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Or-operator" secid="8.2">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Or-operator">8.2</a></span>Or operator</h2>
+<section id="sec-Or-operator" secid="9.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Or-operator">9.2</a></span>Or operator</h2>
 <div class="spec-production" id="Or">
 <span class="spec-nt"><a href="#Or" data-name="Or">Or</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">||</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1337,8 +1632,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Not-operator" secid="8.3">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Not-operator">8.3</a></span>Not operator</h2>
+<section id="sec-Not-operator" secid="9.3">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Not-operator">9.3</a></span>Not operator</h2>
 <div class="spec-production" id="Not">
 <span class="spec-nt"><a href="#Not" data-name="Not">Not</a></span><div class="spec-rhs"><span class="spec-t">!</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1358,8 +1653,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Equality-operators" secid="8.4">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Equality-operators">8.4</a></span>Equality operators</h2>
+<section id="sec-Equality-operators" secid="9.4">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Equality-operators">9.4</a></span>Equality operators</h2>
 <div class="spec-production" id="Equality">
 <span class="spec-nt"><a href="#Equality" data-name="Equality">Equality</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-nt"><a href="#EqualityOperator" data-name="EqualityOperator">EqualityOperator</a></span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1391,8 +1686,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Comparison-operators" secid="8.5">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Comparison-operators">8.5</a></span>Comparison operators</h2>
+<section id="sec-Comparison-operators" secid="9.5">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Comparison-operators">9.5</a></span>Comparison operators</h2>
 <div class="spec-production" id="Comparison">
 <span class="spec-nt"><a href="#Comparison" data-name="Comparison">Comparison</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-nt"><a href="#ComparisonOperator" data-name="ComparisonOperator">ComparisonOperator</a></span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1429,8 +1724,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-In-operator" secid="8.6">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-In-operator">8.6</a></span>In operator</h2>
+<section id="sec-In-operator" secid="9.6">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-In-operator">9.6</a></span>In operator</h2>
 <div class="spec-production" id="In">
 <span class="spec-nt"><a href="#In" data-name="In">In</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">in</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1479,8 +1774,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Match-operator" secid="8.7">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Match-operator">8.7</a></span>Match operator</h2>
+<section id="sec-Match-operator" secid="9.7">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Match-operator">9.7</a></span>Match operator</h2>
 <p>The match operator is defined in terms of <em>patterns</em> and <em>tokens</em>: It returns true when any of patterns matches all of the tokens. The exact way of tokenizing text and interpreting patterns is left as an implementation detail.</p>
 <div class="spec-production" id="Match">
 <span class="spec-nt"><a href="#Match" data-name="Match">Match</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">match</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
@@ -1550,8 +1845,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Asc-operator" secid="8.8">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Asc-operator">8.8</a></span>Asc operator</h2>
+<section id="sec-Asc-operator" secid="9.8">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Asc-operator">9.8</a></span>Asc operator</h2>
 <p>The asc operator is used by the <span class="spec-call"><a href="#order()" data-name="order">order</a>()</span> function to signal that you want ascending sorting. Evaluating it in any other context is not allowed.</p>
 <div class="spec-production" id="Asc">
 <span class="spec-nt"><a href="#Asc" data-name="Asc">Asc</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">asc</span></div>
@@ -1562,8 +1857,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Desc-operator" secid="8.9">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Desc-operator">8.9</a></span>Desc operator</h2>
+<section id="sec-Desc-operator" secid="9.9">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Desc-operator">9.9</a></span>Desc operator</h2>
 <p>The desc operator is used by the <span class="spec-call"><a href="#order()" data-name="order">order</a>()</span> function to signal that you want descending sorting. Evaluating it in any other context is not allowed.</p>
 <div class="spec-production" id="Desc">
 <span class="spec-nt"><a href="#Desc" data-name="Desc">Desc</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">desc</span></div>
@@ -1574,8 +1869,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Unary-plus-operator" secid="8.10">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Unary-plus-operator">8.10</a></span>Unary plus operator</h2>
+<section id="sec-Unary-plus-operator" secid="9.10">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Unary-plus-operator">9.10</a></span>Unary plus operator</h2>
 <div class="spec-production" id="UnaryPlus">
 <span class="spec-nt"><a href="#UnaryPlus" data-name="UnaryPlus">UnaryPlus</a></span><div class="spec-rhs"><span class="spec-t">+</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1591,8 +1886,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Unary-minus-operator" secid="8.11">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Unary-minus-operator">8.11</a></span>Unary minus operator</h2>
+<section id="sec-Unary-minus-operator" secid="9.11">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Unary-minus-operator">9.11</a></span>Unary minus operator</h2>
 <div class="spec-production" id="UnaryMinus">
 <span class="spec-nt"><a href="#UnaryMinus" data-name="UnaryMinus">UnaryMinus</a></span><div class="spec-rhs"><span class="spec-t">-</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1608,8 +1903,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Binary-plus-operator" secid="8.12">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-plus-operator">8.12</a></span>Binary plus operator</h2>
+<section id="sec-Binary-plus-operator" secid="9.12">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-plus-operator">9.12</a></span>Binary plus operator</h2>
 <div class="spec-production" id="Plus">
 <span class="spec-nt"><a href="#Plus" data-name="Plus">Plus</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">+</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1643,8 +1938,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Binary-minus-operator" secid="8.13">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-minus-operator">8.13</a></span>Binary minus operator</h2>
+<section id="sec-Binary-minus-operator" secid="9.13">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-minus-operator">9.13</a></span>Binary minus operator</h2>
 <div class="spec-production" id="Minus">
 <span class="spec-nt"><a href="#Minus" data-name="Minus">Minus</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">-</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1670,8 +1965,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Binary-star-operator" secid="8.14">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-star-operator">8.14</a></span>Binary star operator</h2>
+<section id="sec-Binary-star-operator" secid="9.14">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-star-operator">9.14</a></span>Binary star operator</h2>
 <div class="spec-production" id="Star">
 <span class="spec-nt"><a href="#Star" data-name="Star">Star</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">*</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1689,8 +1984,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Binary-slash-operator" secid="8.15">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-slash-operator">8.15</a></span>Binary slash operator</h2>
+<section id="sec-Binary-slash-operator" secid="9.15">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-slash-operator">9.15</a></span>Binary slash operator</h2>
 <div class="spec-production" id="Slash">
 <span class="spec-nt"><a href="#Slash" data-name="Slash">Slash</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">/</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1708,8 +2003,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Binary-percent-operator" secid="8.16">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-percent-operator">8.16</a></span>Binary percent operator</h2>
+<section id="sec-Binary-percent-operator" secid="9.16">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-percent-operator">9.16</a></span>Binary percent operator</h2>
 <div class="spec-production" id="Percent">
 <span class="spec-nt"><a href="#Percent" data-name="Percent">Percent</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">%</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1727,8 +2022,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Binary-double-star-operator" secid="8.17">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-double-star-operator">8.17</a></span>Binary double star operator</h2>
+<section id="sec-Binary-double-star-operator" secid="9.17">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-double-star-operator">9.17</a></span>Binary double star operator</h2>
 <div class="spec-production" id="StarStar">
 <span class="spec-nt"><a href="#StarStar" data-name="StarStar">StarStar</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">**</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
@@ -1742,71 +2037,13 @@ person["Full Name"]
 <li>Return the exponentiation of <var data-name="left">left</var> to the power of <var data-name="right">right</var>.</li>
 </ol>
 </li>
-<li>Return <span class="spec-keyword">null</span>.</li>
+<li>Return <span class="spec-keyword">null</span>. </li>
 </ol>
 </div>
 </section>
-<section id="sec-Dereference-operator" secid="8.18">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Dereference-operator">8.18</a></span>Dereference operator</h2>
-<div class="spec-production" id="Dereference">
-<span class="spec-nt"><a href="#Dereference" data-name="Dereference">Dereference</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">-&gt;</span><span class="spec-quantified"><span class="spec-nt"><a href="#String" data-name="String">String</a></span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span></div>
-</div>
-<div class="spec-algo" id="EvaluateDereference()">
-<span class="spec-call"><a href="#EvaluateDereference()" data-name="EvaluateDereference">EvaluateDereference</a>(<var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="valueNode">valueNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
-<li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="valueNode">valueNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="value">value</var> is not an object:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</li>
-<li>If <var data-name="value">value</var> does not have an attribute <code>_ref</code>:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</li>
-<li>Let <var data-name="ref">ref</var> be the value of the attribute <code>_ref</code> in <var data-name="value">value</var>.</li>
-<li>If <var data-name="ref">ref</var> is not a string:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</li>
-<li>Let <var data-name="dataset">dataset</var> be the dataset of the query context of <var data-name="scope">scope</var>.</li>
-<li>If <var data-name="dataset">dataset</var> is not an array:<ol>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ol>
-</li>
-<li>Let <var data-name="result">result</var> be <span class="spec-keyword">null</span>.</li>
-<li>For each <var data-name="document">document</var> in <var data-name="dataset">dataset</var>:<ol>
-<li>If <var data-name="document">document</var> is an object and has an attribute <code>_id</code>:<ol>
-<li>Let <var data-name="id">id</var> be the value of the attribute <code>_id</code> in <var data-name="document">document</var>.</li>
-</ol>
-</li>
-<li>If <span class="spec-call"><a href="#Equal()" data-name="Equal">Equal</a>(<var data-name="ref">ref</var>, <var data-name="id">id</var>)</span> is <span class="spec-keyword">true</span>:<ol>
-<li>Set <var data-name="result">result</var> to <var data-name="document">document</var>.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</div>
-<pre><code>  * Stop the loop.</code></pre>
-<ul>
-<li>If the dereference expression contains a <span class="spec-nt"><a href="#String" data-name="String">String</a></span>:<ul>
-<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#String" data-name="String">String</a></span>.</li>
-<li>If <var data-name="result">result</var> is an object and contains an attribute <var data-name="name">name</var>:<ul>
-<li>Return the <var data-name="value">value</var> of the attribute <var data-name="name">name</var> in <var data-name="result">result</var>.</li>
-</ul>
-</li>
-<li>Otherwise:<ul>
-<li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Return <var data-name="result">result</var>. </li>
-</ul>
 </section>
-</section>
-<section id="sec-Precedence-and-associativity" secid="9">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Precedence-and-associativity">9</a></span>Precedence and associativity</h1>
+<section id="sec-Precedence-and-associativity" secid="10">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Precedence-and-associativity">10</a></span>Precedence and associativity</h1>
 <p>In this specification the various expressions and operators are defined in ambiguously in terms on precedence and associativity. The table below describes the precedence levels used to determine the correct unambiguous interpretation.</p>
 <p>From highest to lowest:</p>
 <ul>
@@ -1824,18 +2061,18 @@ person["Full Name"]
 <li>Level 1, non-associative: <code>=&gt;</code>. </li>
 </ul>
 </section>
-<section id="sec-Functions" secid="10">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Functions">10</a></span>Functions</h1>
+<section id="sec-Functions" secid="11">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Functions">11</a></span>Functions</h1>
 <p>Functions provide additional functionality to GROQ queries. They are invoked through a <a href="#sec-Function-call-expression">Function call expression</a>. Note that function arguments are not evaluated eagerly, and it&rsquo;s up to the function to decide which scope the arguments are evaluated it. As such, all functions below take an array of nodes.</p>
 <p>An implementation may provide additional functions, but should be aware that this can cause problems when interopting with future versions of GROQ.</p>
 </section>
-<section id="sec-Namespaces" secid="11">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Namespaces">11</a></span>Namespaces</h1>
+<section id="sec-Namespaces" secid="12">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Namespaces">12</a></span>Namespaces</h1>
 <p>Functions are namespaced which allows to group functions by logical scope. A function may be associated with multiple namespaces and behave differently. When a function is called without a namespace, it is by default associated with a &ldquo;<strong>global</strong>&rdquo; namespace.</p>
-<section id="sec-Global-namespace" secid="11.1">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Global-namespace">11.1</a></span>Global namespace</h2>
-<section id="sec-global-coalesce-" secid="11.1.1">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-coalesce-">11.1.1</a></span>global::coalesce()</h3>
+<section id="sec-Global-namespace" secid="12.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Global-namespace">12.1</a></span>Global namespace</h2>
+<section id="sec-global-coalesce-" secid="12.1.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-coalesce-">12.1.1</a></span>global::coalesce()</h3>
 <p>The coalesce function returns the first value of the arguments which is not <span class="spec-keyword">null</span>.</p>
 <p>global::coalesce(args, scope):</p>
 <ul>
@@ -1850,8 +2087,8 @@ person["Full Name"]
 <li>Return <span class="spec-keyword">null</span>.</li>
 </ul>
 </section>
-<section id="sec-global-count-" secid="11.1.2">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-count-">11.1.2</a></span>global::count()</h3>
+<section id="sec-global-count-" secid="12.1.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-count-">12.1.2</a></span>global::count()</h3>
 <p>The count function returns the length of an array.</p>
 <p>global::count(args, scope):</p>
 <ul>
@@ -1874,8 +2111,8 @@ person["Full Name"]
 </li>
 </ul>
 </section>
-<section id="sec-global-dateTime-" secid="11.1.3">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-dateTime-">11.1.3</a></span>global::dateTime()</h3>
+<section id="sec-global-dateTime-" secid="12.1.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-dateTime-">12.1.3</a></span>global::dateTime()</h3>
 <p>The <code>dateTime</code> function takes a string or another datatime value, returning a datetime value. This function is idempotent.</p>
 <p>global::dateTime(args, scope):</p>
 <ul>
@@ -1903,8 +2140,8 @@ person["Full Name"]
 </li>
 </ul>
 </section>
-<section id="sec-global-defined-" secid="11.1.4">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-defined-">11.1.4</a></span>global::defined()</h3>
+<section id="sec-global-defined-" secid="12.1.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-defined-">12.1.4</a></span>global::defined()</h3>
 <p>The defined function checks if the argument is not <span class="spec-keyword">null</span>.</p>
 <p>global::defined(args, scope):</p>
 <ul>
@@ -1927,8 +2164,8 @@ person["Full Name"]
 </li>
 </ul>
 </section>
-<section id="sec-global-length-" secid="11.1.5">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-length-">11.1.5</a></span>global::length()</h3>
+<section id="sec-global-length-" secid="12.1.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-length-">12.1.5</a></span>global::length()</h3>
 <p>The length function returns the length of a string or an array.</p>
 <p>global::length(args, scope):</p>
 <ul>
@@ -1952,8 +2189,8 @@ person["Full Name"]
 </li>
 </ul>
 </section>
-<section id="sec-global-now-" secid="11.1.6">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-now-">11.1.6</a></span>global::now()</h3>
+<section id="sec-global-now-" secid="12.1.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-now-">12.1.6</a></span>global::now()</h3>
 <p>The now function returns the current point in time as a string.</p>
 <div id="note-0ca77" class="spec-note">
 <a href="#note-0ca77">Note</a>
@@ -1972,8 +2209,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </li>
 </ul>
 </section>
-<section id="sec-global-references-" secid="11.1.7">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-references-">11.1.7</a></span>global::references()</h3>
+<section id="sec-global-references-" secid="12.1.7">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-references-">12.1.7</a></span>global::references()</h3>
 <p>The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.</p>
 <p>global::references(args, scope):</p>
 <ul>
@@ -2044,8 +2281,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </li>
 </ul>
 </section>
-<section id="sec-global-round-" secid="11.1.8">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-round-">11.1.8</a></span>global::round()</h3>
+<section id="sec-global-round-" secid="12.1.8">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-round-">12.1.8</a></span>global::round()</h3>
 <p>The round function accepts a number and rounds it to a certain precision.</p>
 <p>global::round(args, scope):</p>
 <ul>
@@ -2078,8 +2315,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </li>
 </ul>
 </section>
-<section id="sec-global-select-" secid="11.1.9">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-select-">11.1.9</a></span>global::select()</h3>
+<section id="sec-global-select-" secid="12.1.9">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-select-">12.1.9</a></span>global::select()</h3>
 <p>The select function chooses takes a variable number of arguments that are either pairs or any other type and iterates over them. When encountering a pair whose left-hand value evaluates to <span class="spec-keyword">true</span>, the right-hand value is returned immediately. When encountering a non-pair argument, that argument is returned immediately. Falls back to returning <span class="spec-keyword">null</span>.</p>
 <p>global::select(args, scope):</p>
 <ul>
@@ -2117,8 +2354,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </li>
 </ul>
 </section>
-<section id="sec-global-string-" secid="11.1.10">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-string-">11.1.10</a></span>global::string()</h3>
+<section id="sec-global-string-" secid="12.1.10">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-string-">12.1.10</a></span>global::string()</h3>
 <p>The string function returns the string representation of scalar values or <span class="spec-keyword">null</span> for any other values.</p>
 <p>global::string(args, scope):</p>
 <ul>
@@ -2157,8 +2394,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </li>
 </ul>
 </section>
-<section id="sec-global-boost-" secid="11.1.11">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-boost-">11.1.11</a></span>global::boost()</h3>
+<section id="sec-global-boost-" secid="12.1.11">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-boost-">12.1.11</a></span>global::boost()</h3>
 <p>The <code>boost</code> function accepts an expression and a boost value, and increases or decreases the score computed by <code>score()</code> (see <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a>) accordingly. <code>boost</code> can only be used within the argument list to <code>score()</code>.</p>
 <pre data-language="groq"><code>* | score(boost(title matches "milk", 5.0), body matches "milk")
 </code></pre>
@@ -2191,8 +2428,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </div>
 </section>
-<section id="sec-global-lower-" secid="11.1.12">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-lower-">11.1.12</a></span>global::lower()</h3>
+<section id="sec-global-lower-" secid="12.1.12">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-lower-">12.1.12</a></span>global::lower()</h3>
 <p>The lower function returns lowercased string.</p>
 <p>global::lower(args, scope):</p>
 <ul>
@@ -2211,8 +2448,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </li>
 </ul>
 </section>
-<section id="sec-global-upper-" secid="11.1.13">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-upper-">11.1.13</a></span>global::upper()</h3>
+<section id="sec-global-upper-" secid="12.1.13">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-upper-">12.1.13</a></span>global::upper()</h3>
 <p>The upper function returns uppercased string.</p>
 <p>global::upper(args, scope):</p>
 <ul>
@@ -2233,11 +2470,11 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <p>In addition to the functions mentioned above, constructors for <a href="#sec-Extensions">extensions</a> are global as well.</p>
 </section>
 </section>
-<section id="sec-Date-time-namespace" secid="11.2">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Date-time-namespace">11.2</a></span>Date/time namespace</h2>
+<section id="sec-Date-time-namespace" secid="12.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Date-time-namespace">12.2</a></span>Date/time namespace</h2>
 <p>The <code>dateTime</code> namespace contains functions to work with datetimes.</p>
-<section id="sec-dateTime-now-" secid="11.2.1">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-dateTime-now-">11.2.1</a></span>dateTime::now()</h3>
+<section id="sec-dateTime-now-" secid="12.2.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-dateTime-now-">12.2.1</a></span>dateTime::now()</h3>
 <p>The now function in the <code>dateTime</code> namespace returns the current point in time as a datetime.</p>
 <p>dateTime::now(args, scope):</p>
 <ul>
@@ -2254,8 +2491,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </section>
 </section>
 </section>
-<section id="sec-Pipe-functions" secid="12">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-functions">12</a></span>Pipe functions</h1>
+<section id="sec-Pipe-functions" secid="13">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-functions">13</a></span>Pipe functions</h1>
 <p>Pipe functions provide additional functionalty to GROQ queries. They are invoked through a <a href="#sec-Pipe-function-call-expression">Pipe function call expression</a>. They differ from regular functions in that they always accept an array as input and returns another array (or <span class="spec-keyword">null</span>). As such, the syntax is optimized for chaining (the array it works on comes on the left-hand side instead of being an argument):</p>
 <pre><code>*[_type == "person"] | order(name) | {age}
 </code></pre>
@@ -2263,8 +2500,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <a href="#note-88a44">Note</a>
 that function arguments are not evaluated eagerly, and it&rsquo;s up to the function to decide which scope the arguments are evaluated in. All definitions below take an array of nodes.</div>
 <p>An implementation may provide additional pipe functions, but should be aware that this can cause problems when interopting with future versions of GROQ.</p>
-<section id="sec-global-order-" secid="12.1">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-order-">12.1</a></span>global::order()</h2>
+<section id="sec-global-order-" secid="13.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-order-">13.1</a></span>global::order()</h2>
 <p>The order function sorts an array based on arbitrary expressions.</p>
 <div class="spec-algo" id="order()">
 <span class="spec-call"><a href="#order()" data-name="order">order</a>(<var data-name="base">base</var>, <var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2318,8 +2555,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </div>
 </section>
-<section id="sec-global-score-" secid="12.2">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-score-">12.2</a></span>global::score()</h2>
+<section id="sec-global-score-" secid="13.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-score-">13.2</a></span>global::score()</h2>
 <p>The <code>score</code> function assigns a score to an array of results, based on one or more scoring expressions. The <code>score</code> function may only be used as a pipe function.</p>
 <pre data-language="groq"><code>*[_type == "listing"] | score(body match "jacuzzi")
 </code></pre>
@@ -2380,30 +2617,30 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </div>
 </section>
 </section>
-<section id="sec-Vendor-functions" secid="13">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Vendor-functions">13</a></span>Vendor functions</h1>
+<section id="sec-Vendor-functions" secid="14">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Vendor-functions">14</a></span>Vendor functions</h1>
 <p>An implementation is free to introduce additional functions than what is presented in this specification, but this is problematic if a function with the same name is introduced in a future version. The following section defines optional <em>vendor functions</em> which are guaranteed to never be a regular function in a future specfication. There&rsquo;s also a short description of each vendor function so different implementations can attempt to be compatible with each other. The description is intentially brief and it&rsquo;s up to the vendor to define it completely.</p>
-<section id="sec-global-identity-" secid="13.1">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-identity-">13.1</a></span>global::identity()</h2>
+<section id="sec-global-identity-" secid="14.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-identity-">14.1</a></span>global::identity()</h2>
 <p>The identity function should accept zero arguments and return a string which represents the identity of the client executing the query.</p>
 </section>
-<section id="sec-global-path-" secid="13.2">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-path-">13.2</a></span>global::path()</h2>
+<section id="sec-global-path-" secid="14.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-path-">14.2</a></span>global::path()</h2>
 <p>The path function should accept a single argument and return a path object. </p>
 </section>
 </section>
-<section id="sec-Extensions" secid="14">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Extensions">14</a></span>Extensions</h1>
+<section id="sec-Extensions" secid="15">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Extensions">15</a></span>Extensions</h1>
 <p>Extensions are the capabilities which extend GROQ queries beyond basic Spec. These capabilities can include function namespaces, functions and operators. However, extensions can not introduce a new syntax.</p>
-<section id="sec-Portable-Text-Extension" secid="14.1">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Portable-Text-Extension">14.1</a></span>Portable Text Extension</h2>
+<section id="sec-Portable-Text-Extension" secid="15.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Portable-Text-Extension">15.1</a></span>Portable Text Extension</h2>
 <p>Functions available in Portable text extension are grouped under <code>pt</code> namespace except for the constructor which is global.</p>
-<section id="sec-pt-type" secid="14.1.1">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-pt-type">14.1.1</a></span>pt type</h3>
+<section id="sec-pt-type" secid="15.1.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-pt-type">15.1.1</a></span>pt type</h3>
 <p>PT type represents an object following <a href="https://github.com/portabletext/portabletext">portable text spec</a>.</p>
 </section>
-<section id="sec-global-pt-" secid="14.1.2">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-pt-">14.1.2</a></span>global::pt()</h3>
+<section id="sec-global-pt-" secid="15.1.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-pt-">15.1.2</a></span>global::pt()</h3>
 <p>This function takes in an object or an array of objects, and returns a PT value.</p>
 <p>global::pt(args, scope):</p>
 <ul>
@@ -2440,8 +2677,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </li>
 </ul>
 </section>
-<section id="sec-pt-text-" secid="14.1.3">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-pt-text-">14.1.3</a></span>pt::text()</h3>
+<section id="sec-pt-text-" secid="15.1.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-pt-text-">15.1.3</a></span>pt::text()</h3>
 <p>This function takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (<code>\n\n</code>) in the string version. </p>
 <p>pt::text(args, scope):</p>
 <ul>
@@ -2477,11 +2714,11 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ul>
 </section>
 </section>
-<section id="sec-Geography-Extension" secid="14.2">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Geography-Extension">14.2</a></span>Geography Extension</h2>
+<section id="sec-Geography-Extension" secid="15.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Geography-Extension">15.2</a></span>Geography Extension</h2>
 <p>Functions available in Geography extension are grouped under <code>geo</code> namespace except for the constructor which is global.</p>
-<section id="sec-geo-type" secid="14.2.1">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-type">14.2.1</a></span>geo type</h3>
+<section id="sec-geo-type" secid="15.2.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-type">15.2.1</a></span>geo type</h3>
 <p>The geo type represents a geography and can contain points, lines, and polygons which can be expressed with a single latitude/longitude coordinate, or as a GeoJSON object. Concretely, an object is coerced to the geo type if:</p>
 <ol>
 <li>If the object is coerced to a geographic point, that is it has a key <code>lat</code> for latitude and a key <code>lng</code> or <code>lon</code> for longitude (but not both).</li>
@@ -2504,8 +2741,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Arrays of geographic values. Instead, one of the GeoJSON <code>Multi</code> types should be used.</li>
 </ol>
 </section>
-<section id="sec-global-geo-" secid="14.2.2">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-geo-">14.2.2</a></span>global::geo()</h3>
+<section id="sec-global-geo-" secid="15.2.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-geo-">15.2.2</a></span>global::geo()</h3>
 <p>This function is a constructor for geographic value. It takes an object or another geo value, returning a geo value.</p>
 <p>global::geo(args, scope):</p>
 <ul>
@@ -2536,8 +2773,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </li>
 </ul>
 </section>
-<section id="sec-geo-contains-" secid="14.2.3">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-contains-">14.2.3</a></span>geo::contains()</h3>
+<section id="sec-geo-contains-" secid="15.2.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-contains-">15.2.3</a></span>geo::contains()</h3>
 <p>Returns true if first geo argument completely contains the second one, using a planar (non-spherical) coordinate system. Both geo argument can be any geo value. A geo value is considered contained if all its points are within the boundaries of the first geo value. For <code>MultiPolygon</code>, it&rsquo;s sufficient that only one of the polygons contains the first geo value.</p>
 <p>geo::contains(args, scope):</p>
 <ul>
@@ -2566,8 +2803,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </li>
 </ul>
 </section>
-<section id="sec-geo-intersects-" secid="14.2.4">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-intersects-">14.2.4</a></span>geo::intersects()</h3>
+<section id="sec-geo-intersects-" secid="15.2.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-intersects-">15.2.4</a></span>geo::intersects()</h3>
 <p>This function takes two geo values, and returns true if they intersect in a planar (non-spherical) coordinate system. The arguments can be any geo values. A geo value intersects with another if it shares any geometric points with the second value; for example, a line crossing a polygon.</p>
 <p>geo::intersects(args, scope):</p>
 <ul>
@@ -2596,8 +2833,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </li>
 </ul>
 </section>
-<section id="sec-geo-distance-" secid="14.2.5">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-distance-">14.2.5</a></span>geo::distance()</h3>
+<section id="sec-geo-distance-" secid="15.2.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-distance-">15.2.5</a></span>geo::distance()</h3>
 <p>This functions accepts two geo values, which must be point values, and returns the distance in meters. While exact algorithm is implementation-defined &mdash; for example, it may use the <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a> &mdash; it should use as close an approximation to a real Earth distance as possible.</p>
 <p>geo::distance(args, scope):</p>
 <ul>
@@ -2640,8 +2877,11 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#Array">Array</a></li>
 <li><a href="#ArrayElement">ArrayElement</a></li>
 <li><a href="#ArrayElements">ArrayElements</a></li>
+<li><a href="#ArrayPostfix">ArrayPostfix</a></li>
 <li><a href="#Asc">Asc</a></li>
 <li><a href="#AttributeAccess">AttributeAccess</a></li>
+<li><a href="#BasicTraversalArray">BasicTraversalArray</a></li>
+<li><a href="#BasicTraversalPlain">BasicTraversalPlain</a></li>
 <li><a href="#Boolean">Boolean</a></li>
 <li><a href="#boost()">boost</a></li>
 <li><a href="#boostValidate()">boostValidate</a></li>
@@ -2656,7 +2896,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#Desc">Desc</a></li>
 <li><a href="#DetermineName()">DetermineName</a></li>
 <li><a href="#Digit">Digit</a></li>
-<li><a href="#DisambiguateSquareBracketExpression()">DisambiguateSquareBracketExpression</a></li>
+<li><a href="#DisambiguateSquareBracketTraversal()">DisambiguateSquareBracketTraversal</a></li>
 <li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li>
 <li><a href="#ElementAccess">ElementAccess</a></li>
 <li><a href="#Equal()">Equal</a></li>
@@ -2666,6 +2906,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#Evaluate()">Evaluate</a></li>
 <li><a href="#EvaluateAnd()">EvaluateAnd</a></li>
 <li><a href="#EvaluateArray()">EvaluateArray</a></li>
+<li><a href="#EvaluateArrayPostfix()">EvaluateArrayPostfix</a></li>
 <li><a href="#EvaluateAttributeAccess()">EvaluateAttributeAccess</a></li>
 <li><a href="#EvaluateComparison()">EvaluateComparison</a></li>
 <li><a href="#EvaluateDereference()">EvaluateDereference</a></li>
@@ -2695,6 +2936,11 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#EvaluateStarStar()">EvaluateStarStar</a></li>
 <li><a href="#EvaluateThis()">EvaluateThis</a></li>
 <li><a href="#EvaluateThisAttribute()">EvaluateThisAttribute</a></li>
+<li><a href="#EvaluateTraversalExpression()">EvaluateTraversalExpression</a></li>
+<li><a href="#EvaluateTraversalFlatMap()">EvaluateTraversalFlatMap</a></li>
+<li><a href="#EvaluateTraversalInnerMap()">EvaluateTraversalInnerMap</a></li>
+<li><a href="#EvaluateTraversalJoin()">EvaluateTraversalJoin</a></li>
+<li><a href="#EvaluateTraversalMap()">EvaluateTraversalMap</a></li>
 <li><a href="#EvaluateUnaryMinus()">EvaluateUnaryMinus</a></li>
 <li><a href="#EvaluateUnaryPlus()">EvaluateUnaryPlus</a></li>
 <li><a href="#Everything">Everything</a></li>
@@ -2750,13 +2996,19 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#Slash">Slash</a></li>
 <li><a href="#Slice">Slice</a></li>
 <li><a href="#SourceCharacter">SourceCharacter</a></li>
-<li><a href="#SquareBracketExpression">SquareBracketExpression</a></li>
+<li><a href="#SquareBracketTraversal">SquareBracketTraversal</a></li>
 <li><a href="#Star">Star</a></li>
 <li><a href="#StarStar">StarStar</a></li>
 <li><a href="#String">String</a></li>
 <li><a href="#This">This</a></li>
 <li><a href="#ThisAttribute">ThisAttribute</a></li>
 <li><a href="#TotalCompare()">TotalCompare</a></li>
+<li><a href="#Traversal">Traversal</a></li>
+<li><a href="#TraversalArray">TraversalArray</a></li>
+<li><a href="#TraversalArraySource">TraversalArraySource</a></li>
+<li><a href="#TraversalArrayTarget">TraversalArrayTarget</a></li>
+<li><a href="#TraversalExpression">TraversalExpression</a></li>
+<li><a href="#TraversalPlain">TraversalPlain</a></li>
 <li><a href="#TypeOrder()">TypeOrder</a></li>
 <li><a href="#UnaryMinus">UnaryMinus</a></li>
 <li><a href="#UnaryPlus">UnaryPlus</a></li>
@@ -2802,7 +3054,17 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_3.5"><a href="#sec-Expression-evaluation"><span class="spec-secid">3.5</span>Expression evaluation</a></li>
 <li id="_sidebar_3.6"><a href="#sec-Constant-expression-evaluation"><span class="spec-secid">3.6</span>Constant expression evaluation</a></li>
 <li id="_sidebar_3.7"><a href="#sec-Score-evaluation"><span class="spec-secid">3.7</span>Score evaluation</a></li>
-<li id="_sidebar_3.8"><a href="#sec-Query-execution"><span class="spec-secid">3.8</span>Query execution</a></li>
+<li id="_sidebar_3.8"><a href="#sec-Traversal-execution"><span class="spec-secid">3.8</span>Traversal execution</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_3.8" /><label for="_toggle_3.8"></label>
+<ol>
+<li id="_sidebar_3.8.1"><a href="#sec-Combining-traversal"><span class="spec-secid">3.8.1</span>Combining traversal</a></li>
+<li id="_sidebar_3.8.2"><a href="#sec-Plain-traversal"><span class="spec-secid">3.8.2</span>Plain traversal</a></li>
+<li id="_sidebar_3.8.3"><a href="#sec-Array-traversals"><span class="spec-secid">3.8.3</span>Array traversals</a></li>
+<li id="_sidebar_3.8.4"><a href="#sec-Array-source-traversals"><span class="spec-secid">3.8.4</span>Array source traversals</a></li>
+<li id="_sidebar_3.8.5"><a href="#sec-Array-target-traversals"><span class="spec-secid">3.8.5</span>Array target traversals</a></li>
+</ol>
+</li>
+<li id="_sidebar_3.9"><a href="#sec-Query-execution"><span class="spec-secid">3.9</span>Query execution</a></li>
 </ol>
 </li>
 <li id="_sidebar_4"><a href="#sec-Data-types"><span class="spec-secid">4</span>Data types</a>
@@ -2841,102 +3103,109 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <input hidden class="toggle" type="checkbox" id="_toggle_7" /><label for="_toggle_7"></label>
 <ol>
 <li id="_sidebar_7.1"><a href="#sec-Parenthesis-expression"><span class="spec-secid">7.1</span>Parenthesis expression</a></li>
-<li id="_sidebar_7.2"><a href="#sec-Attribute-access-expression"><span class="spec-secid">7.2</span>Attribute access expression</a></li>
-<li id="_sidebar_7.3"><a href="#sec-Element-access-expression"><span class="spec-secid">7.3</span>Element access expression</a></li>
-<li id="_sidebar_7.4"><a href="#sec-Slice-expression"><span class="spec-secid">7.4</span>Slice expression</a></li>
-<li id="_sidebar_7.5"><a href="#sec-Filter-expression"><span class="spec-secid">7.5</span>Filter expression</a></li>
-<li id="_sidebar_7.6"><a href="#sec-Projection-expression"><span class="spec-secid">7.6</span>Projection expression</a></li>
-<li id="_sidebar_7.7"><a href="#sec-Pipe-function-call-expression"><span class="spec-secid">7.7</span>Pipe function call expression</a></li>
-<li id="_sidebar_7.8"><a href="#sec-Disambiguating-square-backet-expressions"><span class="spec-secid">7.8</span>Disambiguating square backet expressions</a></li>
+<li id="_sidebar_7.2"><a href="#sec-Traversal-expression"><span class="spec-secid">7.2</span>Traversal expression</a></li>
+<li id="_sidebar_7.3"><a href="#sec-Pipe-function-call-expression"><span class="spec-secid">7.3</span>Pipe function call expression</a></li>
 </ol>
 </li>
-<li id="_sidebar_8"><a href="#sec-Operators"><span class="spec-secid">8</span>Operators</a>
+<li id="_sidebar_8"><a href="#sec-Traversal-operators"><span class="spec-secid">8</span>Traversal operators</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_8" /><label for="_toggle_8"></label>
 <ol>
-<li id="_sidebar_8.1"><a href="#sec-And-operator"><span class="spec-secid">8.1</span>And operator</a></li>
-<li id="_sidebar_8.2"><a href="#sec-Or-operator"><span class="spec-secid">8.2</span>Or operator</a></li>
-<li id="_sidebar_8.3"><a href="#sec-Not-operator"><span class="spec-secid">8.3</span>Not operator</a></li>
-<li id="_sidebar_8.4"><a href="#sec-Equality-operators"><span class="spec-secid">8.4</span>Equality operators</a></li>
-<li id="_sidebar_8.5"><a href="#sec-Comparison-operators"><span class="spec-secid">8.5</span>Comparison operators</a></li>
-<li id="_sidebar_8.6"><a href="#sec-In-operator"><span class="spec-secid">8.6</span>In operator</a></li>
-<li id="_sidebar_8.7"><a href="#sec-Match-operator"><span class="spec-secid">8.7</span>Match operator</a></li>
-<li id="_sidebar_8.8"><a href="#sec-Asc-operator"><span class="spec-secid">8.8</span>Asc operator</a></li>
-<li id="_sidebar_8.9"><a href="#sec-Desc-operator"><span class="spec-secid">8.9</span>Desc operator</a></li>
-<li id="_sidebar_8.10"><a href="#sec-Unary-plus-operator"><span class="spec-secid">8.10</span>Unary plus operator</a></li>
-<li id="_sidebar_8.11"><a href="#sec-Unary-minus-operator"><span class="spec-secid">8.11</span>Unary minus operator</a></li>
-<li id="_sidebar_8.12"><a href="#sec-Binary-plus-operator"><span class="spec-secid">8.12</span>Binary plus operator</a></li>
-<li id="_sidebar_8.13"><a href="#sec-Binary-minus-operator"><span class="spec-secid">8.13</span>Binary minus operator</a></li>
-<li id="_sidebar_8.14"><a href="#sec-Binary-star-operator"><span class="spec-secid">8.14</span>Binary star operator</a></li>
-<li id="_sidebar_8.15"><a href="#sec-Binary-slash-operator"><span class="spec-secid">8.15</span>Binary slash operator</a></li>
-<li id="_sidebar_8.16"><a href="#sec-Binary-percent-operator"><span class="spec-secid">8.16</span>Binary percent operator</a></li>
-<li id="_sidebar_8.17"><a href="#sec-Binary-double-star-operator"><span class="spec-secid">8.17</span>Binary double star operator</a></li>
-<li id="_sidebar_8.18"><a href="#sec-Dereference-operator"><span class="spec-secid">8.18</span>Dereference operator</a></li>
+<li id="_sidebar_8.1"><a href="#sec-Attribute-access-traversal"><span class="spec-secid">8.1</span>Attribute access traversal</a></li>
+<li id="_sidebar_8.2"><a href="#sec-Element-access-traversal"><span class="spec-secid">8.2</span>Element access traversal</a></li>
+<li id="_sidebar_8.3"><a href="#sec-Slice-traversal"><span class="spec-secid">8.3</span>Slice traversal</a></li>
+<li id="_sidebar_8.4"><a href="#sec-Filter-traversal"><span class="spec-secid">8.4</span>Filter traversal</a></li>
+<li id="_sidebar_8.5"><a href="#sec-Array-postfix-traversal"><span class="spec-secid">8.5</span>Array postfix traversal</a></li>
+<li id="_sidebar_8.6"><a href="#sec-Projection-traversal"><span class="spec-secid">8.6</span>Projection traversal</a></li>
+<li id="_sidebar_8.7"><a href="#sec-Dereference-traversal"><span class="spec-secid">8.7</span>Dereference traversal</a></li>
+<li id="_sidebar_8.8"><a href="#sec-Disambiguating-square-backet-traversal"><span class="spec-secid">8.8</span>Disambiguating square backet traversal</a></li>
 </ol>
 </li>
-<li id="_sidebar_9"><a href="#sec-Precedence-and-associativity"><span class="spec-secid">9</span>Precedence and associativity</a></li>
-<li id="_sidebar_10"><a href="#sec-Functions"><span class="spec-secid">10</span>Functions</a></li>
-<li id="_sidebar_11"><a href="#sec-Namespaces"><span class="spec-secid">11</span>Namespaces</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_11" /><label for="_toggle_11"></label>
+<li id="_sidebar_9"><a href="#sec-Operators"><span class="spec-secid">9</span>Operators</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_9" /><label for="_toggle_9"></label>
 <ol>
-<li id="_sidebar_11.1"><a href="#sec-Global-namespace"><span class="spec-secid">11.1</span>Global namespace</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_11.1" /><label for="_toggle_11.1"></label>
-<ol>
-<li id="_sidebar_11.1.1"><a href="#sec-global-coalesce-"><span class="spec-secid">11.1.1</span>global::coalesce()</a></li>
-<li id="_sidebar_11.1.2"><a href="#sec-global-count-"><span class="spec-secid">11.1.2</span>global::count()</a></li>
-<li id="_sidebar_11.1.3"><a href="#sec-global-dateTime-"><span class="spec-secid">11.1.3</span>global::dateTime()</a></li>
-<li id="_sidebar_11.1.4"><a href="#sec-global-defined-"><span class="spec-secid">11.1.4</span>global::defined()</a></li>
-<li id="_sidebar_11.1.5"><a href="#sec-global-length-"><span class="spec-secid">11.1.5</span>global::length()</a></li>
-<li id="_sidebar_11.1.6"><a href="#sec-global-now-"><span class="spec-secid">11.1.6</span>global::now()</a></li>
-<li id="_sidebar_11.1.7"><a href="#sec-global-references-"><span class="spec-secid">11.1.7</span>global::references()</a></li>
-<li id="_sidebar_11.1.8"><a href="#sec-global-round-"><span class="spec-secid">11.1.8</span>global::round()</a></li>
-<li id="_sidebar_11.1.9"><a href="#sec-global-select-"><span class="spec-secid">11.1.9</span>global::select()</a></li>
-<li id="_sidebar_11.1.10"><a href="#sec-global-string-"><span class="spec-secid">11.1.10</span>global::string()</a></li>
-<li id="_sidebar_11.1.11"><a href="#sec-global-boost-"><span class="spec-secid">11.1.11</span>global::boost()</a></li>
-<li id="_sidebar_11.1.12"><a href="#sec-global-lower-"><span class="spec-secid">11.1.12</span>global::lower()</a></li>
-<li id="_sidebar_11.1.13"><a href="#sec-global-upper-"><span class="spec-secid">11.1.13</span>global::upper()</a></li>
+<li id="_sidebar_9.1"><a href="#sec-And-operator"><span class="spec-secid">9.1</span>And operator</a></li>
+<li id="_sidebar_9.2"><a href="#sec-Or-operator"><span class="spec-secid">9.2</span>Or operator</a></li>
+<li id="_sidebar_9.3"><a href="#sec-Not-operator"><span class="spec-secid">9.3</span>Not operator</a></li>
+<li id="_sidebar_9.4"><a href="#sec-Equality-operators"><span class="spec-secid">9.4</span>Equality operators</a></li>
+<li id="_sidebar_9.5"><a href="#sec-Comparison-operators"><span class="spec-secid">9.5</span>Comparison operators</a></li>
+<li id="_sidebar_9.6"><a href="#sec-In-operator"><span class="spec-secid">9.6</span>In operator</a></li>
+<li id="_sidebar_9.7"><a href="#sec-Match-operator"><span class="spec-secid">9.7</span>Match operator</a></li>
+<li id="_sidebar_9.8"><a href="#sec-Asc-operator"><span class="spec-secid">9.8</span>Asc operator</a></li>
+<li id="_sidebar_9.9"><a href="#sec-Desc-operator"><span class="spec-secid">9.9</span>Desc operator</a></li>
+<li id="_sidebar_9.10"><a href="#sec-Unary-plus-operator"><span class="spec-secid">9.10</span>Unary plus operator</a></li>
+<li id="_sidebar_9.11"><a href="#sec-Unary-minus-operator"><span class="spec-secid">9.11</span>Unary minus operator</a></li>
+<li id="_sidebar_9.12"><a href="#sec-Binary-plus-operator"><span class="spec-secid">9.12</span>Binary plus operator</a></li>
+<li id="_sidebar_9.13"><a href="#sec-Binary-minus-operator"><span class="spec-secid">9.13</span>Binary minus operator</a></li>
+<li id="_sidebar_9.14"><a href="#sec-Binary-star-operator"><span class="spec-secid">9.14</span>Binary star operator</a></li>
+<li id="_sidebar_9.15"><a href="#sec-Binary-slash-operator"><span class="spec-secid">9.15</span>Binary slash operator</a></li>
+<li id="_sidebar_9.16"><a href="#sec-Binary-percent-operator"><span class="spec-secid">9.16</span>Binary percent operator</a></li>
+<li id="_sidebar_9.17"><a href="#sec-Binary-double-star-operator"><span class="spec-secid">9.17</span>Binary double star operator</a></li>
 </ol>
 </li>
-<li id="_sidebar_11.2"><a href="#sec-Date-time-namespace"><span class="spec-secid">11.2</span>Date/time namespace</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_11.2" /><label for="_toggle_11.2"></label>
-<ol>
-<li id="_sidebar_11.2.1"><a href="#sec-dateTime-now-"><span class="spec-secid">11.2.1</span>dateTime::now()</a></li>
-</ol>
-</li>
-</ol>
-</li>
-<li id="_sidebar_12"><a href="#sec-Pipe-functions"><span class="spec-secid">12</span>Pipe functions</a>
+<li id="_sidebar_10"><a href="#sec-Precedence-and-associativity"><span class="spec-secid">10</span>Precedence and associativity</a></li>
+<li id="_sidebar_11"><a href="#sec-Functions"><span class="spec-secid">11</span>Functions</a></li>
+<li id="_sidebar_12"><a href="#sec-Namespaces"><span class="spec-secid">12</span>Namespaces</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_12" /><label for="_toggle_12"></label>
 <ol>
-<li id="_sidebar_12.1"><a href="#sec-global-order-"><span class="spec-secid">12.1</span>global::order()</a></li>
-<li id="_sidebar_12.2"><a href="#sec-global-score-"><span class="spec-secid">12.2</span>global::score()</a></li>
+<li id="_sidebar_12.1"><a href="#sec-Global-namespace"><span class="spec-secid">12.1</span>Global namespace</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_12.1" /><label for="_toggle_12.1"></label>
+<ol>
+<li id="_sidebar_12.1.1"><a href="#sec-global-coalesce-"><span class="spec-secid">12.1.1</span>global::coalesce()</a></li>
+<li id="_sidebar_12.1.2"><a href="#sec-global-count-"><span class="spec-secid">12.1.2</span>global::count()</a></li>
+<li id="_sidebar_12.1.3"><a href="#sec-global-dateTime-"><span class="spec-secid">12.1.3</span>global::dateTime()</a></li>
+<li id="_sidebar_12.1.4"><a href="#sec-global-defined-"><span class="spec-secid">12.1.4</span>global::defined()</a></li>
+<li id="_sidebar_12.1.5"><a href="#sec-global-length-"><span class="spec-secid">12.1.5</span>global::length()</a></li>
+<li id="_sidebar_12.1.6"><a href="#sec-global-now-"><span class="spec-secid">12.1.6</span>global::now()</a></li>
+<li id="_sidebar_12.1.7"><a href="#sec-global-references-"><span class="spec-secid">12.1.7</span>global::references()</a></li>
+<li id="_sidebar_12.1.8"><a href="#sec-global-round-"><span class="spec-secid">12.1.8</span>global::round()</a></li>
+<li id="_sidebar_12.1.9"><a href="#sec-global-select-"><span class="spec-secid">12.1.9</span>global::select()</a></li>
+<li id="_sidebar_12.1.10"><a href="#sec-global-string-"><span class="spec-secid">12.1.10</span>global::string()</a></li>
+<li id="_sidebar_12.1.11"><a href="#sec-global-boost-"><span class="spec-secid">12.1.11</span>global::boost()</a></li>
+<li id="_sidebar_12.1.12"><a href="#sec-global-lower-"><span class="spec-secid">12.1.12</span>global::lower()</a></li>
+<li id="_sidebar_12.1.13"><a href="#sec-global-upper-"><span class="spec-secid">12.1.13</span>global::upper()</a></li>
 </ol>
 </li>
-<li id="_sidebar_13"><a href="#sec-Vendor-functions"><span class="spec-secid">13</span>Vendor functions</a>
+<li id="_sidebar_12.2"><a href="#sec-Date-time-namespace"><span class="spec-secid">12.2</span>Date/time namespace</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_12.2" /><label for="_toggle_12.2"></label>
+<ol>
+<li id="_sidebar_12.2.1"><a href="#sec-dateTime-now-"><span class="spec-secid">12.2.1</span>dateTime::now()</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li id="_sidebar_13"><a href="#sec-Pipe-functions"><span class="spec-secid">13</span>Pipe functions</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_13" /><label for="_toggle_13"></label>
 <ol>
-<li id="_sidebar_13.1"><a href="#sec-global-identity-"><span class="spec-secid">13.1</span>global::identity()</a></li>
-<li id="_sidebar_13.2"><a href="#sec-global-path-"><span class="spec-secid">13.2</span>global::path()</a></li>
+<li id="_sidebar_13.1"><a href="#sec-global-order-"><span class="spec-secid">13.1</span>global::order()</a></li>
+<li id="_sidebar_13.2"><a href="#sec-global-score-"><span class="spec-secid">13.2</span>global::score()</a></li>
 </ol>
 </li>
-<li id="_sidebar_14"><a href="#sec-Extensions"><span class="spec-secid">14</span>Extensions</a>
+<li id="_sidebar_14"><a href="#sec-Vendor-functions"><span class="spec-secid">14</span>Vendor functions</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_14" /><label for="_toggle_14"></label>
 <ol>
-<li id="_sidebar_14.1"><a href="#sec-Portable-Text-Extension"><span class="spec-secid">14.1</span>Portable Text Extension</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_14.1" /><label for="_toggle_14.1"></label>
-<ol>
-<li id="_sidebar_14.1.1"><a href="#sec-pt-type"><span class="spec-secid">14.1.1</span>pt type</a></li>
-<li id="_sidebar_14.1.2"><a href="#sec-global-pt-"><span class="spec-secid">14.1.2</span>global::pt()</a></li>
-<li id="_sidebar_14.1.3"><a href="#sec-pt-text-"><span class="spec-secid">14.1.3</span>pt::text()</a></li>
+<li id="_sidebar_14.1"><a href="#sec-global-identity-"><span class="spec-secid">14.1</span>global::identity()</a></li>
+<li id="_sidebar_14.2"><a href="#sec-global-path-"><span class="spec-secid">14.2</span>global::path()</a></li>
 </ol>
 </li>
-<li id="_sidebar_14.2"><a href="#sec-Geography-Extension"><span class="spec-secid">14.2</span>Geography Extension</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_14.2" /><label for="_toggle_14.2"></label>
+<li id="_sidebar_15"><a href="#sec-Extensions"><span class="spec-secid">15</span>Extensions</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_15" /><label for="_toggle_15"></label>
 <ol>
-<li id="_sidebar_14.2.1"><a href="#sec-geo-type"><span class="spec-secid">14.2.1</span>geo type</a></li>
-<li id="_sidebar_14.2.2"><a href="#sec-global-geo-"><span class="spec-secid">14.2.2</span>global::geo()</a></li>
-<li id="_sidebar_14.2.3"><a href="#sec-geo-contains-"><span class="spec-secid">14.2.3</span>geo::contains()</a></li>
-<li id="_sidebar_14.2.4"><a href="#sec-geo-intersects-"><span class="spec-secid">14.2.4</span>geo::intersects()</a></li>
-<li id="_sidebar_14.2.5"><a href="#sec-geo-distance-"><span class="spec-secid">14.2.5</span>geo::distance()</a></li>
+<li id="_sidebar_15.1"><a href="#sec-Portable-Text-Extension"><span class="spec-secid">15.1</span>Portable Text Extension</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_15.1" /><label for="_toggle_15.1"></label>
+<ol>
+<li id="_sidebar_15.1.1"><a href="#sec-pt-type"><span class="spec-secid">15.1.1</span>pt type</a></li>
+<li id="_sidebar_15.1.2"><a href="#sec-global-pt-"><span class="spec-secid">15.1.2</span>global::pt()</a></li>
+<li id="_sidebar_15.1.3"><a href="#sec-pt-text-"><span class="spec-secid">15.1.3</span>pt::text()</a></li>
+</ol>
+</li>
+<li id="_sidebar_15.2"><a href="#sec-Geography-Extension"><span class="spec-secid">15.2</span>Geography Extension</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_15.2" /><label for="_toggle_15.2"></label>
+<ol>
+<li id="_sidebar_15.2.1"><a href="#sec-geo-type"><span class="spec-secid">15.2.1</span>geo type</a></li>
+<li id="_sidebar_15.2.2"><a href="#sec-global-geo-"><span class="spec-secid">15.2.2</span>global::geo()</a></li>
+<li id="_sidebar_15.2.3"><a href="#sec-geo-contains-"><span class="spec-secid">15.2.3</span>geo::contains()</a></li>
+<li id="_sidebar_15.2.4"><a href="#sec-geo-intersects-"><span class="spec-secid">15.2.4</span>geo::intersects()</a></li>
+<li id="_sidebar_15.2.5"><a href="#sec-geo-distance-"><span class="spec-secid">15.2.5</span>geo::distance()</a></li>
 </ol>
 </li>
 </ol>
