@@ -129,31 +129,31 @@ data.filter(u => u._type == "user").map(u => u._id)
 
 The following expressions are implemented as a *traversal*:
 
-* `foo.bar`: {AttributeAccess}.
-* `foo->`: {Dereference}.
-* `foo[0]`: {ElementAccess}.
-* `foo[0...5]`: {Slice}.
-* `foo[type == "admin"]`: {Filter}.
-* `foo[]`: {ArrayPostfix}.
-* `foo{name}`: {Projection}.
+* `user.name`: {AttributeAccess}.
+* `image->`: {Dereference}.
+* `users[0]`: {ElementAccess}.
+* `users[0...5]`: {Slice}.
+* `users[type == "admin"]`: {Filter}.
+* `users[]`: {ArrayPostfix}.
+* `user{name}`: {Projection}.
 
-When these traversals are combined (e.g. `foo.bar[0].baz[val > 2]{a, b}`) it triggers a separate traversal logic.
+When these traversals are combined (e.g. `user.roles[0].permissions[priority > 2]{filter}`) it triggers a separate traversal logic.
 
 Informally the traversal logic is based on a few principles:
 
 * Traversal semantics are always statically known.
   The runtime value of an expression never impacts the overall interpretation of a traversal.
 * We categorize traversals into four types (plain, array, array source, array target) based on how they work on arrays.
-  `.foo.bar` is considered a *plain* traversal because it statically only deals with plain values.
+  `.user.name` is considered a *plain* traversal because it statically only deals with plain values.
   `[_type == "user"]` is considered an *array* traversal because it works on arrays.
-* Placing a plain traversal next to an array traversals (`[_type == "user"].foo.bar`) will execute the plain traversal *for each element* of the array.
+* Placing a plain traversal next to an array traversals (`[_type == "user"].name.firstName`) will execute the plain traversal *for each element* of the array.
 
 Formally the semantics are specified as follows:
 
 * Each traversal has a *traverse function* which describes how it will traverse a value.
   This function takes a value and a scope as parameters.
 * There's a set of traversal combination functions which specifies how two traversals can be combined.
-  This explains exactly how `.foo.bar` is mapped over each element of an array.
+  This explains exactly how `.user.name` is mapped over each element of an array.
 * {TraversalPlain}, {TraversalArray}, {TraversalArraySource}, {TraversalArrayTarget} specifies the exact rules for how multiple traversals are combined together.
 * The {TraversalExpression} node is an {Expression} for the full set of traversal operators.
   This kicks off the whole traversal semantics.
@@ -229,14 +229,14 @@ EvaluateTraversalInnerMap(base, scope):
 
 A plain traversal is a traversal which works on and returns unknown types.
 
-* `.foo.bar`
-* `.foo[0].baz`
-* `.baz->{name}`
+* `.user.name`
+* `.users[0].name`
+* `.image->{url}`
 
 The following are _not_ considered plain traversals:
 
-* `[_type == "foo"].bar` (because it works on an array)
-* `.names[]` (because it returns an array)
+* `[_type == "user"].name` (because it works on an array)
+* `.users[]` (because it returns an array)
 
 BasicTraversalPlain :
 
@@ -261,7 +261,7 @@ An array traversal is a traversal which statically is known to works on and retu
 
 The following are _not_ considered array traversals:
 
-* `[_type == "foo"].bar[0]` (because it returns an unknown type)
+* `[_type == "user"].roles[0]` (because it returns an unknown type)
 * `.names[]` (because it works on a non-array)
 
 BasicTraversalArray :
@@ -284,14 +284,14 @@ TraversalArray :
 
 An array source traversal is a traversal which statically is known to work on an array, but returns an unknown type:
 
-* `[0].foo.bar`
-* `[_type == "foo"].id[0]`
+* `[0].user.name`
+* `[_type == "user"].roles[0]`
 * `{name,type}[0]`
 
 The following are _not_ considered array source traversals:
 
-* `[_type == "foo"].id` (because it returns an array)
-* `.foo.bar` (because it doesn't work on an array)
+* `[_type == "user"].id` (because it returns an array)
+* `.user.name` (because it doesn't work on an array)
 
 TraversalArraySource :
 
@@ -305,13 +305,13 @@ TraversalArraySource :
 
 An array target traversal is a traversal which statically is known to return on an array, but works on an unknown type:
 
-* `foo.bar[_type == "baz"]`
+* `user.roles[dataset == "production"]`
 * `{name,type}[]`
 
 The following are _not_ considered array source traversals:
 
-* `[_type == "foo"].id` (because it also works on an array)
-* `.foo.bar` (because it doesn't work on an array)
+* `[_type == "user"].id` (because it also works on an array)
+* `.user.name` (because it doesn't work on an array)
 
 TraversalArrayTarget :
 
