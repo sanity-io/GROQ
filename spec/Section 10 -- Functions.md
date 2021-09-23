@@ -317,3 +317,88 @@ dateTime::nowValidate(args):
 
 - If the length of {args} is not 0:
   - Report an error.
+
+## Array namespace
+
+The `array` namespace contains functions to work with arrays.
+
+### array::join()
+
+The `join` function concatenates together the elements of an array into a single output string. Only primitive values with a canonical GROQ representation can be collected, meaning strings, numbers, and booleans. Objects, date/times, etc. are considered composite values that cannot be joined.
+
+array::join(args, scope):
+
+* Let {arrNode} be the first element of {args}.
+* Let {sepNode} be the second element of {args}.
+* Let {arr} be the result of {Evaluate(arrNode, scope)}.
+* Let {sep} be the result of {Evaluate(sepNode, scope)}.
+* If {arr} is not an array:
+  * Return null
+* If {sep} is not a string:
+  * Return null
+* Let {output} be an empty string.
+* For each element in {arr}:
+  * Let {elem} be the element
+  * Let {index} be the index of the element.
+  * If {index} is greater than or equal to 1, append {sep} to {output}.
+  * Let {str} be the result of evaluating `global::string(elem)`.
+  * If {str} is a string:
+    * Append {str} to {output}.
+  * Otherwise:
+    * Append the string `<INVALID>` to the output.
+* Return {output}.
+
+array::joinValidate(args):
+
+* If the length of {args} is not 2:
+  * Report an error.
+
+### array::compact()
+
+The `compact` function filters null values from an array.
+
+array::compact(args, scope):
+
+* Let {arrNode} be the first element of {args}.
+* Let {arr} be the result of {Evaluate(arrNode, scope)}.
+* If {arr} is not an array:
+  * Return null
+* Let {output} be an empty array.
+* For each element in {arr}:
+  * Let {elem} be the element
+  * If {elem} is not null:
+    * Append {elem} to {output}.
+* Return {output}.
+
+string::joinValidate(args):
+
+* If the length of {args} is not 1:
+  * Report an error.
+
+## String namespace
+
+The `string` namespace contains functions to work with strings.
+
+### string::split()
+
+The `split` function splits a string into multiple strings, given a separator string.
+
+string::split(args, scope):
+
+* Let {strNode} be the first element of {args}.
+* Let {sepNode} be the second element of {args}.
+* Let {str} be the result of {Evaluate(strNode, scope)}.
+* If {str} is not a string, return null.
+* Let {sep} be the result of {Evaluate(sepNode, scope)}.
+* If {sep} is not a string, return null.
+* Let {output} be an empty array.
+* If {sep} is an empty string:
+  * Let {output} be each character of {str}, according to Unicode character splitting rules.
+* Otherwise:
+  * Let {output} be each substring of {str} as separated by {sep}. An empty string is considered a substring, and will be included when {sep} is present at the beginning, the end, or consecutively of {str}. For example, the string `,a,b,` when split by `,` will result in four substrings `['', 'a', 'b', '']`.
+* Return {output}.
+
+global::stringValidate(args):
+
+* If the length of {args} is not 2:
+  * Report an error.
