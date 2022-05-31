@@ -73,6 +73,19 @@ Identifiers are used to name entities such as parameters, attributes and functio
 
 Identifier : /[A-Za-z\_][a-za-z_0-9]\*/
 
+## Selector
+
+To select a subset of fields in a document GROQ implements selectors. A selector can either be an [Identifier](#sec-Identifier) or a tuple of Identifiers.
+
+Selector :
+
+- `title`
+- `doc.title`
+- `(title, subtitle)`
+- `doc.(title, subtitle)`
+
+Note: Selectors aren't a distinct type of expression, but are meant to be used with the diff-extension.
+
 ## Digits
 
 GROQ uses decimal digits (0-9) and hexadecimal digits (0-9, a-f) in various places.
