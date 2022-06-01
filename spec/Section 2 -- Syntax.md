@@ -13,7 +13,7 @@ GROQ's syntax is a superset of JSON, so any valid JSON value is a valid GROQ exp
 ```
 
 ```javascript
-["An", "array", "of", "strings"]
+;['An', 'array', 'of', 'strings']
 ```
 
 ```json
@@ -33,36 +33,36 @@ Whitespace is not significant in GROQ, except for acting as a token separator an
 
 WhiteSpace :
 
-* "Tab U+0009"
-* "Newline U+000A"
-* "Vertical tab U+000B"
-* "Form feed U+000C"
-* "Carriage return U+000D"
-* "Space U+0020"
-* "Next line U+0085"
-* "Non-breaking space U+00A0"
+- "Tab U+0009"
+- "Newline U+000A"
+- "Vertical tab U+000B"
+- "Form feed U+000C"
+- "Carriage return U+000D"
+- "Space U+0020"
+- "Next line U+0085"
+- "Non-breaking space U+00A0"
 
 Whitespace inside a string literal is interpreted as-is.
 
 ## Comments
 
-Comment : // CommentChar*
+Comment : // CommentChar\*
 
 CommentChar : SourceCharacter but not "Newline U+000A"
 
 Comments serve as query documentation, and are ignored by the parser. They start with `//` and run to the end of the line:
 
 ```
-{ 
-  // Comments can be on a separate line 
-  "key": "value" // Or at the end of a line 
+{
+  // Comments can be on a separate line
+  "key": "value" // Or at the end of a line
 }
 ```
 
 Comments cannot start inside a string literal.
 
 ```
-{ 
+{
   "key // This isn't a comment": "value"
 }
 ```
@@ -71,7 +71,7 @@ Comments cannot start inside a string literal.
 
 Identifiers are used to name entities such as parameters, attributes and functions. An identifier is a sequence of one or more letters and digits. The first character in an identifier must be a letter.
 
-Identifier : /[A-Za-z_][A-Za-z_0-9]*/
+Identifier : /[A-Za-z\_][a-za-z_0-9]\*/
 
 ## Digits
 
@@ -81,8 +81,8 @@ Digit : one of 0 1 2 3 4 5 6 7 8 9
 
 HexDigit :
 
-* Digit
-* HexDigit
+- Digit
+- HexDigit
 
 HexLetter : one of a `A` b `B` c `C` d `D` e `E` f `F`
 
@@ -92,50 +92,50 @@ An {Expression} is either a literal (e.g. `15`), a simple expression (e.g. `@`),
 
 Expression :
 
-* Literal
-* SimpleExpression
-* CompoundExpression
-* OperatorCall
+- Literal
+- SimpleExpression
+- CompoundExpression
+- OperatorCall
 
 Literal :
 
-* Null
-* Boolean
-* Number
-* String
-* Array
-* Object
+- Null
+- Boolean
+- Number
+- String
+- Array
+- Object
 
 SimpleExpression :
 
-* This
-* ThisAttribute
-* Everything
-* Parent
-* FuncCall
+- This
+- ThisAttribute
+- Everything
+- Parent
+- FuncCall
 
 CompoundExpression :
 
-* Parenthesis
-* TraversalExpression
-* PipeFuncCall
+- Parenthesis
+- TraversalExpression
+- PipeFuncCall
 
 OperatorCall :
 
-* And
-* Or
-* Not
-* Equality
-* Comparison
-* In
-* Match
-* Asc
-* Desc
-* UnaryPlus
-* UnaryMinus
-* Plus
-* Minus
-* Star
-* Slash
-* Percent
-* StarStar
+- And
+- Or
+- Not
+- Equality
+- Comparison
+- In
+- Match
+- Asc
+- Desc
+- UnaryPlus
+- UnaryMinus
+- Plus
+- Minus
+- Star
+- Slash
+- Percent
+- StarStar

@@ -4,7 +4,7 @@ GROQ (Graph-Relational Object Queries) is a declarative language designed to que
 
 The idea behind GROQ is to be able to describe exactly what information your application needs, potentially joining together information from several sets of documents, then stitching together a very specific response with only the exact fields you need.
 
-A query in GROQ typically starts with `*`. This asterisk represents every document in your dataset. It is typically followed by a {filter} in brackets. The {filter} take {terms}, {operators} and {functions}. A {projection}* *is wrapped in curly braces and describe the data as we want it returned. 
+A query in GROQ typically starts with `*`. This asterisk represents every document in your dataset. It is typically followed by a {filter} in brackets. The {filter} take {terms}, {operators} and {functions}. A {projection} is wrapped in curly braces and describe the data as we want it returned.
 
 Given these JSON documents:
 
@@ -24,6 +24,7 @@ The following query:
 
 Will result in the following JSON document:
 
+<!-- prettier-ignore -->
 ```json
 [
   { "name": "Drax"},

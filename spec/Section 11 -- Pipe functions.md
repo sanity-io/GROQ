@@ -16,34 +16,29 @@ The order function sorts an array based on arbitrary expressions.
 
 order(base, args, scope):
 
-* Let {cmp} be a function which takes two arguments and returns either {Less}, {Equal} or {Greater}.
-* Define {cmp(left, right)} as follows:
-  * Let {leftScope} be the result of {NewNestedScope(left, scope)}.
-  * Let {rightScope} be the result of {NewNestedScope(right, scope)}.
-  * For each {argNode} of {args}:
-      * Let {direction} be {Normal}.
-    * Let {valueNode} be {argNode}.
-    * If {valueNode} is an {Asc} operator:
-          * Set {valueNode} to be the Expression of the {Asc} operator.
-    * Else if {valueNode} is a {Desc} operator:
-          * Set direction to {Reverse}.
-      * Set {valueNode} to be the Expression of the {Desc} operator.
-    * Let {leftValue} be the result of {Evaluate(valueNode, leftScope)}.
-    * Let {rightValue} be the result of {Evaluate(valueNode, rightScope)}.
-    * Let {order} be the result of {TotalCompare(leftValue, rightValue)}.
-    * If {direction} is {Reverse} and {order} is {Less}:
-          * Set {order} to {Greater}.
-    * Else if {direction} is {Reverse} and {order} is {Greater}:
-          * Set {order} to {Less}.
-    * If {order} is not {Equal}:
-          * Return {order}.
-  * Return {Equal}.
-* Return a sorted array using {cmp} as the comparator function.
+- Let {cmp} be a function which takes two arguments and returns either {Less}, {Equal} or {Greater}.
+- Define {cmp(left, right)} as follows:
+  - Let {leftScope} be the result of {NewNestedScope(left, scope)}.
+  - Let {rightScope} be the result of {NewNestedScope(right, scope)}.
+  - For each {argNode} of {args}:
+    - Let {direction} be {Normal}.
+    - Let {valueNode} be {argNode}.
+    - If {valueNode} is an {Asc} operator: \* Set {valueNode} to be the Expression of the {Asc} operator.
+    - Else if {valueNode} is a {Desc} operator: \* Set direction to {Reverse}.
+      - Set {valueNode} to be the Expression of the {Desc} operator.
+    - Let {leftValue} be the result of {Evaluate(valueNode, leftScope)}.
+    - Let {rightValue} be the result of {Evaluate(valueNode, rightScope)}.
+    - Let {order} be the result of {TotalCompare(leftValue, rightValue)}.
+    - If {direction} is {Reverse} and {order} is {Less}: \* Set {order} to {Greater}.
+    - Else if {direction} is {Reverse} and {order} is {Greater}: \* Set {order} to {Less}.
+    - If {order} is not {Equal}: \* Return {order}.
+  - Return {Equal}.
+- Return a sorted array using {cmp} as the comparator function.
 
 orderValidate(args):
 
-* If the length of {args} is 0:
-  * Report an error.
+- If the length of {args} is 0:
+  - Report an error.
 
 ## global::score()
 
@@ -69,33 +64,33 @@ Scoring is additive. That is `* | score(a == 1) | score(b == 2)` is equivalent t
 
 score(base, args, scope):
 
-* Let {baseNode} be the {Expression}.
-* Let {base} be the result of {Evaluate(baseNode, scope)}.
-* If {base} is an array:
-  * Let {result} be an empty {Array}.
-  * For each {element} of {base}:
-    * If {element} is an object:
-      * Let {elementScope} be the result of {NewNestedScope(element, scope)}.
-      * Let {newElement} be a new empty {Object}
-      * Add the attributes from {element} to it.
-      * If {element} already has a `_score`:
-        * Let {scoreSum} be the current value of `_score`.
-        * Otherwise let {scoreSum} be 1.0.
-      * For each {predicateNode} of {args}:
-        * Let {scoreValue} be the result of {EvaluateScore(predicateNode, elementScope)}.
-        * Add {scoreValue} to {scoreSum}.
-      * Add the attribute `_score` set to {scoreSum}.
-      * Add {newElement} to {result}.
-    * Otherwise add {element} to {result}.
-  * Return {result} sorted by the score, in descending order.
-* Return {null}.
+- Let {baseNode} be the {Expression}.
+- Let {base} be the result of {Evaluate(baseNode, scope)}.
+- If {base} is an array:
+  - Let {result} be an empty {Array}.
+  - For each {element} of {base}:
+    - If {element} is an object:
+      - Let {elementScope} be the result of {NewNestedScope(element, scope)}.
+      - Let {newElement} be a new empty {Object}
+      - Add the attributes from {element} to it.
+      - If {element} already has a `_score`:
+        - Let {scoreSum} be the current value of `_score`.
+        - Otherwise let {scoreSum} be 1.0.
+      - For each {predicateNode} of {args}:
+        - Let {scoreValue} be the result of {EvaluateScore(predicateNode, elementScope)}.
+        - Add {scoreValue} to {scoreSum}.
+      - Add the attribute `_score` set to {scoreSum}.
+      - Add {newElement} to {result}.
+    - Otherwise add {element} to {result}.
+  - Return {result} sorted by the score, in descending order.
+- Return {null}.
 
 EvaluateScore(expr, scope):
 
-* Let {evaluator} be the score evaluator of {expr}.
-* Return the result of {evaluator(scope)}.
+- Let {evaluator} be the score evaluator of {expr}.
+- Return the result of {evaluator(scope)}.
 
 scoreValidate(args):
 
-* If the length of {args} is 0:
-  * Report an error.
+- If the length of {args} is 0:
+  - Report an error.

@@ -6,17 +6,17 @@ GROQ provides trivial equality and comparison between numbers, strings and boole
 
 Simple values such as numbers, strings, booleans and {null} are equal when they contain the same data. All other values are considered inequal to each other (e.g. `[] != []`).
 
-Note: In GROQ `1 == null` returns `false` (which is different from e.g. SQL). 
+Note: In GROQ `1 == null` returns `false` (which is different from e.g. SQL).
 
 Equal(a, b):
 
-* If both {a} and {b} is {null}:
-  * Return {true}.
-* Let {cmp} be the result of {PartialCompare(a, b)}.
-* If {cmp} is {Equal}:
-  * Return {true}.
-* Otherwise:
-  * Return {false}.
+- If both {a} and {b} is {null}:
+  - Return {true}.
+- Let {cmp} be the result of {PartialCompare(a, b)}.
+- If {cmp} is {Equal}:
+  - Return {true}.
+- Otherwise:
+  - Return {false}.
 
 ## Partial comparison
 
@@ -24,36 +24,35 @@ A partial comparison between two values return either {Greater}, {Equal}, {Less}
 
 PartialCompare(a, b):
 
-* If the type of {a} is different from the type of {b}:
-  * Return {null}.
-* If {a} is a datetime, consider the datetimes as absolute points in time in the UTC time zone:
-  * If a < b:
-      * Return {Less}.
-  * If a > b:
-      * Return {Greater}.
-  * If a = b:
-      * Return {Equal}.
-* If  {a} is a number:
-  * If a < b:
-      * Return {Less}.
-  * If a > b:
-      * Return {Greater}.
-  * If a = b:
-      * Return {Equal}.
-* If {a} is a string:
-  * For each Unicode code point ({aCodePoint}, {bCodePoint}) in {a} and {b}:
-      * If {aCodePoint} < {bCodePoint}:
-          * Return {Less}.
-    * If {aCodePoint} > {bCodePoint}:
-          * Return {Greater}.
-  * If {a} is shorter than {b}:
-      * Return {Less}.
-  * If {a} is longer than {b}:
-      * Return {Greater}.
-  * Return {Equal}.
-* If {a} is a boolean:
-  * Return the comparison between {a} and {b} with {false} < {true}.
-* Return {null}.
+- If the type of {a} is different from the type of {b}:
+  - Return {null}.
+- If {a} is a datetime, consider the datetimes as absolute points in time in the UTC time zone:
+  - If a < b:
+    - Return {Less}.
+  - If a > b:
+    - Return {Greater}.
+  - If a = b:
+    - Return {Equal}.
+- If {a} is a number:
+  - If a < b:
+    - Return {Less}.
+  - If a > b:
+    - Return {Greater}.
+  - If a = b:
+    - Return {Equal}.
+- If {a} is a string:
+  - For each Unicode code point ({aCodePoint}, {bCodePoint}) in {a} and {b}:
+    - If {aCodePoint} < {bCodePoint}:
+      - Return {Less}.
+    - If {aCodePoint} > {bCodePoint}: \* Return {Greater}.
+  - If {a} is shorter than {b}:
+    - Return {Less}.
+  - If {a} is longer than {b}:
+    - Return {Greater}.
+  - Return {Equal}.
+- If {a} is a boolean:
+  - Return the comparison between {a} and {b} with {false} < {true}.
+- Return {null}.
 
 ## Total comparison
 
@@ -61,24 +60,24 @@ A total comparison between two values return either {Greater}, {Equal} or {Less}
 
 TypeOrder(val):
 
-* If {val} is a datetime:
-  * Return 1.
-* If {val} is a number:
-  * Return 2.
-* If {val} is a string:
-  * Return 3.
-* If {val} is a boolean:
-  * Return 4.
-* Return 5.
+- If {val} is a datetime:
+  - Return 1.
+- If {val} is a number:
+  - Return 2.
+- If {val} is a string:
+  - Return 3.
+- If {val} is a boolean:
+  - Return 4.
+- Return 5.
 
 TotalCompare(a, b):
 
-* Let {aTypeOrder} be the result of {TypeOrder(a)}.
-* Let {bTypeOrder} be the result of {TypeOrder(b)}.
-* If {aTypeOrder} != {bTypeOrder}:
-  * Return the result of {PartialCompare(aTypeOrder, bTypeOrder)}.
-* Let {result} be the result of {PartialCompare(a, b)}.
-* If {result} is {null}:
-  * Return {Equal}.
-* Otherwise:
-  * Return {result}.
+- Let {aTypeOrder} be the result of {TypeOrder(a)}.
+- Let {bTypeOrder} be the result of {TypeOrder(b)}.
+- If {aTypeOrder} != {bTypeOrder}:
+  - Return the result of {PartialCompare(aTypeOrder, bTypeOrder)}.
+- Let {result} be the result of {PartialCompare(a, b)}.
+- If {result} is {null}:
+  - Return {Equal}.
+- Otherwise:
+  - Return {result}.

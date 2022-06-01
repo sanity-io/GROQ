@@ -55,24 +55,26 @@ function render(versions) {
 }
 
 async function main() {
-  const versions = [{
-    slug: "draft",
-    name: "Working Draft",
-    date: new Date(),
-    variant: "Prerelease"
-  }]
+  const versions = [
+    {
+      slug: 'draft',
+      name: 'Working Draft',
+      date: new Date(),
+      variant: 'Prerelease',
+    },
+  ]
 
-  const input = fs.readFileSync(0).toString().trim() 
-  const lines = input.length > 0 ? input.split("\n") : []
-  let isFirst = true;
+  const input = fs.readFileSync(0).toString().trim()
+  const lines = input.length > 0 ? input.split('\n') : []
+  let isFirst = true
 
   for (const line of lines) {
-    const [version, date] = line.split(" ")
+    const [version, date] = line.split(' ')
     versions.push({
       slug: version,
       name: version,
       date: Number(date) * 1000,
-      variant: isFirst ? "Latest release" : "",
+      variant: isFirst ? 'Latest release' : '',
     })
     isFirst = false
   }

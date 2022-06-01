@@ -16,47 +16,47 @@ This function takes in an object or an array of objects, and returns a PT value.
 
 global::pt(args, scope):
 
-* Let {baseNode} be the first element of {args}.
-* Let {base} be the result of {Evaluate(baseNode, scope)}.
-* If {base} is an object:
-  * Try to parse it as Portable Text Block:
-  * If {base} is a valid Portable Text Block:
-      * Return {base}.
-* If {base} is an array of objects:
-  * Try to parse it as an array of Portable Text blocks:
-    * If all elements in {base} array are valid Portable Text blocks:
-      * Return {base}.
-* Otherwise:
-  * Return {null}.
+- Let {baseNode} be the first element of {args}.
+- Let {base} be the result of {Evaluate(baseNode, scope)}.
+- If {base} is an object:
+  - Try to parse it as Portable Text Block:
+  - If {base} is a valid Portable Text Block:
+    - Return {base}.
+- If {base} is an array of objects:
+  - Try to parse it as an array of Portable Text blocks:
+    - If all elements in {base} array are valid Portable Text blocks:
+      - Return {base}.
+- Otherwise:
+  - Return {null}.
 
 global::ptValidate(args):
 
-* If the length of {args} is not 1:
-  * Report an error.
+- If the length of {args} is not 1:
+  - Report an error.
 
 ### pt::text()
 
-This function takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (`\n\n`) in the string version. 
+This function takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (`\n\n`) in the string version.
 
 pt::text(args, scope):
 
-* Let {baseNode} be the first element of {args}.
-* Let {base} be the result of {Evaluate(baseNode, scope)}.
-* If {base} is an object:
-  * Try to parse it as Portable Text Block:
-  * If {base }is a valid Portable Text Block:
-      * Return string version of text in {base}.
-* If {base} is an array of objects:
-  * Try to parse it as an array of Portable Text blocks:
-  * If all elements in {base} array are valid Portable Text blocks:
-      * Return string version of text in {base}.
-* Otherwise:
-  * Return {null}.
+- Let {baseNode} be the first element of {args}.
+- Let {base} be the result of {Evaluate(baseNode, scope)}.
+- If {base} is an object:
+  - Try to parse it as Portable Text Block:
+  - If {base }is a valid Portable Text Block:
+    - Return string version of text in {base}.
+- If {base} is an array of objects:
+  - Try to parse it as an array of Portable Text blocks:
+  - If all elements in {base} array are valid Portable Text blocks:
+    - Return string version of text in {base}.
+- Otherwise:
+  - Return {null}.
 
 pt::textValidate(args):
 
-* If the length of {args} is not 1:
-  * Report an error.
+- If the length of {args} is not 1:
+  - Report an error.
 
 ## Geography Extension
 
@@ -82,7 +82,7 @@ Geo type supports following GeoJSON Geometry Objects:
 
 And, it does not support:
 
-1. GeoJSON Object `Feature` and `FeatureCollection`. 
+1. GeoJSON Object `Feature` and `FeatureCollection`.
 2. Arrays of geographic values. Instead, one of the GeoJSON `Multi` types should be used.
 
 ### global::geo()
@@ -91,21 +91,21 @@ This function is a constructor for geographic value. It takes an object or anoth
 
 global::geo(args, scope):
 
-* Let {baseNode} be the first element of {args}.
-* Let {base} be the result of {Evaluate(baseNode, scope)}.
-* If {base} is an object:
-  * Try to parse it as Geo Point and GeoJSON:
-  * If {base} is a valid geo value:
-      * Return {base}.
-* If {base} is a geo value:
-  * Return {base}.
-* Otherwise:
-  * Return {null}.
+- Let {baseNode} be the first element of {args}.
+- Let {base} be the result of {Evaluate(baseNode, scope)}.
+- If {base} is an object:
+  - Try to parse it as Geo Point and GeoJSON:
+  - If {base} is a valid geo value:
+    - Return {base}.
+- If {base} is a geo value:
+  - Return {base}.
+- Otherwise:
+  - Return {null}.
 
 global::geoValidate(args):
 
-* If the length of {args} is not 1:
-  * Report an error.
+- If the length of {args} is not 1:
+  - Report an error.
 
 ### geo::contains()
 
@@ -113,21 +113,21 @@ Returns true if first geo argument completely contains the second one, using a p
 
 geo::contains(args, scope):
 
-* Let {firstNode} be the first element of {args}.
-* Let {secondNode} be the second element of {args}.
-* Let {first} be the result of {Evaluate(firstNode, scope)}.
-* Let {second} be the result of {Evaluate(secondNode, scope)}.
-* If {first} or {second} is a not a geo value:
-  * Return {null}.
-* If {first} completely contains {second}:
-  * Return {true}.
-* Otherwise:
-  * Return {false}.
+- Let {firstNode} be the first element of {args}.
+- Let {secondNode} be the second element of {args}.
+- Let {first} be the result of {Evaluate(firstNode, scope)}.
+- Let {second} be the result of {Evaluate(secondNode, scope)}.
+- If {first} or {second} is a not a geo value:
+  - Return {null}.
+- If {first} completely contains {second}:
+  - Return {true}.
+- Otherwise:
+  - Return {false}.
 
 geo::containsValidate(args):
 
-* If the length of {args} is not 2:
-  * Report an error.
+- If the length of {args} is not 2:
+  - Report an error.
 
 ### geo::intersects()
 
@@ -135,21 +135,21 @@ This function takes two geo values, and returns true if they intersect in a plan
 
 geo::intersects(args, scope):
 
-* Let {firstNode} be the first element of {args}.
-* Let {secondNode} be the second element of {args}.
-* Let {first} be the result of {Evaluate(firstNode, scope)}.
-* Let {second} be the result of {Evaluate(secondNode, scope)}.
-* If {first} or {second} is a not a geo value:
-  * Return {null}.
-* If {first} intersects {second}:
-  * Return {true}.
-* Otherwise:
-  * Return {false}.
+- Let {firstNode} be the first element of {args}.
+- Let {secondNode} be the second element of {args}.
+- Let {first} be the result of {Evaluate(firstNode, scope)}.
+- Let {second} be the result of {Evaluate(secondNode, scope)}.
+- If {first} or {second} is a not a geo value:
+  - Return {null}.
+- If {first} intersects {second}:
+  - Return {true}.
+- Otherwise:
+  - Return {false}.
 
 geo::intersectsValidate(args):
 
-* If the length of {args} is not 2:
-  * Report an error.
+- If the length of {args} is not 2:
+  - Report an error.
 
 ### geo::distance()
 
@@ -157,20 +157,20 @@ This functions accepts two geo values, which must be point values, and returns t
 
 geo::distance(args, scope):
 
-* Let {firstNode} be the first element of {args}.
-* Let {secondNode} be the second element of {args}.
-* Let {first} be the result of {Evaluate(firstNode, scope)}.
-* Let {second} be the result of {Evaluate(secondNode, scope)}.
-* If {first} or {second} is a not a geo value:
-  * Return {null}.
-* If {first} or {second} is a not a Geo Point or GeoJSON Point:
-  * Return {null}.
-* Let {distance} be the geographic distance between {first} and {second}:
-  * Return {distance}.
-* Otherwise:
-  * Return {null}.
+- Let {firstNode} be the first element of {args}.
+- Let {secondNode} be the second element of {args}.
+- Let {first} be the result of {Evaluate(firstNode, scope)}.
+- Let {second} be the result of {Evaluate(secondNode, scope)}.
+- If {first} or {second} is a not a geo value:
+  - Return {null}.
+- If {first} or {second} is a not a Geo Point or GeoJSON Point:
+  - Return {null}.
+- Let {distance} be the geographic distance between {first} and {second}:
+  - Return {distance}.
+- Otherwise:
+  - Return {null}.
 
 geo::distanceValidate(args):
 
-* If the length of {args} is not 2:
-  * Report an error.
+- If the length of {args} is not 2:
+  - Report an error.
