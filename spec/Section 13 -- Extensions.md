@@ -174,3 +174,55 @@ geo::distanceValidate(args):
 
 - If the length of {args} is not 2:
   - Report an error.
+
+## Diff Extension
+
+Functions available in the diff extension are grouped under `diff` namespac and have functions to work with comparing documents.
+
+### diff::changedAny()
+
+The `changedAny` function in the `diff` namespace returns a boolean if any of the key paths matched by the selector are changed.
+
+diff::changedAny(args, scope):
+
+- Let {lhs} be the first element of {args}.
+- Let {rhs} be the second element of {args}.
+- Let {selector} be the third element of {args}.
+- Let {before} be the result of {Evaluate(lhs, scope)}.
+- Let {after} be the result of {Evaluate(rhs, scope)}.
+- Let {evaluatedSelector} be the result of {EvaluateSelector(selector, scope)}
+- Let {search} be the result of {SelectorSearch(evaluatedSelector, before, scope)}
+- Let {diff} be the result of comparative difference between {before} and {after}
+- If {diff} overlaps with {search}:
+  - Return {true}.
+- Otherwise:
+  - Return {false}.
+
+diff::changedAny(args):
+
+- If the length of {args} is not 3:
+  - Report an error
+
+### diff::changedOnly()
+
+The `changedOnly` function in the `diff` namespace returns a boolean if given two nodes only the given key paths matched by the selector are changed.
+
+diff::changedOnly(args, scope):
+
+- Let {lhs} be the first element of {args}.
+- Let {rhs} be the second element of {args}.
+- Let {selector} be the third element of {args}.
+- Let {before} be the result of {Evaluate(lhs, scope)}.
+- Let {after} be the result of {Evaluate(rhs, scope)}.
+- Let {evaluatedSelector} be the result of {EvaluateSelector(selector, scope)}
+- Let {search} be the result of {SelectorSearch(evaluatedSelector, before, scope)}
+- Let {diff} be the result of comparative difference between {before} and {after}
+- If {diff} overlaps with {search}:
+  - Return {true}.
+- Otherwise:
+  - Return {false}.
+
+diff::changedOnly(args):
+
+- If the length of {args} is not 3:
+  - Report an error
