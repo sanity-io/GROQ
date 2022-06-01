@@ -113,6 +113,25 @@ The scoring function for `match` is left as an implementation detail and not cov
 
 A boosted predicate simply adds the boost value to the score if the predicate matches. For example, `boost(a > 1, 10)` would result in a score of 11 for any expression matching `a > 1`.
 
+## Selector evaluation
+
+A selector is evaluated in a scope. You must successfully validate a selector before you attempt to evaluate it
+
+EvaluateSelector(selector, scope):
+
+- Let {evaluator} be the evaluator of {selector}.
+- Return the result of {evaluator(scope)}.
+
+## Selector search
+
+A selector search takes a selector and a node and returns the resolved selector keypath on the given node as a list.
+
+SelectorSearch(selector, node, scope):
+
+- Let {selector} be a {Selector}
+- Let {node} be one of {Object}, {ObjectAttributes}, {Array}
+- Return the resolved selector keypath on {node} as a list
+
 ## Traversal execution
 
 When working with JSON values you often need to access attributes in deeply nested arrays/objects.
