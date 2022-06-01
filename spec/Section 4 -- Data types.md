@@ -12,8 +12,8 @@ Logical truth values, i.e. {true} and {false}.
 
 Boolean :
 
-* true
-* false
+- true
+- false
 
 ## Number
 
@@ -21,9 +21,9 @@ Signed 64-bit double-precision floating point numbers, e.g. `3.14`, following th
 
 Number :
 
-* Integer
-* Decimal
-* ScientificNotation
+- Integer
+- Decimal
+- ScientificNotation
 
 Sign : one of + -
 
@@ -43,49 +43,49 @@ A string stores an UTF-8 encoded list of characters.
 
 The syntax of a string literal is a subset of JSON with the following extensions:
 
-* Any control characters (including newlines) are allowed to appear inside a string.
-* Extended support for refering to Unicode characters above 16-bit: `"\u{1F600}"`.
+- Any control characters (including newlines) are allowed to appear inside a string.
+- Extended support for refering to Unicode characters above 16-bit: `"\u{1F600}"`.
 
 String :
 
-* `"` DoubleStringCharacter* `"`
-* `'` SingleStringCharacter* `'`
+- `"` DoubleStringCharacter\* `"`
+- `'` SingleStringCharacter\* `'`
 
 DoubleStringCharacter :
 
-* SourceCharacter but not one of `"`, `\`
-* `\` EscapeSequence
+- SourceCharacter but not one of `"`, `\`
+- `\` EscapeSequence
 
 SingleStringCharacter :
 
-* SourceCharacter but not one of `'`, `\`
-* `\` EscapeSequence
+- SourceCharacter but not one of `'`, `\`
+- `\` EscapeSequence
 
 EscapeSequence :
 
-* SingleEscapeSequence
-* UnicodeEscapeSequence
+- SingleEscapeSequence
+- UnicodeEscapeSequence
 
 SingleEscapeSequence : one of ' `"` `\` `/` b f n r t
 
 UnicodeEscapeSequence :
 
-* u HexDigit HexDigit HexDigit HexDigit
-* u{ HexDigit+ }
+- u HexDigit HexDigit HexDigit HexDigit
+- u{ HexDigit+ }
 
 Escape sequences are interpreted as follows:
 
-* `\'` represents U+0027.
-* `\"` represents U+0022.
-* `\\` represents U+005C.
-* `\/` represents U+002F.
-* `\b` represents U+0008.
-* `\f` represents U+000C.
-* `\n` represents U+000A.
-* `\r` represents U+000D.
-* `\t` represents U+0009.
-* `\uXXXX` represents the Unicode code point U+XXXX.
-* `\uXXXX\uYYYY`, where XXXX is a high surrogate (W1, 0xD800–0xDBFF) and YYYY is a low surrogate (W2, 0xDC00–0xDFFF) is interpreted as a UTF-16 surrogate pair and encoded into a single code point.
+- `\'` represents U+0027.
+- `\"` represents U+0022.
+- `\\` represents U+005C.
+- `\/` represents U+002F.
+- `\b` represents U+0008.
+- `\f` represents U+000C.
+- `\n` represents U+000A.
+- `\r` represents U+000D.
+- `\t` represents U+0009.
+- `\uXXXX` represents the Unicode code point U+XXXX.
+- `\uXXXX\uYYYY`, where XXXX is a high surrogate (W1, 0xD800–0xDBFF) and YYYY is a low surrogate (W2, 0xDC00–0xDFFF) is interpreted as a UTF-16 surrogate pair and encoded into a single code point.
 
 It's a syntactical error when a Unicode escape sequence represents an invalid Unicode code point.
 
@@ -97,8 +97,8 @@ Array : [ ArrayElements? `,`? ]
 
 ArrayElements :
 
-* ArrayElement
-* ArrayElements , ArrayElement
+- ArrayElement
+- ArrayElements , ArrayElement
 
 ArrayElement : `...`? Expression
 
@@ -106,14 +106,14 @@ EvaluateArray(scope):
 
 1. Let {result} be a new empty array.
 2. For each {ArrayElement}:
-  1. Let {elementNode} be the {Expression} of the {ArrayElement}.
-  2. Let {element} be the result of {Evaluate(elementNode, scope)}.
-  3. If the {ArrayElement} contains {...}:
-      1. If {element} is an array:
-          1. Concatenate {element} to {result}.
-  4. Otherwise:
-      1. Append {element} to {result}.
-3. Return {result}.
+3. Let {elementNode} be the {Expression} of the {ArrayElement}.
+4. Let {element} be the result of {Evaluate(elementNode, scope)}.
+5. If the {ArrayElement} contains {...}:
+   1. If {element} is an array:
+      1. Concatenate {element} to {result}.
+6. Otherwise:
+   1. Append {element} to {result}.
+7. Return {result}.
 
 ## Object
 
@@ -139,61 +139,61 @@ Object : { ObjectAttributes? `,`? }
 
 ObjectAttributes :
 
-* ObjectAttribute
-* ObjectAttributes , ObjectAttribute
+- ObjectAttribute
+- ObjectAttributes , ObjectAttribute
 
 ObjectAttribute :
 
-* String : Expression
-* Expression
-* `...` Expression?
+- String : Expression
+- Expression
+- `...` Expression?
 
 EvaluateObject(scope):
 
-* Let {result} be a new empty object.
-* For each {ObjectAttribute}:
-  * If the {ObjectAttribute} contains `...`:
-      * If the {ObjectAttribute} constains an {Expression}:
-        * Let {baseNode} be the {Expression}.
-      * Let {base} be the result of {Evaluate(baseNode, scope)}.
-    * Otherwise:
-      * Let {base} be the this value of {scope}.
-    * For each {name} and {value} of {base}:
-      * Set the attribute {name} to {value} in {result}.
-  * Otherwise:
-    * Let {valueNode} be the {Expression} of the {ObjectAttribute}.
-    * Let {value} be the result of {Evaluate(valueNode, scope)}.
-    * If the {ObjectAttribute} contains a {String}:
-      * Let {name} be the string value of the {String}.
-    * Otherwise:
-      * Let {name} be the result of {DetermineName(valueNode)}.
-    * Set the attribute {name} to {value} in {result}.
-* Return {result}.
+- Let {result} be a new empty object.
+- For each {ObjectAttribute}:
+  - If the {ObjectAttribute} contains `...`:
+    - If the {ObjectAttribute} constains an {Expression}:
+      - Let {baseNode} be the {Expression}.
+    - Let {base} be the result of {Evaluate(baseNode, scope)}.
+    - Otherwise:
+      - Let {base} be the this value of {scope}.
+    - For each {name} and {value} of {base}:
+      - Set the attribute {name} to {value} in {result}.
+  - Otherwise:
+    - Let {valueNode} be the {Expression} of the {ObjectAttribute}.
+    - Let {value} be the result of {Evaluate(valueNode, scope)}.
+    - If the {ObjectAttribute} contains a {String}:
+      - Let {name} be the string value of the {String}.
+    - Otherwise:
+      - Let {name} be the result of {DetermineName(valueNode)}.
+    - Set the attribute {name} to {value} in {result}.
+- Return {result}.
 
 DetermineName(node):
 
-* If {node} is an {ThisAttribute}:
-  * Return the string value of the {Identifier} of {node}.
-* If {node} is a {Projection}, {ElementAccess}, {Slice}, or {Filter}:
-  * Let {base} be the first {Expression} of {expr}.
-  * Return the result of {DetermineName(base)}.
+- If {node} is an {ThisAttribute}:
+  - Return the string value of the {Identifier} of {node}.
+- If {node} is a {Projection}, {ElementAccess}, {Slice}, or {Filter}:
+  - Let {base} be the first {Expression} of {expr}.
+  - Return the result of {DetermineName(base)}.
 
 ValidateObject():
 
-* For each {ObjectAttribute}:
-  * If the {ObjectAttribute} does not contain a {String}:
-      * Let {expr} be the {Expression}.
-    * Execute {ValidateObjectAttribute(expr)}.
+- For each {ObjectAttribute}:
+  - If the {ObjectAttribute} does not contain a {String}:
+    - Let {expr} be the {Expression}.
+    - Execute {ValidateObjectAttribute(expr)}.
 
 ValidateObjectAttribute(expr):
 
-* If {node} is an {ThisAttribute}:
-  * Stop.
-* If {node} is a {Projection}, {ElementAccess}, {Slice}, or {Filter}:
-  * Let {base} be the first {Expression} of {expr}.
-  * Execute {ValidateObjectAttribute(base)}.
-* Otherwise:
-  * Report an error.
+- If {node} is an {ThisAttribute}:
+  - Stop.
+- If {node} is a {Projection}, {ElementAccess}, {Slice}, or {Filter}:
+  - Let {base} be the first {Expression} of {expr}.
+  - Execute {ValidateObjectAttribute(base)}.
+- Otherwise:
+  - Report an error.
 
 ## Pair
 
@@ -205,12 +205,12 @@ Pair : Expression `=>` Expression
 
 EvaluatePair(scope):
 
-* Let {firstNode} be the first {Expression}.
-* Let {secondNode} be the second {Expression}.
-* Let {result} be a new pair.
-* Set the first value of {result} to the result of {Evaluate(firstNode, scope)}.
-* Set the second value of {result} to the result of {Evaluate(secondNode, scope)}.
-* Return {result}.
+- Let {firstNode} be the first {Expression}.
+- Let {secondNode} be the second {Expression}.
+- Let {result} be a new pair.
+- Set the first value of {result} to the result of {Evaluate(firstNode, scope)}.
+- Set the second value of {result} to the result of {Evaluate(secondNode, scope)}.
+- Return {result}.
 
 ## Range
 
@@ -224,8 +224,8 @@ In serialized JSON, ranges are represented as a string on the form `start..end` 
 
 Range :
 
-* InclusiveRange
-* ExclusiveRange
+- InclusiveRange
+- ExclusiveRange
 
 InclusiveRange : Expression `..` Expression
 
@@ -233,17 +233,17 @@ ExclusiveRange : Expression `...` Expression
 
 EvaluateRange(scope):
 
-* Let {startNode} be the first {Expression}.
-* Let {endNode} be the second {Expression}.
-* Let {start} be the result of {Evaluate(startNode, scope)}.
-* Let {end} be the result of {Evalaute(endNode, scope)}.
-* If {PartialCompare(start, end)} is {null}:
-  * Return {null}.
-* Let {result} be a new range.
-* Set the start value of {result} to {start}.
-* Set the end value of {result} to {end}.
-* Mark the range as inclusive or exclusive.
-* Return {result}.
+- Let {startNode} be the first {Expression}.
+- Let {endNode} be the second {Expression}.
+- Let {start} be the result of {Evaluate(startNode, scope)}.
+- Let {end} be the result of {Evalaute(endNode, scope)}.
+- If {PartialCompare(start, end)} is {null}:
+  - Return {null}.
+- Let {result} be a new range.
+- Set the start value of {result} to {start}.
+- Set the end value of {result} to {end}.
+- Mark the range as inclusive or exclusive.
+- Return {result}.
 
 ## Datetime
 

@@ -6,6 +6,7 @@
   "scripts": {
     "test": "spec-md spec/GROQ.md > /dev/null",
     "clean": "rimraf out",
+    "format": "prettier -w spec scripts",
     "build": "mkdir -p out && spec-md spec/GROQ.md > out/index.html"
   },
   "repository": {
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/sanity-io/GROQ#readme",
   "devDependencies": {
     "date-fns": "^2.19.0",
+    "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "spec-md": "^3.0.2"
   },

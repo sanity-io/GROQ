@@ -13,7 +13,7 @@ This : `@`
 
 EvaluateThis(scope):
 
-* Return the this value of {scope}.
+- Return the this value of {scope}.
 
 ## This attribute expression
 
@@ -28,11 +28,11 @@ ThisAttribute : Identifier
 
 EvaluateThisAttribute(scope):
 
-* Let {base} be the this value of {scope}.
-* Let {name} be the string value of the {Identifier}.
-* If {base} is not an object, return {null}.
-* If {base} does not contain an attribute {name}, return {null}.
-* Return the value of the attribute {name} in {base}.
+- Let {base} be the this value of {scope}.
+- Let {name} be the string value of the {Identifier}.
+- If {base} is not an object, return {null}.
+- If {base} does not contain an attribute {name}, return {null}.
+- Return the value of the attribute {name} in {base}.
 
 ## Everything expression
 
@@ -47,8 +47,8 @@ Everything : `*`
 
 EvaluateEverything(scope):
 
-* Let {context} be the query context of {scope}.
-* Return the dataset of {context}.
+- Let {context} be the query context of {scope}.
+- Return the dataset of {context}.
 
 ## Parent expression
 
@@ -62,18 +62,18 @@ A parent expression returns a this value for an upper scope.
 
 Parent :
 
-* `^`
-* `^.` Parent
+- `^`
+- `^.` Parent
 
 EvaluateParent(scope):
 
-* Let {level} be the number of `^` in the parent expression.
-* Let {currentScope} be {scope}.
-* While {level} is greater than zero:
-  * Set {currentScope} to the parent of {currentScope}. 
-  * If {currentScope} is now {null}, return {null}.
-  * Decrease {level} by one.
-* Return the this value of {currentScope}.
+- Let {level} be the number of `^` in the parent expression.
+- Let {currentScope} be {scope}.
+- While {level} is greater than zero:
+  - Set {currentScope} to the parent of {currentScope}.
+  - If {currentScope} is now {null}, return {null}.
+  - Decrease {level} by one.
+- Return the this value of {currentScope}.
 
 ## Function call expression
 
@@ -95,28 +95,28 @@ FuncIdentifier : Identifier
 
 FuncCallArgs :
 
-* Expression
-* FuncCallArgs , Expression
+- Expression
+- FuncCallArgs , Expression
 
 EvaluateFuncCall(scope):
 
-* Let {namespace} be the string value of the {FuncNamespace}.
-* Let {name} be the string value of the {FuncIdentifier}.
-* Let {args} be an empty array.
-* For each {Expression} in {FuncCallArgs}:
-  * Let {argumentNode} be the {Expression}.
-  * Append {argumentNode} to {args}.
-* Let {func} be the function defined under the name {name} in either {namespace} namespace if provided, or the `global` namespace.
-* Return the result of {func(args, scope)}.
+- Let {namespace} be the string value of the {FuncNamespace}.
+- Let {name} be the string value of the {FuncIdentifier}.
+- Let {args} be an empty array.
+- For each {Expression} in {FuncCallArgs}:
+  - Let {argumentNode} be the {Expression}.
+  - Append {argumentNode} to {args}.
+- Let {func} be the function defined under the name {name} in either {namespace} namespace if provided, or the `global` namespace.
+- Return the result of {func(args, scope)}.
 
 ValidateFuncCall():
 
-* Let {namespace} be the string value of the {FuncNamespace}.
-* If there is no namespace named {namespace}:
-  * Stop and report an error.
-* Let {name} be the string value of the {FuncIdentifier}.
-* If there is no function named {name} defined in either {namespace} namespace if provided, or  the `global` namespace:
-  * Stop and report an error.
-* Let {args} be an array of the {Expression}s in {FuncCallArgs}.
-* Let {validator} be the validator for the function under the name {name}.
-* Execute {validator(args)}.
+- Let {namespace} be the string value of the {FuncNamespace}.
+- If there is no namespace named {namespace}:
+  - Stop and report an error.
+- Let {name} be the string value of the {FuncIdentifier}.
+- If there is no function named {name} defined in either {namespace} namespace if provided, or the `global` namespace:
+  - Stop and report an error.
+- Let {args} be an array of the {Expression}s in {FuncCallArgs}.
+- Let {validator} be the validator for the function under the name {name}.
+- Execute {validator(args)}.

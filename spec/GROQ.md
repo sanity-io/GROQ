@@ -1,14 +1,13 @@
-GROQ
--------
+## GROQ
 
-*Current Working Draft*
+_Current Working Draft_
 
 This is the specification for GROQ (**G**raph-**R**elational **O**bject **Q**ueries), a query language and execution engine made at Sanity, Inc, for filtering and projecting JSON documents. The work started in 2015. The development of this open standard started in 2019.
 
 GROQ is authored by [Alexander Staubo](https://twitter.com/purefiction) and [Simen Svale Skogsrud](https://twitter.com/svale).
 Additional follow up work by [Erik Grinaker](https://twitter.com/erikgrinaker), [Magnus Holm](https://twitter.com/judofyr), [Radhe](https://github.com/j33ty), and [Israel Roldan](https://github.com/israelroldan).
 
-This specification should be considered *work in progress* until the first release.
+This specification should be considered _work in progress_ until the first release.
 
 **Copyright notice**
 
@@ -16,7 +15,7 @@ Copyright © 2015–present, Sanity, Inc.
 
 As of July 9, 2010, the following persons or entities have made this Specification available under the Open Web Foundation Final Specification Agreement (OWFa 1.0), which is available at [openwebfoundation.org](http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0).
 
-* Sanity, Inc.
+- Sanity, Inc.
 
 You can review the signed copies of the Open Web Foundation Final Specification Agreement Version 1.0 for this specification at [github.com/sanity-io/GROQ](https://github.com/sanity-io/GROQ), which may also include additional parties to those listed above.
 
