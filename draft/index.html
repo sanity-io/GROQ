@@ -194,7 +194,7 @@
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-undefined.Overview">1</a></span>Overview</h1>
 <p>GROQ (Graph-Relational Object Queries) is a declarative language designed to query collections of largely schema-less JSON documents. Its primary design goals are expressive filtering, joining of several documents into a single response, and shaping the response to fit the client application.</p>
 <p>The idea behind GROQ is to be able to describe exactly what information your application needs, potentially joining together information from several sets of documents, then stitching together a very specific response with only the exact fields you need.</p>
-<p>A query in GROQ typically starts with <code>*</code>. This asterisk represents every document in your dataset. It is typically followed by a <var data-name="filter">filter</var> in brackets. The <var data-name="filter">filter</var> take <var data-name="terms">terms</var>, <var data-name="operators">operators</var> and <var data-name="functions">functions</var>. A <var data-name="projection">projection</var><em> </em>is wrapped in curly braces and describe the data as we want it returned. </p>
+<p>A query in GROQ typically starts with <code>*</code>. This asterisk represents every document in your dataset. It is typically followed by a <var data-name="filter">filter</var> in brackets. The <var data-name="filter">filter</var> take <var data-name="terms">terms</var>, <var data-name="operators">operators</var> and <var data-name="functions">functions</var>. A <var data-name="projection">projection</var> is wrapped in curly braces and describe the data as we want it returned.</p>
 <p>Given these JSON documents:</p>
 <pre data-language="json"><code><span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Peter"</span><span class="token punctuation">}</span>
 <span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Gamora"</span><span class="token punctuation">}</span>
@@ -206,12 +206,7 @@
 <pre data-language="groq"><code>*[id &gt; 2]{name}
 </code></pre>
 <p>Will result in the following JSON document:</p>
-<pre data-language="json"><code><span class="token punctuation">[</span>
-  <span class="token punctuation">{</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Drax"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token punctuation">{</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Groot"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token punctuation">{</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Rocket"</span><span class="token punctuation">}</span>
-<span class="token punctuation">]</span>
-</code></pre>
+<p>&lt;!&mdash; prettier-ignore &rarr; <code>json [   { "name": "Drax"},   { "name": "Groot"},   { "name": "Rocket"} ] </code> </p>
 </section>
 <section id="sec-Syntax" secid="2">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Syntax">2</a></span>Syntax</h1>
@@ -224,7 +219,7 @@
 <p>GROQ&rsquo;s syntax is a superset of JSON, so any valid JSON value is a valid GROQ expression (that simply returns the given value). Below are a few examples of JSON values:</p>
 <pre><code>"Hi! 👋"
 </code></pre>
-<pre data-language="javascript"><code><span class="token punctuation">[</span><span class="token string">"An"</span><span class="token punctuation">,</span> <span class="token string">"array"</span><span class="token punctuation">,</span> <span class="token string">"of"</span><span class="token punctuation">,</span> <span class="token string">"strings"</span><span class="token punctuation">]</span>
+<pre data-language="javascript"><code><span class="token punctuation">;</span><span class="token punctuation">[</span><span class="token string">'An'</span><span class="token punctuation">,</span> <span class="token string">'array'</span><span class="token punctuation">,</span> <span class="token string">'of'</span><span class="token punctuation">,</span> <span class="token string">'strings'</span><span class="token punctuation">]</span>
 </code></pre>
 <pre data-language="json"><code><span class="token punctuation">{</span>
   <span class="token property">"array"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"string"</span><span class="token punctuation">,</span> <span class="token number">3.14</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token null keyword">null</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
@@ -260,13 +255,13 @@
 <span class="spec-nt"><a href="#CommentChar" data-name="CommentChar">CommentChar</a></span><div class="spec-rhs"><span class="spec-constrained"><span class="spec-nt"><a href="#SourceCharacter" data-name="SourceCharacter">SourceCharacter</a></span><span class="spec-butnot"><span class="spec-prose">Newline U+000A</span></span></span></div>
 </div>
 <p>Comments serve as query documentation, and are ignored by the parser. They start with <code>//</code> and run to the end of the line:</p>
-<pre><code>{ 
-  // Comments can be on a separate line 
-  "key": "value" // Or at the end of a line 
+<pre><code>{
+  // Comments can be on a separate line
+  "key": "value" // Or at the end of a line
 }
 </code></pre>
 <p>Comments cannot start inside a string literal.</p>
-<pre><code>{ 
+<pre><code>{
   "key // This isn't a comment": "value"
 }
 </code></pre>
@@ -275,7 +270,7 @@
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Identifier">2.4</a></span>Identifier</h2>
 <p>Identifiers are used to name entities such as parameters, attributes and functions. An identifier is a sequence of one or more letters and digits. The first character in an identifier must be a letter.</p>
 <div class="spec-production" id="Identifier">
-<span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span><div class="spec-rhs"><span class="spec-rx">/[A-Za-z_][A-Za-z_0-9]*/</span></div>
+<span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span><div class="spec-rhs"><span class="spec-rx">/[A-Za-z_][a-za-z_0-9]*/</span></div>
 </div>
 </section>
 <section id="sec-Digits" secid="2.5">
@@ -792,7 +787,7 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <div class="spec-algo" id="EvaluateArray()">
 <span class="spec-call"><a href="#EvaluateArray()" data-name="EvaluateArray">EvaluateArray</a>(<var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="result">result</var> be a new empty array.</li>
-<li>For each <span class="spec-nt"><a href="#ArrayElement" data-name="ArrayElement">ArrayElement</a></span>:<ol>
+<li>For each <span class="spec-nt"><a href="#ArrayElement" data-name="ArrayElement">ArrayElement</a></span>:</li>
 <li>Let <var data-name="elementNode">elementNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#ArrayElement" data-name="ArrayElement">ArrayElement</a></span>.</li>
 <li>Let <var data-name="element">element</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="elementNode">elementNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If the <span class="spec-nt"><a href="#ArrayElement" data-name="ArrayElement">ArrayElement</a></span> contains <span class="spec-t">...</span>:<ol>
@@ -804,8 +799,6 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 </li>
 <li>Otherwise:<ol>
 <li>Append <var data-name="element">element</var> to <var data-name="result">result</var>.</li>
-</ol>
-</li>
 </ol>
 </li>
 <li>Return <var data-name="result">result</var>.</li>
@@ -848,14 +841,14 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 </ol>
 </li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-</ol>
-</li>
 <li>Otherwise:<ol>
 <li>Let <var data-name="base">base</var> be the this value of <var data-name="scope">scope</var>.</li>
 </ol>
 </li>
 <li>For each <var data-name="name">name</var> and <var data-name="value">value</var> of <var data-name="base">base</var>:<ol>
 <li>Set the attribute <var data-name="name">name</var> to <var data-name="value">value</var> in <var data-name="result">result</var>.</li>
+</ol>
+</li>
 </ol>
 </li>
 <li>Otherwise:<ol>
@@ -895,9 +888,9 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <li>For each <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span>:<ol>
 <li>If the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> does not contain a <span class="spec-nt"><a href="#String" data-name="String">String</a></span>:<ol>
 <li>Let <var data-name="expr">expr</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
+<li>Execute <span class="spec-call"><a href="#ValidateObjectAttribute()" data-name="ValidateObjectAttribute">ValidateObjectAttribute</a>(<var data-name="expr">expr</var>)</span>.</li>
 </ol>
 </li>
-<li>Execute <span class="spec-call"><a href="#ValidateObjectAttribute()" data-name="ValidateObjectAttribute">ValidateObjectAttribute</a>(<var data-name="expr">expr</var>)</span>.</li>
 </ol>
 </li>
 </ol>
@@ -992,7 +985,7 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <p>Simple values such as numbers, strings, booleans and <span class="spec-keyword">null</span> are equal when they contain the same data. All other values are considered inequal to each other (e.g. <code>[] != []</code>).</p>
 <div id="note-07354" class="spec-note">
 <a href="#note-07354">Note</a>
-In GROQ <code>1 == null</code> returns <code>false</code> (which is different from e.g. SQL). </div>
+In GROQ <code>1 == null</code> returns <code>false</code> (which is different from e.g. SQL).</div>
 <div class="spec-algo" id="Equal()">
 <span class="spec-call"><a href="#Equal()" data-name="Equal">Equal</a>(<var data-name="a">a</var>, <var data-name="b">b</var>)</span><ol>
 <li>If both <var data-name="a">a</var> and <var data-name="b">b</var> is <span class="spec-keyword">null</span>:<ol>
@@ -1056,10 +1049,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <li>Return <span class="spec-nt"><span data-name="Less">Less</span></span>.</li>
 </ol>
 </li>
-</ol>
-</li>
-<li>If <var data-name="aCodePoint">aCodePoint</var> &gt; <var data-name="bCodePoint">bCodePoint</var>:<ol>
-<li>Return <span class="spec-nt"><span data-name="Greater">Greater</span></span>.</li>
+<li>If <var data-name="aCodePoint">aCodePoint</var> &gt; <var data-name="bCodePoint">bCodePoint</var>: * Return <span class="spec-nt"><span data-name="Greater">Greater</span></span>.</li>
 </ol>
 </li>
 <li>If <var data-name="a">a</var> is shorter than <var data-name="b">b</var>:<ol>
@@ -1194,7 +1184,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <li>Let <var data-name="level">level</var> be the number of <code>^</code> in the parent expression.</li>
 <li>Let <var data-name="currentScope">currentScope</var> be <var data-name="scope">scope</var>.</li>
 <li>While <var data-name="level">level</var> is greater than zero:<ol>
-<li>Set <var data-name="currentScope">currentScope</var> to the parent of <var data-name="currentScope">currentScope</var>. </li>
+<li>Set <var data-name="currentScope">currentScope</var> to the parent of <var data-name="currentScope">currentScope</var>.</li>
 <li>If <var data-name="currentScope">currentScope</var> is now <span class="spec-keyword">null</span>, return <span class="spec-keyword">null</span>.</li>
 <li>Decrease <var data-name="level">level</var> by one.</li>
 </ol>
@@ -1801,7 +1791,7 @@ person["Full Name"]
 </li>
 </ol>
 </li>
-<li>Let <var data-name="patterns">patterns</var> be an empty array. </li>
+<li>Let <var data-name="patterns">patterns</var> be an empty array.</li>
 <li>If <var data-name="right">right</var> is a string:<ol>
 <li>Append <span class="spec-call"><a href="#MatchAnalyzePattern()" data-name="MatchAnalyzePattern">MatchAnalyzePattern</a>(<var data-name="right">right</var>)</span> to <var data-name="patterns">patterns</var>.</li>
 </ol>
@@ -1812,10 +1802,7 @@ person["Full Name"]
 <li>Append <span class="spec-call"><a href="#MatchAnalyzePattern()" data-name="MatchAnalyzePattern">MatchAnalyzePattern</a>(<var data-name="value">value</var>)</span> to <var data-name="patterns">patterns</var>.</li>
 </ol>
 </li>
-</ol>
-</li>
-<li>Otherwise:<ol>
-<li>Return <span class="spec-keyword">false</span>.</li>
+<li>Otherwise: * Return <span class="spec-keyword">false</span>.</li>
 </ol>
 </li>
 </ol>
@@ -1836,7 +1823,7 @@ person["Full Name"]
 </div>
 <div class="spec-algo" id="MatchTokenize()">
 <span class="spec-call"><a href="#MatchTokenize()" data-name="MatchTokenize">MatchTokenize</a>(<var data-name="value">value</var>)</span><ol>
-<li>Return an array of tokens. </li>
+<li>Return an array of tokens.</li>
 </ol>
 </div>
 <div class="spec-algo" id="MatchAnalyzePattern()">
@@ -2511,33 +2498,18 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Let <var data-name="rightScope">rightScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="right">right</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>For each <var data-name="argNode">argNode</var> of <var data-name="args">args</var>:<ol>
 <li>Let <var data-name="direction">direction</var> be <span class="spec-nt"><span data-name="Normal">Normal</span></span>.</li>
-</ol>
-</li>
-<li>Let <var data-name="valueNode">valueNode</var> be <var data-name="argNode">argNode</var>.<ol>
-<li>If <var data-name="valueNode">valueNode</var> is an <span class="spec-nt"><a href="#Asc" data-name="Asc">Asc</a></span> operator:<ol>
-<li>Set <var data-name="valueNode">valueNode</var> to be the Expression of the <span class="spec-nt"><a href="#Asc" data-name="Asc">Asc</a></span> operator.</li>
-</ol>
-</li>
-<li>Else if <var data-name="valueNode">valueNode</var> is a <span class="spec-nt"><a href="#Desc" data-name="Desc">Desc</a></span> operator:<ol>
-<li>Set direction to <span class="spec-nt"><span data-name="Reverse">Reverse</span></span>.</li>
-</ol>
-</li>
+<li>Let <var data-name="valueNode">valueNode</var> be <var data-name="argNode">argNode</var>.</li>
+<li>If <var data-name="valueNode">valueNode</var> is an <span class="spec-nt"><a href="#Asc" data-name="Asc">Asc</a></span> operator: * Set <var data-name="valueNode">valueNode</var> to be the Expression of the <span class="spec-nt"><a href="#Asc" data-name="Asc">Asc</a></span> operator.</li>
+<li>Else if <var data-name="valueNode">valueNode</var> is a <span class="spec-nt"><a href="#Desc" data-name="Desc">Desc</a></span> operator: * Set direction to <span class="spec-nt"><span data-name="Reverse">Reverse</span></span>.<ol>
 <li>Set <var data-name="valueNode">valueNode</var> to be the Expression of the <span class="spec-nt"><a href="#Desc" data-name="Desc">Desc</a></span> operator.</li>
+</ol>
+</li>
 <li>Let <var data-name="leftValue">leftValue</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="valueNode">valueNode</var>, <var data-name="leftScope">leftScope</var>)</span>.</li>
 <li>Let <var data-name="rightValue">rightValue</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="valueNode">valueNode</var>, <var data-name="rightScope">rightScope</var>)</span>.</li>
 <li>Let <var data-name="order">order</var> be the result of <span class="spec-call"><a href="#TotalCompare()" data-name="TotalCompare">TotalCompare</a>(<var data-name="leftValue">leftValue</var>, <var data-name="rightValue">rightValue</var>)</span>.</li>
-<li>If <var data-name="direction">direction</var> is <span class="spec-nt"><span data-name="Reverse">Reverse</span></span> and <var data-name="order">order</var> is <span class="spec-nt"><span data-name="Less">Less</span></span>:<ol>
-<li>Set <var data-name="order">order</var> to <span class="spec-nt"><span data-name="Greater">Greater</span></span>.</li>
-</ol>
-</li>
-<li>Else if <var data-name="direction">direction</var> is <span class="spec-nt"><span data-name="Reverse">Reverse</span></span> and <var data-name="order">order</var> is <span class="spec-nt"><span data-name="Greater">Greater</span></span>:<ol>
-<li>Set <var data-name="order">order</var> to <span class="spec-nt"><span data-name="Less">Less</span></span>.</li>
-</ol>
-</li>
-<li>If <var data-name="order">order</var> is not <span class="spec-nt"><span data-name="Equal">Equal</span></span>:<ol>
-<li>Return <var data-name="order">order</var>.</li>
-</ol>
-</li>
+<li>If <var data-name="direction">direction</var> is <span class="spec-nt"><span data-name="Reverse">Reverse</span></span> and <var data-name="order">order</var> is <span class="spec-nt"><span data-name="Less">Less</span></span>: * Set <var data-name="order">order</var> to <span class="spec-nt"><span data-name="Greater">Greater</span></span>.</li>
+<li>Else if <var data-name="direction">direction</var> is <span class="spec-nt"><span data-name="Reverse">Reverse</span></span> and <var data-name="order">order</var> is <span class="spec-nt"><span data-name="Greater">Greater</span></span>: * Set <var data-name="order">order</var> to <span class="spec-nt"><span data-name="Less">Less</span></span>.</li>
+<li>If <var data-name="order">order</var> is not <span class="spec-nt"><span data-name="Equal">Equal</span></span>: * Return <var data-name="order">order</var>.</li>
 </ol>
 </li>
 <li>Return <span class="spec-nt"><span data-name="Equal">Equal</span></span>.</li>
@@ -2679,7 +2651,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </section>
 <section id="sec-pt-text-" secid="15.1.3">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-pt-text-">15.1.3</a></span>pt::text()</h3>
-<p>This function takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (<code>\n\n</code>) in the string version. </p>
+<p>This function takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (<code>\n\n</code>) in the string version.</p>
 <p>pt::text(args, scope):</p>
 <ul>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
@@ -2737,7 +2709,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 <p>And, it does not support:</p>
 <ol>
-<li>GeoJSON Object <code>Feature</code> and <code>FeatureCollection</code>. </li>
+<li>GeoJSON Object <code>Feature</code> and <code>FeatureCollection</code>.</li>
 <li>Arrays of geographic values. Instead, one of the GeoJSON <code>Multi</code> types should be used.</li>
 </ol>
 </section>
