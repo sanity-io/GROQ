@@ -7,6 +7,7 @@
     "test": "spec-md spec/GROQ.md > /dev/null",
     "clean": "rimraf out",
     "format": "prettier -w spec scripts",
+    "format:check": "prettier -c spec scripts",
     "build": "mkdir -p out && spec-md spec/GROQ.md > out/index.html"
   },
   "repository": {
