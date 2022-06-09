@@ -370,7 +370,7 @@ array::compact(args, scope):
     - Append {elem} to {output}.
 - Return {output}.
 
-string::joinValidate(args):
+string::compactValidate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
