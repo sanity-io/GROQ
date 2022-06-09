@@ -370,7 +370,7 @@ array::compact(args, scope):
     - Append {elem} to {output}.
 - Return {output}.
 
-string::compactValidate(args):
+array::compactValidate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
@@ -398,7 +398,7 @@ string::split(args, scope):
   - Let {output} be each substring of {str} as separated by {sep}. An empty string is considered a substring, and will be included when {sep} is present at the beginning, the end, or consecutively of {str}. For example, the string `,a,b,` when split by `,` will result in four substrings `['', 'a', 'b', '']`.
 - Return {output}.
 
-global::stringValidate(args):
+string::splitValidate(args):
 
 - If the length of {args} is not 2:
   - Report an error.
