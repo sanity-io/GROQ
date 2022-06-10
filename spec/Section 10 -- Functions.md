@@ -398,7 +398,31 @@ string::split(args, scope):
   - Let {output} be each substring of {str} as separated by {sep}. An empty string is considered a substring, and will be included when {sep} is present at the beginning, the end, or consecutively of {str}. For example, the string `,a,b,` when split by `,` will result in four substrings `['', 'a', 'b', '']`.
 - Return {output}.
 
-global::stringValidate(args):
+string::splitValidate(args):
+
+- If the length of {args} is not 2:
+  - Report an error.
+
+### string::startsWith()
+
+The `startsWith` function evaluates whether a string starts with a given prefix.
+
+string::startsWith(args, scope):
+
+- Let {strNode} be the first element of {args}.
+- Let {prefixNode} be the second element of {args}.
+- Let {str} be the result of {Evaluate(strNode, scope)}.
+- If {str} is not a string, return null.
+- Let {prefix} be the result of {Evaluate(sepNode, scope)}.
+- If {prefix} is not a string, return null.
+- Let {n} be the length of {prefix}.
+- If {n} is zero:
+  - Return true.
+- If the first {n} characters of {str} equal {prefix}:
+  - Return true.
+- Otherwise return false.
+
+string::startsWithValidate(args):
 
 - If the length of {args} is not 2:
   - Report an error.
