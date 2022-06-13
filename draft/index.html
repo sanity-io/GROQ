@@ -164,6 +164,7 @@
 </li>
 <li><a href="#sec-String-namespace"><span class="spec-secid">12.4</span>String namespace</a><ol>
 <li><a href="#sec-string-split-"><span class="spec-secid">12.4.1</span>string::split()</a></li>
+<li><a href="#sec-string-startsWith-"><span class="spec-secid">12.4.2</span>string::startsWith()</a></li>
 </ol>
 </li>
 </ol>
@@ -2588,7 +2589,37 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </li>
 <li>Return <var data-name="output">output</var>.</li>
 </ul>
-<p>global::stringValidate(args):</p>
+<p>string::splitValidate(args):</p>
+<ul>
+<li>If the length of <var data-name="args">args</var> is not 2:<ul>
+<li>Report an error.</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-string-startsWith-" secid="12.4.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-string-startsWith-">12.4.2</a></span>string::startsWith()</h3>
+<p>The <code>startsWith</code> function evaluates whether a string starts with a given prefix.</p>
+<p>string::startsWith(args, scope):</p>
+<ul>
+<li>Let <var data-name="strNode">strNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="prefixNode">prefixNode</var> be the second element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="str">str</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="strNode">strNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="str">str</var> is not a string, return null.</li>
+<li>Let <var data-name="prefix">prefix</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="sepNode">sepNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="prefix">prefix</var> is not a string, return null.</li>
+<li>Let <var data-name="n">n</var> be the length of <var data-name="prefix">prefix</var>.</li>
+<li>If <var data-name="n">n</var> is zero:<ul>
+<li>Return true.</li>
+</ul>
+</li>
+<li>If the first <var data-name="n">n</var> characters of <var data-name="str">str</var> equal <var data-name="prefix">prefix</var>:<ul>
+<li>Return true.</li>
+</ul>
+</li>
+<li>Otherwise return false.</li>
+</ul>
+<p>string::startsWithValidate(args):</p>
 <ul>
 <li>If the length of <var data-name="args">args</var> is not 2:<ul>
 <li>Report an error. </li>
@@ -3274,6 +3305,7 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <input hidden class="toggle" type="checkbox" id="_toggle_12.4" /><label for="_toggle_12.4"></label>
 <ol>
 <li id="_sidebar_12.4.1"><a href="#sec-string-split-"><span class="spec-secid">12.4.1</span>string::split()</a></li>
+<li id="_sidebar_12.4.2"><a href="#sec-string-startsWith-"><span class="spec-secid">12.4.2</span>string::startsWith()</a></li>
 </ol>
 </li>
 </ol>
