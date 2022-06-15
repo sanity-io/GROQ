@@ -324,7 +324,7 @@ The `array` namespace contains functions to work with arrays.
 
 ### array::join()
 
-The `join` function concatenates together the elements of an array into a single output string. Only primitive values with a canonical GROQ representation can be collected, meaning strings, numbers, and booleans. Objects, date/times, etc. are considered composite values that cannot be joined.
+The `join` function concatenates together the elements of an array into a single output string. Only primitive values supported by `global::string()` can be collected. Objects, arrays, etc. are considered composite values that cannot be joined.
 
 array::join(args, scope):
 
@@ -333,19 +333,19 @@ array::join(args, scope):
 - Let {arr} be the result of {Evaluate(arrNode, scope)}.
 - Let {sep} be the result of {Evaluate(sepNode, scope)}.
 - If {arr} is not an array:
-  - Return null
+  - Return {null}.
 - If {sep} is not a string:
-  - Return null
+  - Return {null}.
 - Let {output} be an empty string.
 - For each element in {arr}:
-  - Let {elem} be the element
+  - Let {elem} be the element.
   - Let {index} be the index of the element.
   - If {index} is greater than or equal to 1, append {sep} to {output}.
   - Let {str} be the result of evaluating `global::string(elem)`.
-  - If {str} is a string:
-    - Append {str} to {output}.
+  - If {str} is {null}:
+    - Return {null}.
   - Otherwise:
-    - Append the string `<INVALID>` to the output.
+    - Append {str} to {output}.
 - Return {output}.
 
 array::joinValidate(args):
