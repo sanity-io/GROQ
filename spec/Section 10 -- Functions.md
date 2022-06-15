@@ -375,6 +375,37 @@ string::joinValidate(args):
 - If the length of {args} is not 1:
   - Report an error.
 
+### array::unique()
+
+The `unique` function filters duplicate values from an array.
+
+When considering uniqueness, only primitive values (numbers, strings, booleans, date-times, nulls)
+must considered for equality. Non-primitive values (objects and arrays) must always be considered
+separately unique. For example, `array::unique([[1], [1]])` should return `[[1], [1]]`.
+
+Since an implementation can choose to use hashing or similar data non-order-preserving structures
+for efficiency, the order of the output is not guaranteed to be the same as the input.
+
+array::unique(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
+- If {arr} is not an array:
+  - Return {null}.
+- Let {output} be an empty array.
+- For each element in {arr}:
+  - Let {elem} be the element
+  - If {elem} is not a primitive:
+    - Append {elem} to {output}.
+  - If {elem} is not in {output}:
+    - Append {elem} to {output}.
+- Return {output}.
+
+array::uniqueValidate(args):
+
+- If the length of {args} is not 1:
+  - Report an error.
+
 ## String namespace
 
 The `string` namespace contains functions to work with strings.
@@ -388,9 +419,9 @@ string::split(args, scope):
 - Let {strNode} be the first element of {args}.
 - Let {sepNode} be the second element of {args}.
 - Let {str} be the result of {Evaluate(strNode, scope)}.
-- If {str} is not a string, return null.
+- If {str} is not a string, return {null}.
 - Let {sep} be the result of {Evaluate(sepNode, scope)}.
-- If {sep} is not a string, return null.
+- If {sep} is not a string, return {null}.
 - Let {output} be an empty array.
 - If {sep} is an empty string:
   - Let {output} be each character of {str}, according to Unicode character splitting rules.
@@ -412,9 +443,9 @@ string::startsWith(args, scope):
 - Let {strNode} be the first element of {args}.
 - Let {prefixNode} be the second element of {args}.
 - Let {str} be the result of {Evaluate(strNode, scope)}.
-- If {str} is not a string, return null.
+- If {str} is not a string, return {null}.
 - Let {prefix} be the result of {Evaluate(sepNode, scope)}.
-- If {prefix} is not a string, return null.
+- If {prefix} is not a string, return {null}.
 - Let {n} be the length of {prefix}.
 - If {n} is zero:
   - Return true.
@@ -425,4 +456,118 @@ string::startsWith(args, scope):
 string::startsWithValidate(args):
 
 - If the length of {args} is not 2:
+  - Report an error.
+
+## Math namespace
+
+The `math` namespace contains functions for performing mathematical operations.
+
+### math::sum()
+
+The `sum` function computes the sum of all numbers in an array. {null} values are
+ignored, but non-numbers cause the function to return {null}. If the array does not contain at least
+one numeric value, it returns 0.
+
+math:sum(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {arr} be the result of {Evaluate(strNode, scope)}.
+- If {arr} is not an array, return {null}.
+- Let {n} be zero.
+- For each element {elem} in {arr}:
+  - If {elem} is null:
+    - Ignore it.
+  - If {elem} is not a number:
+    - Return {null}.
+  - Otherwise:
+    - Add {elem} to {n}.
+- Return {n}.
+
+math:sumValidate(args):
+
+- If the length of {args} is not 1:
+  - Report an error.
+
+### math::avg()
+
+The `avg` function computes the arithmetic mean of all numbers in an array. {null} values are
+ignored, but non-numbers cause the function to return {null}. If the array does not contain at least
+one numeric value, it returns {null}.
+
+math:avg(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {arr} be the result of {Evaluate(strNode, scope)}.
+- If {arr} is not an array, return {null}.
+- Let {n} be zero.
+- Let {count} be zero.
+- For each element {elem} in {arr}:
+  - If {elem} is null:
+    - Ignore it.
+  - If {elem} is not a number:
+    - Return {null}.
+  - Otherwise:
+    - Increment {count}.
+    - Add {elem} to {n}.
+- If {count} is zero:
+  - Return {null}.
+- Return {n} divided by the {count}.
+
+math:avgValidate(args):
+
+- If the length of {args} is not 1:
+  - Report an error.
+
+### math::min()
+
+The `min` function finds the smallest numeric value in an array. {null} values are
+ignored, but non-numbers cause the function to return {null}. If the array does not contain at least
+one numeric value, it returns {null}.
+
+math:min(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {arr} be the result of {Evaluate(strNode, scope)}.
+- If {arr} is not an array, return {null}.
+- Let {min} be {null}.
+- For each element {elem} in {arr}:
+  - If {elem} is null:
+    - Ignore it.
+  - If {elem} is not a number:
+    - Return {null}.
+  - Otherwise:
+    - If {min} is {null} or {elem} is lower than {min}:
+      - Set {min} to {elem}.
+- Return {min}.
+
+math:minValidate(args):
+
+- If the length of {args} is not 1:
+  - Report an error.
+
+### math::max()
+
+The `max` function finds the largest numeric value in an array. {null} values are
+ignored, but non-numbers cause the function to return {null}. If the array does not contain at least
+one numeric value, it returns {null}.
+
+math:max(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {arr} be the result of {Evaluate(strNode, scope)}.
+- If {arr} is not an array, return {null}.
+- Let {max} be {null}.
+- For each element {elem} in {arr}:
+  - If {elem} is null:
+    - Ignore it.
+  - If {elem} is not a number:
+    - Return {null}.
+  - Otherwise:
+    - If {max} is {null} or {elem} is higher than {max}:
+      - Set {max} to {elem}.
+- Return {max}.
+
+math:maxValidate(args):
+
+- If the length of {args} is not 1:
   - Report an error.
