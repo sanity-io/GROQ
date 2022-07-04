@@ -477,7 +477,7 @@ one numeric value, it returns 0.
 math:sum(args, scope):
 
 - Let {arrNode} be the first element of {args}.
-- Let {arr} be the result of {Evaluate(strNode, scope)}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
 - If {arr} is not an array, return {null}.
 - Let {n} be zero.
 - For each element {elem} in {arr}:
@@ -503,7 +503,7 @@ one numeric value, it returns {null}.
 math:avg(args, scope):
 
 - Let {arrNode} be the first element of {args}.
-- Let {arr} be the result of {Evaluate(strNode, scope)}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
 - If {arr} is not an array, return {null}.
 - Let {n} be zero.
 - Let {count} be zero.
@@ -533,7 +533,7 @@ one numeric value, it returns {null}.
 math:min(args, scope):
 
 - Let {arrNode} be the first element of {args}.
-- Let {arr} be the result of {Evaluate(strNode, scope)}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
 - If {arr} is not an array, return {null}.
 - Let {min} be {null}.
 - For each element {elem} in {arr}:
@@ -542,7 +542,7 @@ math:min(args, scope):
   - If {elem} is not a number:
     - Return {null}.
   - Otherwise:
-    - If {min} is {null} or {elem} is lower than {min}:
+    - If {min} is {null} or {PartialCompare(elem, min)} is {Lower}:
       - Set {min} to {elem}.
 - Return {min}.
 
@@ -560,7 +560,7 @@ one numeric value, it returns {null}.
 math:max(args, scope):
 
 - Let {arrNode} be the first element of {args}.
-- Let {arr} be the result of {Evaluate(strNode, scope)}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
 - If {arr} is not an array, return {null}.
 - Let {max} be {null}.
 - For each element {elem} in {arr}:
@@ -569,7 +569,7 @@ math:max(args, scope):
   - If {elem} is not a number:
     - Return {null}.
   - Otherwise:
-    - If {max} is {null} or {elem} is higher than {max}:
+    - If {max} is {null} or {PartialCompare(elem, max)} is {Greater}:
       - Set {max} to {elem}.
 - Return {max}.
 
