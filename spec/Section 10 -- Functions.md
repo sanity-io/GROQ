@@ -379,12 +379,13 @@ string::joinValidate(args):
 
 The `unique` function filters duplicate values from an array.
 
-When considering uniqueness, only primitive values (numbers, strings, booleans, date-times, nulls)
-must considered for equality. Non-primitive values (objects and arrays) must always be considered
-separately unique. For example, `array::unique([[1], [1]])` should return `[[1], [1]]`.
+Only values that can be compared for [equality](#sec-Equality) are compared for uniqueness.
+All other values are considered individually unique. For example, `array::unique([[1], [1]])` should
+return `[[1], [1]]`.
 
-Since an implementation can choose to use hashing or similar data non-order-preserving structures
-for efficiency, the order of the output is not guaranteed to be the same as the input.
+The algorithm below specifies a linear search, but since an implementation can choose to use
+hashing or a similar non-order-preserving data structure for efficiency, the order of the output 
+cannot be guaranteed to be the same as the input.
 
 array::unique(args, scope):
 
@@ -395,10 +396,15 @@ array::unique(args, scope):
 - Let {output} be an empty array.
 - For each element in {arr}:
   - Let {elem} be the element
-  - If {elem} is not a primitive:
-    - Append {elem} to {output}.
-  - If {elem} is not in {output}:
-    - Append {elem} to {output}.
+  - Let {found} be false. 
+  - If {elem} is comparable (see above):
+    - For each element in {arr}:
+      - Let {b} be the element.
+      - Set {found} be the result of `Equal(elem, b)`
+      - If {found} is true:
+        - Break loop
+  - If {found} is false:
+    - Add {elem} to {output} at any position.
 - Return {output}.
 
 array::uniqueValidate(args):
