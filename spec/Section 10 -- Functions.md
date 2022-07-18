@@ -384,7 +384,7 @@ All other values are considered individually unique. For example, `array::unique
 return `[[1], [1]]`.
 
 The algorithm below specifies a linear search, but since an implementation can choose to use
-hashing or a similar non-order-preserving data structure for efficiency, the order of the output 
+hashing or a similar non-order-preserving data structure for efficiency, the order of the output
 cannot be guaranteed to be the same as the input.
 
 array::unique(args, scope):
@@ -396,7 +396,7 @@ array::unique(args, scope):
 - Let {output} be an empty array.
 - For each element in {arr}:
   - Let {elem} be the element
-  - Let {found} be false. 
+  - Let {found} be false.
   - If {elem} is comparable (see above):
     - For each element in {arr}:
       - Let {b} be the element.
