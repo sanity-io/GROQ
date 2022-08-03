@@ -115,22 +115,59 @@ A boosted predicate simply adds the boost value to the score if the predicate ma
 
 ## Selector evaluation
 
-A selector is evaluated in a scope. You must successfully validate a selector before you attempt to evaluate it
+A selector (see {Selector}) is evaluated in a scope with a value and returns a list of _key paths_.
+A key path uniquely identifies a value by the attribute names and array indices used to access the value.
+For instance, the key path `.users[1].name` refers to the `"Bob"`-value in `{"users":[{"name":"Alice"},{"name":"Bob"}]}`.
 
-EvaluateSelector(selector, scope):
+EvaluateSelector(selector, value, scope):
 
-- Let {evaluator} be the evaluator of {selector}.
-- Return the result of {evaluator(scope)}.
-
-## Selector search
-
-A selector search takes a selector and a node and returns the resolved selector keypath on the given node as a list.
-
-SelectorSearch(selector, node, scope):
-
-- Let {selector} be a {Selector}
-- Let {node} be one of {Object}, {ObjectAttributes}, {Array}
-- Return the resolved selector keypath on {node} as a list
+- If {selector} is a {SelectorGroup}:
+  - Let {inner} be the inner selector.
+  - Return {EvaluateSelector(inner, value)}.
+- Let {result} be an empty list of key paths.
+- If {selector} is a {SelectorTuple}:
+  - For each selector {inner} in the tuple:
+    - Let {innerResult} be the result of {EvaluateSelector(inner, value, scope)}.
+    - Concatenate {innerResult} to {result}.
+- If {selector} is a {ThisAttibute}:
+  - If {value} is an object which has the given attribute:
+    - Let {keyPath} be a new key path consisting of the attribute name.
+    - Append {keyPath} to {result}.
+- If {selector} starts with a {Selector}:
+  - Let {baseSelector} be the selector.
+  - Let {base} be the result of {EvaluateSelector(baseSelector, value, scope)}.
+  - For each {keyPath} in {base}:
+    - Let {innerValue} be the value at {keyPath} in {value}.
+    - If {selector} ends with a {ArrayPostfix}:
+      - If {innerValue} is an array:
+        - For each {item} in {innerValue}:
+          - Let {nestedKeyPath} be the result of combining {keyPath} with the array index.
+          - Append {nestedKeyPath} to {result}.
+    - If {selector} ends with a {AttributeAccess}:
+      - If {innerValue} is an object which has the given attribute:
+        - Let {nestedKeyPath} be the result of combining {keyPath} with the attribute name.
+        - Append {nestedKeyPath} to {result}.
+    - If {selector} ends with a {Filter}:
+      - If {innerValue} is an array:
+        - For each {item} of {innerValue}:
+          - Let {nestedScope} be the result of {NewNestedScope(value, scope)}.
+          - Let {matched} be the result of {Evaluate(expr, nestedScope)}.
+          - If {matched} is {true}:
+            - Let {nestedKeyPath} be the result of combining {keyPath} with the array index.
+            - Append {nestedKeyPath} to {result}.
+    - If {selector} ends with a {SelectorGroup}:
+      - Let {inner} be that selector.
+      - Let {innerResult} be the result of {EvaluateSelector(inner, innerValue, scope)}.
+      - For each {nestedKeyPath} in {innerResult}:
+        - Let {combinedKeyPath} be the result of combining {keyPath} with {nestedKeyPath}.
+        - Append {combinedKeyPath} to {result}.
+    - If {selector} ends with a {SelectorTuple}:
+      - For each selector {inner} in the tuple:
+        - Let {innerResult} be the result of {EvaluateSelector(inner, innerValue, scope)}.
+        - For each {nestedKeyPath} in {innerResult}:
+          - Let {combinedKeyPath} be the result of combining {keyPath} with {nestedKeyPath}.
+          - Append {combinedKeyPath} to {result}.
+  - Return {result}.
 
 ## Traversal execution
 

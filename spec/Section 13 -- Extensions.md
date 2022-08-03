@@ -190,10 +190,9 @@ diff::changedAny(args, scope):
 - Let {selector} be the third element of {args}.
 - Let {before} be the result of {Evaluate(lhs, scope)}.
 - Let {after} be the result of {Evaluate(rhs, scope)}.
-- Let {evaluatedSelector} be the result of {EvaluateSelector(selector, scope)}
-- Let {search} be the result of {SelectorSearch(evaluatedSelector, before, scope)}
-- Let {diff} be the result of comparative difference between {before} and {after}
-- If {diff} overlaps with {search}:
+- Let {beforeKeyPaths} be the result of {EvaluateSelector(selector, before, scope)}.
+- Let {diffKeyPaths} be the list of key paths that are different in {before} and {after}.
+- If {diffKeyPaths} overlaps with {beforeKeyPaths}:
   - Return {true}.
 - Otherwise:
   - Return {false}.
@@ -201,6 +200,8 @@ diff::changedAny(args, scope):
 diff::changedAny(args):
 
 - If the length of {args} is not 3:
+  - Report an error
+- If the third element is not a {Selector}:
   - Report an error
 
 ### diff::changedOnly()
@@ -214,10 +215,9 @@ diff::changedOnly(args, scope):
 - Let {selector} be the third element of {args}.
 - Let {before} be the result of {Evaluate(lhs, scope)}.
 - Let {after} be the result of {Evaluate(rhs, scope)}.
-- Let {evaluatedSelector} be the result of {EvaluateSelector(selector, scope)}
-- Let {search} be the result of {SelectorSearch(evaluatedSelector, before, scope)}
-- Let {diff} be the result of comparative difference between {before} and {after}
-- If {diff} overlaps with {search}:
+- Let {beforeKeyPaths} be the result of {EvaluateSelector(selector, before, scope)}.
+- Let {diffKeyPaths} be the list of key paths that are different in {before} and {after}.
+- If {diffKeyPaths} is a subset of {beforeKeyPaths}:
   - Return {true}.
 - Otherwise:
   - Return {false}.
@@ -225,4 +225,6 @@ diff::changedOnly(args, scope):
 diff::changedOnly(args):
 
 - If the length of {args} is not 3:
+  - Report an error
+- If the third element is not a {Selector}:
   - Report an error
