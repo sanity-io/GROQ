@@ -15,7 +15,7 @@ echo "Publishing to: /draft"
 rm -rf "$PUBLISH_DIR/draft"
 cp -R out/ "$PUBLISH_DIR/draft"
 
-CURRENT_VERSION=$(git tag --points-at HEAD | grep 'v\d.*')
+CURRENT_VERSION=$(git tag --points-at HEAD | grep 'GROQ-\d.*')
 
 # If this is a tagged commit, publish to a permalink and index.
 if [ -n "$CURRENT_VERSION" ]; then
@@ -25,7 +25,7 @@ fi
 
 # Update index
 echo "Updating index"
-git tag -l --format='%(refname:lstrip=2) %(creatordate:unix)' | sort -r |
+git tag -l --format='%(creatordate:unix) %(refname:lstrip=2)' | sort -r |
   node scripts/generate-index.js > "$PUBLISH_DIR/index.html"
 
 echo "Done"

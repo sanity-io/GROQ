@@ -69,7 +69,7 @@ async function main() {
   let isFirst = true
 
   for (const line of lines) {
-    const [version, date] = line.split(' ')
+    const [date, version] = line.split(' ')
     versions.push({
       slug: version,
       name: version,
