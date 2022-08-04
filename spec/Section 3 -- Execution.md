@@ -45,8 +45,8 @@ A query context consists of:
 
 If the mode is "delta" then the query context also has:
 
-- a before object
-- an after object
+- a before object (which is {null} if this was a create-operation).
+- an after object (which is {null} if this was a delete-operation).
 
 ## Scope
 
