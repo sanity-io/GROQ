@@ -10,6 +10,44 @@ Functions are namespaced which allows to group functions by logical scope. A fun
 
 ## Global namespace
 
+### global::after()
+
+The after function, in delta mode, returns the attributes after the change.
+
+global::after(args, scope):
+
+- For each {arg} in {args}:
+  - Let {value} be the result of {Evaluate(arg, scope)}.
+  - If {value} is not {null}:
+    - Return {value}.
+- Return {null}.
+
+global::afterValidate(args, scope):
+
+- If the length of {args} is not 0:
+  - Report an error.
+- If the mode of the query context of {scope} is not "delta":
+  - Report an error.
+
+### global::before()
+
+The after function, in delta mode, returns the attributes before the change.
+
+global::before(args, scope):
+
+- For each {arg} in {args}:
+  - Let {value} be the result of {Evaluate(arg, scope)}.
+  - If {value} is not {null}:
+    - Return {value}.
+- Return {null}.
+
+global::beforeValidate(args, scope):
+
+- If the length of {args} is not 0:
+  - Report an error.
+- If the mode of the query context of {scope} is not "delta":
+  - Report an error.
+
 ### global::coalesce()
 
 The coalesce function returns the first value of the arguments which is not {null}.
@@ -317,3 +355,43 @@ dateTime::nowValidate(args):
 
 - If the length of {args} is not 0:
   - Report an error.
+
+## Delta namespace
+
+The `delta` namespace contains functions which are valid in delta mode.
+
+### delta::changedAny
+
+`delta::changedAny` is a variant of `diff::changedAny` which works on the before/after objects.
+
+delta::changedAny(args, scope):
+
+- Let {before} and {after} be the before/after objects of the query context to {scope}.
+- Let {selector} by the first element of {args}.
+- Let {result} be the result of {diff_changedAny(before, after, selector)}.
+- Return {result}.
+
+delta::changedAnyValidate(args, scope):
+
+- If the mode of the query context of {scope} is not "delta":
+  - Report an error.
+- If the first element is not a {Selector}:
+  - Report an error
+
+### delta::changedOnly
+
+`delta::changedOnly` is a variant of `diff::changedOnly` which works on the before/after objects.
+
+delta::changedOnly(args, scope):
+
+- Let {before} and {after} be the before/after objects of the query context to {scope}.
+- Let {selector} by the first element of {args}.
+- Let {result} be the result of {diff_changedOnly(before, after, selector)}.
+- Return {result}.
+
+delta::changedOnlyValidate(args, scope):
+
+- If the mode of the query context of {scope} is not "delta":
+  - Report an error.
+- If the first element is not a {Selector}:
+  - Report an error

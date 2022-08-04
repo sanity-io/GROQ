@@ -29,12 +29,24 @@ While executing the inner filter (`[_type == "person" && parentId == ^.id]`) the
 
 It's possible for a query to be _invalid_. This can happen when you e.g. use an unknown function or call a function with incorrect number of arguments.
 
+## Mode
+
+Queries can be executed in two different modes: _normal_ and _delta_.
+Delta mode is intended to be used in case where a _change_ has been done to a document.
+In this mode you have the additional functionality of accessing the attributes before and after the change, and comparing the differences between them (using the functions in the `delta`-namespace).
+
 ## Query context
 
 A query context consists of:
 
 - the dataset
 - parameter values (map from {string} to {value})
+- the mode: either "normal" or "delta"
+
+If the mode is "delta" then the query context also has:
+
+- a before object
+- an after object
 
 ## Scope
 
