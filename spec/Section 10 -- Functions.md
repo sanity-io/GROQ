@@ -154,6 +154,24 @@ global::nowValidate(args):
 - If the length of {args} is not 0:
   - Report an error.
 
+### global::operation()
+
+The opration function returns the current operation ({"create"}, {"update"}, {"delete"}) of a change in delta mode.
+
+global::operation(args, scope):
+
+- Let {before} and {after} be the before/after objects of the query context to {scope}.
+- If {before} is {null}:
+  - Return {"create"}.
+- If {after} is {null}:
+  - Return {"delete"}.
+- Return {"update"}.
+
+global::operationValidate(args):
+
+- If the length of {args} is not 0:
+  - Report an error.
+
 ### global::references()
 
 The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.
