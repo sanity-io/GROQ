@@ -148,7 +148,7 @@ global::nowValidate(args):
 
 ### global::operation()
 
-The opration function returns the current operation ({"create"}, {"update"}, {"delete"}) of a change in delta mode.
+The operation function returns the current operation ({"create"}, {"update"}, {"delete"}) of a change in delta mode.
 
 global::operation(args, scope):
 
