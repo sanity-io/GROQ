@@ -16,11 +16,7 @@ The after function, in delta mode, returns the attributes after the change.
 
 global::after(args, scope):
 
-- For each {arg} in {args}:
-  - Let {value} be the result of {Evaluate(arg, scope)}.
-  - If {value} is not {null}:
-    - Return {value}.
-- Return {null}.
+- Return the after object of the query context of {scope}.
 
 global::afterValidate(args, scope):
 
@@ -31,15 +27,11 @@ global::afterValidate(args, scope):
 
 ### global::before()
 
-The after function, in delta mode, returns the attributes before the change.
+The before function, in delta mode, returns the attributes before the change.
 
 global::before(args, scope):
 
-- For each {arg} in {args}:
-  - Let {value} be the result of {Evaluate(arg, scope)}.
-  - If {value} is not {null}:
-    - Return {value}.
-- Return {null}.
+- Return the before object of the query context of {scope}.
 
 global::beforeValidate(args, scope):
 
