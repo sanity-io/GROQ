@@ -48,9 +48,9 @@
 <li><a href="#sec-White-Space"><span class="spec-secid">2.2</span>White Space</a></li>
 <li><a href="#sec-Comments"><span class="spec-secid">2.3</span>Comments</a></li>
 <li><a href="#sec-Identifier"><span class="spec-secid">2.4</span>Identifier</a></li>
-<li><a href="#sec-Selector"><span class="spec-secid">2.5</span>Selector</a></li>
-<li><a href="#sec-Digits"><span class="spec-secid">2.6</span>Digits</a></li>
-<li><a href="#sec-Expression"><span class="spec-secid">2.7</span>Expression</a></li>
+<li><a href="#sec-Digits"><span class="spec-secid">2.5</span>Digits</a></li>
+<li><a href="#sec-Expression"><span class="spec-secid">2.6</span>Expression</a></li>
+<li><a href="#sec-Selector"><span class="spec-secid">2.7</span>Selector</a></li>
 </ol>
 </li>
 <li><a href="#sec-Execution"><span class="spec-secid">3</span>Execution</a><ol>
@@ -62,16 +62,15 @@
 <li><a href="#sec-Constant-expression-evaluation"><span class="spec-secid">3.6</span>Constant expression evaluation</a></li>
 <li><a href="#sec-Score-evaluation"><span class="spec-secid">3.7</span>Score evaluation</a></li>
 <li><a href="#sec-Selector-evaluation"><span class="spec-secid">3.8</span>Selector evaluation</a></li>
-<li><a href="#sec-Selector-search"><span class="spec-secid">3.9</span>Selector search</a></li>
-<li><a href="#sec-Traversal-execution"><span class="spec-secid">3.10</span>Traversal execution</a><ol>
-<li><a href="#sec-Combining-traversal"><span class="spec-secid">3.10.1</span>Combining traversal</a></li>
-<li><a href="#sec-Plain-traversal"><span class="spec-secid">3.10.2</span>Plain traversal</a></li>
-<li><a href="#sec-Array-traversals"><span class="spec-secid">3.10.3</span>Array traversals</a></li>
-<li><a href="#sec-Array-source-traversals"><span class="spec-secid">3.10.4</span>Array source traversals</a></li>
-<li><a href="#sec-Array-target-traversals"><span class="spec-secid">3.10.5</span>Array target traversals</a></li>
+<li><a href="#sec-Traversal-execution"><span class="spec-secid">3.9</span>Traversal execution</a><ol>
+<li><a href="#sec-Combining-traversal"><span class="spec-secid">3.9.1</span>Combining traversal</a></li>
+<li><a href="#sec-Plain-traversal"><span class="spec-secid">3.9.2</span>Plain traversal</a></li>
+<li><a href="#sec-Array-traversals"><span class="spec-secid">3.9.3</span>Array traversals</a></li>
+<li><a href="#sec-Array-source-traversals"><span class="spec-secid">3.9.4</span>Array source traversals</a></li>
+<li><a href="#sec-Array-target-traversals"><span class="spec-secid">3.9.5</span>Array target traversals</a></li>
 </ol>
 </li>
-<li><a href="#sec-Query-execution"><span class="spec-secid">3.11</span>Query execution</a></li>
+<li><a href="#sec-Query-execution"><span class="spec-secid">3.10</span>Query execution</a></li>
 </ol>
 </li>
 <li><a href="#sec-Data-types"><span class="spec-secid">4</span>Data types</a><ol>
@@ -281,21 +280,8 @@
 <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span><div class="spec-rhs"><span class="spec-rx">/[A-Za-z_][a-za-z_0-9]*/</span></div>
 </div>
 </section>
-<section id="sec-Selector" secid="2.5">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Selector">2.5</a></span>Selector</h2>
-<p>To select a subset of fields in a document GROQ implements selectors. A selector can either be an <a href="#sec-Identifier">Identifier</a> or a tuple of Identifiers.</p>
-<div class="spec-production" id="Selector">
-<span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span><div class="spec-rhs"><span class="spec-t">title</span></div>
-<div class="spec-rhs"><span class="spec-t">doc.title</span></div>
-<div class="spec-rhs"><span class="spec-t">(title, subtitle)</span></div>
-<div class="spec-rhs"><span class="spec-t">doc.(title, subtitle)</span></div>
-</div>
-<div id="note-8641b" class="spec-note">
-<a href="#note-8641b">Note</a>
-Selectors aren&rsquo;t a distinct type of expression, but are meant to be used with the diff-extension.</div>
-</section>
-<section id="sec-Digits" secid="2.6">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Digits">2.6</a></span>Digits</h2>
+<section id="sec-Digits" secid="2.5">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Digits">2.5</a></span>Digits</h2>
 <p>GROQ uses decimal digits (0-9) and hexadecimal digits (0-9, a-f) in various places.</p>
 <div class="spec-production" id="Digit">
 <span class="spec-nt"><a href="#Digit" data-name="Digit">Digit</a></span><div class="spec-oneof"><div class="spec-oneof-grid"><table>
@@ -314,8 +300,8 @@ Selectors aren&rsquo;t a distinct type of expression, but are meant to be used w
 </table></div></div>
 </div>
 </section>
-<section id="sec-Expression" secid="2.7">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Expression">2.7</a></span>Expression</h2>
+<section id="sec-Expression" secid="2.6">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Expression">2.6</a></span>Expression</h2>
 <p>An <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> is either a literal (e.g. <code>15</code>), a simple expression (e.g. <code>@</code>), or a compound expression (e.g. <code>*[name == "Michael"]</code>) or an operator call (e.g. <code>name == "Michael"</code>). The syntax and semantics of the different expressions are documented in their respective sections.</p>
 <div class="spec-production" id="Expression">
 <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Literal" data-name="Literal">Literal</a></span></div>
@@ -361,6 +347,29 @@ Selectors aren&rsquo;t a distinct type of expression, but are meant to be used w
 <div class="spec-rhs"><span class="spec-nt"><a href="#Slash" data-name="Slash">Slash</a></span></div>
 <div class="spec-rhs"><span class="spec-nt"><a href="#Percent" data-name="Percent">Percent</a></span></div>
 <div class="spec-rhs"><span class="spec-nt"><a href="#StarStar" data-name="StarStar">StarStar</a></span></div>
+</div>
+</section>
+<section id="sec-Selector" secid="2.7">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Selector">2.7</a></span>Selector</h2>
+<p>A selector is a subset of an expression used to search for fields inside a document. They have their own evaluation logic (see <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>()</span>) which is used by certain functions.</p>
+<div class="spec-production" id="Selector">
+<span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#ThisAttribute" data-name="ThisAttribute">ThisAttribute</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#SelectorGroup" data-name="SelectorGroup">SelectorGroup</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#SelectorTuple" data-name="SelectorTuple">SelectorTuple</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span><span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span><span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span><span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span><span class="spec-t">.</span><span class="spec-nt"><a href="#SelectorGroup" data-name="SelectorGroup">SelectorGroup</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span><span class="spec-t">.</span><span class="spec-nt"><a href="#SelectorTuple" data-name="SelectorTuple">SelectorTuple</a></span></div>
+</div>
+<div class="spec-production" id="SelectorGroup">
+<span class="spec-nt"><a href="#SelectorGroup" data-name="SelectorGroup">SelectorGroup</a></span><div class="spec-rhs"><span class="spec-t">(</span><span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span><span class="spec-t">)</span></div>
+</div>
+<div class="spec-production" id="SelectorTuple">
+<span class="spec-nt"><a href="#SelectorTuple" data-name="SelectorTuple">SelectorTuple</a></span><div class="spec-rhs"><span class="spec-t">(</span><span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span><span class="spec-quantified"><span class="spec-nt"><a href="#SelectorTuplePart" data-name="SelectorTuplePart">SelectorTuplePart</a></span><span class="spec-quantifiers"><span class="spec-quantifier list">list</span></span></span><span class="spec-t">)</span></div>
+</div>
+<div class="spec-production" id="SelectorTuplePart">
+<span class="spec-nt"><a href="#SelectorTuplePart" data-name="SelectorTuplePart">SelectorTuplePart</a></span><div class="spec-rhs"><span class="spec-t">,</span><span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span></div>
 </div>
 </section>
 </section>
@@ -478,27 +487,103 @@ The following sub-section is a non-normative overview of the execution model. Se
 </section>
 <section id="sec-Selector-evaluation" secid="3.8">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Selector-evaluation">3.8</a></span>Selector evaluation</h2>
-<p>A selector is evaluated in a scope. You must successfully validate a selector before you attempt to evaluate it</p>
+<p>A selector (see <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>) is evaluated in a scope with a value and returns a list of <em>key paths</em>. A key path uniquely identifies a value by the attribute names and array indices used to access the value. For instance, the key path <code>.users[1].name</code> refers to the <code>"Bob"</code>-value in <code>{"users":[{"name":"Alice"},{"name":"Bob"}]}</code>.</p>
 <div class="spec-algo" id="EvaluateSelector()">
-<span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="evaluator">evaluator</var> be the evaluator of <var data-name="selector">selector</var>.</li>
-<li>Return the result of <span class="spec-call"><span data-name="evaluator">evaluator</span>(<var data-name="scope">scope</var>)</span>.</li>
+<span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="value">value</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If <var data-name="selector">selector</var> is a <span class="spec-nt"><a href="#SelectorGroup" data-name="SelectorGroup">SelectorGroup</a></span>:<ol>
+<li>Let <var data-name="inner">inner</var> be the inner selector.</li>
+<li>Return <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="inner">inner</var>, <var data-name="value">value</var>)</span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="result">result</var> be an empty list of key paths.</li>
+<li>If <var data-name="selector">selector</var> is a <span class="spec-nt"><a href="#SelectorTuple" data-name="SelectorTuple">SelectorTuple</a></span>:<ol>
+<li>For each selector <var data-name="inner">inner</var> in the tuple:<ol>
+<li>Let <var data-name="innerResult">innerResult</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="inner">inner</var>, <var data-name="value">value</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Concatenate <var data-name="innerResult">innerResult</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>If <var data-name="selector">selector</var> is a <span class="spec-nt"><span data-name="ThisAttibute">ThisAttibute</span></span>:<ol>
+<li>If <var data-name="value">value</var> is an object which has the given attribute:<ol>
+<li>Let <var data-name="keyPath">keyPath</var> be a new key path consisting of the attribute name.</li>
+<li>Append <var data-name="keyPath">keyPath</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>If <var data-name="selector">selector</var> starts with a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
+<li>Let <var data-name="baseSelector">baseSelector</var> be the selector.</li>
+<li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="baseSelector">baseSelector</var>, <var data-name="value">value</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>For each <var data-name="keyPath">keyPath</var> in <var data-name="base">base</var>:<ol>
+<li>Let <var data-name="innerValue">innerValue</var> be the value at <var data-name="keyPath">keyPath</var> in <var data-name="value">value</var>.</li>
+<li>If <var data-name="selector">selector</var> ends with a <span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span>:<ol>
+<li>If <var data-name="innerValue">innerValue</var> is an array:<ol>
+<li>For each <var data-name="item">item</var> in <var data-name="innerValue">innerValue</var>:<ol>
+<li>Let <var data-name="nestedKeyPath">nestedKeyPath</var> be the result of combining <var data-name="keyPath">keyPath</var> with the array index.</li>
+<li>Append <var data-name="nestedKeyPath">nestedKeyPath</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>If <var data-name="selector">selector</var> ends with a <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span>:<ol>
+<li>If <var data-name="innerValue">innerValue</var> is an object which has the given attribute:<ol>
+<li>Let <var data-name="nestedKeyPath">nestedKeyPath</var> be the result of combining <var data-name="keyPath">keyPath</var> with the attribute name.</li>
+<li>Append <var data-name="nestedKeyPath">nestedKeyPath</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>If <var data-name="selector">selector</var> ends with a <span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>:<ol>
+<li>If <var data-name="innerValue">innerValue</var> is an array:<ol>
+<li>For each <var data-name="item">item</var> of <var data-name="innerValue">innerValue</var>:<ol>
+<li>Let <var data-name="nestedScope">nestedScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="value">value</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="matched">matched</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="expr">expr</var>, <var data-name="nestedScope">nestedScope</var>)</span>.</li>
+<li>If <var data-name="matched">matched</var> is <span class="spec-keyword">true</span>:<ol>
+<li>Let <var data-name="nestedKeyPath">nestedKeyPath</var> be the result of combining <var data-name="keyPath">keyPath</var> with the array index.</li>
+<li>Append <var data-name="nestedKeyPath">nestedKeyPath</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>If <var data-name="selector">selector</var> ends with a <span class="spec-nt"><a href="#SelectorGroup" data-name="SelectorGroup">SelectorGroup</a></span>:<ol>
+<li>Let <var data-name="inner">inner</var> be that selector.</li>
+<li>Let <var data-name="innerResult">innerResult</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="inner">inner</var>, <var data-name="innerValue">innerValue</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>For each <var data-name="nestedKeyPath">nestedKeyPath</var> in <var data-name="innerResult">innerResult</var>:<ol>
+<li>Let <var data-name="combinedKeyPath">combinedKeyPath</var> be the result of combining <var data-name="keyPath">keyPath</var> with <var data-name="nestedKeyPath">nestedKeyPath</var>.</li>
+<li>Append <var data-name="combinedKeyPath">combinedKeyPath</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>If <var data-name="selector">selector</var> ends with a <span class="spec-nt"><a href="#SelectorTuple" data-name="SelectorTuple">SelectorTuple</a></span>:<ol>
+<li>For each selector <var data-name="inner">inner</var> in the tuple:<ol>
+<li>Let <var data-name="innerResult">innerResult</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="inner">inner</var>, <var data-name="innerValue">innerValue</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>For each <var data-name="nestedKeyPath">nestedKeyPath</var> in <var data-name="innerResult">innerResult</var>:<ol>
+<li>Let <var data-name="combinedKeyPath">combinedKeyPath</var> be the result of combining <var data-name="keyPath">keyPath</var> with <var data-name="nestedKeyPath">nestedKeyPath</var>.</li>
+<li>Append <var data-name="combinedKeyPath">combinedKeyPath</var> to <var data-name="result">result</var>.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Return <var data-name="result">result</var>.</li>
+</ol>
+</li>
 </ol>
 </div>
 </section>
-<section id="sec-Selector-search" secid="3.9">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Selector-search">3.9</a></span>Selector search</h2>
-<p>A selector search takes a selector and a node and returns the resolved selector keypath on the given node as a list.</p>
-<div class="spec-algo" id="SelectorSearch()">
-<span class="spec-call"><a href="#SelectorSearch()" data-name="SelectorSearch">SelectorSearch</a>(<var data-name="selector">selector</var>, <var data-name="node">node</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="selector">selector</var> be a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span></li>
-<li>Let <var data-name="node">node</var> be one of <span class="spec-nt"><a href="#Object" data-name="Object">Object</a></span>, <span class="spec-nt"><a href="#ObjectAttributes" data-name="ObjectAttributes">ObjectAttributes</a></span>, <span class="spec-nt"><a href="#Array" data-name="Array">Array</a></span></li>
-<li>Return the resolved selector keypath on <var data-name="node">node</var> as a list</li>
-</ol>
-</div>
-</section>
-<section id="sec-Traversal-execution" secid="3.10">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-execution">3.10</a></span>Traversal execution</h2>
+<section id="sec-Traversal-execution" secid="3.9">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-execution">3.9</a></span>Traversal execution</h2>
 <p>When working with JSON values you often need to access attributes in deeply nested arrays/objects. In JavaScript this is solved by using helper functions such as <code>map</code>, <code>filter</code> and <code>flatMap</code>. GROQ provides terse syntax for accomplishing the same functionality.</p>
 <pre id="example-63caf" class="spec-example"><a href="#example-63caf">Example № 1</a><code>// The following GROQ:
 *[_type == "user"]._id
@@ -530,8 +615,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <li><span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span>, <span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span>, <span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span>, <span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span> specifies the exact rules for how multiple traversals are combined together.</li>
 <li>The <span class="spec-nt"><a href="#TraversalExpression" data-name="TraversalExpression">TraversalExpression</a></span> node is an <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> for the full set of traversal operators. This kicks off the whole traversal semantics.</li>
 </ul>
-<section id="sec-Combining-traversal" secid="3.10.1">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Combining-traversal">3.10.1</a></span>Combining traversal</h3>
+<section id="sec-Combining-traversal" secid="3.9.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Combining-traversal">3.9.1</a></span>Combining traversal</h3>
 <p>Multiple traversals are combined in four different ways:</p>
 <ul>
 <li><em>Joined</em>: In <code>.user.name</code> we want to execute the first traversal (<code>.user</code>), and then apply the second traversal (<code>.name</code>) on the result. This is specified by the <span class="spec-call"><a href="#EvaluateTraversalJoin()" data-name="EvaluateTraversalJoin">EvaluateTraversalJoin</a>()</span> function.</li>
@@ -607,8 +692,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 </ol>
 </div>
 </section>
-<section id="sec-Plain-traversal" secid="3.10.2">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Plain-traversal">3.10.2</a></span>Plain traversal</h3>
+<section id="sec-Plain-traversal" secid="3.9.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Plain-traversal">3.9.2</a></span>Plain traversal</h3>
 <p>A plain traversal is a traversal which works on and returns unknown types.</p>
 <ul>
 <li><code>.user.name</code></li>
@@ -632,8 +717,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span></div>
 </div>
 </section>
-<section id="sec-Array-traversals" secid="3.10.3">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-traversals">3.10.3</a></span>Array traversals</h3>
+<section id="sec-Array-traversals" secid="3.9.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-traversals">3.9.3</a></span>Array traversals</h3>
 <p>An array traversal is a traversal which statically is known to works on and return an array:</p>
 <ul>
 <li><code>[_type == "user"].id</code></li>
@@ -660,8 +745,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span><span class="spec-prose">(Evaluated using EvaluateTraversalInnerMap)</span></div>
 </div>
 </section>
-<section id="sec-Array-source-traversals" secid="3.10.4">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-source-traversals">3.10.4</a></span>Array source traversals</h3>
+<section id="sec-Array-source-traversals" secid="3.9.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-source-traversals">3.9.4</a></span>Array source traversals</h3>
 <p>An array source traversal is a traversal which statically is known to work on an array, but returns an unknown type:</p>
 <ul>
 <li><code>[0].user.name</code></li>
@@ -681,8 +766,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span><span class="spec-prose">(Evaluated using EvaluateTraversalInnerMap)</span></div>
 </div>
 </section>
-<section id="sec-Array-target-traversals" secid="3.10.5">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-target-traversals">3.10.5</a></span>Array target traversals</h3>
+<section id="sec-Array-target-traversals" secid="3.9.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-target-traversals">3.9.5</a></span>Array target traversals</h3>
 <p>An array target traversal is a traversal which statically is known to return on an array, but works on an unknown type:</p>
 <ul>
 <li><code>user.roles[dataset == "production"]</code></li>
@@ -700,8 +785,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 </div>
 </section>
 </section>
-<section id="sec-Query-execution" secid="3.11">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Query-execution">3.11</a></span>Query execution</h2>
+<section id="sec-Query-execution" secid="3.10">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Query-execution">3.10</a></span>Query execution</h2>
 <p>To execute a query you must first construct a query context, and then evaluate the query expression inside a root scope.</p>
 <div class="spec-algo" id="ExecuteQuery()">
 <span class="spec-call"><a href="#ExecuteQuery()" data-name="ExecuteQuery">ExecuteQuery</a>(<var data-name="query">query</var>, <var data-name="context">context</var>)</span><ol>
@@ -2895,10 +2980,9 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Let <var data-name="selector">selector</var> be the third element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="before">before</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="lhs">lhs</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="after">after</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rhs">rhs</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="evaluatedSelector">evaluatedSelector</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="scope">scope</var>)</span></li>
-<li>Let <var data-name="search">search</var> be the result of <span class="spec-call"><a href="#SelectorSearch()" data-name="SelectorSearch">SelectorSearch</a>(<var data-name="evaluatedSelector">evaluatedSelector</var>, <var data-name="before">before</var>, <var data-name="scope">scope</var>)</span></li>
-<li>Let <var data-name="diff">diff</var> be the result of comparative difference between <var data-name="before">before</var> and <var data-name="after">after</var></li>
-<li>If <var data-name="diff">diff</var> overlaps with <var data-name="search">search</var>:<ul>
+<li>Let <var data-name="selectedKeyPaths">selectedKeyPaths</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="before">before</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="diffKeyPaths">diffKeyPaths</var> be the list of key paths that are different in <var data-name="before">before</var> and <var data-name="after">after</var>.</li>
+<li>If <var data-name="diffKeyPaths">diffKeyPaths</var> overlaps with <var data-name="selectedKeyPaths">selectedKeyPaths</var>:<ul>
 <li>Return <span class="spec-keyword">true</span>.</li>
 </ul>
 </li>
@@ -2910,6 +2994,10 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <p>diff::changedAny(args):</p>
 <ul>
 <li>If the length of <var data-name="args">args</var> is not 3:<ul>
+<li>Report an error</li>
+</ul>
+</li>
+<li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ul>
 <li>Report an error</li>
 </ul>
 </li>
@@ -2925,10 +3013,9 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Let <var data-name="selector">selector</var> be the third element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="before">before</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="lhs">lhs</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="after">after</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rhs">rhs</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="evaluatedSelector">evaluatedSelector</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="scope">scope</var>)</span></li>
-<li>Let <var data-name="search">search</var> be the result of <span class="spec-call"><a href="#SelectorSearch()" data-name="SelectorSearch">SelectorSearch</a>(<var data-name="evaluatedSelector">evaluatedSelector</var>, <var data-name="before">before</var>, <var data-name="scope">scope</var>)</span></li>
-<li>Let <var data-name="diff">diff</var> be the result of comparative difference between <var data-name="before">before</var> and <var data-name="after">after</var></li>
-<li>If <var data-name="diff">diff</var> overlaps with <var data-name="search">search</var>:<ul>
+<li>Let <var data-name="selectedKeyPaths">selectedKeyPaths</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="before">before</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="diffKeyPaths">diffKeyPaths</var> be the list of key paths that are different in <var data-name="before">before</var> and <var data-name="after">after</var>.</li>
+<li>If <var data-name="diffKeyPaths">diffKeyPaths</var> is a subset of <var data-name="selectedKeyPaths">selectedKeyPaths</var>:<ul>
 <li>Return <span class="spec-keyword">true</span>.</li>
 </ul>
 </li>
@@ -2940,6 +3027,10 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <p>diff::changedOnly(args):</p>
 <ul>
 <li>If the length of <var data-name="args">args</var> is not 3:<ul>
+<li>Report an error</li>
+</ul>
+</li>
+<li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ul>
 <li>Report an error </li>
 </ul>
 </li>
@@ -3069,7 +3160,9 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#score()">score</a></li>
 <li><a href="#scoreValidate()">scoreValidate</a></li>
 <li><a href="#Selector">Selector</a></li>
-<li><a href="#SelectorSearch()">SelectorSearch</a></li>
+<li><a href="#SelectorGroup">SelectorGroup</a></li>
+<li><a href="#SelectorTuple">SelectorTuple</a></li>
+<li><a href="#SelectorTuplePart">SelectorTuplePart</a></li>
 <li><a href="#Sign">Sign</a></li>
 <li><a href="#SimpleExpression">SimpleExpression</a></li>
 <li><a href="#SingleEscapeSequence">SingleEscapeSequence</a></li>
@@ -3121,9 +3214,9 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_2.2"><a href="#sec-White-Space"><span class="spec-secid">2.2</span>White Space</a></li>
 <li id="_sidebar_2.3"><a href="#sec-Comments"><span class="spec-secid">2.3</span>Comments</a></li>
 <li id="_sidebar_2.4"><a href="#sec-Identifier"><span class="spec-secid">2.4</span>Identifier</a></li>
-<li id="_sidebar_2.5"><a href="#sec-Selector"><span class="spec-secid">2.5</span>Selector</a></li>
-<li id="_sidebar_2.6"><a href="#sec-Digits"><span class="spec-secid">2.6</span>Digits</a></li>
-<li id="_sidebar_2.7"><a href="#sec-Expression"><span class="spec-secid">2.7</span>Expression</a></li>
+<li id="_sidebar_2.5"><a href="#sec-Digits"><span class="spec-secid">2.5</span>Digits</a></li>
+<li id="_sidebar_2.6"><a href="#sec-Expression"><span class="spec-secid">2.6</span>Expression</a></li>
+<li id="_sidebar_2.7"><a href="#sec-Selector"><span class="spec-secid">2.7</span>Selector</a></li>
 </ol>
 </li>
 <li id="_sidebar_3"><a href="#sec-Execution"><span class="spec-secid">3</span>Execution</a>
@@ -3137,18 +3230,17 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_3.6"><a href="#sec-Constant-expression-evaluation"><span class="spec-secid">3.6</span>Constant expression evaluation</a></li>
 <li id="_sidebar_3.7"><a href="#sec-Score-evaluation"><span class="spec-secid">3.7</span>Score evaluation</a></li>
 <li id="_sidebar_3.8"><a href="#sec-Selector-evaluation"><span class="spec-secid">3.8</span>Selector evaluation</a></li>
-<li id="_sidebar_3.9"><a href="#sec-Selector-search"><span class="spec-secid">3.9</span>Selector search</a></li>
-<li id="_sidebar_3.10"><a href="#sec-Traversal-execution"><span class="spec-secid">3.10</span>Traversal execution</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_3.10" /><label for="_toggle_3.10"></label>
+<li id="_sidebar_3.9"><a href="#sec-Traversal-execution"><span class="spec-secid">3.9</span>Traversal execution</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_3.9" /><label for="_toggle_3.9"></label>
 <ol>
-<li id="_sidebar_3.10.1"><a href="#sec-Combining-traversal"><span class="spec-secid">3.10.1</span>Combining traversal</a></li>
-<li id="_sidebar_3.10.2"><a href="#sec-Plain-traversal"><span class="spec-secid">3.10.2</span>Plain traversal</a></li>
-<li id="_sidebar_3.10.3"><a href="#sec-Array-traversals"><span class="spec-secid">3.10.3</span>Array traversals</a></li>
-<li id="_sidebar_3.10.4"><a href="#sec-Array-source-traversals"><span class="spec-secid">3.10.4</span>Array source traversals</a></li>
-<li id="_sidebar_3.10.5"><a href="#sec-Array-target-traversals"><span class="spec-secid">3.10.5</span>Array target traversals</a></li>
+<li id="_sidebar_3.9.1"><a href="#sec-Combining-traversal"><span class="spec-secid">3.9.1</span>Combining traversal</a></li>
+<li id="_sidebar_3.9.2"><a href="#sec-Plain-traversal"><span class="spec-secid">3.9.2</span>Plain traversal</a></li>
+<li id="_sidebar_3.9.3"><a href="#sec-Array-traversals"><span class="spec-secid">3.9.3</span>Array traversals</a></li>
+<li id="_sidebar_3.9.4"><a href="#sec-Array-source-traversals"><span class="spec-secid">3.9.4</span>Array source traversals</a></li>
+<li id="_sidebar_3.9.5"><a href="#sec-Array-target-traversals"><span class="spec-secid">3.9.5</span>Array target traversals</a></li>
 </ol>
 </li>
-<li id="_sidebar_3.11"><a href="#sec-Query-execution"><span class="spec-secid">3.11</span>Query execution</a></li>
+<li id="_sidebar_3.10"><a href="#sec-Query-execution"><span class="spec-secid">3.10</span>Query execution</a></li>
 </ol>
 </li>
 <li id="_sidebar_4"><a href="#sec-Data-types"><span class="spec-secid">4</span>Data types</a>
