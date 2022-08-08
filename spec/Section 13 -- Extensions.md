@@ -190,9 +190,9 @@ diff::changedAny(args, scope):
 - Let {selector} be the third element of {args}.
 - Let {before} be the result of {Evaluate(lhs, scope)}.
 - Let {after} be the result of {Evaluate(rhs, scope)}.
-- Let {beforeKeyPaths} be the result of {EvaluateSelector(selector, before, scope)}.
+- Let {selectedKeyPaths} be the result of {EvaluateSelector(selector, before, scope)}.
 - Let {diffKeyPaths} be the list of key paths that are different in {before} and {after}.
-- If {diffKeyPaths} overlaps with {beforeKeyPaths}:
+- If {diffKeyPaths} overlaps with {selectedKeyPaths}:
   - Return {true}.
 - Otherwise:
   - Return {false}.
@@ -215,9 +215,9 @@ diff::changedOnly(args, scope):
 - Let {selector} be the third element of {args}.
 - Let {before} be the result of {Evaluate(lhs, scope)}.
 - Let {after} be the result of {Evaluate(rhs, scope)}.
-- Let {beforeKeyPaths} be the result of {EvaluateSelector(selector, before, scope)}.
+- Let {selectedKeyPaths} be the result of {EvaluateSelector(selector, before, scope)}.
 - Let {diffKeyPaths} be the list of key paths that are different in {before} and {after}.
-- If {diffKeyPaths} is a subset of {beforeKeyPaths}:
+- If {diffKeyPaths} is a subset of {selectedKeyPaths}:
   - Return {true}.
 - Otherwise:
   - Return {false}.
