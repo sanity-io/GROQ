@@ -4,7 +4,7 @@
 
 A parenthesis expression allows you to add parenthesis around another expression to control precedence of operators.
 
-```groq
+```example
 (1 + 2) * 3
 ~~~~~~~
 ```
@@ -21,7 +21,7 @@ EvaluateParenthesis(scope):
 
 A traversal expressions starts a traversal.
 
-```groq
+```example
 users.foo.bar[0].sources[]->name
 ```
 
@@ -52,7 +52,7 @@ EvaluateTraversalExpression(scope):
 
 GROQ comes with a set of built-in pipe functions which provides additional features. Pipe functions always accepts an array on the left-hand side and returns another array, and the syntax is optimized for being able to chain it together with other compund expressions. See the ["Pipe functions"](#sec-Pipe-functions) for available functions.
 
-```
+```example
 *[_type == "person"] | order(name) | {age}
                      ~~~~~~~~~~~~~
 ```

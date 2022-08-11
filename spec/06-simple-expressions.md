@@ -4,7 +4,7 @@
 
 A this expression returns the this value of the current scope.
 
-```groq
+```example
 *[_id == "doc"][0].numbers[@ >= 10]
                            ~
 ```
@@ -19,7 +19,7 @@ EvaluateThis(scope):
 
 A *this attribute expression *returns an attribute from the this value of the current scope.
 
-```
+```example
 *[_id == "document"][name == "Michael Bluth"]
   ~~~                ~~~~
 ```
@@ -38,7 +38,7 @@ EvaluateThisAttribute(scope):
 
 An everything expression returns the full dataset.
 
-```
+```example
 *[_type == "person"]
 ~
 ```
@@ -54,7 +54,7 @@ EvaluateEverything(scope):
 
 A parent expression returns a this value for an upper scope.
 
-```
+```example
 // Find all people who have a cool friend
 *[_type == "person" && *[_id == ^.friend._ref][0].isCool]
                                 ~
@@ -79,7 +79,7 @@ EvaluateParent(scope):
 
 GROQ comes with a set of built-in functions which provides additional features. See the ["Functions"](#sec-Functions) for available functions and their namespaces.
 
-```
+```example
 *{"score": round(score, 2)}
            ~~~~~~~~~~~~~~~
 

@@ -8,12 +8,12 @@ SourceCharacter : "any Unicode character"
 
 GROQ's syntax is a superset of JSON, so any valid JSON value is a valid GROQ expression (that simply returns the given value). Below are a few examples of JSON values:
 
-```
+```json
 "Hi! 👋"
 ```
 
-```javascript
-;['An', 'array', 'of', 'strings']
+```json
+["An", "array", "of", "strings"]
 ```
 
 ```json
@@ -52,7 +52,7 @@ CommentChar : SourceCharacter but not "Newline U+000A"
 
 Comments serve as query documentation, and are ignored by the parser. They start with `//` and run to the end of the line:
 
-```
+```example
 {
   // Comments can be on a separate line
   "key": "value" // Or at the end of a line
@@ -61,7 +61,7 @@ Comments serve as query documentation, and are ignored by the parser. They start
 
 Comments cannot start inside a string literal.
 
-```
+```example
 {
   "key // This isn't a comment": "value"
 }

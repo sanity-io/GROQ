@@ -285,7 +285,7 @@ global::stringValidate(args):
 
 The `boost` function accepts an expression and a boost value, and increases or decreases the score computed by `score()` (see ["Pipe functions"](#sec-Pipe-functions)) accordingly. `boost` can only be used within the argument list to `score()`.
 
-```groq
+```example
 * | score(boost(title matches "milk", 5.0), body matches "milk")
 ```
 

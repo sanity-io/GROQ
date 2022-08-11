@@ -2,13 +2,13 @@
 
 Pipe functions provide additional functionalty to GROQ queries. They are invoked through a [Pipe function call expression](#sec-Pipe-function-call-expression). They differ from regular functions in that they always accept an array as input and returns another array (or {null}). As such, the syntax is optimized for chaining (the array it works on comes on the left-hand side instead of being an argument):
 
-```
+```example
 *[_type == "person"] | order(name) | {age}
 ```
 
 Note that function arguments are not evaluated eagerly, and it's up to the function to decide which scope the arguments are evaluated in. All definitions below take an array of nodes.
 
-An implementation may provide additional pipe functions, but should be aware that this can cause problems when interopting with future versions of GROQ.
+An implementation may provide additional pipe functions, but should be aware that this can cause problems when interoperating with future versions of GROQ.
 
 ## global::order()
 
@@ -44,13 +44,13 @@ orderValidate(args):
 
 The `score` function assigns a score to an array of results, based on one or more scoring expressions. The `score` function may only be used as a pipe function.
 
-```groq
+```example
 *[_type == "listing"] | score(body match "jacuzzi")
 ```
 
 In this query, anything where `body match "jacuzzi"` returns true will be scored higher than other results. Multiple expressions can be used:
 
-```groq
+```example
 *[_type == "listing"] | score(body match "jacuzzi", bedrooms > 2, available && !inContract)
 ```
 

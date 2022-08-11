@@ -6,7 +6,7 @@ Note: The following sub-section is a non-normative overview of the execution mod
 
 A GROQ query is executed inside a query context, which contains the dataset and parameters, and returns a result. Typically the result is serialized to JSON. During the execution of a query different parts of the query are evaluated in different scopes. Each scope has a *this *value and can be nested. Simple attributes like `name` always refers to an attribute on the *this *value.
 
-```groq
+```example
 *[_type == "person"]{name, friends[country == "NO"]}
 ```
 
@@ -17,7 +17,7 @@ In the preceding example we have several scopes:
 
 The parent expression (`^`) let's you refer to parent scopes, and this enables what is typically solved with joins in many databases.
 
-```groq
+```example
 *[_type == "person"]{
   id,
   name,
@@ -76,7 +76,7 @@ NewRootScope(context):
 
 ## Expression validation
 
-An expression can be validated. This will only check that it's on a valid form, and will not execute anything. If an expression type does not have an explicitly defined validator in this specifiction, it has an implicit validator which runs {Validate} on all its child expressions.
+An expression can be validated. This will only check that it's on a valid form, and will not execute anything. If an expression type does not have an explicitly defined validator in this specification, it has an implicit validator which runs {Validate} on all its child expressions.
 
 Validate(expr):
 
@@ -108,7 +108,7 @@ ConstantEvaluate(expr):
 
 When evaluating {score}, a predicate returning `true` should have its score computed as 1.0, and all other values should receive a score of 0.0. All results involved in scoring start with a score of 1.0. The scores are evaluated once per result, and then added together. For example:
 
-```groq
+```example
 * | score(a > 1)
 ```
 

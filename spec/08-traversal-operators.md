@@ -4,7 +4,7 @@
 
 An attribute access returns an attribute of an object.
 
-```
+```example
 person.name
       ~~~~~
 
@@ -56,7 +56,7 @@ ValidateElementAccess():
 
 A slice returns a slice of an array.
 
-```
+```example
 people[0..10]
       ~~~~~~~
 ```
@@ -96,7 +96,7 @@ ValidateSlice():
 
 A filter returns an array filtered another expression.
 
-```
+```example
 *[_type == "person"]
  ~~~~~~~~~~~~~~~~~~~
 ```
@@ -131,7 +131,7 @@ EvaluateArrayPostfix(base, scope):
 
 A projection operator returns a new object.
 
-```
+```example
 *[_type == "person"]{name, "isLegal": age >= 18}
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
