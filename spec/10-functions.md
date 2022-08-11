@@ -4,8 +4,6 @@ Functions provide additional functionality to GROQ queries. They are invoked thr
 
 An implementation may provide additional functions, but should be aware that this can cause problems when interopting with future versions of GROQ.
 
-# Namespaces
-
 Functions are namespaced which allows to group functions by logical scope. A function may be associated with multiple namespaces and behave differently. When a function is called without a namespace, it is by default associated with a "**global**" namespace.
 
 ## Global namespace
