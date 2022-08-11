@@ -49,14 +49,16 @@ Conformance requirements expressed as algorithms can be fulfilled by an implemen
 
 # [Compound expressions](07-compound-expressions.md)
 
-# [Operators](08-operators.md)
+# [Operators](08-traversal-operators.md)
 
-# [Precedence and associativity](09-precedence-associativity.md)
+# [Operators](09-operators.md)
 
-# [Functions](10-functions.md)
+# [Precedence and associativity](10-precedence-associativity.md)
 
-# [Pipe functions](11-pipe-functions.md)
+# [Functions](11-functions.md)
 
-# [Vendor functions](12-vendor-functions.md)
+# [Pipe functions](12-pipe-functions.md)
 
-# [Extensions](13-extensions.md)
+# [Vendor functions](13-vendor-functions.md)
+
+# [Extensions](14-extensions.md)
