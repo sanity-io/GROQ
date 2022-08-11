@@ -14,7 +14,7 @@ PT type represents an object following [portable text spec](https://github.com/p
 
 This function takes in an object or an array of objects, and returns a PT value.
 
-global::pt(args, scope):
+global_pt(args, scope):
 
 - Let {baseNode} be the first element of {args}.
 - Let {base} be the result of {Evaluate(baseNode, scope)}.
@@ -29,7 +29,7 @@ global::pt(args, scope):
 - Otherwise:
   - Return {null}.
 
-global::ptValidate(args):
+global_pt_validate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
@@ -38,7 +38,7 @@ global::ptValidate(args):
 
 This function takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (`\n\n`) in the string version.
 
-pt::text(args, scope):
+pt_text(args, scope):
 
 - Let {baseNode} be the first element of {args}.
 - Let {base} be the result of {Evaluate(baseNode, scope)}.
@@ -53,7 +53,7 @@ pt::text(args, scope):
 - Otherwise:
   - Return {null}.
 
-pt::textValidate(args):
+pt_text_validate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
@@ -89,7 +89,7 @@ And, it does not support:
 
 This function is a constructor for geographic value. It takes an object or another geo value, returning a geo value.
 
-global::geo(args, scope):
+global_geo(args, scope):
 
 - Let {baseNode} be the first element of {args}.
 - Let {base} be the result of {Evaluate(baseNode, scope)}.
@@ -102,7 +102,7 @@ global::geo(args, scope):
 - Otherwise:
   - Return {null}.
 
-global::geoValidate(args):
+global_geo_validate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
@@ -111,7 +111,7 @@ global::geoValidate(args):
 
 Returns true if first geo argument completely contains the second one, using a planar (non-spherical) coordinate system. Both geo argument can be any geo value. A geo value is considered contained if all its points are within the boundaries of the first geo value. For `MultiPolygon`, it's sufficient that only one of the polygons contains the first geo value.
 
-geo::contains(args, scope):
+geo_contains(args, scope):
 
 - Let {firstNode} be the first element of {args}.
 - Let {secondNode} be the second element of {args}.
@@ -124,7 +124,7 @@ geo::contains(args, scope):
 - Otherwise:
   - Return {false}.
 
-geo::containsValidate(args):
+geo_contains_validate(args):
 
 - If the length of {args} is not 2:
   - Report an error.
@@ -133,7 +133,7 @@ geo::containsValidate(args):
 
 This function takes two geo values, and returns true if they intersect in a planar (non-spherical) coordinate system. The arguments can be any geo values. A geo value intersects with another if it shares any geometric points with the second value; for example, a line crossing a polygon.
 
-geo::intersects(args, scope):
+geo_intersects(args, scope):
 
 - Let {firstNode} be the first element of {args}.
 - Let {secondNode} be the second element of {args}.
@@ -146,7 +146,7 @@ geo::intersects(args, scope):
 - Otherwise:
   - Return {false}.
 
-geo::intersectsValidate(args):
+geo_intersects_validate(args):
 
 - If the length of {args} is not 2:
   - Report an error.
@@ -155,7 +155,7 @@ geo::intersectsValidate(args):
 
 This functions accepts two geo values, which must be point values, and returns the distance in meters. While exact algorithm is implementation-defined — for example, it may use the [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula) — it should use as close an approximation to a real Earth distance as possible.
 
-geo::distance(args, scope):
+geo_distance(args, scope):
 
 - Let {firstNode} be the first element of {args}.
 - Let {secondNode} be the second element of {args}.
@@ -170,7 +170,7 @@ geo::distance(args, scope):
 - Otherwise:
   - Return {null}.
 
-geo::distanceValidate(args):
+geo_distance_validate(args):
 
 - If the length of {args} is not 2:
   - Report an error.
@@ -183,7 +183,7 @@ Functions available in the diff extension are grouped under `diff` namespac and 
 
 The `changedAny` function in the `diff` namespace returns a boolean if any of the key paths matched by the selector are changed.
 
-diff::changedAny(args, scope):
+diff_changedAny(args, scope):
 
 - Let {lhs} be the first element of {args}.
 - Let {rhs} be the second element of {args}.
@@ -197,7 +197,7 @@ diff::changedAny(args, scope):
 - Otherwise:
   - Return {false}.
 
-diff::changedAny(args):
+diff_changedAny(args):
 
 - If the length of {args} is not 3:
   - Report an error
@@ -208,7 +208,7 @@ diff::changedAny(args):
 
 The `changedOnly` function in the `diff` namespace returns a boolean if given two nodes only the given key paths matched by the selector are changed.
 
-diff::changedOnly(args, scope):
+diff_changedOnly(args, scope):
 
 - Let {lhs} be the first element of {args}.
 - Let {rhs} be the second element of {args}.
@@ -222,7 +222,7 @@ diff::changedOnly(args, scope):
 - Otherwise:
   - Return {false}.
 
-diff::changedOnly(args):
+diff_changedOnly(args):
 
 - If the length of {args} is not 3:
   - Report an error

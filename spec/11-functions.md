@@ -12,11 +12,11 @@ Functions are namespaced which allows to group functions by logical scope. A fun
 
 The after function, in delta mode, returns the attributes after the change.
 
-global::after(args, scope):
+global_after(args, scope):
 
 - Return the after object of the query context of {scope}.
 
-global::afterValidate(args, scope):
+global_after_validate(args, scope):
 
 - If the length of {args} is not 0:
   - Report an error.
@@ -27,11 +27,11 @@ global::afterValidate(args, scope):
 
 The before function, in delta mode, returns the attributes before the change.
 
-global::before(args, scope):
+global_before(args, scope):
 
 - Return the before object of the query context of {scope}.
 
-global::beforeValidate(args, scope):
+global_before_validate(args, scope):
 
 - If the length of {args} is not 0:
   - Report an error.
@@ -42,7 +42,7 @@ global::beforeValidate(args, scope):
 
 The coalesce function returns the first value of the arguments which is not {null}.
 
-global::coalesce(args, scope):
+global_coalesce(args, scope):
 
 - For each {arg} in {args}:
   - Let {value} be the result of {Evaluate(arg, scope)}.
@@ -54,7 +54,7 @@ global::coalesce(args, scope):
 
 The count function returns the length of an array.
 
-global::count(args, scope):
+global_count(args, scope):
 
 - Let {baseNode} be the first element of {args}.
 - Let {base} be the result of {Evaluate(baseNode, scope)}.
@@ -63,7 +63,7 @@ global::count(args, scope):
 - Otherwise:
   - Return {null}.
 
-global::countValidate(args):
+global_count_validate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
@@ -72,7 +72,7 @@ global::countValidate(args):
 
 The `dateTime` function takes a string or another datatime value, returning a datetime value. This function is idempotent.
 
-global::dateTime(args, scope):
+global_dateTime(args, scope):
 
 - Let {baseNode} be the first element of {args}.
 - Let {base} be the result of {Evaluate(baseNode, scope)}.
@@ -84,7 +84,7 @@ global::dateTime(args, scope):
   - Return {base}.
 - Return {null}.
 
-global::dateTimeValidate(args):
+global_dateTime_validate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
@@ -93,7 +93,7 @@ global::dateTimeValidate(args):
 
 The defined function checks if the argument is not {null}.
 
-global::defined(args, scope):
+global_defined(args, scope):
 
 - Let {baseNode} be the first element of {args}.
 - Let {base} be the result of {Evaluate(baseNode, scope)}.
@@ -102,7 +102,7 @@ global::defined(args, scope):
 - Otherwise:
   - Return {true}.
 
-global::definedValidate(args):
+global_defined_validate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
@@ -111,7 +111,7 @@ global::definedValidate(args):
 
 The length function returns the length of a string or an array.
 
-global::length(args, scope):
+global_length(args, scope):
 
 - Let {baseNode} be the first element of {args}.
 - Let {base} be the result of {Evaluate(baseNode, scope)}.
@@ -121,7 +121,7 @@ global::length(args, scope):
   - Return the length of {base}.
 - Return {null}.
 
-global::lengthValidate(args):
+global_length_validate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
@@ -133,13 +133,13 @@ The now function returns the current point in time as a string.
 Note: This function returns a string due to backwards compatibility.
 It's recommended to use `dateTime::now()` instead which returns a proper datetime.
 
-global::now(args, scope):
+global_now(args, scope):
 
 - Let {ts} be a datetime representing the current point in time.
 - Let {result} be a [RFC 3339](https://tools.ietf.org/html/rfc3339) string formatting of {ts}.
 - Return {result}.
 
-global::nowValidate(args):
+global_now_validate(args):
 
 - If the length of {args} is not 0:
   - Report an error.
@@ -148,7 +148,7 @@ global::nowValidate(args):
 
 The operation function returns the current operation ({"create"}, {"update"}, {"delete"}) of a change in delta mode.
 
-global::operation(args, scope):
+global_operation(args, scope):
 
 - Let {before} and {after} be the before/after objects of the query context to {scope}.
 - If {before} is {null}:
@@ -157,7 +157,7 @@ global::operation(args, scope):
   - Return {"delete"}.
 - Return {"update"}.
 
-global::operationValidate(args):
+global_operation_validate(args):
 
 - If the length of {args} is not 0:
   - Report an error.
@@ -166,7 +166,7 @@ global::operationValidate(args):
 
 The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.
 
-global::references(args, scope):
+global_references(args, scope):
 
 - Let {pathSet} be an empty array.
 - For each {arg} of {args}:
@@ -180,7 +180,7 @@ global::references(args, scope):
 - Let {base} be the this value of {scope}.
 - Return the result of {HasReferenceTo(base, pathSet)}.
 
-global::HasReferenceTo(base, pathSet):
+HasReferenceTo(base, pathSet):
 
 - If {base} is an array:
   - For each {value} in {base}:
@@ -201,7 +201,7 @@ global::HasReferenceTo(base, pathSet):
       - Return {true}.
 - Return {false}.
 
-global::referencesValidate(args):
+global_references_validate(args):
 
 - If the length of {args} is 0:
   - Report an error.
@@ -210,7 +210,7 @@ global::referencesValidate(args):
 
 The round function accepts a number and rounds it to a certain precision.
 
-global::round(args, scope):
+global_round(args, scope):
 
 - Let {numNode} be the first element of {args}.
 - Let {num} be the result of {Evaluate(numNode, scope)}.
@@ -225,7 +225,7 @@ global::round(args, scope):
   - Let {prec} be 0.
 - Return {num} rounded to {prec} number of digits after the decimal point.
 
-global::roundValidate(args):
+global_round_validate(args):
 
 - If the length of {args} is less than 1 or greater than 2:
   - Report an error.
@@ -234,7 +234,7 @@ global::roundValidate(args):
 
 The select function chooses takes a variable number of arguments that are either pairs or any other type and iterates over them. When encountering a pair whose left-hand value evaluates to {true}, the right-hand value is returned immediately. When encountering a non-pair argument, that argument is returned immediately. Falls back to returning {null}.
 
-global::select(args, scope):
+global_select(args, scope):
 
 - For each {arg} in {args}:
   - If {arg} is a {Pair}:
@@ -246,7 +246,7 @@ global::select(args, scope):
   - Otherwise:
     - Return the result of {Evaluate(arg, scope)}.
 
-global::selectValidate(args):
+global_select_validate(args):
 
 - Let {seenDefault} be {false}.
 - For each {arg} in {args}:
@@ -259,7 +259,7 @@ global::selectValidate(args):
 
 The string function returns the string representation of scalar values or {null} for any other values.
 
-global::string(args, scope):
+global_string(args, scope):
 
 - Let {node} be the first element of {args}.
 - Let {val} be the result of {Evaluate(node, scope)}.
@@ -276,7 +276,7 @@ global::string(args, scope):
 - Otherwise:
   - Return {null}.
 
-global::stringValidate(args):
+global_string_validate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
@@ -307,7 +307,7 @@ boost(args, scope):
   - Return {null}.
 - Return {result}.
 
-boostValidate(args):
+boost_validate(args):
 
 - If the length of {args} is not 2:
   - Report an error.
@@ -316,14 +316,14 @@ boostValidate(args):
 
 The lower function returns lowercased string.
 
-global::lower(args, scope):
+global_lower(args, scope):
 
 - Let {value} be the result of {Evaluate(arg, scope)}.
 - If {value} is not {null}:
   - Return lowercase form of {value}.
 - Return {null}.
 
-global::lowerValidate(args):
+global_lower_validate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
@@ -332,14 +332,14 @@ global::lowerValidate(args):
 
 The upper function returns uppercased string.
 
-global::upper(args, scope):
+global_upper(args, scope):
 
 - Let {value} be the result of {Evaluate(arg, scope)}.
 - If {value} is not {null}:
   - Return uppercase form of {value}.
 - Return {null}.
 
-global::upperValidate(args):
+global_upper_validate(args):
 
 - If the length of {args} is not 1:
   - Report an error.
@@ -354,12 +354,12 @@ The `dateTime` namespace contains functions to work with datetimes.
 
 The now function in the `dateTime` namespace returns the current point in time as a datetime.
 
-dateTime::now(args, scope):
+dateTime_now(args, scope):
 
 - Let {result} be a datetime representing the current point in time.
 - Return {result}.
 
-dateTime::nowValidate(args):
+dateTime_now_validate(args):
 
 - If the length of {args} is not 0:
   - Report an error.
@@ -372,14 +372,14 @@ The `delta` namespace contains functions which are valid in delta mode.
 
 `delta::changedAny` is a variant of `diff::changedAny` which works on the before/after objects.
 
-delta::changedAny(args, scope):
+delta_changedAny(args, scope):
 
 - Let {before} and {after} be the before/after objects of the query context to {scope}.
 - Let {selector} by the first element of {args}.
 - Let {result} be the result of {diff_changedAny(before, after, selector)}.
 - Return {result}.
 
-delta::changedAnyValidate(args, scope):
+delta_changedAny_validate(args, scope):
 
 - If the mode of the query context of {scope} is not "delta":
   - Report an error.
@@ -390,14 +390,14 @@ delta::changedAnyValidate(args, scope):
 
 `delta::changedOnly` is a variant of `diff::changedOnly` which works on the before/after objects.
 
-delta::changedOnly(args, scope):
+delta_changedOnly(args, scope):
 
 - Let {before} and {after} be the before/after objects of the query context to {scope}.
 - Let {selector} by the first element of {args}.
 - Let {result} be the result of {diff_changedOnly(before, after, selector)}.
 - Return {result}.
 
-delta::changedOnlyValidate(args, scope):
+delta_changedOnly_validate(args, scope):
 
 - If the mode of the query context of {scope} is not "delta":
   - Report an error.
