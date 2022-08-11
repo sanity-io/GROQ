@@ -44,7 +44,7 @@ A string stores an UTF-8 encoded list of characters.
 The syntax of a string literal is a subset of JSON with the following extensions:
 
 - Any control characters (including newlines) are allowed to appear inside a string.
-- Extended support for refering to Unicode characters above 16-bit: `"\u{1F600}"`.
+- Extended support for referring to Unicode characters above 16-bit: `"\u{1F600}"`.
 
 String :
 
@@ -91,7 +91,7 @@ It's a syntactical error when a Unicode escape sequence represents an invalid Un
 
 ## Array
 
-An ordered collection of values, e.g. `[1, 2, 3]`. Can contain any combination of other types, including other arrays and mixed types. An element inside an array literal can be preceeded by `...` which causes it to be flattened into the array.
+An ordered collection of values, e.g. `[1, 2, 3]`. Can contain any combination of other types, including other arrays and mixed types. An element inside an array literal can be preceded by `...` which causes it to be flattened into the array.
 
 Array : [ ArrayElements? `,`? ]
 
@@ -153,7 +153,7 @@ EvaluateObject(scope):
 - Let {result} be a new empty object.
 - For each {ObjectAttribute}:
   - If the {ObjectAttribute} contains `...`:
-    - If the {ObjectAttribute} constains an {Expression}:
+    - If the {ObjectAttribute} contains an {Expression}:
       - Let {baseNode} be the {Expression}.
     - Let {base} be the result of {Evaluate(baseNode, scope)}.
     - Otherwise:
@@ -218,7 +218,7 @@ An interval containing all values that are ordered between the start and end val
 
 Ranges can have endpoints of any comparable data type, but both endpoints must be of the same type (except integers and floats which can be used interchangeably). Ranges with incompatible or invalid endpoints types will yield `null`.
 
-Ranges are mainly used internally, e.g. with the `in` operator and array slice access operator. The endpoints may have context-dependant semantics, e.g. in array slices the range `[2..-1]` will cover the range from the third array element to the last element, while the same range is considered empty when used with `in`. For more details, see the documentation for the relevant operators.
+Ranges are mainly used internally, e.g. with the `in` operator and array slice access operator. The endpoints may have context-dependent semantics, e.g. in array slices the range `[2..-1]` will cover the range from the third array element to the last element, while the same range is considered empty when used with `in`. For more details, see the documentation for the relevant operators.
 
 In serialized JSON, ranges are represented as a string on the form `start..end` (for inclusive ranges) and `start...end` (for exclusive ranges) where `start` and `end` are the serialized JSON for the start and the end expression.
 
@@ -236,7 +236,7 @@ EvaluateRange(scope):
 - Let {startNode} be the first {Expression}.
 - Let {endNode} be the second {Expression}.
 - Let {start} be the result of {Evaluate(startNode, scope)}.
-- Let {end} be the result of {Evalaute(endNode, scope)}.
+- Let {end} be the result of {Evaluate(endNode, scope)}.
 - If {PartialCompare(start, end)} is {null}:
   - Return {null}.
 - Let {result} be a new range.

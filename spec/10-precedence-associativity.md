@@ -6,7 +6,7 @@ From highest to lowest:
 
 - Level 11: [Compound expressions](#sec-Compound-expressions).
 - Level 10, prefix: `+`, `!`.
-- Level 9, right-assoative: [](#sec-Binary-double-star-operator) `**`.
+- Level 9, right-associative: [](#sec-Binary-double-star-operator) `**`.
 - Level 8, prefix: `-`.
 - Level 7, left-associative: Multiplicatives (`*`, `/`, `%`).
 - Level 6, left-associative: Additives (`+`, `-`),

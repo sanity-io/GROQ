@@ -17,7 +17,7 @@ AttributeAccess :
 - `.` Identifier
 - `[` Expression `]`
 
-Note: {Filter}, {ElementAccess}, {AttributeAccess} are syntactically ambiguous. See ["Disambiguating square backet traversal"](#sec-Disambiguating-square-backet-traversal) for how to disambiguate between them.
+Note: {Filter}, {ElementAccess}, {AttributeAccess} are syntactically ambiguous. See ["Disambiguating square bracket traversal"](#sec-Disambiguating-square-bracket-traversal) for how to disambiguate between them.
 
 EvaluateAttributeAccess(base, scope):
 
@@ -32,7 +32,7 @@ An element access returns an element stored in an array. The array is 0-indexed 
 
 ElementAccess : `[` Expression `]`
 
-Note: {Filter}, {ElementAccess}, {AttributeAccess} are syntactically ambiguous. See ["Disambiguating square backet traversal"](#sec-Disambiguating-square-backet-traversal) for how to disambiguate between them.
+Note: {Filter}, {ElementAccess}, {AttributeAccess} are syntactically ambiguous. See ["Disambiguating square bracket traversal"](#sec-Disambiguating-square-bracket-traversal) for how to disambiguate between them.
 
 EvaluateElementAccess(base, scope):
 
@@ -103,7 +103,7 @@ A filter returns an array filtered another expression.
 
 Filter : `[` Expression `]`
 
-Note: {Filter}, {ElementAccess}, {AttributeAccess} are syntactically ambiguous. See ["Disambiguating square backet traversal"](#sec-Disambiguating-square-backet-traversal) for how to disambiguate between them.
+Note: {Filter}, {ElementAccess}, {AttributeAccess} are syntactically ambiguous. See ["Disambiguating square bracket traversal"](#sec-Disambiguating-square-backet-traversal) for how to disambiguate between them.
 
 EvaluateFilter(base, scope):
 
@@ -178,7 +178,7 @@ EvaluateDereference(base, scope):
     - Return {null}.
 - Return {result}.
 
-## Disambiguating square backet traversal
+## Disambiguating square bracket traversal
 
 {Filter}, {ElementAccess} and {AttributeAccess} are syntactically ambiguous, and the following algorithm is used to disambiguate between them.
 
