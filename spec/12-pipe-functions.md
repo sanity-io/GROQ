@@ -35,7 +35,7 @@ order(base, args, scope):
   - Return {Equal}.
 - Return a sorted array using {cmp} as the comparator function.
 
-orderValidate(args):
+order_validate(args):
 
 - If the length of {args} is 0:
   - Report an error.
@@ -90,7 +90,7 @@ EvaluateScore(expr, scope):
 - Let {evaluator} be the score evaluator of {expr}.
 - Return the result of {evaluator(scope)}.
 
-scoreValidate(args):
+score_validate(args):
 
 - If the length of {args} is 0:
   - Report an error.
