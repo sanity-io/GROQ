@@ -121,7 +121,7 @@ An unordered collection of key/value pairs (referred to as attributes) with uniq
 
 The values of an object literal can use the full power of expressions:
 
-```
+```example
 *[_type == "rect"]{"area": width * height}
 ```
 
@@ -129,7 +129,7 @@ Note: A {Projection} expression is just an expression with an object literal to 
 
 Object literal supports syntactical sugar when the attribute name and value is equivalent:
 
-```
+```example
 // These two are equivalent
 *[_type == "person"]{name}
 *[_type == "person"]{"name": name}

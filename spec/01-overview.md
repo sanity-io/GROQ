@@ -18,7 +18,7 @@ Given these JSON documents:
 
 The following query:
 
-```groq
+```example
 *[id > 2]{name}
 ```
 
