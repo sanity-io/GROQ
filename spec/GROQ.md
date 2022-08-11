@@ -35,28 +35,28 @@ Algorithm steps phrased in imperative grammar (e.g. “Return the result”) are
 
 Conformance requirements expressed as algorithms can be fulfilled by an implementation of this specification in any way as long as the perceived result is equivalent. Algorithms described in this document are written to be easy to understand. Implementers are encouraged to include equivalent but optimized implementations.
 
-# [Overview](Section%201%20--%20Overview.md)
+# [Overview](01-overview.md)
 
-# [Syntax](Section%202%20--%20Syntax.md)
+# [Syntax](02-syntax.md)
 
-# [Execution](Section%203%20--%20Execution.md)
+# [Execution](03-execution.md)
 
-# [Data types](Section%204%20--%20Data%20types.md)
+# [Data types](04-data-types.md)
 
-# [Equality and comparison](Section%205%20--%20Equality%20and%20comparison.md)
+# [Equality and comparison](05-equality-comparison.md)
 
-# [Simple expressions](Section%206%20--%20Simple%20expressions.md)
+# [Simple expressions](06-simple-expressions.md)
 
-# [Compound expressions](Section%207%20--%20Compound%20expressions.md)
+# [Compound expressions](07-compound-expressions.md)
 
-# [Operators](Section%208%20--%20Operators.md)
+# [Operators](08-operators.md)
 
-# [Precedence and associativity](Section%209%20--%20Precedence%20and%20associativity.md)
+# [Precedence and associativity](09-precedence-associativity.md)
 
-# [Functions](Section%2010%20--%20Functions.md)
+# [Functions](10-functions.md)
 
-# [Pipe functions](Section%2011%20--%20Pipe%20functions.md)
+# [Pipe functions](11-pipe-functions.md)
 
-# [Vendor functions](Section%2012%20--%20Vendor%20functions.md)
+# [Vendor functions](12-vendor-functions.md)
 
-# [Extensions](Section%2013%20--%20Extensions.md)
+# [Extensions](13-extensions.md)
