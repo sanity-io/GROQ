@@ -71,7 +71,7 @@ score(base, args, scope):
   - For each {element} of {base}:
     - If {element} is an object:
       - Let {elementScope} be the result of {NewNestedScope(element, scope)}.
-      - Let {newElement} be a new empty {Object}
+      - Let {newElement} be a new empty {Object}.
       - Add the attributes from {element} to it.
       - If {element} already has a `_score`:
         - Let {scoreSum} be the current value of `_score`.

@@ -264,9 +264,9 @@ global_string(args, scope):
 - Let {node} be the first element of {args}.
 - Let {val} be the result of {Evaluate(node, scope)}.
 - If {val} is {true}:
-  - Return the string `"true"`
+  - Return the string `"true"`.
 - If {val} is {false}:
-  - Return the string `"false"`
+  - Return the string `"false"`.
 - If {val} is a string:
   - Return {val}.
 - If {val} is a number:
@@ -389,9 +389,9 @@ diff_changedAny(args, scope):
 diff_changedAny_validate(args):
 
 - If the length of {args} is not 3:
-  - Report an error
+  - Report an error.
 - If the third element is not a {Selector}:
-  - Report an error
+  - Report an error.
 
 ### diff::changedOnly()
 
@@ -414,9 +414,9 @@ diff_changedOnly(args, scope):
 diff_changedOnly_validate(args):
 
 - If the length of {args} is not 3:
-  - Report an error
+  - Report an error.
 - If the third element is not a {Selector}:
-  - Report an error
+  - Report an error.
 
 ## Delta namespace
 
@@ -438,7 +438,7 @@ delta_changedAny_validate(args, scope):
 - If the mode of the query context of {scope} is not "delta":
   - Report an error.
 - If the first element is not a {Selector}:
-  - Report an error
+  - Report an error.
 
 ### delta::changedOnly
 
@@ -456,4 +456,4 @@ delta_changedOnly_validate(args, scope):
 - If the mode of the query context of {scope} is not "delta":
   - Report an error.
 - If the first element is not a {Selector}:
-  - Report an error
+  - Report an error.

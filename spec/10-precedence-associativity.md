@@ -9,7 +9,7 @@ From highest to lowest:
 - Level 9, right-associative: [](#sec-Binary-double-star-operator) `**`.
 - Level 8, prefix: `-`.
 - Level 7, left-associative: Multiplicatives (`*`, `/`, `%`).
-- Level 6, left-associative: Additives (`+`, `-`),
+- Level 6, left-associative: Additives (`+`, `-`).
 - Level 5, non-associative: Ranges (`..`, `...`).
 - Level 4, non-associative: Comparisons (`==`, `!=`, `>`, `>=`,`<`, `<=`, `in`, `match`).
 - Level 4, postfix: Ordering (`asc`, `desc`).
