@@ -197,7 +197,7 @@ diff_changedAny(args, scope):
 - Otherwise:
   - Return {false}.
 
-diff_changedAny(args):
+diff_changedAny_validate(args):
 
 - If the length of {args} is not 3:
   - Report an error
@@ -222,7 +222,7 @@ diff_changedOnly(args, scope):
 - Otherwise:
   - Return {false}.
 
-diff_changedOnly(args):
+diff_changedOnly_validate(args):
 
 - If the length of {args} is not 3:
   - Report an error
