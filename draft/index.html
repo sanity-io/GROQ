@@ -114,7 +114,7 @@
 <li><a href="#sec-Array-postfix-traversal"><span class="spec-secid">8.5</span>Array postfix traversal</a></li>
 <li><a href="#sec-Projection-traversal"><span class="spec-secid">8.6</span>Projection traversal</a></li>
 <li><a href="#sec-Dereference-traversal"><span class="spec-secid">8.7</span>Dereference traversal</a></li>
-<li><a href="#sec-Disambiguating-square-backet-traversal"><span class="spec-secid">8.8</span>Disambiguating square backet traversal</a></li>
+<li><a href="#sec-Disambiguating-square-bracket-traversal"><span class="spec-secid">8.8</span>Disambiguating square bracket traversal</a></li>
 </ol>
 </li>
 <li><a href="#sec-Operators"><span class="spec-secid">9</span>Operators</a><ol>
@@ -218,10 +218,15 @@
 <span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Rocket"</span><span class="token punctuation">}</span>
 </code></pre>
 <p>The following query:</p>
-<pre data-language="groq"><code>*[id &gt; 2]{name}
+<pre id="example-aa604" class="spec-example"><a href="#example-aa604">Example № 1</a><code>*[id &gt; 2]{name}
 </code></pre>
 <p>Will result in the following JSON document:</p>
-<p>&lt;!&mdash; prettier-ignore &rarr; <code>json [   { "name": "Drax"},   { "name": "Groot"},   { "name": "Rocket"} ] </code> </p>
+<pre data-language="json"><code><span class="token punctuation">[</span>
+  <span class="token punctuation">{</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Drax"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Groot"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Rocket"</span><span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+</code></pre>
 </section>
 <section id="sec-Syntax" secid="2">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Syntax">2</a></span>Syntax</h1>
@@ -232,9 +237,9 @@
 <section id="sec-JSON-Superset" secid="2.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-JSON-Superset">2.1</a></span>JSON Superset</h2>
 <p>GROQ&rsquo;s syntax is a superset of JSON, so any valid JSON value is a valid GROQ expression (that simply returns the given value). Below are a few examples of JSON values:</p>
-<pre><code>"Hi! 👋"
+<pre data-language="json"><code><span class="token string">"Hi! 👋"</span>
 </code></pre>
-<pre data-language="javascript"><code><span class="token punctuation">;</span><span class="token punctuation">[</span><span class="token string">'An'</span><span class="token punctuation">,</span> <span class="token string">'array'</span><span class="token punctuation">,</span> <span class="token string">'of'</span><span class="token punctuation">,</span> <span class="token string">'strings'</span><span class="token punctuation">]</span>
+<pre data-language="json"><code><span class="token punctuation">[</span><span class="token string">"An"</span><span class="token punctuation">,</span> <span class="token string">"array"</span><span class="token punctuation">,</span> <span class="token string">"of"</span><span class="token punctuation">,</span> <span class="token string">"strings"</span><span class="token punctuation">]</span>
 </code></pre>
 <pre data-language="json"><code><span class="token punctuation">{</span>
   <span class="token property">"array"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"string"</span><span class="token punctuation">,</span> <span class="token number">3.14</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token null keyword">null</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
@@ -270,13 +275,13 @@
 <span class="spec-nt"><a href="#CommentChar" data-name="CommentChar">CommentChar</a></span><div class="spec-rhs"><span class="spec-constrained"><span class="spec-nt"><a href="#SourceCharacter" data-name="SourceCharacter">SourceCharacter</a></span><span class="spec-butnot"><span class="spec-prose">Newline U+000A</span></span></span></div>
 </div>
 <p>Comments serve as query documentation, and are ignored by the parser. They start with <code>//</code> and run to the end of the line:</p>
-<pre><code>{
+<pre id="example-16561" class="spec-example"><a href="#example-16561">Example № 2</a><code>{
   // Comments can be on a separate line
   "key": "value" // Or at the end of a line
 }
 </code></pre>
 <p>Comments cannot start inside a string literal.</p>
-<pre><code>{
+<pre id="example-44e18" class="spec-example"><a href="#example-44e18">Example № 3</a><code>{
   "key // This isn't a comment": "value"
 }
 </code></pre>
@@ -389,7 +394,7 @@
 <a href="#note-28f20">Note</a>
 The following sub-section is a non-normative overview of the execution model. See the rest of the section for the exact semantics.</div>
 <p>A GROQ query is executed inside a query context, which contains the dataset and parameters, and returns a result. Typically the result is serialized to JSON. During the execution of a query different parts of the query are evaluated in different scopes. Each scope has a <em>this </em>value and can be nested. Simple attributes like <code>name</code> always refers to an attribute on the <em>this </em>value.</p>
-<pre data-language="groq"><code>*[_type == "person"]{name, friends[country == "NO"]}
+<pre id="example-7301b" class="spec-example"><a href="#example-7301b">Example № 4</a><code>*[_type == "person"]{name, friends[country == "NO"]}
 </code></pre>
 <p>In the preceding example we have several scopes:</p>
 <ul>
@@ -397,7 +402,7 @@ The following sub-section is a non-normative overview of the execution model. Se
 <li>The country filter (<code>[country == "NO"]</code>) creates a new scope for each element in the <code>friends</code> array.</li>
 </ul>
 <p>The parent expression (<code>^</code>) let&rsquo;s you refer to parent scopes, and this enables what is typically solved with joins in many databases.</p>
-<pre data-language="groq"><code>*[_type == "person"]{
+<pre id="example-eeaec" class="spec-example"><a href="#example-eeaec">Example № 5</a><code>*[_type == "person"]{
   id,
   name,
   "children": *[_type == "person" &amp;&amp; parentId == ^.id]
@@ -454,7 +459,7 @@ The following sub-section is a non-normative overview of the execution model. Se
 </section>
 <section id="sec-Expression-validation" secid="3.5">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Expression-validation">3.5</a></span>Expression validation</h2>
-<p>An expression can be validated. This will only check that it&rsquo;s on a valid form, and will not execute anything. If an expression type does not have an explicitly defined validator in this specifiction, it has an implicit validator which runs <span class="spec-nt"><span data-name="Validate">Validate</span></span> on all its child expressions.</p>
+<p>An expression can be validated. This will only check that it&rsquo;s on a valid form, and will not execute anything. If an expression type does not have an explicitly defined validator in this specification, it has an implicit validator which runs <span class="spec-nt"><span data-name="Validate">Validate</span></span> on all its child expressions.</p>
 <div class="spec-algo" id="Validate()">
 <span class="spec-call"><a href="#Validate()" data-name="Validate">Validate</a>(<var data-name="expr">expr</var>)</span><ol>
 <li>Let <var data-name="validator">validator</var> be the validator of <var data-name="expr">expr</var>.</li>
@@ -490,7 +495,7 @@ The following sub-section is a non-normative overview of the execution model. Se
 <section id="sec-Score-evaluation" secid="3.8">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Score-evaluation">3.8</a></span>Score evaluation</h2>
 <p>When evaluating <var data-name="score">score</var>, a predicate returning <code>true</code> should have its score computed as 1.0, and all other values should receive a score of 0.0. All results involved in scoring start with a score of 1.0. The scores are evaluated once per result, and then added together. For example:</p>
-<pre data-language="groq"><code>* | score(a &gt; 1)
+<pre id="example-f0d83" class="spec-example"><a href="#example-f0d83">Example № 6</a><code>* | score(a &gt; 1)
 </code></pre>
 <p>should assign a score of 2.0 to any document where <code>a &gt; 1</code>, and a score of 1.0 to any non-matching document.</p>
 <p>For logical expressions, the score is the sum of the clauses of the expression evaluates to <code>true</code>, otherwise 0.0. In other words:</p>
@@ -603,7 +608,7 @@ The following sub-section is a non-normative overview of the execution model. Se
 <section id="sec-Traversal-execution" secid="3.10">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-execution">3.10</a></span>Traversal execution</h2>
 <p>When working with JSON values you often need to access attributes in deeply nested arrays/objects. In JavaScript this is solved by using helper functions such as <code>map</code>, <code>filter</code> and <code>flatMap</code>. GROQ provides terse syntax for accomplishing the same functionality.</p>
-<pre id="example-63caf" class="spec-example"><a href="#example-63caf">Example № 1</a><code>// The following GROQ:
+<pre id="example-63caf" class="spec-example"><a href="#example-63caf">Example № 7</a><code>// The following GROQ:
 *[_type == "user"]._id
 
 // is equivalent to the following JavaScript:
@@ -872,7 +877,7 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <p>The syntax of a string literal is a subset of JSON with the following extensions:</p>
 <ul>
 <li>Any control characters (including newlines) are allowed to appear inside a string.</li>
-<li>Extended support for refering to Unicode characters above 16-bit: <code>"\u{1F600}"</code>.</li>
+<li>Extended support for referring to Unicode characters above 16-bit: <code>"\u{1F600}"</code>.</li>
 </ul>
 <div class="spec-production" id="String">
 <span class="spec-nt"><a href="#String" data-name="String">String</a></span><div class="spec-rhs"><span class="spec-t">"</span><span class="spec-quantified"><span class="spec-nt"><a href="#DoubleStringCharacter" data-name="DoubleStringCharacter">DoubleStringCharacter</a></span><span class="spec-quantifiers"><span class="spec-quantifier list">list</span><span class="spec-quantifier optional">opt</span></span></span><span class="spec-t">"</span></div>
@@ -918,7 +923,7 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 </section>
 <section id="sec-Array" secid="4.5">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Array">4.5</a></span>Array</h2>
-<p>An ordered collection of values, e.g. <code>[1, 2, 3]</code>. Can contain any combination of other types, including other arrays and mixed types. An element inside an array literal can be preceeded by <code>...</code> which causes it to be flattened into the array.</p>
+<p>An ordered collection of values, e.g. <code>[1, 2, 3]</code>. Can contain any combination of other types, including other arrays and mixed types. An element inside an array literal can be preceded by <code>...</code> which causes it to be flattened into the array.</p>
 <div class="spec-production" id="Array">
 <span class="spec-nt"><a href="#Array" data-name="Array">Array</a></span><div class="spec-rhs"><span class="spec-t">[</span><span class="spec-quantified"><span class="spec-nt"><a href="#ArrayElements" data-name="ArrayElements">ArrayElements</a></span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span><span class="spec-quantified"><span class="spec-t">,</span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span><span class="spec-t">]</span></div>
 </div>
@@ -954,13 +959,13 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Object">4.6</a></span>Object</h2>
 <p>An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. <code>{"a": 1, "b": 2}</code>. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used.</p>
 <p>The values of an object literal can use the full power of expressions:</p>
-<pre><code>*[_type == "rect"]{"area": width * height}
+<pre id="example-be133" class="spec-example"><a href="#example-be133">Example № 8</a><code>*[_type == "rect"]{"area": width * height}
 </code></pre>
 <div id="note-bb598" class="spec-note">
 <a href="#note-bb598">Note</a>
 A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span> expression is just an expression with an object literal to the right of it.</div>
 <p>Object literal supports syntactical sugar when the attribute name and value is equivalent:</p>
-<pre><code>// These two are equivalent
+<pre id="example-55386" class="spec-example"><a href="#example-55386">Example № 9</a><code>// These two are equivalent
 *[_type == "person"]{name}
 *[_type == "person"]{"name": name}
 </code></pre>
@@ -981,7 +986,7 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <li>Let <var data-name="result">result</var> be a new empty object.</li>
 <li>For each <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span>:<ol>
 <li>If the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> contains <code>...</code>:<ol>
-<li>If the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> constains an <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>:<ol>
+<li>If the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> contains an <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>:<ol>
 <li>Let <var data-name="baseNode">baseNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
 </ol>
 </li>
@@ -1080,7 +1085,7 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Range">4.8</a></span>Range</h2>
 <p>An interval containing all values that are ordered between the start and end values. The starting value is always included, while the end may be either included or excluded. A right-inclusive range is expressed as two values separated by <code>..</code>, e.g. <code>1..3</code>, while a right-exclusive range is separated by <code>...</code>, e.g. <code>1...3</code>.</p>
 <p>Ranges can have endpoints of any comparable data type, but both endpoints must be of the same type (except integers and floats which can be used interchangeably). Ranges with incompatible or invalid endpoints types will yield <code>null</code>.</p>
-<p>Ranges are mainly used internally, e.g. with the <code>in</code> operator and array slice access operator. The endpoints may have context-dependant semantics, e.g. in array slices the range <code>[2..-1]</code> will cover the range from the third array element to the last element, while the same range is considered empty when used with <code>in</code>. For more details, see the documentation for the relevant operators.</p>
+<p>Ranges are mainly used internally, e.g. with the <code>in</code> operator and array slice access operator. The endpoints may have context-dependent semantics, e.g. in array slices the range <code>[2..-1]</code> will cover the range from the third array element to the last element, while the same range is considered empty when used with <code>in</code>. For more details, see the documentation for the relevant operators.</p>
 <p>In serialized JSON, ranges are represented as a string on the form <code>start..end</code> (for inclusive ranges) and <code>start...end</code> (for exclusive ranges) where <code>start</code> and <code>end</code> are the serialized JSON for the start and the end expression.</p>
 <div class="spec-production" id="Range">
 <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#InclusiveRange" data-name="InclusiveRange">InclusiveRange</a></span></div>
@@ -1097,7 +1102,7 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <li>Let <var data-name="startNode">startNode</var> be the first <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
 <li>Let <var data-name="endNode">endNode</var> be the second <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
 <li>Let <var data-name="start">start</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="startNode">startNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="end">end</var> be the result of <span class="spec-call"><span data-name="Evalaute">Evalaute</span>(<var data-name="endNode">endNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="end">end</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="endNode">endNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <span class="spec-call"><a href="#PartialCompare()" data-name="PartialCompare">PartialCompare</a>(<var data-name="start">start</var>, <var data-name="end">end</var>)</span> is <span class="spec-keyword">null</span>:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
 </ol>
@@ -1266,7 +1271,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-This-expression" secid="6.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-This-expression">6.1</a></span>This expression</h2>
 <p>A this expression returns the this value of the current scope.</p>
-<pre data-language="groq"><code>*[_id == "doc"][0].numbers[@ &gt;= 10]
+<pre id="example-2a218" class="spec-example"><a href="#example-2a218">Example № 10</a><code>*[_id == "doc"][0].numbers[@ &gt;= 10]
                            ~
 </code></pre>
 <div class="spec-production" id="This">
@@ -1281,7 +1286,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-This-attribute-expression" secid="6.2">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-This-attribute-expression">6.2</a></span>This attribute expression</h2>
 <p>A <em>this attribute expression </em>returns an attribute from the this value of the current scope.</p>
-<pre><code>*[_id == "document"][name == "Michael Bluth"]
+<pre id="example-722e6" class="spec-example"><a href="#example-722e6">Example № 11</a><code>*[_id == "document"][name == "Michael Bluth"]
   ~~~                ~~~~
 </code></pre>
 <div class="spec-production" id="ThisAttribute">
@@ -1300,7 +1305,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Everything-expression" secid="6.3">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Everything-expression">6.3</a></span>Everything expression</h2>
 <p>An everything expression returns the full dataset.</p>
-<pre><code>*[_type == "person"]
+<pre id="example-1301a" class="spec-example"><a href="#example-1301a">Example № 12</a><code>*[_type == "person"]
 ~
 </code></pre>
 <div class="spec-production" id="Everything">
@@ -1316,7 +1321,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Parent-expression" secid="6.4">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Parent-expression">6.4</a></span>Parent expression</h2>
 <p>A parent expression returns a this value for an upper scope.</p>
-<pre><code>// Find all people who have a cool friend
+<pre id="example-a79d8" class="spec-example"><a href="#example-a79d8">Example № 13</a><code>// Find all people who have a cool friend
 *[_type == "person" &amp;&amp; *[_id == ^.friend._ref][0].isCool]
                                 ~
 </code></pre>
@@ -1341,7 +1346,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Function-call-expression" secid="6.5">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Function-call-expression">6.5</a></span>Function call expression</h2>
 <p>GROQ comes with a set of built-in functions which provides additional features. See the <a href="#sec-Functions">&ldquo;Functions&rdquo;</a> for available functions and their namespaces.</p>
-<pre><code>*{"score": round(score, 2)}
+<pre id="example-8a980" class="spec-example"><a href="#example-8a980">Example № 14</a><code>*{"score": round(score, 2)}
            ~~~~~~~~~~~~~~~
 
 *{"description": global::lower(description)}
@@ -1398,7 +1403,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Parenthesis-expression" secid="7.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Parenthesis-expression">7.1</a></span>Parenthesis expression</h2>
 <p>A parenthesis expression allows you to add parenthesis around another expression to control precedence of operators.</p>
-<pre data-language="groq"><code>(1 + 2) * 3
+<pre id="example-2f8db" class="spec-example"><a href="#example-2f8db">Example № 15</a><code>(1 + 2) * 3
 ~~~~~~~
 </code></pre>
 <div class="spec-production" id="Parenthesis">
@@ -1415,7 +1420,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Traversal-expression" secid="7.2">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-expression">7.2</a></span>Traversal expression</h2>
 <p>A traversal expressions starts a traversal.</p>
-<pre data-language="groq"><code>users.foo.bar[0].sources[]-&gt;name
+<pre id="example-1dd92" class="spec-example"><a href="#example-1dd92">Example № 16</a><code>users.foo.bar[0].sources[]-&gt;name
 </code></pre>
 <p>When the left-hand side is an <span class="spec-nt"><a href="#Everything" data-name="Everything">Everything</a></span>, <span class="spec-nt"><a href="#Array" data-name="Array">Array</a></span>, or <span class="spec-nt"><a href="#PipeFuncCall" data-name="PipeFuncCall">PipeFuncCall</a></span> this is interpreted as if there was an additional explicit <span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span> traversal. E.g. <code>*._id</code> is interpreted as <code>*[]._id</code> and therefore returns an array of IDs.</p>
 <div class="spec-production" id="TraversalExpression">
@@ -1446,8 +1451,8 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 </section>
 <section id="sec-Pipe-function-call-expression" secid="7.3">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-function-call-expression">7.3</a></span>Pipe function call expression</h2>
-<p>GROQ comes with a set of built-in pipe functions which provides additional features. Pipe functions always accepts an array on the left-hand side and returns another array, and the syntax is optimized for being able to chain it together with other compund expressions. See the <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a> for available functions.</p>
-<pre><code>*[_type == "person"] | order(name) | {age}
+<p>GROQ comes with a set of built-in pipe functions which provides additional features. Pipe functions always accepts an array on the left-hand side and returns another array, and the syntax is optimized for being able to chain it together with other compound expressions. See the <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a> for available functions.</p>
+<pre id="example-9e38d" class="spec-example"><a href="#example-9e38d">Example № 17</a><code>*[_type == "person"] | order(name) | {age}
                      ~~~~~~~~~~~~~
 </code></pre>
 <div class="spec-production" id="PipeFuncCall">
@@ -1493,7 +1498,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Attribute-access-traversal" secid="8.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Attribute-access-traversal">8.1</a></span>Attribute access traversal</h2>
 <p>An attribute access returns an attribute of an object.</p>
-<pre><code>person.name
+<pre id="example-2ff7e" class="spec-example"><a href="#example-2ff7e">Example № 18</a><code>person.name
       ~~~~~
 
 person["Full Name"]
@@ -1503,9 +1508,9 @@ person["Full Name"]
 <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span><div class="spec-rhs"><span class="spec-t">.</span><span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span></div>
 <div class="spec-rhs"><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
 </div>
-<div id="note-0b75e" class="spec-note">
-<a href="#note-0b75e">Note</a>
-<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-backet-traversal">&ldquo;Disambiguating square backet traversal&rdquo;</a> for how to disambiguate between them.</div>
+<div id="note-29d3b" class="spec-note">
+<a href="#note-29d3b">Note</a>
+<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-bracket-traversal">&ldquo;Disambiguating square bracket traversal&rdquo;</a> for how to disambiguate between them.</div>
 <div class="spec-algo" id="EvaluateAttributeAccess()">
 <span class="spec-call"><a href="#EvaluateAttributeAccess()" data-name="EvaluateAttributeAccess">EvaluateAttributeAccess</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>If <var data-name="base">base</var> is not an object, return <span class="spec-keyword">null</span>.</li>
@@ -1521,9 +1526,9 @@ person["Full Name"]
 <div class="spec-production" id="ElementAccess">
 <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span><div class="spec-rhs"><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
 </div>
-<div id="note-d95ed" class="spec-note">
-<a href="#note-d95ed">Note</a>
-<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-backet-traversal">&ldquo;Disambiguating square backet traversal&rdquo;</a> for how to disambiguate between them.</div>
+<div id="note-01671" class="spec-note">
+<a href="#note-01671">Note</a>
+<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-bracket-traversal">&ldquo;Disambiguating square bracket traversal&rdquo;</a> for how to disambiguate between them.</div>
 <div class="spec-algo" id="EvaluateElementAccess()">
 <span class="spec-call"><a href="#EvaluateElementAccess()" data-name="EvaluateElementAccess">EvaluateElementAccess</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>If <var data-name="base">base</var> is not an array, return <span class="spec-keyword">null</span>.</li>
@@ -1546,7 +1551,7 @@ person["Full Name"]
 <section id="sec-Slice-traversal" secid="8.3">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Slice-traversal">8.3</a></span>Slice traversal</h2>
 <p>A slice returns a slice of an array.</p>
-<pre><code>people[0..10]
+<pre id="example-e380f" class="spec-example"><a href="#example-e380f">Example № 19</a><code>people[0..10]
       ~~~~~~~
 </code></pre>
 <div class="spec-production" id="Slice">
@@ -1589,15 +1594,15 @@ person["Full Name"]
 <section id="sec-Filter-traversal" secid="8.4">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Filter-traversal">8.4</a></span>Filter traversal</h2>
 <p>A filter returns an array filtered another expression.</p>
-<pre><code>*[_type == "person"]
+<pre id="example-ce0b3" class="spec-example"><a href="#example-ce0b3">Example № 20</a><code>*[_type == "person"]
  ~~~~~~~~~~~~~~~~~~~
 </code></pre>
 <div class="spec-production" id="Filter">
 <span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span><div class="spec-rhs"><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
 </div>
-<div id="note-c46d6" class="spec-note">
-<a href="#note-c46d6">Note</a>
-<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-backet-traversal">&ldquo;Disambiguating square backet traversal&rdquo;</a> for how to disambiguate between them.</div>
+<div id="note-ae4a2" class="spec-note">
+<a href="#note-ae4a2">Note</a>
+<span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous. See <a href="#sec-Disambiguating-square-backet-traversal">&ldquo;Disambiguating square bracket traversal&rdquo;</a> for how to disambiguate between them.</div>
 <div class="spec-algo" id="EvaluateFilter()">
 <span class="spec-call"><a href="#EvaluateFilter()" data-name="EvaluateFilter">EvaluateFilter</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>If <var data-name="base">base</var> is not an array, return <var data-name="base">base</var>.</li>
@@ -1629,7 +1634,7 @@ person["Full Name"]
 <section id="sec-Projection-traversal" secid="8.6">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Projection-traversal">8.6</a></span>Projection traversal</h2>
 <p>A projection operator returns a new object.</p>
-<pre><code>*[_type == "person"]{name, "isLegal": age &gt;= 18}
+<pre id="example-258f2" class="spec-example"><a href="#example-258f2">Example № 21</a><code>*[_type == "person"]{name, "isLegal": age &gt;= 18}
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 </code></pre>
 <div class="spec-production" id="Projection">
@@ -1702,8 +1707,8 @@ person["Full Name"]
 </ol>
 </div>
 </section>
-<section id="sec-Disambiguating-square-backet-traversal" secid="8.8">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Disambiguating-square-backet-traversal">8.8</a></span>Disambiguating square backet traversal</h2>
+<section id="sec-Disambiguating-square-bracket-traversal" secid="8.8">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Disambiguating-square-bracket-traversal">8.8</a></span>Disambiguating square bracket traversal</h2>
 <p><span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span> and <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> are syntactically ambiguous, and the following algorithm is used to disambiguate between them.</p>
 <div class="spec-production" id="SquareBracketTraversal">
 <span class="spec-nt"><a href="#SquareBracketTraversal" data-name="SquareBracketTraversal">SquareBracketTraversal</a></span><div class="spec-rhs"><span class="spec-t">[</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">]</span></div>
@@ -2181,7 +2186,7 @@ person["Full Name"]
 <ul>
 <li>Level 11: <a href="#sec-Compound-expressions">Compound expressions</a>.</li>
 <li>Level 10, prefix: <code>+</code>, <code>!</code>.</li>
-<li>Level 9, right-assoative: <a href="#sec-Binary-double-star-operator"></a> <code>**</code>.</li>
+<li>Level 9, right-associative: <a href="#sec-Binary-double-star-operator"></a> <code>**</code>.</li>
 <li>Level 8, prefix: <code>-</code>.</li>
 <li>Level 7, left-associative: Multiplicatives (<code>*</code>, <code>/</code>, <code>%</code>).</li>
 <li>Level 6, left-associative: Additives (<code>+</code>, <code>-</code>),</li>
@@ -2196,165 +2201,178 @@ person["Full Name"]
 <section id="sec-Functions" secid="11">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Functions">11</a></span>Functions</h1>
 <p>Functions provide additional functionality to GROQ queries. They are invoked through a <a href="#sec-Function-call-expression">Function call expression</a>. Note that function arguments are not evaluated eagerly, and it&rsquo;s up to the function to decide which scope the arguments are evaluated it. As such, all functions below take an array of nodes.</p>
-<p>An implementation may provide additional functions, but should be aware that this can cause problems when interopting with future versions of GROQ.</p>
+<p>An implementation may provide additional functions, but should be aware that this can cause problems when interoperating with future versions of GROQ.</p>
 <p>Functions are namespaced which allows to group functions by logical scope. A function may be associated with multiple namespaces and behave differently. When a function is called without a namespace, it is by default associated with a &ldquo;<strong>global</strong>&rdquo; namespace.</p>
 <section id="sec-Global-namespace" secid="11.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Global-namespace">11.1</a></span>Global namespace</h2>
 <section id="sec-global-after-" secid="11.1.1">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-after-">11.1.1</a></span>global::after()</h3>
 <p>The after function, in delta mode, returns the attributes after the change.</p>
-<p>global::after(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_after()">
+<span class="spec-call"><a href="#global_after()" data-name="global_after">global_after</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Return the after object of the query context of <var data-name="scope">scope</var>.</li>
-</ul>
-<p>global::afterValidate(args, scope):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 0:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_after_validate()">
+<span class="spec-call"><a href="#global_after_validate()" data-name="global_after_validate">global_after_validate</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 0:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-<li>If the mode of the query context of <var data-name="scope">scope</var> is not &ldquo;delta&rdquo;:<ul>
+<li>If the mode of the query context of <var data-name="scope">scope</var> is not &ldquo;delta&rdquo;:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-before-" secid="11.1.2">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-before-">11.1.2</a></span>global::before()</h3>
 <p>The before function, in delta mode, returns the attributes before the change.</p>
-<p>global::before(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_before()">
+<span class="spec-call"><a href="#global_before()" data-name="global_before">global_before</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Return the before object of the query context of <var data-name="scope">scope</var>.</li>
-</ul>
-<p>global::beforeValidate(args, scope):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 0:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_before_validate()">
+<span class="spec-call"><a href="#global_before_validate()" data-name="global_before_validate">global_before_validate</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 0:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-<li>If the mode of the query context of <var data-name="scope">scope</var> is not &ldquo;delta&rdquo;:<ul>
+<li>If the mode of the query context of <var data-name="scope">scope</var> is not &ldquo;delta&rdquo;:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-coalesce-" secid="11.1.3">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-coalesce-">11.1.3</a></span>global::coalesce()</h3>
 <p>The coalesce function returns the first value of the arguments which is not <span class="spec-keyword">null</span>.</p>
-<p>global::coalesce(args, scope):</p>
-<ul>
-<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ul>
+<div class="spec-algo" id="global_coalesce()">
+<span class="spec-call"><a href="#global_coalesce()" data-name="global_coalesce">global_coalesce</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ol>
 <li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="arg">arg</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="value">value</var> is not <span class="spec-keyword">null</span>:<ul>
+<li>If <var data-name="value">value</var> is not <span class="spec-keyword">null</span>:<ol>
 <li>Return <var data-name="value">value</var>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-count-" secid="11.1.4">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-count-">11.1.4</a></span>global::count()</h3>
 <p>The count function returns the length of an array.</p>
-<p>global::count(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_count()">
+<span class="spec-call"><a href="#global_count()" data-name="global_count">global_count</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is an array:<ul>
+<li>If <var data-name="base">base</var> is an array:<ol>
 <li>Return the length of <var data-name="base">base</var>.</li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>global::countValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_count_validate()">
+<span class="spec-call"><a href="#global_count_validate()" data-name="global_count_validate">global_count_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-dateTime-" secid="11.1.5">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-dateTime-">11.1.5</a></span>global::dateTime()</h3>
 <p>The <code>dateTime</code> function takes a string or another datatime value, returning a datetime value. This function is idempotent.</p>
-<p>global::dateTime(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_dateTime()">
+<span class="spec-call"><a href="#global_dateTime()" data-name="global_dateTime">global_dateTime</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is a string:<ul>
+<li>If <var data-name="base">base</var> is a string:<ol>
 <li>Try to parse <var data-name="base">base</var> as a datetime using the <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> timestamp format.</li>
-<li>If the input is a valid datetime:<ul>
+<li>If the input is a valid datetime:<ol>
 <li>Return the datetime.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="base">base</var> is a datetime value:<ul>
+<li>If <var data-name="base">base</var> is a datetime value:<ol>
 <li>Return <var data-name="base">base</var>.</li>
-</ul>
+</ol>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
-<p>global::dateTimeValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_dateTime_validate()">
+<span class="spec-call"><a href="#global_dateTime_validate()" data-name="global_dateTime_validate">global_dateTime_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-defined-" secid="11.1.6">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-defined-">11.1.6</a></span>global::defined()</h3>
 <p>The defined function checks if the argument is not <span class="spec-keyword">null</span>.</p>
-<p>global::defined(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_defined()">
+<span class="spec-call"><a href="#global_defined()" data-name="global_defined">global_defined</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is <span class="spec-keyword">null</span>:<ul>
+<li>If <var data-name="base">base</var> is <span class="spec-keyword">null</span>:<ol>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>global::definedValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_defined_validate()">
+<span class="spec-call"><a href="#global_defined_validate()" data-name="global_defined_validate">global_defined_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-length-" secid="11.1.7">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-length-">11.1.7</a></span>global::length()</h3>
 <p>The length function returns the length of a string or an array.</p>
-<p>global::length(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_length()">
+<span class="spec-call"><a href="#global_length()" data-name="global_length">global_length</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is a string:<ul>
+<li>If <var data-name="base">base</var> is a string:<ol>
 <li>Return the length of <var data-name="base">base</var>.</li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="base">base</var> is an array:<ul>
+<li>If <var data-name="base">base</var> is an array:<ol>
 <li>Return the length of <var data-name="base">base</var>.</li>
-</ul>
+</ol>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
-<p>global::lengthValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_length_validate()">
+<span class="spec-call"><a href="#global_length_validate()" data-name="global_length_validate">global_length_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-now-" secid="11.1.8">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-now-">11.1.8</a></span>global::now()</h3>
@@ -2362,233 +2380,246 @@ person["Full Name"]
 <div id="note-0ca77" class="spec-note">
 <a href="#note-0ca77">Note</a>
 This function returns a string due to backwards compatibility. It&rsquo;s recommended to use <code>dateTime::now()</code> instead which returns a proper datetime.</div>
-<p>global::now(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_now()">
+<span class="spec-call"><a href="#global_now()" data-name="global_now">global_now</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="ts">ts</var> be a datetime representing the current point in time.</li>
 <li>Let <var data-name="result">result</var> be a <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> string formatting of <var data-name="ts">ts</var>.</li>
 <li>Return <var data-name="result">result</var>.</li>
-</ul>
-<p>global::nowValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 0:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_now_validate()">
+<span class="spec-call"><a href="#global_now_validate()" data-name="global_now_validate">global_now_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 0:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-operation-" secid="11.1.9">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-operation-">11.1.9</a></span>global::operation()</h3>
 <p>The operation function returns the current operation (<span class="spec-string">"create"</span>, <span class="spec-string">"update"</span>, <span class="spec-string">"delete"</span>) of a change in delta mode.</p>
-<p>global::operation(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_operation()">
+<span class="spec-call"><a href="#global_operation()" data-name="global_operation">global_operation</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="before">before</var> and <var data-name="after">after</var> be the before/after objects of the query context to <var data-name="scope">scope</var>.</li>
-<li>If <var data-name="before">before</var> is <span class="spec-keyword">null</span>:<ul>
+<li>If <var data-name="before">before</var> is <span class="spec-keyword">null</span>:<ol>
 <li>Return <span class="spec-string">"create"</span>.</li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="after">after</var> is <span class="spec-keyword">null</span>:<ul>
+<li>If <var data-name="after">after</var> is <span class="spec-keyword">null</span>:<ol>
 <li>Return <span class="spec-string">"delete"</span>.</li>
-</ul>
+</ol>
 </li>
 <li>Return <span class="spec-string">"update"</span>.</li>
-</ul>
-<p>global::operationValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 0:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_operation_validate()">
+<span class="spec-call"><a href="#global_operation_validate()" data-name="global_operation_validate">global_operation_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 0:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-references-" secid="11.1.10">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-references-">11.1.10</a></span>global::references()</h3>
 <p>The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.</p>
-<p>global::references(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_references()">
+<span class="spec-call"><a href="#global_references()" data-name="global_references">global_references</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="pathSet">pathSet</var> be an empty array.</li>
-<li>For each <var data-name="arg">arg</var> of <var data-name="args">args</var>:<ul>
+<li>For each <var data-name="arg">arg</var> of <var data-name="args">args</var>:<ol>
 <li>Let <var data-name="path">path</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="arg">arg</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="path">path</var> is a string:<ul>
+<li>If <var data-name="path">path</var> is a string:<ol>
 <li>Append <var data-name="path">path</var> to <var data-name="pathSet">pathSet</var>.</li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="path">path</var> is an array:<ul>
+<li>If <var data-name="path">path</var> is an array:<ol>
 <li>Concatenate all strings of <var data-name="path">path</var> to <var data-name="pathSet">pathSet</var>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="pathSet">pathSet</var> is empty:<ul>
+<li>If <var data-name="pathSet">pathSet</var> is empty:<ol>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ul>
+</ol>
 </li>
 <li>Let <var data-name="base">base</var> be the this value of <var data-name="scope">scope</var>.</li>
-<li>Return the result of <span class="spec-call"><span data-name="HasReferenceTo">HasReferenceTo</span>(<var data-name="base">base</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
-</ul>
-<p>global::HasReferenceTo(base, pathSet):</p>
-<ul>
-<li>If <var data-name="base">base</var> is an array:<ul>
-<li>For each <var data-name="value">value</var> in <var data-name="base">base</var>:<ul>
-<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><span data-name="HasReferenceTo">HasReferenceTo</span>(<var data-name="value">value</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
-<li>If <var data-name="result">result</var> is <span class="spec-keyword">true</span>:<ul>
+<li>Return the result of <span class="spec-call"><a href="#HasReferenceTo()" data-name="HasReferenceTo">HasReferenceTo</a>(<var data-name="base">base</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="HasReferenceTo()">
+<span class="spec-call"><a href="#HasReferenceTo()" data-name="HasReferenceTo">HasReferenceTo</a>(<var data-name="base">base</var>, <var data-name="pathSet">pathSet</var>)</span><ol>
+<li>If <var data-name="base">base</var> is an array:<ol>
+<li>For each <var data-name="value">value</var> in <var data-name="base">base</var>:<ol>
+<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><a href="#HasReferenceTo()" data-name="HasReferenceTo">HasReferenceTo</a>(<var data-name="value">value</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
+<li>If <var data-name="result">result</var> is <span class="spec-keyword">true</span>:<ol>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="base">base</var> is an object:<ul>
-<li>If <var data-name="base">base</var> has an attribute <code>_ref</code>:<ul>
+<li>If <var data-name="base">base</var> is an object:<ol>
+<li>If <var data-name="base">base</var> has an attribute <code>_ref</code>:<ol>
 <li>Let <var data-name="ref">ref</var> be the value of the attribute <code>_ref</code> in <var data-name="base">base</var>.</li>
-<li>If <var data-name="ref">ref</var> exists in <var data-name="pathSet">pathSet</var>:<ul>
+<li>If <var data-name="ref">ref</var> exists in <var data-name="pathSet">pathSet</var>:<ol>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-<li>For each <var data-name="key">key</var> and <var data-name="value">value</var> in <var data-name="base">base</var>:<ul>
-<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><span data-name="HasReferenceTo">HasReferenceTo</span>(<var data-name="value">value</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
-<li>If <var data-name="result">result</var> is <span class="spec-keyword">true</span>:<ul>
+<li>For each <var data-name="key">key</var> and <var data-name="value">value</var> in <var data-name="base">base</var>:<ol>
+<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><a href="#HasReferenceTo()" data-name="HasReferenceTo">HasReferenceTo</a>(<var data-name="value">value</var>, <var data-name="pathSet">pathSet</var>)</span>.</li>
+<li>If <var data-name="result">result</var> is <span class="spec-keyword">true</span>:<ol>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ul>
-<p>global::referencesValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is 0:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_references_validate()">
+<span class="spec-call"><a href="#global_references_validate()" data-name="global_references_validate">global_references_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is 0:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-round-" secid="11.1.11">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-round-">11.1.11</a></span>global::round()</h3>
 <p>The round function accepts a number and rounds it to a certain precision.</p>
-<p>global::round(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_round()">
+<span class="spec-call"><a href="#global_round()" data-name="global_round">global_round</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="numNode">numNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="num">num</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="numNode">numNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="num">num</var> is not a number:<ul>
+<li>If <var data-name="num">num</var> is not a number:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-<li>If the length of <var data-name="args">args</var> is 2:<ul>
+<li>If the length of <var data-name="args">args</var> is 2:<ol>
 <li>Let <var data-name="precNode">precNode</var> be the second element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="prec">prec</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="precNode">precNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="prec">prec</var> is not a number:<ul>
+<li>If <var data-name="prec">prec</var> is not a number:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Let <var data-name="prec">prec</var> be 0.</li>
-</ul>
+</ol>
 </li>
 <li>Return <var data-name="num">num</var> rounded to <var data-name="prec">prec</var> number of digits after the decimal point.</li>
-</ul>
-<p>global::roundValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is less than 1 or greater than 2:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_round_validate()">
+<span class="spec-call"><a href="#global_round_validate()" data-name="global_round_validate">global_round_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is less than 1 or greater than 2:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-select-" secid="11.1.12">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-select-">11.1.12</a></span>global::select()</h3>
 <p>The select function chooses takes a variable number of arguments that are either pairs or any other type and iterates over them. When encountering a pair whose left-hand value evaluates to <span class="spec-keyword">true</span>, the right-hand value is returned immediately. When encountering a non-pair argument, that argument is returned immediately. Falls back to returning <span class="spec-keyword">null</span>.</p>
-<p>global::select(args, scope):</p>
-<ul>
-<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ul>
-<li>If <var data-name="arg">arg</var> is a <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>:<ul>
+<div class="spec-algo" id="global_select()">
+<span class="spec-call"><a href="#global_select()" data-name="global_select">global_select</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ol>
+<li>If <var data-name="arg">arg</var> is a <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>:<ol>
 <li>Let <var data-name="condNode">condNode</var> be the first <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>.</li>
 <li>Let <var data-name="resultNode">resultNode</var> be the second <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>.</li>
 <li>Let <var data-name="cond">cond</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="condNode">condNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="cond">cond</var> is <span class="spec-keyword">true</span>:<ul>
+<li>If <var data-name="cond">cond</var> is <span class="spec-keyword">true</span>:<ol>
 <li>Return the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="resultNode">resultNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="arg">arg</var>, <var data-name="scope">scope</var>)</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>global::selectValidate(args):</p>
-<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_select_validate()">
+<span class="spec-call"><a href="#global_select_validate()" data-name="global_select_validate">global_select_validate</a>(<var data-name="args">args</var>)</span><ol>
 <li>Let <var data-name="seenDefault">seenDefault</var> be <span class="spec-keyword">false</span>.</li>
-<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ul>
-<li>If <var data-name="seenDefault">seenDefault</var> is <span class="spec-keyword">true</span>:<ul>
+<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ol>
+<li>If <var data-name="seenDefault">seenDefault</var> is <span class="spec-keyword">true</span>:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="arg">arg</var> is not a <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>:<ul>
+<li>If <var data-name="arg">arg</var> is not a <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>:<ol>
 <li>Set <var data-name="seenDefault">seenDefault</var> to <span class="spec-keyword">true</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-string-" secid="11.1.13">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-string-">11.1.13</a></span>global::string()</h3>
 <p>The string function returns the string representation of scalar values or <span class="spec-keyword">null</span> for any other values.</p>
-<p>global::string(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_string()">
+<span class="spec-call"><a href="#global_string()" data-name="global_string">global_string</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="node">node</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="val">val</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="node">node</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="val">val</var> is <span class="spec-keyword">true</span>:<ul>
+<li>If <var data-name="val">val</var> is <span class="spec-keyword">true</span>:<ol>
 <li>Return the string <code>"true"</code></li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="val">val</var> is <span class="spec-keyword">false</span>:<ul>
+<li>If <var data-name="val">val</var> is <span class="spec-keyword">false</span>:<ol>
 <li>Return the string <code>"false"</code></li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="val">val</var> is a string:<ul>
+<li>If <var data-name="val">val</var> is a string:<ol>
 <li>Return <var data-name="val">val</var>.</li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="val">val</var> is a number:<ul>
+<li>If <var data-name="val">val</var> is a number:<ol>
 <li>Return a string representation of the number.</li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="val">val</var> is a datetime:<ul>
+<li>If <var data-name="val">val</var> is a datetime:<ol>
 <li>Return the datetime in the <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> timestamp format with a Z suffix.</li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>global::stringValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_string_validate()">
+<span class="spec-call"><a href="#global_string_validate()" data-name="global_string_validate">global_string_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-boost-" secid="11.1.14">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-boost-">11.1.14</a></span>global::boost()</h3>
 <p>The <code>boost</code> function accepts an expression and a boost value, and increases or decreases the score computed by <code>score()</code> (see <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a>) accordingly. <code>boost</code> can only be used within the argument list to <code>score()</code>.</p>
-<pre data-language="groq"><code>* | score(boost(title matches "milk", 5.0), body matches "milk")
+<pre id="example-b8fda" class="spec-example"><a href="#example-b8fda">Example № 22</a><code>* | score(boost(title matches "milk", 5.0), body matches "milk")
 </code></pre>
 <p>The expression must be a predicate expressions that evaluates to a single boolean value. Any other result value is ignored.</p>
 <p>The value argument must be a number &ge; 0.</p>
@@ -2610,8 +2641,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <li>Return <var data-name="result">result</var>.</li>
 </ol>
 </div>
-<div class="spec-algo" id="boostValidate()">
-<span class="spec-call"><a href="#boostValidate()" data-name="boostValidate">boostValidate</a>(<var data-name="args">args</var>)</span><ol>
+<div class="spec-algo" id="boost_validate()">
+<span class="spec-call"><a href="#boost_validate()" data-name="boost_validate">boost_validate</a>(<var data-name="args">args</var>)</span><ol>
 <li>If the length of <var data-name="args">args</var> is not 2:<ol>
 <li>Report an error.</li>
 </ol>
@@ -2622,42 +2653,46 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <section id="sec-global-lower-" secid="11.1.15">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-lower-">11.1.15</a></span>global::lower()</h3>
 <p>The lower function returns lowercased string.</p>
-<p>global::lower(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_lower()">
+<span class="spec-call"><a href="#global_lower()" data-name="global_lower">global_lower</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="arg">arg</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="value">value</var> is not <span class="spec-keyword">null</span>:<ul>
+<li>If <var data-name="value">value</var> is not <span class="spec-keyword">null</span>:<ol>
 <li>Return lowercase form of <var data-name="value">value</var>.</li>
-</ul>
+</ol>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
-<p>global::lowerValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_lower_validate()">
+<span class="spec-call"><a href="#global_lower_validate()" data-name="global_lower_validate">global_lower_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-global-upper-" secid="11.1.16">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-upper-">11.1.16</a></span>global::upper()</h3>
 <p>The upper function returns uppercased string.</p>
-<p>global::upper(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_upper()">
+<span class="spec-call"><a href="#global_upper()" data-name="global_upper">global_upper</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="arg">arg</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="value">value</var> is not <span class="spec-keyword">null</span>:<ul>
+<li>If <var data-name="value">value</var> is not <span class="spec-keyword">null</span>:<ol>
 <li>Return uppercase form of <var data-name="value">value</var>.</li>
-</ul>
+</ol>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
-<p>global::upperValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_upper_validate()">
+<span class="spec-call"><a href="#global_upper_validate()" data-name="global_upper_validate">global_upper_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 <p>In addition to the functions mentioned above, constructors for <a href="#sec-Extensions">extensions</a> are global as well.</p>
 </section>
 </section>
@@ -2667,18 +2702,20 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <section id="sec-dateTime-now-" secid="11.2.1">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-dateTime-now-">11.2.1</a></span>dateTime::now()</h3>
 <p>The now function in the <code>dateTime</code> namespace returns the current point in time as a datetime.</p>
-<p>dateTime::now(args, scope):</p>
-<ul>
+<div class="spec-algo" id="dateTime_now()">
+<span class="spec-call"><a href="#dateTime_now()" data-name="dateTime_now">dateTime_now</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="result">result</var> be a datetime representing the current point in time.</li>
 <li>Return <var data-name="result">result</var>.</li>
-</ul>
-<p>dateTime::nowValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 0:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="dateTime_now_validate()">
+<span class="spec-call"><a href="#dateTime_now_validate()" data-name="dateTime_now_validate">dateTime_now_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 0:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 </section>
 <section id="sec-Delta-namespace" secid="11.3">
@@ -2687,58 +2724,62 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <section id="sec-delta-changedAny" secid="11.3.1">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-delta-changedAny">11.3.1</a></span>delta::changedAny</h3>
 <p><code>delta::changedAny</code> is a variant of <code>diff::changedAny</code> which works on the before/after objects.</p>
-<p>delta::changedAny(args, scope):</p>
-<ul>
+<div class="spec-algo" id="delta_changedAny()">
+<span class="spec-call"><a href="#delta_changedAny()" data-name="delta_changedAny">delta_changedAny</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="before">before</var> and <var data-name="after">after</var> be the before/after objects of the query context to <var data-name="scope">scope</var>.</li>
 <li>Let <var data-name="selector">selector</var> by the first element of <var data-name="args">args</var>.</li>
-<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><span data-name="diff_changedAny">diff_changedAny</span>(<var data-name="before">before</var>, <var data-name="after">after</var>, <var data-name="selector">selector</var>)</span>.</li>
+<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><a href="#diff_changedAny()" data-name="diff_changedAny">diff_changedAny</a>(<var data-name="before">before</var>, <var data-name="after">after</var>, <var data-name="selector">selector</var>)</span>.</li>
 <li>Return <var data-name="result">result</var>.</li>
-</ul>
-<p>delta::changedAnyValidate(args, scope):</p>
-<ul>
-<li>If the mode of the query context of <var data-name="scope">scope</var> is not &ldquo;delta&rdquo;:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="delta_changedAny_validate()">
+<span class="spec-call"><a href="#delta_changedAny_validate()" data-name="delta_changedAny_validate">delta_changedAny_validate</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If the mode of the query context of <var data-name="scope">scope</var> is not &ldquo;delta&rdquo;:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-<li>If the first element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ul>
+<li>If the first element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
 <li>Report an error</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-delta-changedOnly" secid="11.3.2">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-delta-changedOnly">11.3.2</a></span>delta::changedOnly</h3>
 <p><code>delta::changedOnly</code> is a variant of <code>diff::changedOnly</code> which works on the before/after objects.</p>
-<p>delta::changedOnly(args, scope):</p>
-<ul>
+<div class="spec-algo" id="delta_changedOnly()">
+<span class="spec-call"><a href="#delta_changedOnly()" data-name="delta_changedOnly">delta_changedOnly</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="before">before</var> and <var data-name="after">after</var> be the before/after objects of the query context to <var data-name="scope">scope</var>.</li>
 <li>Let <var data-name="selector">selector</var> by the first element of <var data-name="args">args</var>.</li>
-<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><span data-name="diff_changedOnly">diff_changedOnly</span>(<var data-name="before">before</var>, <var data-name="after">after</var>, <var data-name="selector">selector</var>)</span>.</li>
+<li>Let <var data-name="result">result</var> be the result of <span class="spec-call"><a href="#diff_changedOnly()" data-name="diff_changedOnly">diff_changedOnly</a>(<var data-name="before">before</var>, <var data-name="after">after</var>, <var data-name="selector">selector</var>)</span>.</li>
 <li>Return <var data-name="result">result</var>.</li>
-</ul>
-<p>delta::changedOnlyValidate(args, scope):</p>
-<ul>
-<li>If the mode of the query context of <var data-name="scope">scope</var> is not &ldquo;delta&rdquo;:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="delta_changedOnly_validate()">
+<span class="spec-call"><a href="#delta_changedOnly_validate()" data-name="delta_changedOnly_validate">delta_changedOnly_validate</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If the mode of the query context of <var data-name="scope">scope</var> is not &ldquo;delta&rdquo;:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-<li>If the first element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ul>
+<li>If the first element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
 <li>Report an error </li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 </section>
 </section>
 <section id="sec-Pipe-functions" secid="12">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-functions">12</a></span>Pipe functions</h1>
-<p>Pipe functions provide additional functionalty to GROQ queries. They are invoked through a <a href="#sec-Pipe-function-call-expression">Pipe function call expression</a>. They differ from regular functions in that they always accept an array as input and returns another array (or <span class="spec-keyword">null</span>). As such, the syntax is optimized for chaining (the array it works on comes on the left-hand side instead of being an argument):</p>
-<pre><code>*[_type == "person"] | order(name) | {age}
+<p>Pipe functions provide additional functionality to GROQ queries. They are invoked through a <a href="#sec-Pipe-function-call-expression">Pipe function call expression</a>. They differ from regular functions in that they always accept an array as input and returns another array (or <span class="spec-keyword">null</span>). As such, the syntax is optimized for chaining (the array it works on comes on the left-hand side instead of being an argument):</p>
+<pre id="example-d44da" class="spec-example"><a href="#example-d44da">Example № 23</a><code>*[_type == "person"] | order(name) | {age}
 </code></pre>
 <div id="note-88a44" class="spec-note">
 <a href="#note-88a44">Note</a>
 that function arguments are not evaluated eagerly, and it&rsquo;s up to the function to decide which scope the arguments are evaluated in. All definitions below take an array of nodes.</div>
-<p>An implementation may provide additional pipe functions, but should be aware that this can cause problems when interopting with future versions of GROQ.</p>
+<p>An implementation may provide additional pipe functions, but should be aware that this can cause problems when interoperating with future versions of GROQ.</p>
 <section id="sec-global-order-" secid="12.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-global-order-">12.1</a></span>global::order()</h2>
 <p>The order function sorts an array based on arbitrary expressions.</p>
@@ -2770,8 +2811,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Return a sorted array using <var data-name="cmp">cmp</var> as the comparator function.</li>
 </ol>
 </div>
-<div class="spec-algo" id="orderValidate()">
-<span class="spec-call"><a href="#orderValidate()" data-name="orderValidate">orderValidate</a>(<var data-name="args">args</var>)</span><ol>
+<div class="spec-algo" id="order_validate()">
+<span class="spec-call"><a href="#order_validate()" data-name="order_validate">order_validate</a>(<var data-name="args">args</var>)</span><ol>
 <li>If the length of <var data-name="args">args</var> is 0:<ol>
 <li>Report an error.</li>
 </ol>
@@ -2782,10 +2823,10 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <section id="sec-global-score-" secid="12.2">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-global-score-">12.2</a></span>global::score()</h2>
 <p>The <code>score</code> function assigns a score to an array of results, based on one or more scoring expressions. The <code>score</code> function may only be used as a pipe function.</p>
-<pre data-language="groq"><code>*[_type == "listing"] | score(body match "jacuzzi")
+<pre id="example-16420" class="spec-example"><a href="#example-16420">Example № 24</a><code>*[_type == "listing"] | score(body match "jacuzzi")
 </code></pre>
 <p>In this query, anything where <code>body match "jacuzzi"</code> returns true will be scored higher than other results. Multiple expressions can be used:</p>
-<pre data-language="groq"><code>*[_type == "listing"] | score(body match "jacuzzi", bedrooms &gt; 2, available &amp;&amp; !inContract)
+<pre id="example-34b6f" class="spec-example"><a href="#example-34b6f">Example № 25</a><code>*[_type == "listing"] | score(body match "jacuzzi", bedrooms &gt; 2, available &amp;&amp; !inContract)
 </code></pre>
 <p>When multiple expressions are provided, the scores are merged into a single score for each result (see <a href="#sec-Score-evaluation">score evaluation</a>)</p>
 <p>Only predicate expressions &mdash; that is, expressions that evaluate to a single boolean value or to <code>null</code> &mdash; may be used, including <code>boost()</code>. However, an implementation can put further constraints on which expressions are permitted as a score expression for optimization purposes.</p>
@@ -2831,8 +2872,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Return the result of <span class="spec-call"><span data-name="evaluator">evaluator</span>(<var data-name="scope">scope</var>)</span>.</li>
 </ol>
 </div>
-<div class="spec-algo" id="scoreValidate()">
-<span class="spec-call"><a href="#scoreValidate()" data-name="scoreValidate">scoreValidate</a>(<var data-name="args">args</var>)</span><ol>
+<div class="spec-algo" id="score_validate()">
+<span class="spec-call"><a href="#score_validate()" data-name="score_validate">score_validate</a>(<var data-name="args">args</var>)</span><ol>
 <li>If the length of <var data-name="args">args</var> is 0:<ol>
 <li>Report an error. </li>
 </ol>
@@ -2843,7 +2884,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </section>
 <section id="sec-Vendor-functions" secid="13">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Vendor-functions">13</a></span>Vendor functions</h1>
-<p>An implementation is free to introduce additional functions than what is presented in this specification, but this is problematic if a function with the same name is introduced in a future version. The following section defines optional <em>vendor functions</em> which are guaranteed to never be a regular function in a future specfication. There&rsquo;s also a short description of each vendor function so different implementations can attempt to be compatible with each other. The description is intentially brief and it&rsquo;s up to the vendor to define it completely.</p>
+<p>An implementation is free to introduce additional functions than what is presented in this specification, but this is problematic if a function with the same name is introduced in a future version. The following section defines optional <em>vendor functions</em> which are guaranteed to never be a regular function in a future specification. There&rsquo;s also a short description of each vendor function so different implementations can attempt to be compatible with each other. The description is intentionally brief and it&rsquo;s up to the vendor to define it completely.</p>
 <section id="sec-global-identity-" secid="13.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-global-identity-">13.1</a></span>global::identity()</h2>
 <p>The identity function should accept zero arguments and return a string which represents the identity of the client executing the query.</p>
@@ -2866,76 +2907,80 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <section id="sec-global-pt-" secid="14.1.2">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-pt-">14.1.2</a></span>global::pt()</h3>
 <p>This function takes in an object or an array of objects, and returns a PT value.</p>
-<p>global::pt(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_pt()">
+<span class="spec-call"><a href="#global_pt()" data-name="global_pt">global_pt</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is an object:<ul>
+<li>If <var data-name="base">base</var> is an object:<ol>
 <li>Try to parse it as Portable Text Block:</li>
-<li>If <var data-name="base">base</var> is a valid Portable Text Block:<ul>
+<li>If <var data-name="base">base</var> is a valid Portable Text Block:<ol>
 <li>Return <var data-name="base">base</var>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="base">base</var> is an array of objects:<ul>
-<li>Try to parse it as an array of Portable Text blocks:<ul>
-<li>If all elements in <var data-name="base">base</var> array are valid Portable Text blocks:<ul>
+<li>If <var data-name="base">base</var> is an array of objects:<ol>
+<li>Try to parse it as an array of Portable Text blocks:<ol>
+<li>If all elements in <var data-name="base">base</var> array are valid Portable Text blocks:<ol>
 <li>Return <var data-name="base">base</var>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>global::ptValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_pt_validate()">
+<span class="spec-call"><a href="#global_pt_validate()" data-name="global_pt_validate">global_pt_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-pt-text-" secid="14.1.3">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-pt-text-">14.1.3</a></span>pt::text()</h3>
 <p>This function takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (<code>\n\n</code>) in the string version.</p>
-<p>pt::text(args, scope):</p>
-<ul>
+<div class="spec-algo" id="pt_text()">
+<span class="spec-call"><a href="#pt_text()" data-name="pt_text">pt_text</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is an object:<ul>
+<li>If <var data-name="base">base</var> is an object:<ol>
 <li>Try to parse it as Portable Text Block:</li>
-<li>If <var data-name="base">base</var>is a valid Portable Text Block:<ul>
+<li>If <var data-name="base">base</var>is a valid Portable Text Block:<ol>
 <li>Return string version of text in <var data-name="base">base</var>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="base">base</var> is an array of objects:<ul>
+<li>If <var data-name="base">base</var> is an array of objects:<ol>
 <li>Try to parse it as an array of Portable Text blocks:</li>
-<li>If all elements in <var data-name="base">base</var> array are valid Portable Text blocks:<ul>
+<li>If all elements in <var data-name="base">base</var> array are valid Portable Text blocks:<ol>
 <li>Return string version of text in <var data-name="base">base</var>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>pt::textValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="pt_text_validate()">
+<span class="spec-call"><a href="#pt_text_validate()" data-name="pt_text_validate">pt_text_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 </section>
 <section id="sec-Geography-Extension" secid="14.2">
@@ -2968,128 +3013,136 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <section id="sec-global-geo-" secid="14.2.2">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-geo-">14.2.2</a></span>global::geo()</h3>
 <p>This function is a constructor for geographic value. It takes an object or another geo value, returning a geo value.</p>
-<p>global::geo(args, scope):</p>
-<ul>
+<div class="spec-algo" id="global_geo()">
+<span class="spec-call"><a href="#global_geo()" data-name="global_geo">global_geo</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="baseNode">baseNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="base">base</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="baseNode">baseNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="base">base</var> is an object:<ul>
+<li>If <var data-name="base">base</var> is an object:<ol>
 <li>Try to parse it as Geo Point and GeoJSON:</li>
-<li>If <var data-name="base">base</var> is a valid geo value:<ul>
+<li>If <var data-name="base">base</var> is a valid geo value:<ol>
 <li>Return <var data-name="base">base</var>.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="base">base</var> is a geo value:<ul>
+<li>If <var data-name="base">base</var> is a geo value:<ol>
 <li>Return <var data-name="base">base</var>.</li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>global::geoValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 1:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="global_geo_validate()">
+<span class="spec-call"><a href="#global_geo_validate()" data-name="global_geo_validate">global_geo_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-geo-contains-" secid="14.2.3">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-contains-">14.2.3</a></span>geo::contains()</h3>
 <p>Returns true if first geo argument completely contains the second one, using a planar (non-spherical) coordinate system. Both geo argument can be any geo value. A geo value is considered contained if all its points are within the boundaries of the first geo value. For <code>MultiPolygon</code>, it&rsquo;s sufficient that only one of the polygons contains the first geo value.</p>
-<p>geo::contains(args, scope):</p>
-<ul>
+<div class="spec-algo" id="geo_contains()">
+<span class="spec-call"><a href="#geo_contains()" data-name="geo_contains">geo_contains</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="firstNode">firstNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="secondNode">secondNode</var> be the second element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="first">first</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="firstNode">firstNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="second">second</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="secondNode">secondNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a geo value:<ul>
+<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a geo value:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="first">first</var> completely contains <var data-name="second">second</var>:<ul>
+<li>If <var data-name="first">first</var> completely contains <var data-name="second">second</var>:<ol>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>geo::containsValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 2:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="geo_contains_validate()">
+<span class="spec-call"><a href="#geo_contains_validate()" data-name="geo_contains_validate">geo_contains_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 2:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-geo-intersects-" secid="14.2.4">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-intersects-">14.2.4</a></span>geo::intersects()</h3>
 <p>This function takes two geo values, and returns true if they intersect in a planar (non-spherical) coordinate system. The arguments can be any geo values. A geo value intersects with another if it shares any geometric points with the second value; for example, a line crossing a polygon.</p>
-<p>geo::intersects(args, scope):</p>
-<ul>
+<div class="spec-algo" id="geo_intersects()">
+<span class="spec-call"><a href="#geo_intersects()" data-name="geo_intersects">geo_intersects</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="firstNode">firstNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="secondNode">secondNode</var> be the second element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="first">first</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="firstNode">firstNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="second">second</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="secondNode">secondNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a geo value:<ul>
+<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a geo value:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="first">first</var> intersects <var data-name="second">second</var>:<ul>
+<li>If <var data-name="first">first</var> intersects <var data-name="second">second</var>:<ol>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>geo::intersectsValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 2:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="geo_intersects_validate()">
+<span class="spec-call"><a href="#geo_intersects_validate()" data-name="geo_intersects_validate">geo_intersects_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 2:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-geo-distance-" secid="14.2.5">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-distance-">14.2.5</a></span>geo::distance()</h3>
 <p>This functions accepts two geo values, which must be point values, and returns the distance in meters. While exact algorithm is implementation-defined &mdash; for example, it may use the <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a> &mdash; it should use as close an approximation to a real Earth distance as possible.</p>
-<p>geo::distance(args, scope):</p>
-<ul>
+<div class="spec-algo" id="geo_distance()">
+<span class="spec-call"><a href="#geo_distance()" data-name="geo_distance">geo_distance</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="firstNode">firstNode</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="secondNode">secondNode</var> be the second element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="first">first</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="firstNode">firstNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="second">second</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="secondNode">secondNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a geo value:<ul>
+<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a geo value:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a Geo Point or GeoJSON Point:<ul>
+<li>If <var data-name="first">first</var> or <var data-name="second">second</var> is a not a Geo Point or GeoJSON Point:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-<li>Let <var data-name="distance">distance</var> be the geographic distance between <var data-name="first">first</var> and <var data-name="second">second</var>:<ul>
+<li>Let <var data-name="distance">distance</var> be the geographic distance between <var data-name="first">first</var> and <var data-name="second">second</var>:<ol>
 <li>Return <var data-name="distance">distance</var>.</li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">null</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>geo::distanceValidate(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 2:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="geo_distance_validate()">
+<span class="spec-call"><a href="#geo_distance_validate()" data-name="geo_distance_validate">geo_distance_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 2:<ol>
 <li>Report an error.</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 </section>
 <section id="sec-Diff-Extension" secid="14.3">
@@ -3098,8 +3151,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <section id="sec-diff-changedAny-" secid="14.3.1">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-diff-changedAny-">14.3.1</a></span>diff::changedAny()</h3>
 <p>The <code>changedAny</code> function in the <code>diff</code> namespace returns a boolean if any of the key paths matched by the selector are changed.</p>
-<p>diff::changedAny(args, scope):</p>
-<ul>
+<div class="spec-algo" id="diff_changedAny()">
+<span class="spec-call"><a href="#diff_changedAny()" data-name="diff_changedAny">diff_changedAny</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="lhs">lhs</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="rhs">rhs</var> be the second element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="selector">selector</var> be the third element of <var data-name="args">args</var>.</li>
@@ -3107,32 +3160,34 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Let <var data-name="after">after</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rhs">rhs</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="selectedKeyPaths">selectedKeyPaths</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="before">before</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="diffKeyPaths">diffKeyPaths</var> be the list of key paths that are different in <var data-name="before">before</var> and <var data-name="after">after</var>.</li>
-<li>If <var data-name="diffKeyPaths">diffKeyPaths</var> overlaps with <var data-name="selectedKeyPaths">selectedKeyPaths</var>:<ul>
+<li>If <var data-name="diffKeyPaths">diffKeyPaths</var> overlaps with <var data-name="selectedKeyPaths">selectedKeyPaths</var>:<ol>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>diff::changedAny(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 3:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="diff_changedAny_validate()">
+<span class="spec-call"><a href="#diff_changedAny_validate()" data-name="diff_changedAny_validate">diff_changedAny_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 3:<ol>
 <li>Report an error</li>
-</ul>
+</ol>
 </li>
-<li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ul>
+<li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
 <li>Report an error</li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 <section id="sec-diff-changedOnly-" secid="14.3.2">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-diff-changedOnly-">14.3.2</a></span>diff::changedOnly()</h3>
 <p>The <code>changedOnly</code> function in the <code>diff</code> namespace returns a boolean if given two nodes only the given key paths matched by the selector are changed.</p>
-<p>diff::changedOnly(args, scope):</p>
-<ul>
+<div class="spec-algo" id="diff_changedOnly()">
+<span class="spec-call"><a href="#diff_changedOnly()" data-name="diff_changedOnly">diff_changedOnly</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="lhs">lhs</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="rhs">rhs</var> be the second element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="selector">selector</var> be the third element of <var data-name="args">args</var>.</li>
@@ -3140,26 +3195,28 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Let <var data-name="after">after</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rhs">rhs</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="selectedKeyPaths">selectedKeyPaths</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="before">before</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="diffKeyPaths">diffKeyPaths</var> be the list of key paths that are different in <var data-name="before">before</var> and <var data-name="after">after</var>.</li>
-<li>If <var data-name="diffKeyPaths">diffKeyPaths</var> is a subset of <var data-name="selectedKeyPaths">selectedKeyPaths</var>:<ul>
+<li>If <var data-name="diffKeyPaths">diffKeyPaths</var> is a subset of <var data-name="selectedKeyPaths">selectedKeyPaths</var>:<ol>
 <li>Return <span class="spec-keyword">true</span>.</li>
-</ul>
+</ol>
 </li>
-<li>Otherwise:<ul>
+<li>Otherwise:<ol>
 <li>Return <span class="spec-keyword">false</span>.</li>
-</ul>
+</ol>
 </li>
-</ul>
-<p>diff::changedOnly(args):</p>
-<ul>
-<li>If the length of <var data-name="args">args</var> is not 3:<ul>
+</ol>
+</div>
+<div class="spec-algo" id="diff_changedOnly_validate()">
+<span class="spec-call"><a href="#diff_changedOnly_validate()" data-name="diff_changedOnly_validate">diff_changedOnly_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 3:<ol>
 <li>Report an error</li>
-</ul>
+</ol>
 </li>
-<li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ul>
+<li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
 <li>Report an error </li>
-</ul>
+</ol>
 </li>
-</ul>
+</ol>
+</div>
 </section>
 </section>
 </section>
@@ -3178,17 +3235,27 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#BasicTraversalPlain">BasicTraversalPlain</a></li>
 <li><a href="#Boolean">Boolean</a></li>
 <li><a href="#boost()">boost</a></li>
-<li><a href="#boostValidate()">boostValidate</a></li>
+<li><a href="#boost_validate()">boost_validate</a></li>
 <li><a href="#Comment">Comment</a></li>
 <li><a href="#CommentChar">CommentChar</a></li>
 <li><a href="#Comparison">Comparison</a></li>
 <li><a href="#ComparisonOperator">ComparisonOperator</a></li>
 <li><a href="#CompoundExpression">CompoundExpression</a></li>
 <li><a href="#ConstantEvaluate()">ConstantEvaluate</a></li>
+<li><a href="#dateTime_now()">dateTime_now</a></li>
+<li><a href="#dateTime_now_validate()">dateTime_now_validate</a></li>
 <li><a href="#Decimal">Decimal</a></li>
+<li><a href="#delta_changedAny()">delta_changedAny</a></li>
+<li><a href="#delta_changedAny_validate()">delta_changedAny_validate</a></li>
+<li><a href="#delta_changedOnly()">delta_changedOnly</a></li>
+<li><a href="#delta_changedOnly_validate()">delta_changedOnly_validate</a></li>
 <li><a href="#Dereference">Dereference</a></li>
 <li><a href="#Desc">Desc</a></li>
 <li><a href="#DetermineName()">DetermineName</a></li>
+<li><a href="#diff_changedAny()">diff_changedAny</a></li>
+<li><a href="#diff_changedAny_validate()">diff_changedAny_validate</a></li>
+<li><a href="#diff_changedOnly()">diff_changedOnly</a></li>
+<li><a href="#diff_changedOnly_validate()">diff_changedOnly_validate</a></li>
 <li><a href="#Digit">Digit</a></li>
 <li><a href="#DisambiguateSquareBracketTraversal()">DisambiguateSquareBracketTraversal</a></li>
 <li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li>
@@ -3249,6 +3316,46 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#FuncCallArgs">FuncCallArgs</a></li>
 <li><a href="#FuncIdentifier">FuncIdentifier</a></li>
 <li><a href="#FuncNamespace">FuncNamespace</a></li>
+<li><a href="#geo_contains()">geo_contains</a></li>
+<li><a href="#geo_contains_validate()">geo_contains_validate</a></li>
+<li><a href="#geo_distance()">geo_distance</a></li>
+<li><a href="#geo_distance_validate()">geo_distance_validate</a></li>
+<li><a href="#geo_intersects()">geo_intersects</a></li>
+<li><a href="#geo_intersects_validate()">geo_intersects_validate</a></li>
+<li><a href="#global_after()">global_after</a></li>
+<li><a href="#global_after_validate()">global_after_validate</a></li>
+<li><a href="#global_before()">global_before</a></li>
+<li><a href="#global_before_validate()">global_before_validate</a></li>
+<li><a href="#global_coalesce()">global_coalesce</a></li>
+<li><a href="#global_count()">global_count</a></li>
+<li><a href="#global_count_validate()">global_count_validate</a></li>
+<li><a href="#global_dateTime()">global_dateTime</a></li>
+<li><a href="#global_dateTime_validate()">global_dateTime_validate</a></li>
+<li><a href="#global_defined()">global_defined</a></li>
+<li><a href="#global_defined_validate()">global_defined_validate</a></li>
+<li><a href="#global_geo()">global_geo</a></li>
+<li><a href="#global_geo_validate()">global_geo_validate</a></li>
+<li><a href="#global_length()">global_length</a></li>
+<li><a href="#global_length_validate()">global_length_validate</a></li>
+<li><a href="#global_lower()">global_lower</a></li>
+<li><a href="#global_lower_validate()">global_lower_validate</a></li>
+<li><a href="#global_now()">global_now</a></li>
+<li><a href="#global_now_validate()">global_now_validate</a></li>
+<li><a href="#global_operation()">global_operation</a></li>
+<li><a href="#global_operation_validate()">global_operation_validate</a></li>
+<li><a href="#global_pt()">global_pt</a></li>
+<li><a href="#global_pt_validate()">global_pt_validate</a></li>
+<li><a href="#global_references()">global_references</a></li>
+<li><a href="#global_references_validate()">global_references_validate</a></li>
+<li><a href="#global_round()">global_round</a></li>
+<li><a href="#global_round_validate()">global_round_validate</a></li>
+<li><a href="#global_select()">global_select</a></li>
+<li><a href="#global_select_validate()">global_select_validate</a></li>
+<li><a href="#global_string()">global_string</a></li>
+<li><a href="#global_string_validate()">global_string_validate</a></li>
+<li><a href="#global_upper()">global_upper</a></li>
+<li><a href="#global_upper_validate()">global_upper_validate</a></li>
+<li><a href="#HasReferenceTo()">HasReferenceTo</a></li>
 <li><a href="#HexDigit">HexDigit</a></li>
 <li><a href="#HexLetter">HexLetter</a></li>
 <li><a href="#Identifier">Identifier</a></li>
@@ -3271,7 +3378,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#OperatorCall">OperatorCall</a></li>
 <li><a href="#Or">Or</a></li>
 <li><a href="#order()">order</a></li>
-<li><a href="#orderValidate()">orderValidate</a></li>
+<li><a href="#order_validate()">order_validate</a></li>
 <li><a href="#Pair">Pair</a></li>
 <li><a href="#Parent">Parent</a></li>
 <li><a href="#Parenthesis">Parenthesis</a></li>
@@ -3280,10 +3387,12 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#PipeFuncCall">PipeFuncCall</a></li>
 <li><a href="#Plus">Plus</a></li>
 <li><a href="#Projection">Projection</a></li>
+<li><a href="#pt_text()">pt_text</a></li>
+<li><a href="#pt_text_validate()">pt_text_validate</a></li>
 <li><a href="#Range">Range</a></li>
 <li><a href="#ScientificNotation">ScientificNotation</a></li>
 <li><a href="#score()">score</a></li>
-<li><a href="#scoreValidate()">scoreValidate</a></li>
+<li><a href="#score_validate()">score_validate</a></li>
 <li><a href="#Selector">Selector</a></li>
 <li><a href="#SelectorGroup">SelectorGroup</a></li>
 <li><a href="#SelectorTuple">SelectorTuple</a></li>
@@ -3419,7 +3528,7 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_8.5"><a href="#sec-Array-postfix-traversal"><span class="spec-secid">8.5</span>Array postfix traversal</a></li>
 <li id="_sidebar_8.6"><a href="#sec-Projection-traversal"><span class="spec-secid">8.6</span>Projection traversal</a></li>
 <li id="_sidebar_8.7"><a href="#sec-Dereference-traversal"><span class="spec-secid">8.7</span>Dereference traversal</a></li>
-<li id="_sidebar_8.8"><a href="#sec-Disambiguating-square-backet-traversal"><span class="spec-secid">8.8</span>Disambiguating square backet traversal</a></li>
+<li id="_sidebar_8.8"><a href="#sec-Disambiguating-square-bracket-traversal"><span class="spec-secid">8.8</span>Disambiguating square bracket traversal</a></li>
 </ol>
 </li>
 <li id="_sidebar_9"><a href="#sec-Operators"><span class="spec-secid">9</span>Operators</a>
