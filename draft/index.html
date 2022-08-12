@@ -162,9 +162,14 @@
 <li><a href="#sec-dateTime-now-"><span class="spec-secid">11.2.1</span>dateTime::now()</a></li>
 </ol>
 </li>
-<li><a href="#sec-Delta-namespace"><span class="spec-secid">11.3</span>Delta namespace</a><ol>
-<li><a href="#sec-delta-changedAny"><span class="spec-secid">11.3.1</span>delta::changedAny</a></li>
-<li><a href="#sec-delta-changedOnly"><span class="spec-secid">11.3.2</span>delta::changedOnly</a></li>
+<li><a href="#sec-Diff-namespace"><span class="spec-secid">11.3</span>Diff namespace</a><ol>
+<li><a href="#sec-diff-changedAny-"><span class="spec-secid">11.3.1</span>diff::changedAny()</a></li>
+<li><a href="#sec-diff-changedOnly-"><span class="spec-secid">11.3.2</span>diff::changedOnly()</a></li>
+</ol>
+</li>
+<li><a href="#sec-Delta-namespace"><span class="spec-secid">11.4</span>Delta namespace</a><ol>
+<li><a href="#sec-delta-changedAny"><span class="spec-secid">11.4.1</span>delta::changedAny</a></li>
+<li><a href="#sec-delta-changedOnly"><span class="spec-secid">11.4.2</span>delta::changedOnly</a></li>
 </ol>
 </li>
 </ol>
@@ -192,11 +197,6 @@
 <li><a href="#sec-geo-contains-"><span class="spec-secid">14.2.3</span>geo::contains()</a></li>
 <li><a href="#sec-geo-intersects-"><span class="spec-secid">14.2.4</span>geo::intersects()</a></li>
 <li><a href="#sec-geo-distance-"><span class="spec-secid">14.2.5</span>geo::distance()</a></li>
-</ol>
-</li>
-<li><a href="#sec-Diff-Extension"><span class="spec-secid">14.3</span>Diff Extension</a><ol>
-<li><a href="#sec-diff-changedAny-"><span class="spec-secid">14.3.1</span>diff::changedAny()</a></li>
-<li><a href="#sec-diff-changedOnly-"><span class="spec-secid">14.3.2</span>diff::changedOnly()</a></li>
 </ol>
 </li>
 </ol>
@@ -2718,11 +2718,85 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </div>
 </section>
 </section>
-<section id="sec-Delta-namespace" secid="11.3">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Delta-namespace">11.3</a></span>Delta namespace</h2>
+<section id="sec-Diff-namespace" secid="11.3">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Diff-namespace">11.3</a></span>Diff namespace</h2>
+<p>The diff namespace contains functionality for comparing objects.</p>
+<section id="sec-diff-changedAny-" secid="11.3.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-diff-changedAny-">11.3.1</a></span>diff::changedAny()</h3>
+<p>The <code>changedAny</code> function in the <code>diff</code> namespace returns a boolean if any of the key paths matched by the selector are changed.</p>
+<div class="spec-algo" id="diff_changedAny()">
+<span class="spec-call"><a href="#diff_changedAny()" data-name="diff_changedAny">diff_changedAny</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="lhs">lhs</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="rhs">rhs</var> be the second element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="selector">selector</var> be the third element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="before">before</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="lhs">lhs</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="after">after</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rhs">rhs</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="selectedKeyPaths">selectedKeyPaths</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="before">before</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="diffKeyPaths">diffKeyPaths</var> be the list of key paths that are different in <var data-name="before">before</var> and <var data-name="after">after</var>.</li>
+<li>If <var data-name="diffKeyPaths">diffKeyPaths</var> overlaps with <var data-name="selectedKeyPaths">selectedKeyPaths</var>:<ol>
+<li>Return <span class="spec-keyword">true</span>.</li>
+</ol>
+</li>
+<li>Otherwise:<ol>
+<li>Return <span class="spec-keyword">false</span>.</li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="spec-algo" id="diff_changedAny_validate()">
+<span class="spec-call"><a href="#diff_changedAny_validate()" data-name="diff_changedAny_validate">diff_changedAny_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 3:<ol>
+<li>Report an error</li>
+</ol>
+</li>
+<li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
+<li>Report an error</li>
+</ol>
+</li>
+</ol>
+</div>
+</section>
+<section id="sec-diff-changedOnly-" secid="11.3.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-diff-changedOnly-">11.3.2</a></span>diff::changedOnly()</h3>
+<p>The <code>changedOnly</code> function in the <code>diff</code> namespace returns a boolean if given two nodes only the given key paths matched by the selector are changed.</p>
+<div class="spec-algo" id="diff_changedOnly()">
+<span class="spec-call"><a href="#diff_changedOnly()" data-name="diff_changedOnly">diff_changedOnly</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="lhs">lhs</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="rhs">rhs</var> be the second element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="selector">selector</var> be the third element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="before">before</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="lhs">lhs</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="after">after</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rhs">rhs</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="selectedKeyPaths">selectedKeyPaths</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="before">before</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="diffKeyPaths">diffKeyPaths</var> be the list of key paths that are different in <var data-name="before">before</var> and <var data-name="after">after</var>.</li>
+<li>If <var data-name="diffKeyPaths">diffKeyPaths</var> is a subset of <var data-name="selectedKeyPaths">selectedKeyPaths</var>:<ol>
+<li>Return <span class="spec-keyword">true</span>.</li>
+</ol>
+</li>
+<li>Otherwise:<ol>
+<li>Return <span class="spec-keyword">false</span>.</li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="spec-algo" id="diff_changedOnly_validate()">
+<span class="spec-call"><a href="#diff_changedOnly_validate()" data-name="diff_changedOnly_validate">diff_changedOnly_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 3:<ol>
+<li>Report an error</li>
+</ol>
+</li>
+<li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
+<li>Report an error</li>
+</ol>
+</li>
+</ol>
+</div>
+</section>
+</section>
+<section id="sec-Delta-namespace" secid="11.4">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Delta-namespace">11.4</a></span>Delta namespace</h2>
 <p>The <code>delta</code> namespace contains functions which are valid in delta mode.</p>
-<section id="sec-delta-changedAny" secid="11.3.1">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-delta-changedAny">11.3.1</a></span>delta::changedAny</h3>
+<section id="sec-delta-changedAny" secid="11.4.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-delta-changedAny">11.4.1</a></span>delta::changedAny</h3>
 <p><code>delta::changedAny</code> is a variant of <code>diff::changedAny</code> which works on the before/after objects.</p>
 <div class="spec-algo" id="delta_changedAny()">
 <span class="spec-call"><a href="#delta_changedAny()" data-name="delta_changedAny">delta_changedAny</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2745,8 +2819,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </div>
 </section>
-<section id="sec-delta-changedOnly" secid="11.3.2">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-delta-changedOnly">11.3.2</a></span>delta::changedOnly</h3>
+<section id="sec-delta-changedOnly" secid="11.4.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-delta-changedOnly">11.4.2</a></span>delta::changedOnly</h3>
 <p><code>delta::changedOnly</code> is a variant of <code>diff::changedOnly</code> which works on the before/after objects.</p>
 <div class="spec-algo" id="delta_changedOnly()">
 <span class="spec-call"><a href="#delta_changedOnly()" data-name="delta_changedOnly">delta_changedOnly</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3138,81 +3212,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <div class="spec-algo" id="geo_distance_validate()">
 <span class="spec-call"><a href="#geo_distance_validate()" data-name="geo_distance_validate">geo_distance_validate</a>(<var data-name="args">args</var>)</span><ol>
 <li>If the length of <var data-name="args">args</var> is not 2:<ol>
-<li>Report an error.</li>
-</ol>
-</li>
-</ol>
-</div>
-</section>
-</section>
-<section id="sec-Diff-Extension" secid="14.3">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Diff-Extension">14.3</a></span>Diff Extension</h2>
-<p>Functions available in the diff extension are grouped under <code>diff</code> namespac and have functions to work with comparing documents.</p>
-<section id="sec-diff-changedAny-" secid="14.3.1">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-diff-changedAny-">14.3.1</a></span>diff::changedAny()</h3>
-<p>The <code>changedAny</code> function in the <code>diff</code> namespace returns a boolean if any of the key paths matched by the selector are changed.</p>
-<div class="spec-algo" id="diff_changedAny()">
-<span class="spec-call"><a href="#diff_changedAny()" data-name="diff_changedAny">diff_changedAny</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="lhs">lhs</var> be the first element of <var data-name="args">args</var>.</li>
-<li>Let <var data-name="rhs">rhs</var> be the second element of <var data-name="args">args</var>.</li>
-<li>Let <var data-name="selector">selector</var> be the third element of <var data-name="args">args</var>.</li>
-<li>Let <var data-name="before">before</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="lhs">lhs</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="after">after</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rhs">rhs</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="selectedKeyPaths">selectedKeyPaths</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="before">before</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="diffKeyPaths">diffKeyPaths</var> be the list of key paths that are different in <var data-name="before">before</var> and <var data-name="after">after</var>.</li>
-<li>If <var data-name="diffKeyPaths">diffKeyPaths</var> overlaps with <var data-name="selectedKeyPaths">selectedKeyPaths</var>:<ol>
-<li>Return <span class="spec-keyword">true</span>.</li>
-</ol>
-</li>
-<li>Otherwise:<ol>
-<li>Return <span class="spec-keyword">false</span>.</li>
-</ol>
-</li>
-</ol>
-</div>
-<div class="spec-algo" id="diff_changedAny_validate()">
-<span class="spec-call"><a href="#diff_changedAny_validate()" data-name="diff_changedAny_validate">diff_changedAny_validate</a>(<var data-name="args">args</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 3:<ol>
-<li>Report an error</li>
-</ol>
-</li>
-<li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
-<li>Report an error</li>
-</ol>
-</li>
-</ol>
-</div>
-</section>
-<section id="sec-diff-changedOnly-" secid="14.3.2">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-diff-changedOnly-">14.3.2</a></span>diff::changedOnly()</h3>
-<p>The <code>changedOnly</code> function in the <code>diff</code> namespace returns a boolean if given two nodes only the given key paths matched by the selector are changed.</p>
-<div class="spec-algo" id="diff_changedOnly()">
-<span class="spec-call"><a href="#diff_changedOnly()" data-name="diff_changedOnly">diff_changedOnly</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="lhs">lhs</var> be the first element of <var data-name="args">args</var>.</li>
-<li>Let <var data-name="rhs">rhs</var> be the second element of <var data-name="args">args</var>.</li>
-<li>Let <var data-name="selector">selector</var> be the third element of <var data-name="args">args</var>.</li>
-<li>Let <var data-name="before">before</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="lhs">lhs</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="after">after</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rhs">rhs</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="selectedKeyPaths">selectedKeyPaths</var> be the result of <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="before">before</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="diffKeyPaths">diffKeyPaths</var> be the list of key paths that are different in <var data-name="before">before</var> and <var data-name="after">after</var>.</li>
-<li>If <var data-name="diffKeyPaths">diffKeyPaths</var> is a subset of <var data-name="selectedKeyPaths">selectedKeyPaths</var>:<ol>
-<li>Return <span class="spec-keyword">true</span>.</li>
-</ol>
-</li>
-<li>Otherwise:<ol>
-<li>Return <span class="spec-keyword">false</span>.</li>
-</ol>
-</li>
-</ol>
-</div>
-<div class="spec-algo" id="diff_changedOnly_validate()">
-<span class="spec-call"><a href="#diff_changedOnly_validate()" data-name="diff_changedOnly_validate">diff_changedOnly_validate</a>(<var data-name="args">args</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 3:<ol>
-<li>Report an error</li>
-</ol>
-</li>
-<li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
-<li>Report an error </li>
+<li>Report an error. </li>
 </ol>
 </li>
 </ol>
@@ -3584,11 +3584,18 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_11.2.1"><a href="#sec-dateTime-now-"><span class="spec-secid">11.2.1</span>dateTime::now()</a></li>
 </ol>
 </li>
-<li id="_sidebar_11.3"><a href="#sec-Delta-namespace"><span class="spec-secid">11.3</span>Delta namespace</a>
+<li id="_sidebar_11.3"><a href="#sec-Diff-namespace"><span class="spec-secid">11.3</span>Diff namespace</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_11.3" /><label for="_toggle_11.3"></label>
 <ol>
-<li id="_sidebar_11.3.1"><a href="#sec-delta-changedAny"><span class="spec-secid">11.3.1</span>delta::changedAny</a></li>
-<li id="_sidebar_11.3.2"><a href="#sec-delta-changedOnly"><span class="spec-secid">11.3.2</span>delta::changedOnly</a></li>
+<li id="_sidebar_11.3.1"><a href="#sec-diff-changedAny-"><span class="spec-secid">11.3.1</span>diff::changedAny()</a></li>
+<li id="_sidebar_11.3.2"><a href="#sec-diff-changedOnly-"><span class="spec-secid">11.3.2</span>diff::changedOnly()</a></li>
+</ol>
+</li>
+<li id="_sidebar_11.4"><a href="#sec-Delta-namespace"><span class="spec-secid">11.4</span>Delta namespace</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_11.4" /><label for="_toggle_11.4"></label>
+<ol>
+<li id="_sidebar_11.4.1"><a href="#sec-delta-changedAny"><span class="spec-secid">11.4.1</span>delta::changedAny</a></li>
+<li id="_sidebar_11.4.2"><a href="#sec-delta-changedOnly"><span class="spec-secid">11.4.2</span>delta::changedOnly</a></li>
 </ol>
 </li>
 </ol>
@@ -3626,13 +3633,6 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_14.2.3"><a href="#sec-geo-contains-"><span class="spec-secid">14.2.3</span>geo::contains()</a></li>
 <li id="_sidebar_14.2.4"><a href="#sec-geo-intersects-"><span class="spec-secid">14.2.4</span>geo::intersects()</a></li>
 <li id="_sidebar_14.2.5"><a href="#sec-geo-distance-"><span class="spec-secid">14.2.5</span>geo::distance()</a></li>
-</ol>
-</li>
-<li id="_sidebar_14.3"><a href="#sec-Diff-Extension"><span class="spec-secid">14.3</span>Diff Extension</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_14.3" /><label for="_toggle_14.3"></label>
-<ol>
-<li id="_sidebar_14.3.1"><a href="#sec-diff-changedAny-"><span class="spec-secid">14.3.1</span>diff::changedAny()</a></li>
-<li id="_sidebar_14.3.2"><a href="#sec-diff-changedOnly-"><span class="spec-secid">14.3.2</span>diff::changedOnly()</a></li>
 </ol>
 </li>
 </ol>
