@@ -2189,7 +2189,7 @@ person["Full Name"]
 <li>Level 9, right-associative: <a href="#sec-Binary-double-star-operator"></a> <code>**</code>.</li>
 <li>Level 8, prefix: <code>-</code>.</li>
 <li>Level 7, left-associative: Multiplicatives (<code>*</code>, <code>/</code>, <code>%</code>).</li>
-<li>Level 6, left-associative: Additives (<code>+</code>, <code>-</code>),</li>
+<li>Level 6, left-associative: Additives (<code>+</code>, <code>-</code>).</li>
 <li>Level 5, non-associative: Ranges (<code>..</code>, <code>...</code>).</li>
 <li>Level 4, non-associative: Comparisons (<code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>,<code>&lt;</code>, <code>&lt;=</code>, <code>in</code>, <code>match</code>).</li>
 <li>Level 4, postfix: Ordering (<code>asc</code>, <code>desc</code>).</li>
@@ -2582,11 +2582,11 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <li>Let <var data-name="node">node</var> be the first element of <var data-name="args">args</var>.</li>
 <li>Let <var data-name="val">val</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="node">node</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If <var data-name="val">val</var> is <span class="spec-keyword">true</span>:<ol>
-<li>Return the string <code>"true"</code></li>
+<li>Return the string <code>"true"</code>.</li>
 </ol>
 </li>
 <li>If <var data-name="val">val</var> is <span class="spec-keyword">false</span>:<ol>
-<li>Return the string <code>"false"</code></li>
+<li>Return the string <code>"false"</code>.</li>
 </ol>
 </li>
 <li>If <var data-name="val">val</var> is a string:<ol>
@@ -2746,11 +2746,11 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <div class="spec-algo" id="diff_changedAny_validate()">
 <span class="spec-call"><a href="#diff_changedAny_validate()" data-name="diff_changedAny_validate">diff_changedAny_validate</a>(<var data-name="args">args</var>)</span><ol>
 <li>If the length of <var data-name="args">args</var> is not 3:<ol>
-<li>Report an error</li>
+<li>Report an error.</li>
 </ol>
 </li>
 <li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
-<li>Report an error</li>
+<li>Report an error.</li>
 </ol>
 </li>
 </ol>
@@ -2781,11 +2781,11 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <div class="spec-algo" id="diff_changedOnly_validate()">
 <span class="spec-call"><a href="#diff_changedOnly_validate()" data-name="diff_changedOnly_validate">diff_changedOnly_validate</a>(<var data-name="args">args</var>)</span><ol>
 <li>If the length of <var data-name="args">args</var> is not 3:<ol>
-<li>Report an error</li>
+<li>Report an error.</li>
 </ol>
 </li>
 <li>If the third element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
-<li>Report an error</li>
+<li>Report an error.</li>
 </ol>
 </li>
 </ol>
@@ -2813,7 +2813,7 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </li>
 <li>If the first element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
-<li>Report an error</li>
+<li>Report an error.</li>
 </ol>
 </li>
 </ol>
@@ -2837,7 +2837,7 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </li>
 <li>If the first element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
-<li>Report an error </li>
+<li>Report an error. </li>
 </ol>
 </li>
 </ol>
@@ -2915,7 +2915,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>For each <var data-name="element">element</var> of <var data-name="base">base</var>:<ol>
 <li>If <var data-name="element">element</var> is an object:<ol>
 <li>Let <var data-name="elementScope">elementScope</var> be the result of <span class="spec-call"><a href="#NewNestedScope()" data-name="NewNestedScope">NewNestedScope</a>(<var data-name="element">element</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="newElement">newElement</var> be a new empty <span class="spec-nt"><a href="#Object" data-name="Object">Object</a></span></li>
+<li>Let <var data-name="newElement">newElement</var> be a new empty <span class="spec-nt"><a href="#Object" data-name="Object">Object</a></span>.</li>
 <li>Add the attributes from <var data-name="element">element</var> to it.</li>
 <li>If <var data-name="element">element</var> already has a <code>_score</code>:<ol>
 <li>Let <var data-name="scoreSum">scoreSum</var> be the current value of <code>_score</code>.</li>
