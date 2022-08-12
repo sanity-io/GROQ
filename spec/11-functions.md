@@ -364,6 +364,60 @@ dateTime_now_validate(args):
 - If the length of {args} is not 0:
   - Report an error.
 
+## Diff namespace
+
+The diff namespace contains functionality for comparing objects.
+
+### diff::changedAny()
+
+The `changedAny` function in the `diff` namespace returns a boolean if any of the key paths matched by the selector are changed.
+
+diff_changedAny(args, scope):
+
+- Let {lhs} be the first element of {args}.
+- Let {rhs} be the second element of {args}.
+- Let {selector} be the third element of {args}.
+- Let {before} be the result of {Evaluate(lhs, scope)}.
+- Let {after} be the result of {Evaluate(rhs, scope)}.
+- Let {selectedKeyPaths} be the result of {EvaluateSelector(selector, before, scope)}.
+- Let {diffKeyPaths} be the list of key paths that are different in {before} and {after}.
+- If {diffKeyPaths} overlaps with {selectedKeyPaths}:
+  - Return {true}.
+- Otherwise:
+  - Return {false}.
+
+diff_changedAny_validate(args):
+
+- If the length of {args} is not 3:
+  - Report an error
+- If the third element is not a {Selector}:
+  - Report an error
+
+### diff::changedOnly()
+
+The `changedOnly` function in the `diff` namespace returns a boolean if given two nodes only the given key paths matched by the selector are changed.
+
+diff_changedOnly(args, scope):
+
+- Let {lhs} be the first element of {args}.
+- Let {rhs} be the second element of {args}.
+- Let {selector} be the third element of {args}.
+- Let {before} be the result of {Evaluate(lhs, scope)}.
+- Let {after} be the result of {Evaluate(rhs, scope)}.
+- Let {selectedKeyPaths} be the result of {EvaluateSelector(selector, before, scope)}.
+- Let {diffKeyPaths} be the list of key paths that are different in {before} and {after}.
+- If {diffKeyPaths} is a subset of {selectedKeyPaths}:
+  - Return {true}.
+- Otherwise:
+  - Return {false}.
+
+diff_changedOnly_validate(args):
+
+- If the length of {args} is not 3:
+  - Report an error
+- If the third element is not a {Selector}:
+  - Report an error
+
 ## Delta namespace
 
 The `delta` namespace contains functions which are valid in delta mode.
