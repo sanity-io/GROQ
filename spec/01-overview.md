@@ -24,7 +24,6 @@ The following query:
 
 Will result in the following JSON document:
 
-<!-- prettier-ignore -->
 ```json
 [
   { "name": "Drax"},

@@ -1,0 +1,5 @@
+# This is a bit annoying. There's _one_ code block where we want to
+# avoid auto-formatting JSON, but spec-md doesn't support inline
+# <-- prettier-ignore -->. Luckily this file is quite small
+# so let's just disable Prettier for now.
+spec/01-overview.md
