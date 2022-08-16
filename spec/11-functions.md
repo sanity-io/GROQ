@@ -457,3 +457,263 @@ delta_changedOnly_validate(args, scope):
   - Report an error.
 - If the first element is not a {Selector}:
   - Report an error.
+
+## Array namespace
+
+The `array` namespace contains functions to work with arrays.
+
+### array::join()
+
+The `join` function concatenates together the elements of an array into a single output string. Only primitive values supported by `global::string()` can be collected. Objects, arrays, etc. are considered composite values that cannot be joined.
+
+array_join(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {sepNode} be the second element of {args}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
+- Let {sep} be the result of {Evaluate(sepNode, scope)}.
+- If {arr} is not an array:
+  - Return {null}.
+- If {sep} is not a string:
+  - Return {null}.
+- Let {output} be an empty string.
+- For each element in {arr}:
+  - Let {elem} be the element.
+  - Let {index} be the index of the element.
+  - If {index} is greater than or equal to 1, append {sep} to {output}.
+  - Let {str} be the result of evaluating `global::string(elem)`.
+  - If {str} is {null}:
+    - Return {null}.
+  - Otherwise:
+    - Append {str} to {output}.
+- Return {output}.
+
+array_join_validate(args):
+
+- If the length of {args} is not 2:
+  - Report an error.
+
+### array::compact()
+
+The `compact` function filters null values from an array.
+
+array_compact(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
+- If {arr} is not an array:
+  - Return null
+- Let {output} be an empty array.
+- For each element in {arr}:
+  - Let {elem} be the element
+  - If {elem} is not null:
+    - Append {elem} to {output}.
+- Return {output}.
+
+array_compact_validate(args):
+
+- If the length of {args} is not 1:
+  - Report an error.
+
+### array::unique()
+
+The `unique` function filters duplicate values from an array.
+
+Only values that can be compared for [equality](#sec-Equality) are compared for uniqueness.
+All other values are considered individually unique. For example, `array::unique([[1], [1]])` should
+return `[[1], [1]]`.
+
+The algorithm below specifies a linear search, but since an implementation can choose to use
+hashing or a similar non-order-preserving data structure for efficiency, the order of the output
+cannot be guaranteed to be the same as the input.
+
+array_unique(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
+- If {arr} is not an array:
+  - Return {null}.
+- Let {output} be an empty array.
+- For each element in {arr}:
+  - Let {elem} be the element
+  - Let {found} be false.
+  - If {elem} is comparable (see above):
+    - For each element in {arr}:
+      - Let {b} be the element.
+      - Set {found} be the result of `Equal(elem, b)`
+      - If {found} is true:
+        - Break loop
+  - If {found} is false:
+    - Add {elem} to {output} at any position.
+- Return {output}.
+
+array_unique_validate(args):
+
+- If the length of {args} is not 1:
+  - Report an error.
+
+## String namespace
+
+The `string` namespace contains functions to work with strings.
+
+### string::split()
+
+The `split` function splits a string into multiple strings, given a separator string.
+
+string_split(args, scope):
+
+- Let {strNode} be the first element of {args}.
+- Let {sepNode} be the second element of {args}.
+- Let {str} be the result of {Evaluate(strNode, scope)}.
+- If {str} is not a string, return {null}.
+- Let {sep} be the result of {Evaluate(sepNode, scope)}.
+- If {sep} is not a string, return {null}.
+- Let {output} be an empty array.
+- If {sep} is an empty string:
+  - Let {output} be each character of {str}, according to Unicode character splitting rules.
+- Otherwise:
+  - Let {output} be each substring of {str} as separated by {sep}. An empty string is considered a substring, and will be included when {sep} is present at the beginning, the end, or consecutively of {str}. For example, the string `,a,b,` when split by `,` will result in four substrings `['', 'a', 'b', '']`.
+- Return {output}.
+
+string_split_validate(args):
+
+- If the length of {args} is not 2:
+  - Report an error.
+
+### string::startsWith()
+
+The `startsWith` function evaluates whether a string starts with a given prefix.
+
+string_startsWith(args, scope):
+
+- Let {strNode} be the first element of {args}.
+- Let {prefixNode} be the second element of {args}.
+- Let {str} be the result of {Evaluate(strNode, scope)}.
+- If {str} is not a string, return {null}.
+- Let {prefix} be the result of {Evaluate(sepNode, scope)}.
+- If {prefix} is not a string, return {null}.
+- Let {n} be the length of {prefix}.
+- If {n} is zero:
+  - Return true.
+- If the first {n} characters of {str} equal {prefix}:
+  - Return true.
+- Otherwise return false.
+
+string_startsWith_validate(args):
+
+- If the length of {args} is not 2:
+  - Report an error.
+
+## Math namespace
+
+The `math` namespace contains functions for performing mathematical operations.
+
+### math::sum()
+
+The `sum` function computes the sum of all numbers in an array. {null} values are
+ignored, but non-numbers cause the function to return {null}. If the array does not contain at least
+one numeric value, it returns 0.
+
+math_sum(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
+- If {arr} is not an array, return {null}.
+- Let {n} be zero.
+- For each element {elem} in {arr}:
+  - If {elem} is null:
+    - Ignore it.
+  - If {elem} is not a number:
+    - Return {null}.
+  - Otherwise:
+    - Add {elem} to {n}.
+- Return {n}.
+
+math_sum_validate(args):
+
+- If the length of {args} is not 1:
+  - Report an error.
+
+### math::avg()
+
+The `avg` function computes the arithmetic mean of all numbers in an array. {null} values are
+ignored, but non-numbers cause the function to return {null}. If the array does not contain at least
+one numeric value, it returns {null}.
+
+math_avg(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
+- If {arr} is not an array, return {null}.
+- Let {n} be zero.
+- Let {count} be zero.
+- For each element {elem} in {arr}:
+  - If {elem} is null:
+    - Ignore it.
+  - If {elem} is not a number:
+    - Return {null}.
+  - Otherwise:
+    - Increment {count}.
+    - Add {elem} to {n}.
+- If {count} is zero:
+  - Return {null}.
+- Return {n} divided by the {count}.
+
+math_avg_validate(args):
+
+- If the length of {args} is not 1:
+  - Report an error.
+
+### math::min()
+
+The `min` function finds the smallest numeric value in an array. {null} values are
+ignored, but non-numbers cause the function to return {null}. If the array does not contain at least
+one numeric value, it returns {null}.
+
+math_min(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
+- If {arr} is not an array, return {null}.
+- Let {min} be {null}.
+- For each element {elem} in {arr}:
+  - If {elem} is null:
+    - Ignore it.
+  - If {elem} is not a number:
+    - Return {null}.
+  - Otherwise:
+    - If {min} is {null} or {PartialCompare(elem, min)} is {Lower}:
+      - Set {min} to {elem}.
+- Return {min}.
+
+math_min_validate(args):
+
+- If the length of {args} is not 1:
+  - Report an error.
+
+### math::max()
+
+The `max` function finds the largest numeric value in an array. {null} values are
+ignored, but non-numbers cause the function to return {null}. If the array does not contain at least
+one numeric value, it returns {null}.
+
+math_max(args, scope):
+
+- Let {arrNode} be the first element of {args}.
+- Let {arr} be the result of {Evaluate(arrNode, scope)}.
+- If {arr} is not an array, return {null}.
+- Let {max} be {null}.
+- For each element {elem} in {arr}:
+  - If {elem} is null:
+    - Ignore it.
+  - If {elem} is not a number:
+    - Return {null}.
+  - Otherwise:
+    - If {max} is {null} or {PartialCompare(elem, max)} is {Greater}:
+      - Set {max} to {elem}.
+- Return {max}.
+
+math_max_validate(args):
+
+- If the length of {args} is not 1:
+  - Report an error.
