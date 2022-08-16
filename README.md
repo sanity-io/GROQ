@@ -1,6 +1,6 @@
 # GROQ specification
 
-This is the specification for GROQ (Graph-Relational Object Queries), a query language and execution engine made at Sanity, Inc, for filtering and projecting JSON documents.
+This is the specification for GROQ (Graph-Relational Object Queries), a query language and execution engine made at [Sanity.io](https://www.sanity.io), for filtering and projecting JSON documents.
 The work started in 2015, and the development of this open standard started in 2019.
 Read the [announcement blog post](https://www.sanity.io/blog/we-re-open-sourcing-groq-a-query-language-for-json-documents) to understand more about the specification process and see the [getting started guide](https://www.sanity.io/docs/data-store/how-queries-work) to learn more about the language itself.
 
