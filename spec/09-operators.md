@@ -248,7 +248,7 @@ EvaluateMinus(scope):
 
 ## Binary star operator
 
-Star : Expression `*` Expression
+Star : Expression `*` [lookahead != `*`] Expression
 
 EvaluateStar(scope):
 
@@ -259,6 +259,8 @@ EvaluateStar(scope):
 - If both {left} and {right} are numbers:
   - Return the multiplication of {left} and {right}.
 - Return {null}.
+
+Note: A binary star operator may not have a `*` immediately following it since this may cause ambiguity.
 
 ## Binary slash operator
 
