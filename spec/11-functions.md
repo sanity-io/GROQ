@@ -144,24 +144,6 @@ global_now_validate(args):
 - If the length of {args} is not 0:
   - Report an error.
 
-### global::operation()
-
-The operation function returns the current operation ({"create"}, {"update"}, {"delete"}) of a change in delta mode.
-
-global_operation(args, scope):
-
-- Let {before} and {after} be the before/after objects of the query context to {scope}.
-- If {before} is {null}:
-  - Return {"create"}.
-- If {after} is {null}:
-  - Return {"delete"}.
-- Return {"update"}.
-
-global_operation_validate(args):
-
-- If the length of {args} is not 0:
-  - Report an error.
-
 ### global::references()
 
 The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.
@@ -456,6 +438,24 @@ delta_changedOnly_validate(args, scope):
 - If the mode of the query context of {scope} is not "delta":
   - Report an error.
 - If the first element is not a {Selector}:
+  - Report an error.
+
+### delta::operation()
+
+The operation function returns the current operation ({"create"}, {"update"}, {"delete"}) of a change in delta mode.
+
+delta_operation(args, scope):
+
+- Let {before} and {after} be the before/after objects of the query context to {scope}.
+- If {before} is {null}:
+  - Return {"create"}.
+- If {after} is {null}:
+  - Return {"delete"}.
+- Return {"update"}.
+
+delta_operation_validate(args):
+
+- If the length of {args} is not 0:
   - Report an error.
 
 ## Array namespace
