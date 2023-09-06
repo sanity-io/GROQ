@@ -2123,7 +2123,7 @@ person["Full Name"]
 <section id="sec-Binary-star-operator" secid="9.14">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-star-operator">9.14</a></span>Binary star operator</h2>
 <div class="spec-production" id="Star">
-<span class="spec-nt"><a href="#Star" data-name="Star">Star</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">*</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
+<span class="spec-nt"><a href="#Star" data-name="Star">Star</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">*</span><span class="spec-lookahead not"><span class="spec-t">*</span></span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
 <div class="spec-algo" id="EvaluateStar()">
 <span class="spec-call"><a href="#EvaluateStar()" data-name="EvaluateStar">EvaluateStar</a>(<var data-name="scope">scope</var>)</span><ol>
@@ -2138,6 +2138,9 @@ person["Full Name"]
 <li>Return <span class="spec-keyword">null</span>.</li>
 </ol>
 </div>
+<div id="note-18fae" class="spec-note">
+<a href="#note-18fae">Note</a>
+A binary star operator may not have a <code>*</code> immediately following it since this may cause ambiguity.</div>
 </section>
 <section id="sec-Binary-slash-operator" secid="9.15">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Binary-slash-operator">9.15</a></span>Binary slash operator</h2>
