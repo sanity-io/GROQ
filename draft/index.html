@@ -148,14 +148,13 @@
 <li><a href="#sec-global-defined-"><span class="spec-secid">11.1.6</span>global::defined()</a></li>
 <li><a href="#sec-global-length-"><span class="spec-secid">11.1.7</span>global::length()</a></li>
 <li><a href="#sec-global-now-"><span class="spec-secid">11.1.8</span>global::now()</a></li>
-<li><a href="#sec-global-operation-"><span class="spec-secid">11.1.9</span>global::operation()</a></li>
-<li><a href="#sec-global-references-"><span class="spec-secid">11.1.10</span>global::references()</a></li>
-<li><a href="#sec-global-round-"><span class="spec-secid">11.1.11</span>global::round()</a></li>
-<li><a href="#sec-global-select-"><span class="spec-secid">11.1.12</span>global::select()</a></li>
-<li><a href="#sec-global-string-"><span class="spec-secid">11.1.13</span>global::string()</a></li>
-<li><a href="#sec-global-boost-"><span class="spec-secid">11.1.14</span>global::boost()</a></li>
-<li><a href="#sec-global-lower-"><span class="spec-secid">11.1.15</span>global::lower()</a></li>
-<li><a href="#sec-global-upper-"><span class="spec-secid">11.1.16</span>global::upper()</a></li>
+<li><a href="#sec-global-references-"><span class="spec-secid">11.1.9</span>global::references()</a></li>
+<li><a href="#sec-global-round-"><span class="spec-secid">11.1.10</span>global::round()</a></li>
+<li><a href="#sec-global-select-"><span class="spec-secid">11.1.11</span>global::select()</a></li>
+<li><a href="#sec-global-string-"><span class="spec-secid">11.1.12</span>global::string()</a></li>
+<li><a href="#sec-global-boost-"><span class="spec-secid">11.1.13</span>global::boost()</a></li>
+<li><a href="#sec-global-lower-"><span class="spec-secid">11.1.14</span>global::lower()</a></li>
+<li><a href="#sec-global-upper-"><span class="spec-secid">11.1.15</span>global::upper()</a></li>
 </ol>
 </li>
 <li><a href="#sec-Date-time-namespace"><span class="spec-secid">11.2</span>Date/time namespace</a><ol>
@@ -170,6 +169,7 @@
 <li><a href="#sec-Delta-namespace"><span class="spec-secid">11.4</span>Delta namespace</a><ol>
 <li><a href="#sec-delta-changedAny"><span class="spec-secid">11.4.1</span>delta::changedAny</a></li>
 <li><a href="#sec-delta-changedOnly"><span class="spec-secid">11.4.2</span>delta::changedOnly</a></li>
+<li><a href="#sec-delta-operation-"><span class="spec-secid">11.4.3</span>delta::operation()</a></li>
 </ol>
 </li>
 <li><a href="#sec-Array-namespace"><span class="spec-secid">11.5</span>Array namespace</a><ol>
@@ -2414,34 +2414,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </div>
 </section>
-<section id="sec-global-operation-" secid="11.1.9">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-operation-">11.1.9</a></span>global::operation()</h3>
-<p>The operation function returns the current operation (<span class="spec-string">"create"</span>, <span class="spec-string">"update"</span>, <span class="spec-string">"delete"</span>) of a change in delta mode.</p>
-<div class="spec-algo" id="global_operation()">
-<span class="spec-call"><a href="#global_operation()" data-name="global_operation">global_operation</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
-<li>Let <var data-name="before">before</var> and <var data-name="after">after</var> be the before/after objects of the query context to <var data-name="scope">scope</var>.</li>
-<li>If <var data-name="before">before</var> is <span class="spec-keyword">null</span>:<ol>
-<li>Return <span class="spec-string">"create"</span>.</li>
-</ol>
-</li>
-<li>If <var data-name="after">after</var> is <span class="spec-keyword">null</span>:<ol>
-<li>Return <span class="spec-string">"delete"</span>.</li>
-</ol>
-</li>
-<li>Return <span class="spec-string">"update"</span>.</li>
-</ol>
-</div>
-<div class="spec-algo" id="global_operation_validate()">
-<span class="spec-call"><a href="#global_operation_validate()" data-name="global_operation_validate">global_operation_validate</a>(<var data-name="args">args</var>)</span><ol>
-<li>If the length of <var data-name="args">args</var> is not 0:<ol>
-<li>Report an error.</li>
-</ol>
-</li>
-</ol>
-</div>
-</section>
-<section id="sec-global-references-" secid="11.1.10">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-references-">11.1.10</a></span>global::references()</h3>
+<section id="sec-global-references-" secid="11.1.9">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-references-">11.1.9</a></span>global::references()</h3>
 <p>The references function implicitly takes this value of the current scope and recursively checks whether it contains any references to the given document ID.</p>
 <div class="spec-algo" id="global_references()">
 <span class="spec-call"><a href="#global_references()" data-name="global_references">global_references</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2515,8 +2489,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </div>
 </section>
-<section id="sec-global-round-" secid="11.1.11">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-round-">11.1.11</a></span>global::round()</h3>
+<section id="sec-global-round-" secid="11.1.10">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-round-">11.1.10</a></span>global::round()</h3>
 <p>The round function accepts a number and rounds it to a certain precision.</p>
 <div class="spec-algo" id="global_round()">
 <span class="spec-call"><a href="#global_round()" data-name="global_round">global_round</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2551,8 +2525,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </div>
 </section>
-<section id="sec-global-select-" secid="11.1.12">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-select-">11.1.12</a></span>global::select()</h3>
+<section id="sec-global-select-" secid="11.1.11">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-select-">11.1.11</a></span>global::select()</h3>
 <p>The select function chooses takes a variable number of arguments that are either pairs or any other type and iterates over them. When encountering a pair whose left-hand value evaluates to <span class="spec-keyword">true</span>, the right-hand value is returned immediately. When encountering a non-pair argument, that argument is returned immediately. Falls back to returning <span class="spec-keyword">null</span>.</p>
 <div class="spec-algo" id="global_select()">
 <span class="spec-call"><a href="#global_select()" data-name="global_select">global_select</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2592,8 +2566,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </div>
 </section>
-<section id="sec-global-string-" secid="11.1.13">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-string-">11.1.13</a></span>global::string()</h3>
+<section id="sec-global-string-" secid="11.1.12">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-string-">11.1.12</a></span>global::string()</h3>
 <p>The string function returns the string representation of scalar values or <span class="spec-keyword">null</span> for any other values.</p>
 <div class="spec-algo" id="global_string()">
 <span class="spec-call"><a href="#global_string()" data-name="global_string">global_string</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2634,8 +2608,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </div>
 </section>
-<section id="sec-global-boost-" secid="11.1.14">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-boost-">11.1.14</a></span>global::boost()</h3>
+<section id="sec-global-boost-" secid="11.1.13">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-boost-">11.1.13</a></span>global::boost()</h3>
 <p>The <code>boost</code> function accepts an expression and a boost value, and increases or decreases the score computed by <code>score()</code> (see <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a>) accordingly. <code>boost</code> can only be used within the argument list to <code>score()</code>.</p>
 <pre id="example-b8fda" class="spec-example"><a href="#example-b8fda">Example № 22</a><code>* | score(boost(title matches "milk", 5.0), body matches "milk")
 </code></pre>
@@ -2668,8 +2642,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </div>
 </section>
-<section id="sec-global-lower-" secid="11.1.15">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-lower-">11.1.15</a></span>global::lower()</h3>
+<section id="sec-global-lower-" secid="11.1.14">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-lower-">11.1.14</a></span>global::lower()</h3>
 <p>The lower function returns lowercased string.</p>
 <div class="spec-algo" id="global_lower()">
 <span class="spec-call"><a href="#global_lower()" data-name="global_lower">global_lower</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2690,8 +2664,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </div>
 </section>
-<section id="sec-global-upper-" secid="11.1.16">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-upper-">11.1.16</a></span>global::upper()</h3>
+<section id="sec-global-upper-" secid="11.1.15">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-upper-">11.1.15</a></span>global::upper()</h3>
 <p>The upper function returns uppercased string.</p>
 <div class="spec-algo" id="global_upper()">
 <span class="spec-call"><a href="#global_upper()" data-name="global_upper">global_upper</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -2855,6 +2829,32 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </li>
 <li>If the first element is not a <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
+</section>
+<section id="sec-delta-operation-" secid="11.4.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-delta-operation-">11.4.3</a></span>delta::operation()</h3>
+<p>The operation function returns the current operation (<span class="spec-string">"create"</span>, <span class="spec-string">"update"</span>, <span class="spec-string">"delete"</span>) of a change in delta mode.</p>
+<div class="spec-algo" id="delta_operation()">
+<span class="spec-call"><a href="#delta_operation()" data-name="delta_operation">delta_operation</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="before">before</var> and <var data-name="after">after</var> be the before/after objects of the query context to <var data-name="scope">scope</var>.</li>
+<li>If <var data-name="before">before</var> is <span class="spec-keyword">null</span>:<ol>
+<li>Return <span class="spec-string">"create"</span>.</li>
+</ol>
+</li>
+<li>If <var data-name="after">after</var> is <span class="spec-keyword">null</span>:<ol>
+<li>Return <span class="spec-string">"delete"</span>.</li>
+</ol>
+</li>
+<li>Return <span class="spec-string">"update"</span>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="delta_operation_validate()">
+<span class="spec-call"><a href="#delta_operation_validate()" data-name="delta_operation_validate">delta_operation_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 0:<ol>
 <li>Report an error.</li>
 </ol>
 </li>
@@ -3629,6 +3629,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#delta_changedAny_validate()">delta_changedAny_validate</a></li>
 <li><a href="#delta_changedOnly()">delta_changedOnly</a></li>
 <li><a href="#delta_changedOnly_validate()">delta_changedOnly_validate</a></li>
+<li><a href="#delta_operation()">delta_operation</a></li>
+<li><a href="#delta_operation_validate()">delta_operation_validate</a></li>
 <li><a href="#Dereference">Dereference</a></li>
 <li><a href="#Desc">Desc</a></li>
 <li><a href="#DetermineName()">DetermineName</a></li>
@@ -3721,8 +3723,6 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#global_lower_validate()">global_lower_validate</a></li>
 <li><a href="#global_now()">global_now</a></li>
 <li><a href="#global_now_validate()">global_now_validate</a></li>
-<li><a href="#global_operation()">global_operation</a></li>
-<li><a href="#global_operation_validate()">global_operation_validate</a></li>
 <li><a href="#global_pt()">global_pt</a></li>
 <li><a href="#global_pt_validate()">global_pt_validate</a></li>
 <li><a href="#global_references()">global_references</a></li>
@@ -3960,14 +3960,13 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_11.1.6"><a href="#sec-global-defined-"><span class="spec-secid">11.1.6</span>global::defined()</a></li>
 <li id="_sidebar_11.1.7"><a href="#sec-global-length-"><span class="spec-secid">11.1.7</span>global::length()</a></li>
 <li id="_sidebar_11.1.8"><a href="#sec-global-now-"><span class="spec-secid">11.1.8</span>global::now()</a></li>
-<li id="_sidebar_11.1.9"><a href="#sec-global-operation-"><span class="spec-secid">11.1.9</span>global::operation()</a></li>
-<li id="_sidebar_11.1.10"><a href="#sec-global-references-"><span class="spec-secid">11.1.10</span>global::references()</a></li>
-<li id="_sidebar_11.1.11"><a href="#sec-global-round-"><span class="spec-secid">11.1.11</span>global::round()</a></li>
-<li id="_sidebar_11.1.12"><a href="#sec-global-select-"><span class="spec-secid">11.1.12</span>global::select()</a></li>
-<li id="_sidebar_11.1.13"><a href="#sec-global-string-"><span class="spec-secid">11.1.13</span>global::string()</a></li>
-<li id="_sidebar_11.1.14"><a href="#sec-global-boost-"><span class="spec-secid">11.1.14</span>global::boost()</a></li>
-<li id="_sidebar_11.1.15"><a href="#sec-global-lower-"><span class="spec-secid">11.1.15</span>global::lower()</a></li>
-<li id="_sidebar_11.1.16"><a href="#sec-global-upper-"><span class="spec-secid">11.1.16</span>global::upper()</a></li>
+<li id="_sidebar_11.1.9"><a href="#sec-global-references-"><span class="spec-secid">11.1.9</span>global::references()</a></li>
+<li id="_sidebar_11.1.10"><a href="#sec-global-round-"><span class="spec-secid">11.1.10</span>global::round()</a></li>
+<li id="_sidebar_11.1.11"><a href="#sec-global-select-"><span class="spec-secid">11.1.11</span>global::select()</a></li>
+<li id="_sidebar_11.1.12"><a href="#sec-global-string-"><span class="spec-secid">11.1.12</span>global::string()</a></li>
+<li id="_sidebar_11.1.13"><a href="#sec-global-boost-"><span class="spec-secid">11.1.13</span>global::boost()</a></li>
+<li id="_sidebar_11.1.14"><a href="#sec-global-lower-"><span class="spec-secid">11.1.14</span>global::lower()</a></li>
+<li id="_sidebar_11.1.15"><a href="#sec-global-upper-"><span class="spec-secid">11.1.15</span>global::upper()</a></li>
 </ol>
 </li>
 <li id="_sidebar_11.2"><a href="#sec-Date-time-namespace"><span class="spec-secid">11.2</span>Date/time namespace</a>
@@ -3988,6 +3987,7 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <ol>
 <li id="_sidebar_11.4.1"><a href="#sec-delta-changedAny"><span class="spec-secid">11.4.1</span>delta::changedAny</a></li>
 <li id="_sidebar_11.4.2"><a href="#sec-delta-changedOnly"><span class="spec-secid">11.4.2</span>delta::changedOnly</a></li>
+<li id="_sidebar_11.4.3"><a href="#sec-delta-operation-"><span class="spec-secid">11.4.3</span>delta::operation()</a></li>
 </ol>
 </li>
 <li id="_sidebar_11.5"><a href="#sec-Array-namespace"><span class="spec-secid">11.5</span>Array namespace</a>
