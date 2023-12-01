@@ -91,22 +91,20 @@ EvaluateComparison(scope):
 
 ## In operator
 
-In : Expression in Expression
+In :
+
+- Expression in Expression
+- Expression in Range
 
 EvaluateIn(scope):
 
 - Let {leftNode} be the first {Expression}.
 - Let {left} be the result of {Evaluate(leftNode, scope)}.
-- Let {rightNode} be the last {Expression}.
-- Let {right} be the result of {Evaluate(rightNode, scope)}.
-- If {right} is an array:
-  - For each {value} in {right}:
-    - If {Equal(left, value)} is {true}:
-      - Return {true}.
-  - Return {false}.
-- If {right} is a range:
-  - Let {lower} be the start value of {right}.
-  - Let {upper} be the end value of {right}.
+- If the right-hand side is a {Range}:
+  - Let {lowerNode} be the start node of the range.
+  - Let {lower} be the result of {Evaluate(lowerNode, scope)}.
+  - Let {upperNode} be the end node of the range.
+  - Let {upper} be the result of {Evaluate(upperNode, scope)}.
   - Let {leftCmp} be the result of {PartialCompare(left, lower)}.
   - Let {rightCmp} be the result of {PartialCompare(left, upper)}.
   - If {leftCmp} or {rightCmp} is {null}:
@@ -115,9 +113,16 @@ EvaluateIn(scope):
     - Return {false}.
   - If {rightCmp} is {Greater}:
     - Return {false}.
-  - If the {right} range is exclusive and {rightCmp} is {Equal}:
+  - If the range is exclusive and {rightCmp} is {Equal}:
     - Return {false}.
   - Return {true}.
+- Let {rightNode} be the last {Expression}.
+- Let {right} be the result of {Evaluate(rightNode, scope)}.
+- If {right} is an array:
+  - For each {value} in {right}:
+    - If {Equal(left, value)} is {true}:
+      - Return {true}.
+  - Return {false}.
 - Return {null}.
 
 ## Match operator
