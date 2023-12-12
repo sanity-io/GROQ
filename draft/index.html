@@ -1886,27 +1886,17 @@ person["Full Name"]
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-In-operator">9.6</a></span>In operator</h2>
 <div class="spec-production" id="In">
 <span class="spec-nt"><a href="#In" data-name="In">In</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">in</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">in</span><span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span></div>
 </div>
 <div class="spec-algo" id="EvaluateIn()">
 <span class="spec-call"><a href="#EvaluateIn()" data-name="EvaluateIn">EvaluateIn</a>(<var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="leftNode">leftNode</var> be the first <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
 <li>Let <var data-name="left">left</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="leftNode">leftNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>Let <var data-name="rightNode">rightNode</var> be the last <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
-<li>Let <var data-name="right">right</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rightNode">rightNode</var>, <var data-name="scope">scope</var>)</span>.</li>
-<li>If <var data-name="right">right</var> is an array:<ol>
-<li>For each <var data-name="value">value</var> in <var data-name="right">right</var>:<ol>
-<li>If <span class="spec-call"><a href="#Equal()" data-name="Equal">Equal</a>(<var data-name="left">left</var>, <var data-name="value">value</var>)</span> is <span class="spec-keyword">true</span>:<ol>
-<li>Return <span class="spec-keyword">true</span>.</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>Return <span class="spec-keyword">false</span>.</li>
-</ol>
-</li>
-<li>If <var data-name="right">right</var> is a range:<ol>
-<li>Let <var data-name="lower">lower</var> be the start value of <var data-name="right">right</var>.</li>
-<li>Let <var data-name="upper">upper</var> be the end value of <var data-name="right">right</var>.</li>
+<li>If the right-hand side is a <span class="spec-nt"><a href="#Range" data-name="Range">Range</a></span>:<ol>
+<li>Let <var data-name="lowerNode">lowerNode</var> be the start node of the range.</li>
+<li>Let <var data-name="lower">lower</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="lowerNode">lowerNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="upperNode">upperNode</var> be the end node of the range.</li>
+<li>Let <var data-name="upper">upper</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="upperNode">upperNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>Let <var data-name="leftCmp">leftCmp</var> be the result of <span class="spec-call"><a href="#PartialCompare()" data-name="PartialCompare">PartialCompare</a>(<var data-name="left">left</var>, <var data-name="lower">lower</var>)</span>.</li>
 <li>Let <var data-name="rightCmp">rightCmp</var> be the result of <span class="spec-call"><a href="#PartialCompare()" data-name="PartialCompare">PartialCompare</a>(<var data-name="left">left</var>, <var data-name="upper">upper</var>)</span>.</li>
 <li>If <var data-name="leftCmp">leftCmp</var> or <var data-name="rightCmp">rightCmp</var> is <span class="spec-keyword">null</span>:<ol>
@@ -1921,11 +1911,24 @@ person["Full Name"]
 <li>Return <span class="spec-keyword">false</span>.</li>
 </ol>
 </li>
-<li>If the <var data-name="right">right</var> range is exclusive and <var data-name="rightCmp">rightCmp</var> is <span class="spec-nt"><span data-name="Equal">Equal</span></span>:<ol>
+<li>If the range is exclusive and <var data-name="rightCmp">rightCmp</var> is <span class="spec-nt"><span data-name="Equal">Equal</span></span>:<ol>
 <li>Return <span class="spec-keyword">false</span>.</li>
 </ol>
 </li>
 <li>Return <span class="spec-keyword">true</span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="rightNode">rightNode</var> be the last <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
+<li>Let <var data-name="right">right</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="rightNode">rightNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="right">right</var> is an array:<ol>
+<li>For each <var data-name="value">value</var> in <var data-name="right">right</var>:<ol>
+<li>If <span class="spec-call"><a href="#Equal()" data-name="Equal">Equal</a>(<var data-name="left">left</var>, <var data-name="value">value</var>)</span> is <span class="spec-keyword">true</span>:<ol>
+<li>Return <span class="spec-keyword">true</span>.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Return <span class="spec-keyword">false</span>.</li>
 </ol>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
