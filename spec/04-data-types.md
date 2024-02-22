@@ -174,7 +174,7 @@ DetermineName(node):
 
 - If {node} is an {ThisAttribute}:
   - Return the string value of the {Identifier} of {node}.
-- If {node} is a {Projection}, {ElementAccess}, {Slice}, or {Filter}:
+- If {node} is a {ArrayPostfix}, {Dereference}, {ElementAccess}, {Filter}, {Map}, {Projection}, {SelectorGroup}, or {Slice}:
   - Let {base} be the first {Expression} of {expr}.
   - Return the result of {DetermineName(base)}.
 
