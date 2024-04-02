@@ -552,6 +552,36 @@ array_unique_validate(args):
 - If the length of {args} is not 1:
   - Report an error.
 
+### array::intersects()
+
+The `intersects` function compares two arrays, returning `true` if they have any elements in common.
+
+Only values that can be compared for [equality](#sec-Equality) are considered when determining whether there are common values.
+
+array_intersects(args, scope):
+
+- Let {firstNode} be the first element of {args}.
+- Let {first} be the result of {Evaluate(firstNode, scope)}.
+- If {first} is not an array:
+  - Return {null}.
+- Let {secondNode} be the first element of {args}.
+- Let {second} be the result of {Evaluate(secondNode, scope)}.
+- If {second} is not an array:
+  - Return {null}.
+- For each element in {first}:
+  - Let {a} be the element.
+  - For each element in {second}:
+    - Let {b} be the element.
+    - Set {equal} to be the result of `Equal(a, b)`.
+    - If {equal} is true:
+      - Return {true}.
+- Return {false}.
+
+array_intersects_validate(args):
+
+- If the length of {args} is not 2:
+  - Report an error.
+
 ## String namespace
 
 The `string` namespace contains functions to work with strings.
