@@ -176,6 +176,7 @@
 <li><a href="#sec-array-join-"><span class="spec-secid">11.5.1</span>array::join()</a></li>
 <li><a href="#sec-array-compact-"><span class="spec-secid">11.5.2</span>array::compact()</a></li>
 <li><a href="#sec-array-unique-"><span class="spec-secid">11.5.3</span>array::unique()</a></li>
+<li><a href="#sec-array-intersects-"><span class="spec-secid">11.5.4</span>array::intersects()</a></li>
 </ol>
 </li>
 <li><a href="#sec-String-namespace"><span class="spec-secid">11.6</span>String namespace</a><ol>
@@ -2995,6 +2996,49 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </ol>
 </div>
 </section>
+<section id="sec-array-intersects-" secid="11.5.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-array-intersects-">11.5.4</a></span>array::intersects()</h3>
+<p>The <code>intersects</code> function compares two arrays, returning <code>true</code> if they have any elements in common.</p>
+<p>Only values that can be compared for <a href="#sec-Equality">equality</a> are considered when determining whether there are common values.</p>
+<div class="spec-algo" id="array_intersects()">
+<span class="spec-call"><a href="#array_intersects()" data-name="array_intersects">array_intersects</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="firstNode">firstNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="first">first</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="firstNode">firstNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="first">first</var> is not an array:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="secondNode">secondNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="second">second</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="secondNode">secondNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="second">second</var> is not an array:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>For each element in <var data-name="first">first</var>:<ol>
+<li>Let <var data-name="a">a</var> be the element.</li>
+<li>For each element in <var data-name="second">second</var>:<ol>
+<li>Let <var data-name="b">b</var> be the element.</li>
+<li>Set <var data-name="equal">equal</var> to be the result of <code>Equal(a, b)</code>.</li>
+<li>If <var data-name="equal">equal</var> is true:<ol>
+<li>Return <span class="spec-keyword">true</span>.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Return <span class="spec-keyword">false</span>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="array_intersects_validate()">
+<span class="spec-call"><a href="#array_intersects_validate()" data-name="array_intersects_validate">array_intersects_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 2:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
+</section>
 </section>
 <section id="sec-String-namespace" secid="11.6">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-String-namespace">11.6</a></span>String namespace</h2>
@@ -3608,6 +3652,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#Array">Array</a></li>
 <li><a href="#array_compact()">array_compact</a></li>
 <li><a href="#array_compact_validate()">array_compact_validate</a></li>
+<li><a href="#array_intersects()">array_intersects</a></li>
+<li><a href="#array_intersects_validate()">array_intersects_validate</a></li>
 <li><a href="#array_join()">array_join</a></li>
 <li><a href="#array_join_validate()">array_join_validate</a></li>
 <li><a href="#array_unique()">array_unique</a></li>
@@ -4002,6 +4048,7 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_11.5.1"><a href="#sec-array-join-"><span class="spec-secid">11.5.1</span>array::join()</a></li>
 <li id="_sidebar_11.5.2"><a href="#sec-array-compact-"><span class="spec-secid">11.5.2</span>array::compact()</a></li>
 <li id="_sidebar_11.5.3"><a href="#sec-array-unique-"><span class="spec-secid">11.5.3</span>array::unique()</a></li>
+<li id="_sidebar_11.5.4"><a href="#sec-array-intersects-"><span class="spec-secid">11.5.4</span>array::intersects()</a></li>
 </ol>
 </li>
 <li id="_sidebar_11.6"><a href="#sec-String-namespace"><span class="spec-secid">11.6</span>String namespace</a>
