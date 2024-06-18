@@ -1,6 +1,6 @@
 # GROQ specification
 
-👉🏻 **Published versions of the spec can be viewed [here](https://sanity-io.github.io/GROQ/)**.
+👉🏻 **Published versions of the spec can be viewed [here](https://spec.groq.dev)**.
 
 This is the specification for GROQ (Graph-Relational Object Queries), a query language and execution engine made at [Sanity.io](https://www.sanity.io), for filtering and projecting JSON documents.
 The work started in 2015, and the development of this open standard started in 2019.
@@ -21,7 +21,7 @@ Go to [GROQ Arcade](https://groq.dev) to try out GROQ with any JSON data today!
 ## Development of the specification
 
 The specification is written using [spec-md](https://spec-md.com), a Markdown variant optimized for writing specifications.
-The source is located under the `spec/`-directory which is then converted into HTML and presented at <https://sanity-io.github.io/GROQ/>.
+The source is located under the `spec/`-directory which is then converted into HTML and presented at <https://spec.groq.dev>.
 To ensure that implementations are compatible we write test cases in the [GROQ test suite](https://github.com/sanity-io/groq-test-suite).
 
 The specification follows the versioning scheme of **GROQ-X.revisionY** where X (major) and Y (revision) are numbers:
