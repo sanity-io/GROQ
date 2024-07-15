@@ -1045,7 +1045,7 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <li>Return the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span> of <var data-name="node">node</var>.</li>
 </ol>
 </li>
-<li>If <var data-name="node">node</var> is a <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#Slice" data-name="Slice">Slice</a></span>, or <span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>:<ol>
+<li>If <var data-name="node">node</var> is a <span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span>, <span class="spec-nt"><a href="#Dereference" data-name="Dereference">Dereference</a></span>, <span class="spec-nt"><a href="#ElementAccess" data-name="ElementAccess">ElementAccess</a></span>, <span class="spec-nt"><a href="#Filter" data-name="Filter">Filter</a></span>, <span class="spec-nt"><span data-name="Map">Map</span></span>, <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span>, <span class="spec-nt"><a href="#SelectorGroup" data-name="SelectorGroup">SelectorGroup</a></span>, or <span class="spec-nt"><a href="#Slice" data-name="Slice">Slice</a></span>:<ol>
 <li>Let <var data-name="base">base</var> be the first <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of <var data-name="expr">expr</var>.</li>
 <li>Return the result of <span class="spec-call"><a href="#DetermineName()" data-name="DetermineName">DetermineName</a>(<var data-name="base">base</var>)</span>.</li>
 </ol>
