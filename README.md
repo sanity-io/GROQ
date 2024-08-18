@@ -1,3 +1,4 @@
+#sudo su 
 # GROQ specification
 
 👉🏻 **Published versions of the spec can be viewed [here](https://spec.groq.dev)**.
