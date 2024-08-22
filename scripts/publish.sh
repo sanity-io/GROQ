@@ -21,6 +21,8 @@ CURRENT_VERSION=$(git tag --points-at HEAD | grep 'GROQ-\d.*')
 if [ -n "$CURRENT_VERSION" ]; then
   echo "Publishing to: /$CURRENT_VERSION"
   cp -R out/ "$PUBLISH_DIR/$CURRENT_VERSION"
+else
+  echo "Not a tagged commit, skipping publishing to a versioned link"
 fi
 
 # Update index
