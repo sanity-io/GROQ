@@ -34,7 +34,7 @@ Go to [GROQ Arcade](https://groq.dev) to try out GROQ with any JSON data today!
 
 ## Learn GROQ
 
-[![free egghead GROQ introduction course by John Lindquist](https://user-images.githubusercontent.com/6188161/142889736-e0b57e15-fd88-4781-9d55-a2dcf615adce.png)](https://egghead.io/courses/introduction-to-groq-query-language-6e9c6fc0?utm_source=github&utm_medium=cta&utm_term=GROQ)
+[![Free egghead GROQ introduction course by John Lindquist](https://user-images.githubusercontent.com/6188161/142889736-e0b57e15-fd88-4781-9d55-a2dcf615adce.png)](https://egghead.io/courses/introduction-to-groq-query-language-6e9c6fc0?utm_source=github&utm_medium=cta&utm_term=GROQ)
 
 ---
 
