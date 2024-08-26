@@ -1675,7 +1675,7 @@ person["Full Name"]
 <section id="sec-Dereference-traversal" secid="8.7">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Dereference-traversal">8.7</a></span>Dereference traversal</h2>
 <div class="spec-production" id="Dereference">
-<span class="spec-nt"><a href="#Dereference" data-name="Dereference">Dereference</a></span><div class="spec-rhs"><span class="spec-t">-&gt;</span><span class="spec-quantified"><span class="spec-nt"><a href="#String" data-name="String">String</a></span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span></div>
+<span class="spec-nt"><a href="#Dereference" data-name="Dereference">Dereference</a></span><div class="spec-rhs"><span class="spec-t">-&gt;</span><span class="spec-quantified"><span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span></div>
 </div>
 <div class="spec-algo" id="EvaluateDereference()">
 <span class="spec-call"><a href="#EvaluateDereference()" data-name="EvaluateDereference">EvaluateDereference</a>(<var data-name="base">base</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -1710,8 +1710,8 @@ person["Full Name"]
 </li>
 </ol>
 </li>
-<li>If the dereference expression contains a <span class="spec-nt"><a href="#String" data-name="String">String</a></span>:<ol>
-<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#String" data-name="String">String</a></span>.</li>
+<li>If the dereference expression contains a <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>:<ol>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>.</li>
 <li>If <var data-name="result">result</var> is an object and contains an attribute <var data-name="name">name</var>:<ol>
 <li>Return the <var data-name="value">value</var> of the attribute <var data-name="name">name</var> in <var data-name="result">result</var>.</li>
 </ol>
