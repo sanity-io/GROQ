@@ -149,7 +149,7 @@ EvaluateProjection(base, scope):
 
 ## Dereference traversal
 
-Dereference : `->` String?
+Dereference : `->` Identifier?
 
 EvaluateDereference(base, scope):
 
@@ -170,8 +170,8 @@ EvaluateDereference(base, scope):
     - If {Equal(ref, id)} is {true}:
       - Set {result} to {document}.
       - Stop the loop.
-- If the dereference expression contains a {String}:
-  - Let {name} be the string value of the {String}.
+- If the dereference expression contains a {Identifier}:
+  - Let {name} be the string value of the {Identifier}.
   - If {result} is an object and contains an attribute {name}:
     - Return the {value} of the attribute {name} in {result}.
   - Otherwise:
