@@ -33,4 +33,88 @@ The specification follows the versioning scheme of **GROQ-X.revisionY** where X 
 
 ## License
 
-The specification is made available under the Open Web Foundation Final Specification Agreement (OWFa 1.0).
+The specification is made available under the Open Web Foundation Final Specification Agreement (OWFa 1.0). 
+# GROQ (Graph-Relational Object Queries)
+
+This project aims to provide a query language and execution engine for filtering and projecting JSON documents.
+
+## Installation
+
+To install the necessary dependencies, run:
+```bash
+npm install
+
+Usage
+To start using GROQ, follow the instructions in the getting started guide.
+
+Contributing
+Contributions are welcome! Please fork this repository and submit a pull request.
+
+License
+This project is licensed under the Open Web Foundation Final Specification Agreement (OWFa 1.0).
+
+
+### 2. Improve the GitHub Actions Workflow
+You can add more steps to your CI workflow to improve code quality, such as linting and building the project.
+
+```yaml
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Lint code
+      run: npm run lint
+
+    - name: Run tests
+      run: npm test
+
+    - name: Build project
+      run: npm run build
+
+3. Add Linting and Testing Scripts
+Ensure your package.json includes scripts for linting and testing.
+
+JSON
+
+{
+  "name": "groq",
+  "version": "1.0.0",
+  "description": "A query language and execution engine for filtering and projecting JSON documents",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "build": "webpack --config webpack.config.js"
+  },
+  "author": "sanity-io",
+  "license": "OWFa 1.0",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2"
+  }
+}
+AI-generated code. Review and use carefully. More info on FAQ.
