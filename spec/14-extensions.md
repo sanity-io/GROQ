@@ -107,6 +107,30 @@ global_geo_validate(args):
 - If the length of {args} is not 1:
   - Report an error.
 
+### geo::latLng()
+
+Takes latitude and longitude as arguments and returns a Geo Point.
+
+geo_latLng(args, scope):
+
+- Let {latNode} be the first element of {args}.
+- Let {lngNode} be the second element of {args}.
+- Let {lat} be the result of {Evaluate(latNode, scope)}.
+- Let {lng} be the result of {Evaluate(lngNode, scope)}.
+- If {lat} or {lng} is not a number:
+  - Return {null}.
+- If {lat} is not in the range of -90 to 90:
+  - Return {null}.
+- If {lng} is not in the range of -180 to 180:
+  - Return {null}.
+- Otherwise:
+  - Return a GeoJSON Point with {lat} and {lng} as coordinates, in lng, lat order.
+
+geo_latLng_validate(args):
+
+- If the length of {args} is not 2:
+  - Report an error.
+
 ### geo::contains()
 
 Returns true if first geo argument completely contains the second one, using a planar (non-spherical) coordinate system. Both geo argument can be any geo value. A geo value is considered contained if all its points are within the boundaries of the first geo value. For `MultiPolygon`, it's sufficient that only one of the polygons contains the first geo value.
