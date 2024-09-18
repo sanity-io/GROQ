@@ -71,7 +71,7 @@ Comments cannot start inside a string literal.
 
 Identifiers are used to name entities such as parameters, attributes and functions. An identifier is a sequence of one or more letters and digits. The first character in an identifier must be a letter.
 
-Identifier : /[A-Za-z\_][A-Za-z_0-9]\*/
+Identifier : `/[A-Za-z\_][A-Za-z_0-9]\*/`
 
 ## Digits
 
