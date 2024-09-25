@@ -15,7 +15,7 @@
 <section id="intro">
 <p><em>Current Working Draft</em></p>
 <p>This is the specification for GROQ (<strong>G</strong>raph-<strong>R</strong>elational <strong>O</strong>bject <strong>Q</strong>ueries), a query language and execution engine made at Sanity, Inc, for filtering and projecting JSON documents. The work started in 2015. The development of this open standard started in 2019.</p>
-<p>GROQ is authored by <a href="https://twitter.com/purefiction">Alexander Staubo</a> and <a href="https://twitter.com/svale">Simen Svale Skogsrud</a>. Additional follow up work by <a href="https://twitter.com/erikgrinaker">Erik Grinaker</a>, <a href="https://twitter.com/judofyr">Magnus Holm</a>, <a href="https://github.com/j33ty">Radhe</a>, <a href="https://github.com/israelroldan">Israel Roldan</a>, <a href="https://github.com/sgulseth">Sindre Gulseth</a>, <a href="https://github.com/codebymatt">Matt Craig</a>.</p>
+<p>GROQ is authored by <a href="https://twitter.com/purefiction">Alexander Staubo</a> and <a href="https://twitter.com/svale">Simen Svale Skogsrud</a>. Additional follow up work by <a href="https://twitter.com/erikgrinaker">Erik Grinaker</a>, <a href="https://twitter.com/judofyr">Magnus Holm</a>, <a href="https://github.com/j33ty">Radhe</a>, <a href="https://github.com/israelroldan">Israel Roldan</a>, <a href="https://github.com/sgulseth">Sindre Gulseth</a>, <a href="https://github.com/codebymatt">Matt Craig</a>, <a href="https://github.com/rexxars">Espen Hovlandsdal</a>.</p>
 <p>This specification should be considered <em>work in progress</em> until the first release.</p>
 <section id="sec-Copyright-notice" class="subsec">
 <h6><a href="#sec-Copyright-notice" title="link to this subsection">Copyright notice</a></h6>
@@ -213,9 +213,10 @@
 <li><a href="#sec-Geography-Extension"><span class="spec-secid">14.2</span>Geography Extension</a><ol>
 <li><a href="#sec-geo-type"><span class="spec-secid">14.2.1</span>geo type</a></li>
 <li><a href="#sec-global-geo-"><span class="spec-secid">14.2.2</span>global::geo()</a></li>
-<li><a href="#sec-geo-contains-"><span class="spec-secid">14.2.3</span>geo::contains()</a></li>
-<li><a href="#sec-geo-intersects-"><span class="spec-secid">14.2.4</span>geo::intersects()</a></li>
-<li><a href="#sec-geo-distance-"><span class="spec-secid">14.2.5</span>geo::distance()</a></li>
+<li><a href="#sec-geo-latLng-"><span class="spec-secid">14.2.3</span>geo::latLng()</a></li>
+<li><a href="#sec-geo-contains-"><span class="spec-secid">14.2.4</span>geo::contains()</a></li>
+<li><a href="#sec-geo-intersects-"><span class="spec-secid">14.2.5</span>geo::intersects()</a></li>
+<li><a href="#sec-geo-distance-"><span class="spec-secid">14.2.6</span>geo::distance()</a></li>
 </ol>
 </li>
 </ol>
@@ -3542,8 +3543,44 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </div>
 </section>
-<section id="sec-geo-contains-" secid="14.2.3">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-contains-">14.2.3</a></span>geo::contains()</h3>
+<section id="sec-geo-latLng-" secid="14.2.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-latLng-">14.2.3</a></span>geo::latLng()</h3>
+<p>Takes latitude and longitude as arguments and returns a Geo Point.</p>
+<div class="spec-algo" id="geo_latLng()">
+<span class="spec-call"><a href="#geo_latLng()" data-name="geo_latLng">geo_latLng</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="latNode">latNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="lngNode">lngNode</var> be the second element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="lat">lat</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="latNode">latNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Let <var data-name="lng">lng</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="lngNode">lngNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="lat">lat</var> or <var data-name="lng">lng</var> is not a number:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>If <var data-name="lat">lat</var> is not in the range of -90 to 90:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>If <var data-name="lng">lng</var> is not in the range of -180 to 180:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Otherwise:<ol>
+<li>Return a GeoJSON Point with <var data-name="lat">lat</var> and <var data-name="lng">lng</var> as coordinates, in lng, lat order.</li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="spec-algo" id="geo_latLng_validate()">
+<span class="spec-call"><a href="#geo_latLng_validate()" data-name="geo_latLng_validate">geo_latLng_validate</a>(<var data-name="args">args</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 2:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
+</section>
+<section id="sec-geo-contains-" secid="14.2.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-contains-">14.2.4</a></span>geo::contains()</h3>
 <p>Returns true if first geo argument completely contains the second one, using a planar (non-spherical) coordinate system. Both geo argument can be any geo value. A geo value is considered contained if all its points are within the boundaries of the first geo value. For <code>MultiPolygon</code>, it&rsquo;s sufficient that only one of the polygons contains the first geo value.</p>
 <div class="spec-algo" id="geo_contains()">
 <span class="spec-call"><a href="#geo_contains()" data-name="geo_contains">geo_contains</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3574,8 +3611,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </div>
 </section>
-<section id="sec-geo-intersects-" secid="14.2.4">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-intersects-">14.2.4</a></span>geo::intersects()</h3>
+<section id="sec-geo-intersects-" secid="14.2.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-intersects-">14.2.5</a></span>geo::intersects()</h3>
 <p>This function takes two geo values, and returns true if they intersect in a planar (non-spherical) coordinate system. The arguments can be any geo values. A geo value intersects with another if it shares any geometric points with the second value; for example, a line crossing a polygon.</p>
 <div class="spec-algo" id="geo_intersects()">
 <span class="spec-call"><a href="#geo_intersects()" data-name="geo_intersects">geo_intersects</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3606,8 +3643,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </div>
 </section>
-<section id="sec-geo-distance-" secid="14.2.5">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-distance-">14.2.5</a></span>geo::distance()</h3>
+<section id="sec-geo-distance-" secid="14.2.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-distance-">14.2.6</a></span>geo::distance()</h3>
 <p>This functions accepts two geo values, which must be point values, and returns the distance in meters. While exact algorithm is implementation-defined &mdash; for example, it may use the <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a> &mdash; it should use as close an approximation to a real Earth distance as possible.</p>
 <div class="spec-algo" id="geo_distance()">
 <span class="spec-call"><a href="#geo_distance()" data-name="geo_distance">geo_distance</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3756,6 +3793,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#geo_distance_validate()">geo_distance_validate</a></li>
 <li><a href="#geo_intersects()">geo_intersects</a></li>
 <li><a href="#geo_intersects_validate()">geo_intersects_validate</a></li>
+<li><a href="#geo_latLng()">geo_latLng</a></li>
+<li><a href="#geo_latLng_validate()">geo_latLng_validate</a></li>
 <li><a href="#global_after()">global_after</a></li>
 <li><a href="#global_after_validate()">global_after_validate</a></li>
 <li><a href="#global_before()">global_before</a></li>
@@ -4099,9 +4138,10 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <ol>
 <li id="_sidebar_14.2.1"><a href="#sec-geo-type"><span class="spec-secid">14.2.1</span>geo type</a></li>
 <li id="_sidebar_14.2.2"><a href="#sec-global-geo-"><span class="spec-secid">14.2.2</span>global::geo()</a></li>
-<li id="_sidebar_14.2.3"><a href="#sec-geo-contains-"><span class="spec-secid">14.2.3</span>geo::contains()</a></li>
-<li id="_sidebar_14.2.4"><a href="#sec-geo-intersects-"><span class="spec-secid">14.2.4</span>geo::intersects()</a></li>
-<li id="_sidebar_14.2.5"><a href="#sec-geo-distance-"><span class="spec-secid">14.2.5</span>geo::distance()</a></li>
+<li id="_sidebar_14.2.3"><a href="#sec-geo-latLng-"><span class="spec-secid">14.2.3</span>geo::latLng()</a></li>
+<li id="_sidebar_14.2.4"><a href="#sec-geo-contains-"><span class="spec-secid">14.2.4</span>geo::contains()</a></li>
+<li id="_sidebar_14.2.5"><a href="#sec-geo-intersects-"><span class="spec-secid">14.2.5</span>geo::intersects()</a></li>
+<li id="_sidebar_14.2.6"><a href="#sec-geo-distance-"><span class="spec-secid">14.2.6</span>geo::distance()</a></li>
 </ol>
 </li>
 </ol>
