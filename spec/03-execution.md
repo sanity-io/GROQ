@@ -42,6 +42,7 @@ A query context consists of:
 - the dataset
 - parameter values (map from {string} to {value})
 - the mode: either "normal" or "delta"
+- custom function definitions (map from {string} to {function})
 
 If the mode is "delta" then the query context also has:
 

@@ -79,6 +79,8 @@ EvaluateParent(scope):
 
 GROQ comes with a set of built-in functions which provides additional features. See the ["Functions"](#sec-Functions) for available functions and their namespaces.
 
+Custom GROQ functions can be defined to extend or override the built-in function set. See [Custom functions](15-custom-functions.md) for details.
+
 ```example
 *{"score": round(score, 2)}
            ~~~~~~~~~~~~~~~

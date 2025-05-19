@@ -9,18 +9,9 @@ A function definition MUST start with the keyword `fn`.
 All custom defined functions MUST live in a namespace.
 
 ```
-fn namespaceName::functionName($parameter) = $parameter{
-  ...
-};
+FuncDecl : `fn` FuncNamespace FuncIdentifier FuncParams `=` FuncBody `;`
+
 ```
-
-The function body MUST be in one of the forms:
-
-- `$param{…}`
-- `$param->{…}`
-- `$param[]{…}`
-- `$param[]->{…}`
-  In addition, the parameter MUST NOT be referenced anywhere else in the body.
 
 ## Function Scope
 
@@ -28,4 +19,6 @@ Custom functions are scoped to the query in which they are defined. They can be 
 
 ## Function invocation
 
-Functions are invoked similarly to other programming languages - namespaceName::functionName($parameter)
+```
+FuncParams : `(` Param `)`
+```
