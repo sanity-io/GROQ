@@ -56,6 +56,7 @@ A scope consists of:
 - a this value
 - an optional parent scope
 - a query context
+- a map of parameters
 
 A root scope can be constructed from a query context, and a nested scope can be constructed from an existing scope.
 
@@ -65,6 +66,7 @@ NewNestedScope(value, scope):
 - Set the this value of {newScope} to {value}.
 - Set the parent scope of {newScope} to {scope}.
 - Set the query context of {newScope} to the query context of {scope}.
+- Set the parameters of {newScope} to the parameter of {scope}.
 - Return {newScope}.
 
 NewRootScope(context):
@@ -73,6 +75,7 @@ NewRootScope(context):
 - Set the this value of {newScope} to {null}.
 - Set the parent scope of {newScope} to {null}.
 - Set the query context of {newScope} to {context}.
+- Set the parameters to the parameters given to the query request.
 - Return {newScope}.
 
 ## Expression validation
@@ -83,6 +86,11 @@ Validate(expr):
 
 - Let {validator} be the validator of {expr}.
 - Execute the {validator}.
+
+## Query validation
+
+A query is validated by first validating the custom functions and then [validating the expression](#sec-Expression-validation).
+Custom functions are validated by validating the function bodies.
 
 ## Expression evaluation
 
