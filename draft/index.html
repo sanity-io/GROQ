@@ -195,37 +195,37 @@
 </li>
 </ol>
 </li>
-<li><a href="#sec-Pipe-functions"><span class="spec-secid">12</span>Pipe functions</a><ol>
-<li><a href="#sec-global-order-"><span class="spec-secid">12.1</span>global::order()</a></li>
-<li><a href="#sec-global-score-"><span class="spec-secid">12.2</span>global::score()</a></li>
+<li><a href="#sec-Custom-Functions"><span class="spec-secid">12</span>Custom Functions</a><ol>
+<li><a href="#sec-Function-Definition"><span class="spec-secid">12.1</span>Function Definition</a></li>
+<li><a href="#sec-Function-invocation"><span class="spec-secid">12.2</span>Function invocation</a></li>
 </ol>
 </li>
-<li><a href="#sec-Vendor-functions"><span class="spec-secid">13</span>Vendor functions</a><ol>
-<li><a href="#sec-global-identity-"><span class="spec-secid">13.1</span>global::identity()</a></li>
-<li><a href="#sec-global-path-"><span class="spec-secid">13.2</span>global::path()</a></li>
+<li><a href="#sec-Pipe-functions"><span class="spec-secid">13</span>Pipe functions</a><ol>
+<li><a href="#sec-global-order-"><span class="spec-secid">13.1</span>global::order()</a></li>
+<li><a href="#sec-global-score-"><span class="spec-secid">13.2</span>global::score()</a></li>
 </ol>
 </li>
-<li><a href="#sec-Extensions"><span class="spec-secid">14</span>Extensions</a><ol>
-<li><a href="#sec-Portable-Text-Extension"><span class="spec-secid">14.1</span>Portable Text Extension</a><ol>
-<li><a href="#sec-pt-type"><span class="spec-secid">14.1.1</span>pt type</a></li>
-<li><a href="#sec-global-pt-"><span class="spec-secid">14.1.2</span>global::pt()</a></li>
-<li><a href="#sec-pt-text-"><span class="spec-secid">14.1.3</span>pt::text()</a></li>
+<li><a href="#sec-Vendor-functions"><span class="spec-secid">14</span>Vendor functions</a><ol>
+<li><a href="#sec-global-identity-"><span class="spec-secid">14.1</span>global::identity()</a></li>
+<li><a href="#sec-global-path-"><span class="spec-secid">14.2</span>global::path()</a></li>
 </ol>
 </li>
-<li><a href="#sec-Geography-Extension"><span class="spec-secid">14.2</span>Geography Extension</a><ol>
-<li><a href="#sec-geo-type"><span class="spec-secid">14.2.1</span>geo type</a></li>
-<li><a href="#sec-global-geo-"><span class="spec-secid">14.2.2</span>global::geo()</a></li>
-<li><a href="#sec-geo-latLng-"><span class="spec-secid">14.2.3</span>geo::latLng()</a></li>
-<li><a href="#sec-geo-contains-"><span class="spec-secid">14.2.4</span>geo::contains()</a></li>
-<li><a href="#sec-geo-intersects-"><span class="spec-secid">14.2.5</span>geo::intersects()</a></li>
-<li><a href="#sec-geo-distance-"><span class="spec-secid">14.2.6</span>geo::distance()</a></li>
+<li><a href="#sec-Extensions"><span class="spec-secid">15</span>Extensions</a><ol>
+<li><a href="#sec-Portable-Text-Extension"><span class="spec-secid">15.1</span>Portable Text Extension</a><ol>
+<li><a href="#sec-pt-type"><span class="spec-secid">15.1.1</span>pt type</a></li>
+<li><a href="#sec-global-pt-"><span class="spec-secid">15.1.2</span>global::pt()</a></li>
+<li><a href="#sec-pt-text-"><span class="spec-secid">15.1.3</span>pt::text()</a></li>
 </ol>
 </li>
+<li><a href="#sec-Geography-Extension"><span class="spec-secid">15.2</span>Geography Extension</a><ol>
+<li><a href="#sec-geo-type"><span class="spec-secid">15.2.1</span>geo type</a></li>
+<li><a href="#sec-global-geo-"><span class="spec-secid">15.2.2</span>global::geo()</a></li>
+<li><a href="#sec-geo-latLng-"><span class="spec-secid">15.2.3</span>geo::latLng()</a></li>
+<li><a href="#sec-geo-contains-"><span class="spec-secid">15.2.4</span>geo::contains()</a></li>
+<li><a href="#sec-geo-intersects-"><span class="spec-secid">15.2.5</span>geo::intersects()</a></li>
+<li><a href="#sec-geo-distance-"><span class="spec-secid">15.2.6</span>geo::distance()</a></li>
 </ol>
 </li>
-<li><a href="#sec-Custom-Functions"><span class="spec-secid">15</span>Custom Functions</a><ol>
-<li><a href="#sec-Function-Definition"><span class="spec-secid">15.1</span>Function Definition</a></li>
-<li><a href="#sec-Function-invocation"><span class="spec-secid">15.2</span>Function invocation</a></li>
 </ol>
 </li>
 <li><a href="#index"><span class="spec-secid">§</span>Index</a></li>
@@ -3340,8 +3340,25 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 </section>
 </section>
 </section>
-<section id="sec-Pipe-functions" secid="12">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-functions">12</a></span>Pipe functions</h1>
+<section id="sec-Custom-Functions" secid="12">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Custom-Functions">12</a></span>Custom Functions</h1>
+<p>Custom functions are reusable sets of query substructures that allow for the modular composition of GROQ queries.</p>
+<section id="sec-Function-Definition" secid="12.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Function-Definition">12.1</a></span>Function Definition</h2>
+<p>Functions MUST be defined in the beginning of a query using the delimiter <code>;</code>. A function definition MUST start with the keyword <code>fn</code>. All custom defined functions MUST live in a namespace.</p>
+<div class="spec-production" id="FuncDecl">
+<span class="spec-nt"><a href="#FuncDecl" data-name="FuncDecl">FuncDecl</a></span><div class="spec-rhs"><span class="spec-t">fn</span><span class="spec-nt"><a href="#FuncNamespace" data-name="FuncNamespace">FuncNamespace</a></span><span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span><span class="spec-nt"><a href="#FuncParams" data-name="FuncParams">FuncParams</a></span><span class="spec-t">=</span><span class="spec-nt"><span data-name="FuncBody">FuncBody</span></span><span class="spec-t">;</span></div>
+</div>
+</section>
+<section id="sec-Function-invocation" secid="12.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Function-invocation">12.2</a></span>Function invocation</h2>
+<div class="spec-production" id="FuncParams">
+<span class="spec-nt"><a href="#FuncParams" data-name="FuncParams">FuncParams</a></span><div class="spec-rhs"><span class="spec-t">(</span><span class="spec-nt"><span data-name="Param">Param</span></span><span class="spec-t">)</span></div>
+</div>
+</section>
+</section>
+<section id="sec-Pipe-functions" secid="13">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-functions">13</a></span>Pipe functions</h1>
 <p>Pipe functions provide additional functionality to GROQ queries. They are invoked through a <a href="#sec-Pipe-function-call-expression">Pipe function call expression</a>. They differ from regular functions in that they always accept an array as input and returns another array (or <span class="spec-keyword">null</span>). As such, the syntax is optimized for chaining (the array it works on comes on the left-hand side instead of being an argument):</p>
 <pre id="example-d44da" class="spec-example"><a href="#example-d44da">Example № 24</a><code>*[_type == "person"] | order(name) | {age}
 </code></pre>
@@ -3349,8 +3366,8 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <a href="#note-88a44">Note</a>
 that function arguments are not evaluated eagerly, and it&rsquo;s up to the function to decide which scope the arguments are evaluated in. All definitions below take an array of nodes.</div>
 <p>An implementation may provide additional pipe functions, but should be aware that this can cause problems when interoperating with future versions of GROQ.</p>
-<section id="sec-global-order-" secid="12.1">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-order-">12.1</a></span>global::order()</h2>
+<section id="sec-global-order-" secid="13.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-order-">13.1</a></span>global::order()</h2>
 <p>The order function sorts an array based on arbitrary expressions.</p>
 <div class="spec-algo" id="order()">
 <span class="spec-call"><a href="#order()" data-name="order">order</a>(<var data-name="base">base</var>, <var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3389,8 +3406,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </div>
 </section>
-<section id="sec-global-score-" secid="12.2">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-score-">12.2</a></span>global::score()</h2>
+<section id="sec-global-score-" secid="13.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-score-">13.2</a></span>global::score()</h2>
 <p>The <code>score</code> function assigns a score to an array of results, based on one or more scoring expressions. The <code>score</code> function may only be used as a pipe function.</p>
 <pre id="example-16420" class="spec-example"><a href="#example-16420">Example № 25</a><code>*[_type == "listing"] | score(body match "jacuzzi")
 </code></pre>
@@ -3451,30 +3468,30 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </div>
 </section>
 </section>
-<section id="sec-Vendor-functions" secid="13">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Vendor-functions">13</a></span>Vendor functions</h1>
+<section id="sec-Vendor-functions" secid="14">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Vendor-functions">14</a></span>Vendor functions</h1>
 <p>An implementation is free to introduce additional functions than what is presented in this specification, but this is problematic if a function with the same name is introduced in a future version. The following section defines optional <em>vendor functions</em> which are guaranteed to never be a regular function in a future specification. There&rsquo;s also a short description of each vendor function so different implementations can attempt to be compatible with each other. The description is intentionally brief and it&rsquo;s up to the vendor to define it completely.</p>
-<section id="sec-global-identity-" secid="13.1">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-identity-">13.1</a></span>global::identity()</h2>
+<section id="sec-global-identity-" secid="14.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-identity-">14.1</a></span>global::identity()</h2>
 <p>The identity function should accept zero arguments and return a string which represents the identity of the client executing the query.</p>
 </section>
-<section id="sec-global-path-" secid="13.2">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-path-">13.2</a></span>global::path()</h2>
+<section id="sec-global-path-" secid="14.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-global-path-">14.2</a></span>global::path()</h2>
 <p>The path function should accept a single argument and return a path object. </p>
 </section>
 </section>
-<section id="sec-Extensions" secid="14">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Extensions">14</a></span>Extensions</h1>
+<section id="sec-Extensions" secid="15">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Extensions">15</a></span>Extensions</h1>
 <p>Extensions are the capabilities which extend GROQ queries beyond basic Spec. These capabilities can include function namespaces, functions and operators. However, extensions can not introduce a new syntax.</p>
-<section id="sec-Portable-Text-Extension" secid="14.1">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Portable-Text-Extension">14.1</a></span>Portable Text Extension</h2>
+<section id="sec-Portable-Text-Extension" secid="15.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Portable-Text-Extension">15.1</a></span>Portable Text Extension</h2>
 <p>Functions available in Portable text extension are grouped under <code>pt</code> namespace except for the constructor which is global.</p>
-<section id="sec-pt-type" secid="14.1.1">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-pt-type">14.1.1</a></span>pt type</h3>
+<section id="sec-pt-type" secid="15.1.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-pt-type">15.1.1</a></span>pt type</h3>
 <p>PT type represents an object following <a href="https://github.com/portabletext/portabletext">portable text spec</a>.</p>
 </section>
-<section id="sec-global-pt-" secid="14.1.2">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-pt-">14.1.2</a></span>global::pt()</h3>
+<section id="sec-global-pt-" secid="15.1.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-pt-">15.1.2</a></span>global::pt()</h3>
 <p>This function takes in an object or an array of objects, and returns a PT value.</p>
 <div class="spec-algo" id="global_pt()">
 <span class="spec-call"><a href="#global_pt()" data-name="global_pt">global_pt</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3513,8 +3530,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </div>
 </section>
-<section id="sec-pt-text-" secid="14.1.3">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-pt-text-">14.1.3</a></span>pt::text()</h3>
+<section id="sec-pt-text-" secid="15.1.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-pt-text-">15.1.3</a></span>pt::text()</h3>
 <p>This function takes in a PT value and returns a string versions of text. PT value which consists of more than one Portable text block has blocks appended with double newline character (<code>\n\n</code>) in the string version.</p>
 <div class="spec-algo" id="pt_text()">
 <span class="spec-call"><a href="#pt_text()" data-name="pt_text">pt_text</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3552,11 +3569,11 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </div>
 </section>
 </section>
-<section id="sec-Geography-Extension" secid="14.2">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Geography-Extension">14.2</a></span>Geography Extension</h2>
+<section id="sec-Geography-Extension" secid="15.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Geography-Extension">15.2</a></span>Geography Extension</h2>
 <p>Functions available in Geography extension are grouped under <code>geo</code> namespace except for the constructor which is global.</p>
-<section id="sec-geo-type" secid="14.2.1">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-type">14.2.1</a></span>geo type</h3>
+<section id="sec-geo-type" secid="15.2.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-type">15.2.1</a></span>geo type</h3>
 <p>The geo type represents a geography and can contain points, lines, and polygons which can be expressed with a single latitude/longitude coordinate, or as a GeoJSON object. Concretely, an object is coerced to the geo type if:</p>
 <ol>
 <li>If the object is coerced to a geographic point, that is it has a key <code>lat</code> for latitude and a key <code>lng</code> or <code>lon</code> for longitude (but not both).</li>
@@ -3579,8 +3596,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Arrays of geographic values. Instead, one of the GeoJSON <code>Multi</code> types should be used.</li>
 </ol>
 </section>
-<section id="sec-global-geo-" secid="14.2.2">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-geo-">14.2.2</a></span>global::geo()</h3>
+<section id="sec-global-geo-" secid="15.2.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-global-geo-">15.2.2</a></span>global::geo()</h3>
 <p>This function is a constructor for geographic value. It takes an object or another geo value, returning a geo value.</p>
 <div class="spec-algo" id="global_geo()">
 <span class="spec-call"><a href="#global_geo()" data-name="global_geo">global_geo</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3613,8 +3630,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </div>
 </section>
-<section id="sec-geo-latLng-" secid="14.2.3">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-latLng-">14.2.3</a></span>geo::latLng()</h3>
+<section id="sec-geo-latLng-" secid="15.2.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-latLng-">15.2.3</a></span>geo::latLng()</h3>
 <p>Takes latitude and longitude as arguments and returns a Geo Point.</p>
 <div class="spec-algo" id="geo_latLng()">
 <span class="spec-call"><a href="#geo_latLng()" data-name="geo_latLng">geo_latLng</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3649,8 +3666,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </div>
 </section>
-<section id="sec-geo-contains-" secid="14.2.4">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-contains-">14.2.4</a></span>geo::contains()</h3>
+<section id="sec-geo-contains-" secid="15.2.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-contains-">15.2.4</a></span>geo::contains()</h3>
 <p>Returns true if first geo argument completely contains the second one, using a planar (non-spherical) coordinate system. Both geo argument can be any geo value. A geo value is considered contained if all its points are within the boundaries of the first geo value. For <code>MultiPolygon</code>, it&rsquo;s sufficient that only one of the polygons contains the first geo value.</p>
 <div class="spec-algo" id="geo_contains()">
 <span class="spec-call"><a href="#geo_contains()" data-name="geo_contains">geo_contains</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3681,8 +3698,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </div>
 </section>
-<section id="sec-geo-intersects-" secid="14.2.5">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-intersects-">14.2.5</a></span>geo::intersects()</h3>
+<section id="sec-geo-intersects-" secid="15.2.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-intersects-">15.2.5</a></span>geo::intersects()</h3>
 <p>This function takes two geo values, and returns true if they intersect in a planar (non-spherical) coordinate system. The arguments can be any geo values. A geo value intersects with another if it shares any geometric points with the second value; for example, a line crossing a polygon.</p>
 <div class="spec-algo" id="geo_intersects()">
 <span class="spec-call"><a href="#geo_intersects()" data-name="geo_intersects">geo_intersects</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3713,8 +3730,8 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </div>
 </section>
-<section id="sec-geo-distance-" secid="14.2.6">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-distance-">14.2.6</a></span>geo::distance()</h3>
+<section id="sec-geo-distance-" secid="15.2.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-geo-distance-">15.2.6</a></span>geo::distance()</h3>
 <p>This functions accepts two geo values, which must be point values, and returns the distance in meters. While exact algorithm is implementation-defined &mdash; for example, it may use the <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a> &mdash; it should use as close an approximation to a real Earth distance as possible.</p>
 <div class="spec-algo" id="geo_distance()">
 <span class="spec-call"><a href="#geo_distance()" data-name="geo_distance">geo_distance</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -3749,23 +3766,6 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </ol>
 </div>
 </section>
-</section>
-</section>
-<section id="sec-Custom-Functions" secid="15">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Custom-Functions">15</a></span>Custom Functions</h1>
-<p>Custom functions are reusable sets of query substructures that allow for the modular composition of GROQ queries.</p>
-<section id="sec-Function-Definition" secid="15.1">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Function-Definition">15.1</a></span>Function Definition</h2>
-<p>Functions MUST be defined in the beginning of a query using the delimiter <code>;</code>. A function definition MUST start with the keyword <code>fn</code>. All custom defined functions MUST live in a namespace.</p>
-<div class="spec-production" id="FuncDecl">
-<span class="spec-nt"><a href="#FuncDecl" data-name="FuncDecl">FuncDecl</a></span><div class="spec-rhs"><span class="spec-t">fn</span><span class="spec-nt"><a href="#FuncNamespace" data-name="FuncNamespace">FuncNamespace</a></span><span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span><span class="spec-nt"><a href="#FuncParams" data-name="FuncParams">FuncParams</a></span><span class="spec-t">=</span><span class="spec-nt"><span data-name="FuncBody">FuncBody</span></span><span class="spec-t">;</span></div>
-</div>
-</section>
-<section id="sec-Function-invocation" secid="15.2">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Function-invocation">15.2</a></span>Function invocation</h2>
-<div class="spec-production" id="FuncParams">
-<span class="spec-nt"><a href="#FuncParams" data-name="FuncParams">FuncParams</a></span><div class="spec-rhs"><span class="spec-t">(</span><span class="spec-nt"><span data-name="Param">Param</span></span><span class="spec-t">)</span></div>
-</div>
 </section>
 </section>
 <section id="index" secid="index" class="spec-index">
@@ -4203,49 +4203,49 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 </li>
 </ol>
 </li>
-<li id="_sidebar_12"><a href="#sec-Pipe-functions"><span class="spec-secid">12</span>Pipe functions</a>
+<li id="_sidebar_12"><a href="#sec-Custom-Functions"><span class="spec-secid">12</span>Custom Functions</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_12" /><label for="_toggle_12"></label>
 <ol>
-<li id="_sidebar_12.1"><a href="#sec-global-order-"><span class="spec-secid">12.1</span>global::order()</a></li>
-<li id="_sidebar_12.2"><a href="#sec-global-score-"><span class="spec-secid">12.2</span>global::score()</a></li>
+<li id="_sidebar_12.1"><a href="#sec-Function-Definition"><span class="spec-secid">12.1</span>Function Definition</a></li>
+<li id="_sidebar_12.2"><a href="#sec-Function-invocation"><span class="spec-secid">12.2</span>Function invocation</a></li>
 </ol>
 </li>
-<li id="_sidebar_13"><a href="#sec-Vendor-functions"><span class="spec-secid">13</span>Vendor functions</a>
+<li id="_sidebar_13"><a href="#sec-Pipe-functions"><span class="spec-secid">13</span>Pipe functions</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_13" /><label for="_toggle_13"></label>
 <ol>
-<li id="_sidebar_13.1"><a href="#sec-global-identity-"><span class="spec-secid">13.1</span>global::identity()</a></li>
-<li id="_sidebar_13.2"><a href="#sec-global-path-"><span class="spec-secid">13.2</span>global::path()</a></li>
+<li id="_sidebar_13.1"><a href="#sec-global-order-"><span class="spec-secid">13.1</span>global::order()</a></li>
+<li id="_sidebar_13.2"><a href="#sec-global-score-"><span class="spec-secid">13.2</span>global::score()</a></li>
 </ol>
 </li>
-<li id="_sidebar_14"><a href="#sec-Extensions"><span class="spec-secid">14</span>Extensions</a>
+<li id="_sidebar_14"><a href="#sec-Vendor-functions"><span class="spec-secid">14</span>Vendor functions</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_14" /><label for="_toggle_14"></label>
 <ol>
-<li id="_sidebar_14.1"><a href="#sec-Portable-Text-Extension"><span class="spec-secid">14.1</span>Portable Text Extension</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_14.1" /><label for="_toggle_14.1"></label>
-<ol>
-<li id="_sidebar_14.1.1"><a href="#sec-pt-type"><span class="spec-secid">14.1.1</span>pt type</a></li>
-<li id="_sidebar_14.1.2"><a href="#sec-global-pt-"><span class="spec-secid">14.1.2</span>global::pt()</a></li>
-<li id="_sidebar_14.1.3"><a href="#sec-pt-text-"><span class="spec-secid">14.1.3</span>pt::text()</a></li>
+<li id="_sidebar_14.1"><a href="#sec-global-identity-"><span class="spec-secid">14.1</span>global::identity()</a></li>
+<li id="_sidebar_14.2"><a href="#sec-global-path-"><span class="spec-secid">14.2</span>global::path()</a></li>
 </ol>
 </li>
-<li id="_sidebar_14.2"><a href="#sec-Geography-Extension"><span class="spec-secid">14.2</span>Geography Extension</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_14.2" /><label for="_toggle_14.2"></label>
-<ol>
-<li id="_sidebar_14.2.1"><a href="#sec-geo-type"><span class="spec-secid">14.2.1</span>geo type</a></li>
-<li id="_sidebar_14.2.2"><a href="#sec-global-geo-"><span class="spec-secid">14.2.2</span>global::geo()</a></li>
-<li id="_sidebar_14.2.3"><a href="#sec-geo-latLng-"><span class="spec-secid">14.2.3</span>geo::latLng()</a></li>
-<li id="_sidebar_14.2.4"><a href="#sec-geo-contains-"><span class="spec-secid">14.2.4</span>geo::contains()</a></li>
-<li id="_sidebar_14.2.5"><a href="#sec-geo-intersects-"><span class="spec-secid">14.2.5</span>geo::intersects()</a></li>
-<li id="_sidebar_14.2.6"><a href="#sec-geo-distance-"><span class="spec-secid">14.2.6</span>geo::distance()</a></li>
-</ol>
-</li>
-</ol>
-</li>
-<li id="_sidebar_15"><a href="#sec-Custom-Functions"><span class="spec-secid">15</span>Custom Functions</a>
+<li id="_sidebar_15"><a href="#sec-Extensions"><span class="spec-secid">15</span>Extensions</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_15" /><label for="_toggle_15"></label>
 <ol>
-<li id="_sidebar_15.1"><a href="#sec-Function-Definition"><span class="spec-secid">15.1</span>Function Definition</a></li>
-<li id="_sidebar_15.2"><a href="#sec-Function-invocation"><span class="spec-secid">15.2</span>Function invocation</a></li>
+<li id="_sidebar_15.1"><a href="#sec-Portable-Text-Extension"><span class="spec-secid">15.1</span>Portable Text Extension</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_15.1" /><label for="_toggle_15.1"></label>
+<ol>
+<li id="_sidebar_15.1.1"><a href="#sec-pt-type"><span class="spec-secid">15.1.1</span>pt type</a></li>
+<li id="_sidebar_15.1.2"><a href="#sec-global-pt-"><span class="spec-secid">15.1.2</span>global::pt()</a></li>
+<li id="_sidebar_15.1.3"><a href="#sec-pt-text-"><span class="spec-secid">15.1.3</span>pt::text()</a></li>
+</ol>
+</li>
+<li id="_sidebar_15.2"><a href="#sec-Geography-Extension"><span class="spec-secid">15.2</span>Geography Extension</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_15.2" /><label for="_toggle_15.2"></label>
+<ol>
+<li id="_sidebar_15.2.1"><a href="#sec-geo-type"><span class="spec-secid">15.2.1</span>geo type</a></li>
+<li id="_sidebar_15.2.2"><a href="#sec-global-geo-"><span class="spec-secid">15.2.2</span>global::geo()</a></li>
+<li id="_sidebar_15.2.3"><a href="#sec-geo-latLng-"><span class="spec-secid">15.2.3</span>geo::latLng()</a></li>
+<li id="_sidebar_15.2.4"><a href="#sec-geo-contains-"><span class="spec-secid">15.2.4</span>geo::contains()</a></li>
+<li id="_sidebar_15.2.5"><a href="#sec-geo-intersects-"><span class="spec-secid">15.2.5</span>geo::intersects()</a></li>
+<li id="_sidebar_15.2.6"><a href="#sec-geo-distance-"><span class="spec-secid">15.2.6</span>geo::distance()</a></li>
+</ol>
+</li>
 </ol>
 </li>
 <li id="_sidebar_index"><a href="#index"><span class="spec-secid">§</span>Index</a></li>
