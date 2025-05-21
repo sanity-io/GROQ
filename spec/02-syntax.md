@@ -1,8 +1,12 @@
 # Syntax
 
-A GROQ query is a string consisting of Unicode characters. The encoding of the query string is implementation-defined, but UTF-8 is the preferred choice. A query consist of a single {Expression}, with {WhiteSpace} and {Comment} allowed anywhere with no effect on the interpretation.
+A GROQ query is a string consisting of Unicode characters. The encoding of the query string is implementation-defined, but UTF-8 is the preferred choice.
 
 SourceCharacter : "any Unicode character"
+
+A query consist of a single {Expression} optionally preceded by a list of {FuncDecl}, with {WhiteSpace} and {Comment} allowed anywhere with no effect on the interpretation.
+
+Query : FuncDecl\* Expression
 
 ## JSON Superset
 
@@ -112,6 +116,7 @@ SimpleExpression :
 - ThisAttribute
 - Everything
 - Parent
+- Parameter
 - FuncCall
 
 CompoundExpression :
