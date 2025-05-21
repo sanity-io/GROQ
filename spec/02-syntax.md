@@ -6,7 +6,7 @@ SourceCharacter : "any Unicode character"
 
 A query consist of a single {Expression} optionally preceded by a list of {FuncDecl}, with {WhiteSpace} and {Comment} allowed anywhere with no effect on the interpretation.
 
-Query : FuncDecl* Expression
+Query : FuncDecl\* Expression
 
 ## JSON Superset
 

@@ -10,10 +10,6 @@ All custom defined functions MUST live in a namespace.
 
 FuncDecl : `fn` FuncNamespace FuncIdentifier FuncParams `=` FuncBody `;`
 
-## Function Scope
-
-Custom functions are scoped to the query in which they are defined. They can be used anywhere in the query after their definition, but not before.
-
 ## Function invocation
 
 FuncParams : `(` Param `)`

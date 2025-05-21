@@ -101,7 +101,7 @@ ValidateParameter():
 
 GROQ comes with a set of built-in functions which provides additional features. See the ["Functions"](#sec-Functions) for available functions and their namespaces.
 
-Custom GROQ functions can be defined to extend or override the built-in function set. See [Custom functions](15-custom-functions.md) for details.
+Custom GROQ functions can be defined to extend or override the built-in function set. See [Custom functions](12-custom-functions.md) for details.
 
 ```example
 *{"score": round(score, 2)}
@@ -135,7 +135,7 @@ EvaluateFuncCall(scope):
   - Let {context} be the query context of {scope}.
   - Let {newScope} be the result of {NewRootScope(context)}.
   - For each {param} in the parameter list of the custom function:
-    - Let {argNode} be next {Expression}  in {FuncCallArgs}.
+    - Let {argNode} be next {Expression} in {FuncCallArgs}.
     - Let {arg} be the result of {Evaluate(argNode, scope)}.
     - Set the parameter named {param} in {newScope} to {arg}.
   - Return the result of {Evaluate(funcBody, newScope)}
