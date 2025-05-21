@@ -57,10 +57,10 @@ Conformance requirements expressed as algorithms can be fulfilled by an implemen
 
 # [Functions](11-functions.md)
 
+# [Custom functions](12-custom-functions.md)
+
 # [Pipe functions](12-pipe-functions.md)
 
 # [Vendor functions](13-vendor-functions.md)
 
 # [Extensions](14-extensions.md)
-
-# [Custom functions](12-custom-functions.md)
