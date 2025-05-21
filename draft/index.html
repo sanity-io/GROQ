@@ -15,7 +15,7 @@
 <section id="intro">
 <p><em>Current Working Draft</em></p>
 <p>This is the specification for GROQ (<strong>G</strong>raph-<strong>R</strong>elational <strong>O</strong>bject <strong>Q</strong>ueries), a query language and execution engine made at Sanity, Inc, for filtering and projecting JSON documents. The work started in 2015. The development of this open standard started in 2019.</p>
-<p>GROQ is authored by <a href="https://twitter.com/purefiction">Alexander Staubo</a> and <a href="https://twitter.com/svale">Simen Svale Skogsrud</a>. Additional follow up work by <a href="https://twitter.com/erikgrinaker">Erik Grinaker</a>, <a href="https://twitter.com/judofyr">Magnus Holm</a>, <a href="https://github.com/j33ty">Radhe</a>, <a href="https://github.com/israelroldan">Israel Roldan</a>, <a href="https://github.com/sgulseth">Sindre Gulseth</a>, <a href="https://github.com/codebymatt">Matt Craig</a>, <a href="https://github.com/rexxars">Espen Hovlandsdal</a>.</p>
+<p>GROQ is authored by <a href="https://twitter.com/purefiction">Alexander Staubo</a> and <a href="https://twitter.com/svale">Simen Svale Skogsrud</a>. Additional follow up work by <a href="https://twitter.com/erikgrinaker">Erik Grinaker</a>, <a href="https://twitter.com/judofyr">Magnus Holm</a>, <a href="https://github.com/j33ty">Radhe</a>, <a href="https://github.com/israelroldan">Israel Roldan</a>, <a href="https://github.com/sgulseth">Sindre Gulseth</a>, <a href="https://github.com/codebymatt">Matt Craig</a>, <a href="https://github.com/rexxars">Espen Hovlandsdal</a>, <a href="https://github.com/tzhelyazkova">Tonina Zhelyazkova</a>.</p>
 <p>This specification should be considered <em>work in progress</em> until the first release.</p>
 <section id="sec-Copyright-notice" class="subsec">
 <h6><a href="#sec-Copyright-notice" title="link to this subsection">Copyright notice</a></h6>
@@ -59,19 +59,20 @@
 <li><a href="#sec-Query-context"><span class="spec-secid">3.3</span>Query context</a></li>
 <li><a href="#sec-Scope"><span class="spec-secid">3.4</span>Scope</a></li>
 <li><a href="#sec-Expression-validation"><span class="spec-secid">3.5</span>Expression validation</a></li>
-<li><a href="#sec-Expression-evaluation"><span class="spec-secid">3.6</span>Expression evaluation</a></li>
-<li><a href="#sec-Constant-expression-evaluation"><span class="spec-secid">3.7</span>Constant expression evaluation</a></li>
-<li><a href="#sec-Score-evaluation"><span class="spec-secid">3.8</span>Score evaluation</a></li>
-<li><a href="#sec-Selector-evaluation"><span class="spec-secid">3.9</span>Selector evaluation</a></li>
-<li><a href="#sec-Traversal-execution"><span class="spec-secid">3.10</span>Traversal execution</a><ol>
-<li><a href="#sec-Combining-traversal"><span class="spec-secid">3.10.1</span>Combining traversal</a></li>
-<li><a href="#sec-Plain-traversal"><span class="spec-secid">3.10.2</span>Plain traversal</a></li>
-<li><a href="#sec-Array-traversals"><span class="spec-secid">3.10.3</span>Array traversals</a></li>
-<li><a href="#sec-Array-source-traversals"><span class="spec-secid">3.10.4</span>Array source traversals</a></li>
-<li><a href="#sec-Array-target-traversals"><span class="spec-secid">3.10.5</span>Array target traversals</a></li>
+<li><a href="#sec-Query-validation"><span class="spec-secid">3.6</span>Query validation</a></li>
+<li><a href="#sec-Expression-evaluation"><span class="spec-secid">3.7</span>Expression evaluation</a></li>
+<li><a href="#sec-Constant-expression-evaluation"><span class="spec-secid">3.8</span>Constant expression evaluation</a></li>
+<li><a href="#sec-Score-evaluation"><span class="spec-secid">3.9</span>Score evaluation</a></li>
+<li><a href="#sec-Selector-evaluation"><span class="spec-secid">3.10</span>Selector evaluation</a></li>
+<li><a href="#sec-Traversal-execution"><span class="spec-secid">3.11</span>Traversal execution</a><ol>
+<li><a href="#sec-Combining-traversal"><span class="spec-secid">3.11.1</span>Combining traversal</a></li>
+<li><a href="#sec-Plain-traversal"><span class="spec-secid">3.11.2</span>Plain traversal</a></li>
+<li><a href="#sec-Array-traversals"><span class="spec-secid">3.11.3</span>Array traversals</a></li>
+<li><a href="#sec-Array-source-traversals"><span class="spec-secid">3.11.4</span>Array source traversals</a></li>
+<li><a href="#sec-Array-target-traversals"><span class="spec-secid">3.11.5</span>Array target traversals</a></li>
 </ol>
 </li>
-<li><a href="#sec-Query-execution"><span class="spec-secid">3.11</span>Query execution</a></li>
+<li><a href="#sec-Query-execution"><span class="spec-secid">3.12</span>Query execution</a></li>
 </ol>
 </li>
 <li><a href="#sec-Data-types"><span class="spec-secid">4</span>Data types</a><ol>
@@ -97,7 +98,8 @@
 <li><a href="#sec-This-attribute-expression"><span class="spec-secid">6.2</span>This attribute expression</a></li>
 <li><a href="#sec-Everything-expression"><span class="spec-secid">6.3</span>Everything expression</a></li>
 <li><a href="#sec-Parent-expression"><span class="spec-secid">6.4</span>Parent expression</a></li>
-<li><a href="#sec-Function-call-expression"><span class="spec-secid">6.5</span>Function call expression</a></li>
+<li><a href="#sec-Parameter-expression"><span class="spec-secid">6.5</span>Parameter expression</a></li>
+<li><a href="#sec-Function-call-expression"><span class="spec-secid">6.6</span>Function call expression</a></li>
 </ol>
 </li>
 <li><a href="#sec-Compound-expressions"><span class="spec-secid">7</span>Compound expressions</a><ol>
@@ -221,6 +223,11 @@
 </li>
 </ol>
 </li>
+<li><a href="#sec-Custom-Functions"><span class="spec-secid">15</span>Custom Functions</a><ol>
+<li><a href="#sec-Function-Definition"><span class="spec-secid">15.1</span>Function Definition</a></li>
+<li><a href="#sec-Function-invocation"><span class="spec-secid">15.2</span>Function invocation</a></li>
+</ol>
+</li>
 <li><a href="#index"><span class="spec-secid">§</span>Index</a></li>
 </ol>
 </nav>
@@ -250,9 +257,13 @@
 </section>
 <section id="sec-Syntax" secid="2">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Syntax">2</a></span>Syntax</h1>
-<p>A GROQ query is a string consisting of Unicode characters. The encoding of the query string is implementation-defined, but UTF-8 is the preferred choice. A query consist of a single <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>, with <span class="spec-nt"><a href="#WhiteSpace" data-name="WhiteSpace">WhiteSpace</a></span> and <span class="spec-nt"><a href="#Comment" data-name="Comment">Comment</a></span> allowed anywhere with no effect on the interpretation.</p>
+<p>A GROQ query is a string consisting of Unicode characters. The encoding of the query string is implementation-defined, but UTF-8 is the preferred choice.</p>
 <div class="spec-production" id="SourceCharacter">
 <span class="spec-nt"><a href="#SourceCharacter" data-name="SourceCharacter">SourceCharacter</a></span><div class="spec-rhs"><span class="spec-prose">any Unicode character</span></div>
+</div>
+<p>A query consist of a single <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> optionally preceded by a list of <span class="spec-nt"><a href="#FuncDecl" data-name="FuncDecl">FuncDecl</a></span>, with <span class="spec-nt"><a href="#WhiteSpace" data-name="WhiteSpace">WhiteSpace</a></span> and <span class="spec-nt"><a href="#Comment" data-name="Comment">Comment</a></span> allowed anywhere with no effect on the interpretation.</p>
+<div class="spec-production" id="Query">
+<span class="spec-nt"><a href="#Query" data-name="Query">Query</a></span><div class="spec-rhs"><span class="spec-quantified"><span class="spec-nt"><a href="#FuncDecl" data-name="FuncDecl">FuncDecl</a></span><span class="spec-quantifiers"><span class="spec-quantifier list">list</span><span class="spec-quantifier optional">opt</span></span></span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 </div>
 <section id="sec-JSON-Superset" secid="2.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-JSON-Superset">2.1</a></span>JSON Superset</h2>
@@ -355,6 +366,7 @@
 <div class="spec-rhs"><span class="spec-nt"><a href="#ThisAttribute" data-name="ThisAttribute">ThisAttribute</a></span></div>
 <div class="spec-rhs"><span class="spec-nt"><a href="#Everything" data-name="Everything">Everything</a></span></div>
 <div class="spec-rhs"><span class="spec-nt"><a href="#Parent" data-name="Parent">Parent</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Parameter" data-name="Parameter">Parameter</a></span></div>
 <div class="spec-rhs"><span class="spec-nt"><a href="#FuncCall" data-name="FuncCall">FuncCall</a></span></div>
 </div>
 <div class="spec-production" id="CompoundExpression">
@@ -442,6 +454,7 @@ The following sub-section is a non-normative overview of the execution model. Se
 <li>the dataset</li>
 <li>parameter values (map from <var data-name="string">string</var> to <var data-name="value">value</var>)</li>
 <li>the mode: either &ldquo;normal&rdquo; or &ldquo;delta&rdquo;</li>
+<li>custom function definitions (map from <var data-name="string">string</var> to <var data-name="function">function</var>)</li>
 </ul>
 <p>If the mode is &ldquo;delta&rdquo; then the query context also has:</p>
 <ul>
@@ -456,6 +469,7 @@ The following sub-section is a non-normative overview of the execution model. Se
 <li>a this value</li>
 <li>an optional parent scope</li>
 <li>a query context</li>
+<li>a map of parameters</li>
 </ul>
 <p>A root scope can be constructed from a query context, and a nested scope can be constructed from an existing scope.</p>
 <div class="spec-algo" id="NewNestedScope()">
@@ -464,6 +478,7 @@ The following sub-section is a non-normative overview of the execution model. Se
 <li>Set the this value of <var data-name="newScope">newScope</var> to <var data-name="value">value</var>.</li>
 <li>Set the parent scope of <var data-name="newScope">newScope</var> to <var data-name="scope">scope</var>.</li>
 <li>Set the query context of <var data-name="newScope">newScope</var> to the query context of <var data-name="scope">scope</var>.</li>
+<li>Set the parameters of <var data-name="newScope">newScope</var> to the parameter of <var data-name="scope">scope</var>.</li>
 <li>Return <var data-name="newScope">newScope</var>.</li>
 </ol>
 </div>
@@ -473,6 +488,7 @@ The following sub-section is a non-normative overview of the execution model. Se
 <li>Set the this value of <var data-name="newScope">newScope</var> to <span class="spec-keyword">null</span>.</li>
 <li>Set the parent scope of <var data-name="newScope">newScope</var> to <span class="spec-keyword">null</span>.</li>
 <li>Set the query context of <var data-name="newScope">newScope</var> to <var data-name="context">context</var>.</li>
+<li>Set the parameters to the parameters given to the query request.</li>
 <li>Return <var data-name="newScope">newScope</var>.</li>
 </ol>
 </div>
@@ -487,8 +503,12 @@ The following sub-section is a non-normative overview of the execution model. Se
 </ol>
 </div>
 </section>
-<section id="sec-Expression-evaluation" secid="3.6">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Expression-evaluation">3.6</a></span>Expression evaluation</h2>
+<section id="sec-Query-validation" secid="3.6">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Query-validation">3.6</a></span>Query validation</h2>
+<p>A query is validated by first validating the custom functions and then <a href="#sec-Expression-validation">validating the expression</a>. Custom functions are validated by validating the function bodies.</p>
+</section>
+<section id="sec-Expression-evaluation" secid="3.7">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Expression-evaluation">3.7</a></span>Expression evaluation</h2>
 <p>An expression is evaluated in a scope. You must successfully validate an expression before you attempt to evaluate it. Every expression type has their own evaluator function in their respective section in this specification (e.g. the evaluator of <span class="spec-nt"><span data-name="ParenthesisExpression">ParenthesisExpression</span></span> is <span class="spec-call"><a href="#EvaluateParenthesis()" data-name="EvaluateParenthesis">EvaluateParenthesis</a>()</span>).</p>
 <div class="spec-algo" id="Evaluate()">
 <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="expr">expr</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -497,8 +517,8 @@ The following sub-section is a non-normative overview of the execution model. Se
 </ol>
 </div>
 </section>
-<section id="sec-Constant-expression-evaluation" secid="3.7">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Constant-expression-evaluation">3.7</a></span>Constant expression evaluation</h2>
+<section id="sec-Constant-expression-evaluation" secid="3.8">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Constant-expression-evaluation">3.8</a></span>Constant expression evaluation</h2>
 <p>Some expressions can be evaluated into a constant value. This is used for validation and to disambiguate between different syntactically ambiguous expressions.</p>
 <div class="spec-algo" id="ConstantEvaluate()">
 <span class="spec-call"><a href="#ConstantEvaluate()" data-name="ConstantEvaluate">ConstantEvaluate</a>(<var data-name="expr">expr</var>)</span><ol>
@@ -512,8 +532,8 @@ The following sub-section is a non-normative overview of the execution model. Se
 </ol>
 </div>
 </section>
-<section id="sec-Score-evaluation" secid="3.8">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Score-evaluation">3.8</a></span>Score evaluation</h2>
+<section id="sec-Score-evaluation" secid="3.9">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Score-evaluation">3.9</a></span>Score evaluation</h2>
 <p>When evaluating <var data-name="score">score</var>, a predicate returning <code>true</code> should have its score computed as 1.0, and all other values should receive a score of 0.0. All results involved in scoring start with a score of 1.0. The scores are evaluated once per result, and then added together. For example:</p>
 <pre id="example-f0d83" class="spec-example"><a href="#example-f0d83">Example № 6</a><code>* | score(a &gt; 1)
 </code></pre>
@@ -528,8 +548,8 @@ The following sub-section is a non-normative overview of the execution model. Se
 <p>The scoring function for <code>match</code> is left as an implementation detail and not covered by this specification. For example, an implementation may choose to use a TF/IDF or similar text scoring function that uses the text corpus and language configuration for the given field to compute a text score.</p>
 <p>A boosted predicate simply adds the boost value to the score if the predicate matches. For example, <code>boost(a &gt; 1, 10)</code> would result in a score of 11 for any expression matching <code>a &gt; 1</code>.</p>
 </section>
-<section id="sec-Selector-evaluation" secid="3.9">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Selector-evaluation">3.9</a></span>Selector evaluation</h2>
+<section id="sec-Selector-evaluation" secid="3.10">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Selector-evaluation">3.10</a></span>Selector evaluation</h2>
 <p>A selector (see <span class="spec-nt"><a href="#Selector" data-name="Selector">Selector</a></span>) is evaluated in a scope with a value and returns a list of <em>key paths</em>. A key path uniquely identifies a value by the attribute names and array indices used to access the value. For instance, the key path <code>.users[1].name</code> refers to the <code>"Bob"</code>-value in <code>{"users":[{"name":"Alice"},{"name":"Bob"}]}</code>.</p>
 <div class="spec-algo" id="EvaluateSelector()">
 <span class="spec-call"><a href="#EvaluateSelector()" data-name="EvaluateSelector">EvaluateSelector</a>(<var data-name="selector">selector</var>, <var data-name="value">value</var>, <var data-name="scope">scope</var>)</span><ol>
@@ -625,8 +645,8 @@ The following sub-section is a non-normative overview of the execution model. Se
 </ol>
 </div>
 </section>
-<section id="sec-Traversal-execution" secid="3.10">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-execution">3.10</a></span>Traversal execution</h2>
+<section id="sec-Traversal-execution" secid="3.11">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-execution">3.11</a></span>Traversal execution</h2>
 <p>When working with JSON values you often need to access attributes in deeply nested arrays/objects. In JavaScript this is solved by using helper functions such as <code>map</code>, <code>filter</code> and <code>flatMap</code>. GROQ provides terse syntax for accomplishing the same functionality.</p>
 <pre id="example-63caf" class="spec-example"><a href="#example-63caf">Example № 7</a><code>// The following GROQ:
 *[_type == "user"]._id
@@ -658,8 +678,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <li><span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span>, <span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span>, <span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span>, <span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span> specifies the exact rules for how multiple traversals are combined together.</li>
 <li>The <span class="spec-nt"><a href="#TraversalExpression" data-name="TraversalExpression">TraversalExpression</a></span> node is an <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> for the full set of traversal operators. This kicks off the whole traversal semantics.</li>
 </ul>
-<section id="sec-Combining-traversal" secid="3.10.1">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Combining-traversal">3.10.1</a></span>Combining traversal</h3>
+<section id="sec-Combining-traversal" secid="3.11.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Combining-traversal">3.11.1</a></span>Combining traversal</h3>
 <p>Multiple traversals are combined in four different ways:</p>
 <ul>
 <li><em>Joined</em>: In <code>.user.name</code> we want to execute the first traversal (<code>.user</code>), and then apply the second traversal (<code>.name</code>) on the result. This is specified by the <span class="spec-call"><a href="#EvaluateTraversalJoin()" data-name="EvaluateTraversalJoin">EvaluateTraversalJoin</a>()</span> function.</li>
@@ -735,8 +755,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 </ol>
 </div>
 </section>
-<section id="sec-Plain-traversal" secid="3.10.2">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Plain-traversal">3.10.2</a></span>Plain traversal</h3>
+<section id="sec-Plain-traversal" secid="3.11.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Plain-traversal">3.11.2</a></span>Plain traversal</h3>
 <p>A plain traversal is a traversal which works on and returns unknown types.</p>
 <ul>
 <li><code>.user.name</code></li>
@@ -760,8 +780,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span></div>
 </div>
 </section>
-<section id="sec-Array-traversals" secid="3.10.3">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-traversals">3.10.3</a></span>Array traversals</h3>
+<section id="sec-Array-traversals" secid="3.11.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-traversals">3.11.3</a></span>Array traversals</h3>
 <p>An array traversal is a traversal which statically is known to works on and return an array:</p>
 <ul>
 <li><code>[_type == "user"].id</code></li>
@@ -788,8 +808,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span><span class="spec-prose">(Evaluated using EvaluateTraversalInnerMap)</span></div>
 </div>
 </section>
-<section id="sec-Array-source-traversals" secid="3.10.4">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-source-traversals">3.10.4</a></span>Array source traversals</h3>
+<section id="sec-Array-source-traversals" secid="3.11.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-source-traversals">3.11.4</a></span>Array source traversals</h3>
 <p>An array source traversal is a traversal which statically is known to work on an array, but returns an unknown type:</p>
 <ul>
 <li><code>[0].user.name</code></li>
@@ -809,8 +829,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span><span class="spec-prose">(Evaluated using EvaluateTraversalInnerMap)</span></div>
 </div>
 </section>
-<section id="sec-Array-target-traversals" secid="3.10.5">
-<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-target-traversals">3.10.5</a></span>Array target traversals</h3>
+<section id="sec-Array-target-traversals" secid="3.11.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Array-target-traversals">3.11.5</a></span>Array target traversals</h3>
 <p>An array target traversal is a traversal which statically is known to return on an array, but works on an unknown type:</p>
 <ul>
 <li><code>user.roles[dataset == "production"]</code></li>
@@ -828,8 +848,8 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 </div>
 </section>
 </section>
-<section id="sec-Query-execution" secid="3.11">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Query-execution">3.11</a></span>Query execution</h2>
+<section id="sec-Query-execution" secid="3.12">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Query-execution">3.12</a></span>Query execution</h2>
 <p>To execute a query you must first construct a query context, and then evaluate the query expression inside a root scope.</p>
 <div class="spec-algo" id="ExecuteQuery()">
 <span class="spec-call"><a href="#ExecuteQuery()" data-name="ExecuteQuery">ExecuteQuery</a>(<var data-name="query">query</var>, <var data-name="context">context</var>)</span><ol>
@@ -1363,10 +1383,36 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 </ol>
 </div>
 </section>
-<section id="sec-Function-call-expression" secid="6.5">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Function-call-expression">6.5</a></span>Function call expression</h2>
+<section id="sec-Parameter-expression" secid="6.5">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Parameter-expression">6.5</a></span>Parameter expression</h2>
+<p>A parameter expression returns the value of a parameter</p>
+<pre id="example-23c64" class="spec-example"><a href="#example-23c64">Example № 14</a><code>*[_type == $type]
+           ~~~~~
+</code></pre>
+<div class="spec-production" id="Parameter">
+<span class="spec-nt"><a href="#Parameter" data-name="Parameter">Parameter</a></span><div class="spec-rhs"><span class="spec-t">$</span><span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span></div>
+</div>
+<div class="spec-algo" id="EvaluateParameter()">
+<span class="spec-call"><a href="#EvaluateParameter()" data-name="EvaluateParameter">EvaluateParameter</a>(<var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>.</li>
+<li>Return the value of the parameter in <var data-name="scope">scope</var>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="ValidateParameter()">
+<span class="spec-call"><a href="#ValidateParameter()" data-name="ValidateParameter">ValidateParameter</a>()</span><ol>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span>.</li>
+<li>If the parameter doesn&rsquo;t exist in the current validation context:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
+</section>
+<section id="sec-Function-call-expression" secid="6.6">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Function-call-expression">6.6</a></span>Function call expression</h2>
 <p>GROQ comes with a set of built-in functions which provides additional features. See the <a href="#sec-Functions">&ldquo;Functions&rdquo;</a> for available functions and their namespaces.</p>
-<pre id="example-8a980" class="spec-example"><a href="#example-8a980">Example № 14</a><code>*{"score": round(score, 2)}
+<p>Custom GROQ functions can be defined to extend or override the built-in function set. See <a href="12-custom-functions.md">Custom functions</a> for details.</p>
+<pre id="example-8a980" class="spec-example"><a href="#example-8a980">Example № 15</a><code>*{"score": round(score, 2)}
            ~~~~~~~~~~~~~~~
 
 *{"description": global::lower(description)}
@@ -1395,23 +1441,47 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <li>Append <var data-name="argumentNode">argumentNode</var> to <var data-name="args">args</var>.</li>
 </ol>
 </li>
+<li>If the query context of <var data-name="scope">scope</var> has a function defined with the given <var data-name="name">name</var> and <var data-name="namespace">namespace</var>:<ol>
+<li>Let <var data-name="funcBody">funcBody</var> be body of the custom function.</li>
+<li>Let <var data-name="context">context</var> be the query context of <var data-name="scope">scope</var>.</li>
+<li>Let <var data-name="newScope">newScope</var> be the result of <span class="spec-call"><a href="#NewRootScope()" data-name="NewRootScope">NewRootScope</a>(<var data-name="context">context</var>)</span>.</li>
+<li>For each <var data-name="param">param</var> in the parameter list of the custom function:<ol>
+<li>Let <var data-name="argNode">argNode</var> be next <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> in <span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span>.</li>
+<li>Let <var data-name="arg">arg</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="argNode">argNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>Set the parameter named <var data-name="param">param</var> in <var data-name="newScope">newScope</var> to <var data-name="arg">arg</var>.</li>
+</ol>
+</li>
+<li>Return the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="funcBody">funcBody</var>, <var data-name="newScope">newScope</var>)</span></li>
+</ol>
+</li>
+<li>Otherwise:<ol>
 <li>Let <var data-name="func">func</var> be the function defined under the name <var data-name="name">name</var> in either <var data-name="namespace">namespace</var> namespace if provided, or the <code>global</code> namespace.</li>
 <li>Return the result of <span class="spec-call"><span data-name="func">func</span>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span>.</li>
+</ol>
+</li>
 </ol>
 </div>
 <div class="spec-algo" id="ValidateFuncCall()">
 <span class="spec-call"><a href="#ValidateFuncCall()" data-name="ValidateFuncCall">ValidateFuncCall</a>()</span><ol>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span>.</li>
 <li>Let <var data-name="namespace">namespace</var> be the string value of the <span class="spec-nt"><a href="#FuncNamespace" data-name="FuncNamespace">FuncNamespace</a></span>.</li>
+<li>Let <var data-name="args">args</var> be an array of the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>s in <span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span>.</li>
+<li>If there&rsquo;s a custom function defined with the given <var data-name="name">name</var> and <var data-name="namespace">namespace</var>:<ol>
+<li>For each <var data-name="arg">arg</var> in <var data-name="args">args</var>:<ol>
+<li>Execute <span class="spec-call"><a href="#Validate()" data-name="Validate">Validate</a>(<var data-name="arg">arg</var>)</span>.</li>
+</ol>
+</li>
+<li>Stop.</li>
+</ol>
+</li>
 <li>If there is no namespace named <var data-name="namespace">namespace</var>:<ol>
 <li>Stop and report an error.</li>
 </ol>
 </li>
-<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span>.</li>
 <li>If there is no function named <var data-name="name">name</var> defined in either <var data-name="namespace">namespace</var> namespace if provided, or the <code>global</code> namespace:<ol>
 <li>Stop and report an error.</li>
 </ol>
 </li>
-<li>Let <var data-name="args">args</var> be an array of the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>s in <span class="spec-nt"><a href="#FuncCallArgs" data-name="FuncCallArgs">FuncCallArgs</a></span>.</li>
 <li>Let <var data-name="validator">validator</var> be the validator for the function under the name <var data-name="name">name</var>.</li>
 <li>Execute <span class="spec-call"><span data-name="validator">validator</span>(<var data-name="args">args</var>)</span>. </li>
 </ol>
@@ -1423,7 +1493,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Parenthesis-expression" secid="7.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Parenthesis-expression">7.1</a></span>Parenthesis expression</h2>
 <p>A parenthesis expression allows you to add parenthesis around another expression to control precedence of operators.</p>
-<pre id="example-2f8db" class="spec-example"><a href="#example-2f8db">Example № 15</a><code>(1 + 2) * 3
+<pre id="example-2f8db" class="spec-example"><a href="#example-2f8db">Example № 16</a><code>(1 + 2) * 3
 ~~~~~~~
 </code></pre>
 <div class="spec-production" id="Parenthesis">
@@ -1440,7 +1510,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Traversal-expression" secid="7.2">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-expression">7.2</a></span>Traversal expression</h2>
 <p>A traversal expressions starts a traversal.</p>
-<pre id="example-1dd92" class="spec-example"><a href="#example-1dd92">Example № 16</a><code>users.foo.bar[0].sources[]-&gt;name
+<pre id="example-1dd92" class="spec-example"><a href="#example-1dd92">Example № 17</a><code>users.foo.bar[0].sources[]-&gt;name
 </code></pre>
 <p>When the left-hand side is an <span class="spec-nt"><a href="#Everything" data-name="Everything">Everything</a></span>, <span class="spec-nt"><a href="#Array" data-name="Array">Array</a></span>, or <span class="spec-nt"><a href="#PipeFuncCall" data-name="PipeFuncCall">PipeFuncCall</a></span> this is interpreted as if there was an additional explicit <span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span> traversal. E.g. <code>*._id</code> is interpreted as <code>*[]._id</code> and therefore returns an array of IDs.</p>
 <div class="spec-production" id="TraversalExpression">
@@ -1472,7 +1542,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Pipe-function-call-expression" secid="7.3">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-function-call-expression">7.3</a></span>Pipe function call expression</h2>
 <p>GROQ comes with a set of built-in pipe functions which provides additional features. Pipe functions always accepts an array on the left-hand side and returns another array, and the syntax is optimized for being able to chain it together with other compound expressions. See the <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a> for available functions.</p>
-<pre id="example-9e38d" class="spec-example"><a href="#example-9e38d">Example № 17</a><code>*[_type == "person"] | order(name) | {age}
+<pre id="example-9e38d" class="spec-example"><a href="#example-9e38d">Example № 18</a><code>*[_type == "person"] | order(name) | {age}
                      ~~~~~~~~~~~~~
 </code></pre>
 <div class="spec-production" id="PipeFuncCall">
@@ -1518,7 +1588,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Attribute-access-traversal" secid="8.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Attribute-access-traversal">8.1</a></span>Attribute access traversal</h2>
 <p>An attribute access returns an attribute of an object.</p>
-<pre id="example-2ff7e" class="spec-example"><a href="#example-2ff7e">Example № 18</a><code>person.name
+<pre id="example-2ff7e" class="spec-example"><a href="#example-2ff7e">Example № 19</a><code>person.name
       ~~~~~
 
 person["Full Name"]
@@ -1571,7 +1641,7 @@ person["Full Name"]
 <section id="sec-Slice-traversal" secid="8.3">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Slice-traversal">8.3</a></span>Slice traversal</h2>
 <p>A slice returns a slice of an array.</p>
-<pre id="example-e380f" class="spec-example"><a href="#example-e380f">Example № 19</a><code>people[0..10]
+<pre id="example-e380f" class="spec-example"><a href="#example-e380f">Example № 20</a><code>people[0..10]
       ~~~~~~~
 </code></pre>
 <div class="spec-production" id="Slice">
@@ -1614,7 +1684,7 @@ person["Full Name"]
 <section id="sec-Filter-traversal" secid="8.4">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Filter-traversal">8.4</a></span>Filter traversal</h2>
 <p>A filter returns an array filtered another expression.</p>
-<pre id="example-ce0b3" class="spec-example"><a href="#example-ce0b3">Example № 20</a><code>*[_type == "person"]
+<pre id="example-ce0b3" class="spec-example"><a href="#example-ce0b3">Example № 21</a><code>*[_type == "person"]
  ~~~~~~~~~~~~~~~~~~~
 </code></pre>
 <div class="spec-production" id="Filter">
@@ -1654,7 +1724,7 @@ person["Full Name"]
 <section id="sec-Projection-traversal" secid="8.6">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Projection-traversal">8.6</a></span>Projection traversal</h2>
 <p>A projection operator returns a new object.</p>
-<pre id="example-258f2" class="spec-example"><a href="#example-258f2">Example № 21</a><code>*[_type == "person"]{name, "isLegal": age &gt;= 18}
+<pre id="example-258f2" class="spec-example"><a href="#example-258f2">Example № 22</a><code>*[_type == "person"]{name, "isLegal": age &gt;= 18}
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 </code></pre>
 <div class="spec-production" id="Projection">
@@ -2619,7 +2689,7 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <section id="sec-global-boost-" secid="11.1.13">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-boost-">11.1.13</a></span>global::boost()</h3>
 <p>The <code>boost</code> function accepts an expression and a boost value, and increases or decreases the score computed by <code>score()</code> (see <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a>) accordingly. <code>boost</code> can only be used within the argument list to <code>score()</code>.</p>
-<pre id="example-b8fda" class="spec-example"><a href="#example-b8fda">Example № 22</a><code>* | score(boost(title matches "milk", 5.0), body matches "milk")
+<pre id="example-b8fda" class="spec-example"><a href="#example-b8fda">Example № 23</a><code>* | score(boost(title matches "milk", 5.0), body matches "milk")
 </code></pre>
 <p>The expression must be a predicate expressions that evaluates to a single boolean value. Any other result value is ignored.</p>
 <p>The value argument must be a number &ge; 0.</p>
@@ -3273,7 +3343,7 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <section id="sec-Pipe-functions" secid="12">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-functions">12</a></span>Pipe functions</h1>
 <p>Pipe functions provide additional functionality to GROQ queries. They are invoked through a <a href="#sec-Pipe-function-call-expression">Pipe function call expression</a>. They differ from regular functions in that they always accept an array as input and returns another array (or <span class="spec-keyword">null</span>). As such, the syntax is optimized for chaining (the array it works on comes on the left-hand side instead of being an argument):</p>
-<pre id="example-d44da" class="spec-example"><a href="#example-d44da">Example № 23</a><code>*[_type == "person"] | order(name) | {age}
+<pre id="example-d44da" class="spec-example"><a href="#example-d44da">Example № 24</a><code>*[_type == "person"] | order(name) | {age}
 </code></pre>
 <div id="note-88a44" class="spec-note">
 <a href="#note-88a44">Note</a>
@@ -3322,10 +3392,10 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <section id="sec-global-score-" secid="12.2">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-global-score-">12.2</a></span>global::score()</h2>
 <p>The <code>score</code> function assigns a score to an array of results, based on one or more scoring expressions. The <code>score</code> function may only be used as a pipe function.</p>
-<pre id="example-16420" class="spec-example"><a href="#example-16420">Example № 24</a><code>*[_type == "listing"] | score(body match "jacuzzi")
+<pre id="example-16420" class="spec-example"><a href="#example-16420">Example № 25</a><code>*[_type == "listing"] | score(body match "jacuzzi")
 </code></pre>
 <p>In this query, anything where <code>body match "jacuzzi"</code> returns true will be scored higher than other results. Multiple expressions can be used:</p>
-<pre id="example-34b6f" class="spec-example"><a href="#example-34b6f">Example № 25</a><code>*[_type == "listing"] | score(body match "jacuzzi", bedrooms &gt; 2, available &amp;&amp; !inContract)
+<pre id="example-34b6f" class="spec-example"><a href="#example-34b6f">Example № 26</a><code>*[_type == "listing"] | score(body match "jacuzzi", bedrooms &gt; 2, available &amp;&amp; !inContract)
 </code></pre>
 <p>When multiple expressions are provided, the scores are merged into a single score for each result (see <a href="#sec-Score-evaluation">score evaluation</a>)</p>
 <p>Only predicate expressions &mdash; that is, expressions that evaluate to a single boolean value or to <code>null</code> &mdash; may be used, including <code>boost()</code>. However, an implementation can put further constraints on which expressions are permitted as a score expression for optimization purposes.</p>
@@ -3681,6 +3751,23 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 </section>
 </section>
 </section>
+<section id="sec-Custom-Functions" secid="15">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Custom-Functions">15</a></span>Custom Functions</h1>
+<p>Custom functions are reusable sets of query substructures that allow for the modular composition of GROQ queries.</p>
+<section id="sec-Function-Definition" secid="15.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Function-Definition">15.1</a></span>Function Definition</h2>
+<p>Functions MUST be defined in the beginning of a query using the delimiter <code>;</code>. A function definition MUST start with the keyword <code>fn</code>. All custom defined functions MUST live in a namespace.</p>
+<div class="spec-production" id="FuncDecl">
+<span class="spec-nt"><a href="#FuncDecl" data-name="FuncDecl">FuncDecl</a></span><div class="spec-rhs"><span class="spec-t">fn</span><span class="spec-nt"><a href="#FuncNamespace" data-name="FuncNamespace">FuncNamespace</a></span><span class="spec-nt"><a href="#FuncIdentifier" data-name="FuncIdentifier">FuncIdentifier</a></span><span class="spec-nt"><a href="#FuncParams" data-name="FuncParams">FuncParams</a></span><span class="spec-t">=</span><span class="spec-nt"><span data-name="FuncBody">FuncBody</span></span><span class="spec-t">;</span></div>
+</div>
+</section>
+<section id="sec-Function-invocation" secid="15.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Function-invocation">15.2</a></span>Function invocation</h2>
+<div class="spec-production" id="FuncParams">
+<span class="spec-nt"><a href="#FuncParams" data-name="FuncParams">FuncParams</a></span><div class="spec-rhs"><span class="spec-t">(</span><span class="spec-nt"><span data-name="Param">Param</span></span><span class="spec-t">)</span></div>
+</div>
+</section>
+</section>
 <section id="index" secid="index" class="spec-index">
 <h1>
 <span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1>
@@ -3754,6 +3841,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#EvaluateObject()">EvaluateObject</a></li>
 <li><a href="#EvaluateOr()">EvaluateOr</a></li>
 <li><a href="#EvaluatePair()">EvaluatePair</a></li>
+<li><a href="#EvaluateParameter()">EvaluateParameter</a></li>
 <li><a href="#EvaluateParent()">EvaluateParent</a></li>
 <li><a href="#EvaluateParenthesis()">EvaluateParenthesis</a></li>
 <li><a href="#EvaluatePercent()">EvaluatePercent</a></li>
@@ -3785,8 +3873,10 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#Fractional">Fractional</a></li>
 <li><a href="#FuncCall">FuncCall</a></li>
 <li><a href="#FuncCallArgs">FuncCallArgs</a></li>
+<li><a href="#FuncDecl">FuncDecl</a></li>
 <li><a href="#FuncIdentifier">FuncIdentifier</a></li>
 <li><a href="#FuncNamespace">FuncNamespace</a></li>
+<li><a href="#FuncParams">FuncParams</a></li>
 <li><a href="#geo_contains()">geo_contains</a></li>
 <li><a href="#geo_contains_validate()">geo_contains_validate</a></li>
 <li><a href="#geo_distance()">geo_distance</a></li>
@@ -3859,6 +3949,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#order()">order</a></li>
 <li><a href="#order_validate()">order_validate</a></li>
 <li><a href="#Pair">Pair</a></li>
+<li><a href="#Parameter">Parameter</a></li>
 <li><a href="#Parent">Parent</a></li>
 <li><a href="#Parenthesis">Parenthesis</a></li>
 <li><a href="#PartialCompare()">PartialCompare</a></li>
@@ -3868,6 +3959,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#Projection">Projection</a></li>
 <li><a href="#pt_text()">pt_text</a></li>
 <li><a href="#pt_text_validate()">pt_text_validate</a></li>
+<li><a href="#Query">Query</a></li>
 <li><a href="#Range">Range</a></li>
 <li><a href="#ScientificNotation">ScientificNotation</a></li>
 <li><a href="#score()">score</a></li>
@@ -3911,6 +4003,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#ValidateFuncCall()">ValidateFuncCall</a></li>
 <li><a href="#ValidateObject()">ValidateObject</a></li>
 <li><a href="#ValidateObjectAttribute()">ValidateObjectAttribute</a></li>
+<li><a href="#ValidateParameter()">ValidateParameter</a></li>
 <li><a href="#ValidatePipeFuncCall()">ValidatePipeFuncCall</a></li>
 <li><a href="#ValidateSlice()">ValidateSlice</a></li>
 <li><a href="#WhiteSpace">WhiteSpace</a></li>
@@ -3944,21 +4037,22 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_3.3"><a href="#sec-Query-context"><span class="spec-secid">3.3</span>Query context</a></li>
 <li id="_sidebar_3.4"><a href="#sec-Scope"><span class="spec-secid">3.4</span>Scope</a></li>
 <li id="_sidebar_3.5"><a href="#sec-Expression-validation"><span class="spec-secid">3.5</span>Expression validation</a></li>
-<li id="_sidebar_3.6"><a href="#sec-Expression-evaluation"><span class="spec-secid">3.6</span>Expression evaluation</a></li>
-<li id="_sidebar_3.7"><a href="#sec-Constant-expression-evaluation"><span class="spec-secid">3.7</span>Constant expression evaluation</a></li>
-<li id="_sidebar_3.8"><a href="#sec-Score-evaluation"><span class="spec-secid">3.8</span>Score evaluation</a></li>
-<li id="_sidebar_3.9"><a href="#sec-Selector-evaluation"><span class="spec-secid">3.9</span>Selector evaluation</a></li>
-<li id="_sidebar_3.10"><a href="#sec-Traversal-execution"><span class="spec-secid">3.10</span>Traversal execution</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_3.10" /><label for="_toggle_3.10"></label>
+<li id="_sidebar_3.6"><a href="#sec-Query-validation"><span class="spec-secid">3.6</span>Query validation</a></li>
+<li id="_sidebar_3.7"><a href="#sec-Expression-evaluation"><span class="spec-secid">3.7</span>Expression evaluation</a></li>
+<li id="_sidebar_3.8"><a href="#sec-Constant-expression-evaluation"><span class="spec-secid">3.8</span>Constant expression evaluation</a></li>
+<li id="_sidebar_3.9"><a href="#sec-Score-evaluation"><span class="spec-secid">3.9</span>Score evaluation</a></li>
+<li id="_sidebar_3.10"><a href="#sec-Selector-evaluation"><span class="spec-secid">3.10</span>Selector evaluation</a></li>
+<li id="_sidebar_3.11"><a href="#sec-Traversal-execution"><span class="spec-secid">3.11</span>Traversal execution</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_3.11" /><label for="_toggle_3.11"></label>
 <ol>
-<li id="_sidebar_3.10.1"><a href="#sec-Combining-traversal"><span class="spec-secid">3.10.1</span>Combining traversal</a></li>
-<li id="_sidebar_3.10.2"><a href="#sec-Plain-traversal"><span class="spec-secid">3.10.2</span>Plain traversal</a></li>
-<li id="_sidebar_3.10.3"><a href="#sec-Array-traversals"><span class="spec-secid">3.10.3</span>Array traversals</a></li>
-<li id="_sidebar_3.10.4"><a href="#sec-Array-source-traversals"><span class="spec-secid">3.10.4</span>Array source traversals</a></li>
-<li id="_sidebar_3.10.5"><a href="#sec-Array-target-traversals"><span class="spec-secid">3.10.5</span>Array target traversals</a></li>
+<li id="_sidebar_3.11.1"><a href="#sec-Combining-traversal"><span class="spec-secid">3.11.1</span>Combining traversal</a></li>
+<li id="_sidebar_3.11.2"><a href="#sec-Plain-traversal"><span class="spec-secid">3.11.2</span>Plain traversal</a></li>
+<li id="_sidebar_3.11.3"><a href="#sec-Array-traversals"><span class="spec-secid">3.11.3</span>Array traversals</a></li>
+<li id="_sidebar_3.11.4"><a href="#sec-Array-source-traversals"><span class="spec-secid">3.11.4</span>Array source traversals</a></li>
+<li id="_sidebar_3.11.5"><a href="#sec-Array-target-traversals"><span class="spec-secid">3.11.5</span>Array target traversals</a></li>
 </ol>
 </li>
-<li id="_sidebar_3.11"><a href="#sec-Query-execution"><span class="spec-secid">3.11</span>Query execution</a></li>
+<li id="_sidebar_3.12"><a href="#sec-Query-execution"><span class="spec-secid">3.12</span>Query execution</a></li>
 </ol>
 </li>
 <li id="_sidebar_4"><a href="#sec-Data-types"><span class="spec-secid">4</span>Data types</a>
@@ -3990,7 +4084,8 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_6.2"><a href="#sec-This-attribute-expression"><span class="spec-secid">6.2</span>This attribute expression</a></li>
 <li id="_sidebar_6.3"><a href="#sec-Everything-expression"><span class="spec-secid">6.3</span>Everything expression</a></li>
 <li id="_sidebar_6.4"><a href="#sec-Parent-expression"><span class="spec-secid">6.4</span>Parent expression</a></li>
-<li id="_sidebar_6.5"><a href="#sec-Function-call-expression"><span class="spec-secid">6.5</span>Function call expression</a></li>
+<li id="_sidebar_6.5"><a href="#sec-Parameter-expression"><span class="spec-secid">6.5</span>Parameter expression</a></li>
+<li id="_sidebar_6.6"><a href="#sec-Function-call-expression"><span class="spec-secid">6.6</span>Function call expression</a></li>
 </ol>
 </li>
 <li id="_sidebar_7"><a href="#sec-Compound-expressions"><span class="spec-secid">7</span>Compound expressions</a>
@@ -4144,6 +4239,13 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_14.2.6"><a href="#sec-geo-distance-"><span class="spec-secid">14.2.6</span>geo::distance()</a></li>
 </ol>
 </li>
+</ol>
+</li>
+<li id="_sidebar_15"><a href="#sec-Custom-Functions"><span class="spec-secid">15</span>Custom Functions</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_15" /><label for="_toggle_15"></label>
+<ol>
+<li id="_sidebar_15.1"><a href="#sec-Function-Definition"><span class="spec-secid">15.1</span>Function Definition</a></li>
+<li id="_sidebar_15.2"><a href="#sec-Function-invocation"><span class="spec-secid">15.2</span>Function invocation</a></li>
 </ol>
 </li>
 <li id="_sidebar_index"><a href="#index"><span class="spec-secid">§</span>Index</a></li>
