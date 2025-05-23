@@ -18,11 +18,11 @@ cp -R out/ "$PUBLISH_DIR/draft"
 echo "Current head: $(git rev-parse HEAD)"
 echo "Current dir: $(pwd)"
 echo "Current branch: $(git branch --show-current)"
-echo "Current tag: $(git tag --points-at HEAD)"
+echo "Current tag: $(git tag --points-at $GITHUB_SHA)"
 echo "Current SHA: $GITHUB_SHA"
 echo "All tags: $(git tag -l)"
 
-CURRENT_VERSION=$(git tag --points-at $GITHUB_SHA | grep 'GROQ-\d.*')
+CURRENT_VERSION=$(git tag --points-at "$GITHUB_SHA" | grep -E 'GROQ-[0-9].*')
 
 echo "Current version: $CURRENT_VERSION"
 
