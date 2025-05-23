@@ -15,6 +15,9 @@ echo "Publishing to: /draft"
 rm -rf "$PUBLISH_DIR/draft"
 cp -R out/ "$PUBLISH_DIR/draft"
 
+echo "Current head: $(git rev-parse HEAD)"
+echo "Current dir: $(pwd)"
+
 CURRENT_VERSION=$(git tag --points-at HEAD | grep 'GROQ-\d.*')
 
 # If this is a tagged commit, publish to a permalink and index.
