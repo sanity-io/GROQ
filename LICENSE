@@ -1,3 +1,10 @@
+The specification itself (anything under `spec/`) is distributed under the under the Open Web Foundation Final Specification Agreement (OWFa 1.0).
+See `spec/GROQ.md` for the full details.
+
+The code in this repository (everything _except_ the `spec/` directory) is distributed under the MIT license, attached below.
+
+---
+
 MIT License
 
 Copyright (c) Sanity Inc <hello@sanity.io> (https://www.sanity.io)
