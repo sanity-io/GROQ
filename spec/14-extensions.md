@@ -198,3 +198,72 @@ geo_distance_validate(args):
 
 - If the length of {args} is not 2:
   - Report an error.
+
+## Documents Extension
+
+Functions available in Documents extension are grouped under the `documents` namespace.
+
+### Global Document Reference type
+
+A Global Document Reference (GDR) type represents a reference to a document. The referenced document can be in a dataset separate from the dataset of the query context in the current scope.
+
+A GDR consists of a string formatted to uniquely identify a dataset and a document within that dataset.
+
+MatchesGDR({gdr}, {datasetID}, {documentID}):
+
+- If {gdr} is not a string:
+  - Return {false}.
+- If {gdr} is not in a valid Global Document Reference format:
+  - Return {false}.
+- Let {gdrDatasetID} be the unique identifier for the dataset identified by {gdr}.
+- Let {gdrDocumentID} be the unique identifier for the document identified by {gdr}.
+- If {Equal(gdrDatasetID, datasetID)} is {true} and {Equal(gdrDatasetID, datasetID)} is {true}:
+  - Return {true}.
+- Otherwise:
+  - Return {false}.
+
+### documents::get()
+
+This function takes a Global Document Reference referencing a document and returns the document.
+
+documents_get(args, scope):
+
+- Let {gdrNode} be the first element of {args}.
+- Let {gdr} be the result of {Evaluate(gdrNode, scope)}.
+- If {gdr} is not a string:
+  - Return {null}.
+- If {gdr} is not in a valid Global Document Reference format:
+  - Return {null}.
+- Let {sources} be a list of other data sources in the query context of {scope}.
+- For each {source} in {sources}:
+  - If {source} is a dataset:
+    - Let {datasetID} be a unique identifier for the {source} dataset.
+    - For each {document} in the {source} dataset:
+      - If {document} is an object and has an attribute `_id`:
+        - Let {documentID} be the value of the attribute `_id` in {document}.
+        - If {MatchesGDR(gdr, datasetID, documentID)} is {true}:
+          - return {document}.
+- Return {null}.
+
+documents_get_validate(args, scope):
+
+- If the length of {args} is not 1:
+  - Report an error.
+
+### documents::incomingGlobalDocumentReferenceCount()
+
+This function returns the number of Global Document References referencing a document.
+
+documents_incomingGlobalDocumentReferenceCount(args, scope):
+
+- Let {document} be this value in {scope}.
+- Let {\_incomingGDRCount} be a property of {document} which represents the number of Global Document References referencing {document}. This property is updated whenever a Global Document Reference to {document} is created or deleted.
+- If {\_incomingGDRCount} is {null}:
+  - Return {null}.
+- Otherwise:
+  - Return {\_incomingGDRCount}.
+
+documents_incomingGlobalDocumentReferenceCount_validate(args, scope):
+
+- If the length of {args} is not 0:
+  - Report an error.
