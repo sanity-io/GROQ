@@ -226,6 +226,12 @@
 <li><a href="#sec-geo-distance-"><span class="spec-secid">15.2.6</span>geo::distance()</a></li>
 </ol>
 </li>
+<li><a href="#sec-Documents-Extension"><span class="spec-secid">15.3</span>Documents Extension</a><ol>
+<li><a href="#sec-Global-Document-Reference-type"><span class="spec-secid">15.3.1</span>Global Document Reference type</a></li>
+<li><a href="#sec-documents-get-"><span class="spec-secid">15.3.2</span>documents::get()</a></li>
+<li><a href="#sec-documents-incomingGlobalDocumentReferenceCount-"><span class="spec-secid">15.3.3</span>documents::incomingGlobalDocumentReferenceCount()</a></li>
+</ol>
+</li>
 </ol>
 </li>
 <li><a href="#index"><span class="spec-secid">§</span>Index</a></li>
@@ -3760,6 +3766,108 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <div class="spec-algo" id="geo_distance_validate()">
 <span class="spec-call"><a href="#geo_distance_validate()" data-name="geo_distance_validate">geo_distance_validate</a>(<var data-name="args">args</var>)</span><ol>
 <li>If the length of <var data-name="args">args</var> is not 2:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
+</section>
+</section>
+<section id="sec-Documents-Extension" secid="15.3">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Documents-Extension">15.3</a></span>Documents Extension</h2>
+<p>Functions available in Documents extension are grouped under the <code>documents</code> namespace.</p>
+<section id="sec-Global-Document-Reference-type" secid="15.3.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Global-Document-Reference-type">15.3.1</a></span>Global Document Reference type</h3>
+<p>A Global Document Reference (GDR) type represents a reference to a document. The referenced document can be in a dataset separate from the dataset of the query context in the current scope.</p>
+<p>A GDR consists of a string formatted to uniquely identify a dataset and a document within that dataset.</p>
+<p>MatchesGDR(<var data-name="gdr">gdr</var>, <var data-name="datasetID">datasetID</var>, <var data-name="documentID">documentID</var>):</p>
+<ul>
+<li>If <var data-name="gdr">gdr</var> is not a string:<ul>
+<li>Return <span class="spec-keyword">false</span>.</li>
+</ul>
+</li>
+<li>If <var data-name="gdr">gdr</var> is not in a valid Global Document Reference format:<ul>
+<li>Return <span class="spec-keyword">false</span>.</li>
+</ul>
+</li>
+<li>Let <var data-name="gdrDatasetID">gdrDatasetID</var> be the unique identifier for the dataset identified by <var data-name="gdr">gdr</var>.</li>
+<li>Let <var data-name="gdrDocumentID">gdrDocumentID</var> be the unique identifier for the document identified by <var data-name="gdr">gdr</var>.</li>
+<li>If <span class="spec-call"><a href="#Equal()" data-name="Equal">Equal</a>(<var data-name="gdrDatasetID">gdrDatasetID</var>, <var data-name="datasetID">datasetID</var>)</span> is <span class="spec-keyword">true</span> and <span class="spec-call"><a href="#Equal()" data-name="Equal">Equal</a>(<var data-name="gdrDatasetID">gdrDatasetID</var>, <var data-name="datasetID">datasetID</var>)</span> is <span class="spec-keyword">true</span>:<ul>
+<li>Return <span class="spec-keyword">true</span>.</li>
+</ul>
+</li>
+<li>Otherwise:<ul>
+<li>Return <span class="spec-keyword">false</span>.</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-documents-get-" secid="15.3.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-documents-get-">15.3.2</a></span>documents::get()</h3>
+<p>This function takes a Global Document Reference referencing a document and returns the document.</p>
+<div class="spec-algo" id="documents_get()">
+<span class="spec-call"><a href="#documents_get()" data-name="documents_get">documents_get</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="gdrNode">gdrNode</var> be the first element of <var data-name="args">args</var>.</li>
+<li>Let <var data-name="gdr">gdr</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="gdrNode">gdrNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="gdr">gdr</var> is not a string:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>If <var data-name="gdr">gdr</var> is not in a valid Global Document Reference format:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="sources">sources</var> be a list of other data sources in the query context of <var data-name="scope">scope</var>.</li>
+<li>For each <var data-name="source">source</var> in <var data-name="sources">sources</var>:<ol>
+<li>If <var data-name="source">source</var> is a dataset:<ol>
+<li>Let <var data-name="datasetID">datasetID</var> be a unique identifier for the <var data-name="source">source</var> dataset.</li>
+<li>For each <var data-name="document">document</var> in the <var data-name="source">source</var> dataset:<ol>
+<li>If <var data-name="document">document</var> is an object and has an attribute <code>_id</code>:<ol>
+<li>Let <var data-name="documentID">documentID</var> be the value of the attribute <code>_id</code> in <var data-name="document">document</var>.</li>
+<li>If <span class="spec-call"><span data-name="MatchesGDR">MatchesGDR</span>(<var data-name="gdr">gdr</var>, <var data-name="datasetID">datasetID</var>, <var data-name="documentID">documentID</var>)</span> is <span class="spec-keyword">true</span>:<ol>
+<li>return <var data-name="document">document</var>.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</div>
+<div class="spec-algo" id="documents_get_validate()">
+<span class="spec-call"><a href="#documents_get_validate()" data-name="documents_get_validate">documents_get_validate</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 1:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</div>
+</section>
+<section id="sec-documents-incomingGlobalDocumentReferenceCount-" secid="15.3.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-documents-incomingGlobalDocumentReferenceCount-">15.3.3</a></span>documents::incomingGlobalDocumentReferenceCount()</h3>
+<p>This function returns the number of Global Document References referencing a document.</p>
+<div class="spec-algo" id="documents_incomingGlobalDocumentReferenceCount()">
+<span class="spec-call"><a href="#documents_incomingGlobalDocumentReferenceCount()" data-name="documents_incomingGlobalDocumentReferenceCount">documents_incomingGlobalDocumentReferenceCount</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>Let <var data-name="document">document</var> be this value in <var data-name="scope">scope</var>.</li>
+<li>Let <var data-name="_incomingGDRCount">_incomingGDRCount</var> be a property of <var data-name="document">document</var> which represents the number of Global Document References referencing <var data-name="document">document</var>. This property is updated whenever a Global Document Reference to <var data-name="document">document</var> is created or deleted.</li>
+<li>If <var data-name="_incomingGDRCount">_incomingGDRCount</var> is <span class="spec-keyword">null</span>:<ol>
+<li>Return <span class="spec-keyword">null</span>.</li>
+</ol>
+</li>
+<li>Otherwise:<ol>
+<li>Return <var data-name="_incomingGDRCount">_incomingGDRCount</var>.</li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="spec-algo" id="documents_incomingGlobalDocumentReferenceCount_validate()">
+<span class="spec-call"><a href="#documents_incomingGlobalDocumentReferenceCount_validate()" data-name="documents_incomingGlobalDocumentReferenceCount_validate">documents_incomingGlobalDocumentReferenceCount_validate</a>(<var data-name="args">args</var>, <var data-name="scope">scope</var>)</span><ol>
+<li>If the length of <var data-name="args">args</var> is not 0:<ol>
 <li>Report an error. </li>
 </ol>
 </li>
@@ -3816,6 +3924,10 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li><a href="#diff_changedOnly_validate()">diff_changedOnly_validate</a></li>
 <li><a href="#Digit">Digit</a></li>
 <li><a href="#DisambiguateSquareBracketTraversal()">DisambiguateSquareBracketTraversal</a></li>
+<li><a href="#documents_get()">documents_get</a></li>
+<li><a href="#documents_get_validate()">documents_get_validate</a></li>
+<li><a href="#documents_incomingGlobalDocumentReferenceCount()">documents_incomingGlobalDocumentReferenceCount</a></li>
+<li><a href="#documents_incomingGlobalDocumentReferenceCount_validate()">documents_incomingGlobalDocumentReferenceCount_validate</a></li>
 <li><a href="#DoubleStringCharacter">DoubleStringCharacter</a></li>
 <li><a href="#ElementAccess">ElementAccess</a></li>
 <li><a href="#Equal()">Equal</a></li>
@@ -4244,6 +4356,14 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_15.2.4"><a href="#sec-geo-contains-"><span class="spec-secid">15.2.4</span>geo::contains()</a></li>
 <li id="_sidebar_15.2.5"><a href="#sec-geo-intersects-"><span class="spec-secid">15.2.5</span>geo::intersects()</a></li>
 <li id="_sidebar_15.2.6"><a href="#sec-geo-distance-"><span class="spec-secid">15.2.6</span>geo::distance()</a></li>
+</ol>
+</li>
+<li id="_sidebar_15.3"><a href="#sec-Documents-Extension"><span class="spec-secid">15.3</span>Documents Extension</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_15.3" /><label for="_toggle_15.3"></label>
+<ol>
+<li id="_sidebar_15.3.1"><a href="#sec-Global-Document-Reference-type"><span class="spec-secid">15.3.1</span>Global Document Reference type</a></li>
+<li id="_sidebar_15.3.2"><a href="#sec-documents-get-"><span class="spec-secid">15.3.2</span>documents::get()</a></li>
+<li id="_sidebar_15.3.3"><a href="#sec-documents-incomingGlobalDocumentReferenceCount-"><span class="spec-secid">15.3.3</span>documents::incomingGlobalDocumentReferenceCount()</a></li>
 </ol>
 </li>
 </ol>
