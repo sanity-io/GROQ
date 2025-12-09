@@ -15,7 +15,7 @@
 <section id="intro">
 <p><em>Current Working Draft</em></p>
 <p>This is the specification for GROQ (<strong>G</strong>raph-<strong>R</strong>elational <strong>O</strong>bject <strong>Q</strong>ueries), a query language and execution engine made at Sanity, Inc, for filtering and projecting JSON documents. The work started in 2015. The development of this open standard started in 2019.</p>
-<p>GROQ is authored by <a href="https://twitter.com/purefiction">Alexander Staubo</a> and <a href="https://twitter.com/svale">Simen Svale Skogsrud</a>. Additional follow up work by <a href="https://twitter.com/erikgrinaker">Erik Grinaker</a>, <a href="https://twitter.com/judofyr">Magnus Holm</a>, <a href="https://github.com/j33ty">Radhe</a>, <a href="https://github.com/israelroldan">Israel Roldan</a>, <a href="https://github.com/sgulseth">Sindre Gulseth</a>, <a href="https://github.com/codebymatt">Matt Craig</a>, <a href="https://github.com/rexxars">Espen Hovlandsdal</a>, <a href="https://github.com/tzhelyazkova">Tonina Zhelyazkova</a>.</p>
+<p>GROQ is authored by <a href="https://twitter.com/purefiction">Alexander Staubo</a> and <a href="https://twitter.com/svale">Simen Svale Skogsrud</a>. Additional follow up work by <a href="https://twitter.com/erikgrinaker">Erik Grinaker</a>, <a href="https://twitter.com/judofyr">Magnus Holm</a>, <a href="https://github.com/j33ty">Radhe</a>, <a href="https://github.com/israelroldan">Israel Roldan</a>, <a href="https://github.com/sgulseth">Sindre Gulseth</a>, <a href="https://github.com/codebymatt">Matt Craig</a>, <a href="https://github.com/rexxars">Espen Hovlandsdal</a>, <a href="https://github.com/tzhelyazkova">Tonina Zhelyazkova</a>, <a href="https://github.com/kbrabrand">Kristoffer Brabrand</a>.</p>
 <p>This specification should be considered <em>work in progress</em> until the first release.</p>
 <section id="sec-Copyright-notice" class="subsec">
 <h6><a href="#sec-Copyright-notice" title="link to this subsection">Copyright notice</a></h6>
@@ -2167,7 +2167,11 @@ person["Full Name"]
 </ol>
 </li>
 <li>If <var data-name="left">left</var> is a datetime and <var data-name="right">right</var> is a number:<ol>
-<li>Return a new datetime that adds (or subtracts, if negative) <var data-name="right">right</var> as a number of seconds to <var data-name="left">left</var>.</li>
+<li>Return a new datetime that adds <var data-name="right">right</var> as a number of seconds to <var data-name="left">left</var>.</li>
+</ol>
+</li>
+<li>If <var data-name="left">left</var> is a number and <var data-name="right">right</var> is a datetime:<ol>
+<li>Return a new datetime that adds <var data-name="left">left</var> as a number of seconds to <var data-name="right">right</var>.</li>
 </ol>
 </li>
 <li>Return <span class="spec-keyword">null</span>.</li>
