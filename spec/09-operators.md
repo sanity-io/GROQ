@@ -230,7 +230,9 @@ EvaluatePlus(scope):
 - If both {left} and {right} are objects:
   - Return the merged object of {left} and {right}. For duplicate fields the value from {right} takes precedence.
 - If {left} is a datetime and {right} is a number:
-  - Return a new datetime that adds (or subtracts, if negative) {right} as a number of seconds to {left}.
+  - Return a new datetime that adds {right} as a number of seconds to {left}.
+- If {left} is a number and {right} is a datetime:
+  - Return a new datetime that adds {left} as a number of seconds to {right}.
 - Return {null}.
 
 ## Binary minus operator
