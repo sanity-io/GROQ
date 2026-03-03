@@ -9,3 +9,7 @@ The identity function should accept zero arguments and return a string which rep
 ## global::path()
 
 The path function should accept a single argument and return a path object.
+
+## user::attributes()
+
+The user::attributes function should accept zero arguments and return an object representing the attributes of the current user.
