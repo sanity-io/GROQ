@@ -154,6 +154,9 @@ EvaluateSelector(selector, value, scope):
   - If {value} is an object which has the given attribute:
     - Let {keyPath} be a new key path consisting of the attribute name.
     - Append {keyPath} to {result}.
+- If {selector} is a {SelectorAnywhere}:
+  - Let {expr} be the expression inside the {SelectorAnywhere}.
+  - Return the result of {EvaluateSelectorAnywhere(expr, value, scope)}.
 - If {selector} starts with a {Selector}:
   - Let {baseSelector} be the selector.
   - Let {base} be the result of {EvaluateSelector(baseSelector, value, scope)}.
@@ -189,6 +192,31 @@ EvaluateSelector(selector, value, scope):
           - Let {combinedKeyPath} be the result of combining {keyPath} with {nestedKeyPath}.
           - Append {combinedKeyPath} to {result}.
   - Return {result}.
+
+A {SelectorAnywhere} recursively walks an object, descending into every attribute and every array element, and produces a key path for each object at which the inner expression evaluates to {true}. The inner expression is evaluated with the current object as the _this_ value. Arrays are traversed but the expression is not evaluated against them directly.
+
+EvaluateSelectorAnywhere(expr, value, scope):
+
+- Let {result} be an empty list of key paths.
+- If {value} is an object:
+  - Let {nestedScope} be the result of {NewNestedScope(value, scope)}.
+  - Let {matched} be the result of {Evaluate(expr, nestedScope)}.
+  - If {matched} is {true}:
+    - Append the empty key path to {result}.
+  - For each attribute in {value}:
+    - Let {attrName} be the attribute name.
+    - Let {attrValue} be the attribute value.
+    - Let {innerResult} be the result of {EvaluateSelectorAnywhere(expr, attrValue, scope)}.
+    - For each {innerKeyPath} in {innerResult}:
+      - Let {combinedKeyPath} be the result of combining {attrName} with {innerKeyPath}.
+      - Append {combinedKeyPath} to {result}.
+- If {value} is an array:
+  - For each {i}, {item} in {value}:
+    - Let {innerResult} be the result of {EvaluateSelectorAnywhere(expr, item, scope)}.
+    - For each {innerKeyPath} in {innerResult}:
+      - Let {combinedKeyPath} be the result of combining the array index {i} with {innerKeyPath}.
+      - Append {combinedKeyPath} to {result}.
+- Return {result}.
 
 ## Traversal execution
 

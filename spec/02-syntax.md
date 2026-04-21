@@ -155,6 +155,7 @@ Selector :
 - ThisAttribute
 - SelectorGroup
 - SelectorTuple
+- SelectorAnywhere
 - Selector AttributeAccess
 - Selector ArrayPostfix
 - Selector Filter
@@ -172,3 +173,9 @@ SelectorTuple:
 SelectorTuplePart :
 
 - `,` Selector
+
+SelectorAnywhere :
+
+- `anywhere` `(` Expression `)`
+
+{SelectorAnywhere} uses function-call syntax but is only valid in a selector context. It is not a {FuncCall} and cannot appear outside a {Selector}.
