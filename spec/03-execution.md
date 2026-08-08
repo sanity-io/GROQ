@@ -299,7 +299,7 @@ EvaluateTraversalInnerMap(base, scope):
 - For each {value} in {base}:
   - Let {elem} be the result of {traverse(value, scope)}.
   - Append {elem} to {result}.
-- Set {result} to be the result of {nextResult(base, scope)}.
+- Set {result} to be the result of {nextTraverse(result, scope)}.
 - Return {result}.
 
 ### Plain traversal
