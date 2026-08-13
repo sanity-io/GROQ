@@ -287,6 +287,8 @@ EvaluateTraversalFlatMap(base, scope):
   - Let {elem} be the result of {nextTraverse(value, scope)}.
   - If {elem} is an array:
     - Concatenate {elem} to {result}.
+  - Otherwise:
+    - Append {null} to {result}.
 - Return {result}.
 
 EvaluateTraversalInnerMap(base, scope):
