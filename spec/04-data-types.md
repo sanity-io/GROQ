@@ -141,6 +141,14 @@ The attribute name may also be a parameter which evaluates to a string:
 *[_type == "person"]{$field: name}
 ```
 
+An attribute may be _conditional_. When the condition evaluates to {true}, the attributes of the
+object on the right-hand side are merged into the enclosing object; otherwise the attribute
+contributes nothing:
+
+```example
+*[]{_type, _type == "person" => {name, age}}
+```
+
 Object : { ObjectAttributes? `,`? }
 
 ObjectAttributes :
@@ -152,8 +160,12 @@ ObjectAttribute :
 
 - String : Expression
 - Parameter : Expression
+- Expression `=>` Expression
 - Expression
 - `...` Expression?
+
+Note: An {ObjectAttribute} on the form `Expression => Expression` is always interpreted as a
+conditional attribute, never as an attribute whose value is a {Pair}.
 
 EvaluateObject(scope):
 
@@ -167,6 +179,16 @@ EvaluateObject(scope):
       - Let {base} be the this value of {scope}.
     - For each {name} and {value} of {base}:
       - Set the attribute {name} to {value} in {result}.
+  - Otherwise if the {ObjectAttribute} contains `=>`:
+    - Let {condNode} be the first {Expression} of the {ObjectAttribute}.
+    - Let {cond} be the result of {Evaluate(condNode, scope)}.
+    - If {cond} is not {true}:
+      - Continue with the next {ObjectAttribute}.
+    - Let {valueNode} be the last {Expression} of the {ObjectAttribute}.
+    - Let {value} be the result of {Evaluate(valueNode, scope)}.
+    - If {value} is an object:
+      - For each {name} and {attributeValue} of {value}:
+        - Set the attribute {name} to {attributeValue} in {result}.
   - Otherwise:
     - Let {valueNode} be the {Expression} of the {ObjectAttribute}.
     - Let {value} be the result of {Evaluate(valueNode, scope)}.
@@ -181,6 +203,10 @@ EvaluateObject(scope):
       - Let {name} be the result of {DetermineName(valueNode)}.
     - Set the attribute {name} to {value} in {result}.
 - Return {result}.
+
+Note: Both expressions of a conditional attribute are evaluated in the same {scope} as the object
+itself. A conditional attribute does not introduce a nested scope, and therefore does not change the
+meaning of {Parent} (`^`) inside it.
 
 DetermineName(node):
 
@@ -197,6 +223,9 @@ ValidateObject():
     - Let {name} be the string value of the {Identifier} of the {Parameter}.
     - If the parameter doesn't exist in the current validation context:
       - Report an error.
+  - Otherwise if the {ObjectAttribute} contains `=>`:
+    - For each {Expression} of the {ObjectAttribute}:
+      - Execute {Validate} on the {Expression}.
   - Otherwise if the {ObjectAttribute} does not contain a {String}:
     - Let {expr} be the {Expression}.
     - Execute {ValidateObjectAttribute(expr)}.
@@ -213,7 +242,9 @@ ValidateObjectAttribute(expr):
 
 ## Pair
 
-A pair of values, e.g. `"a" => 1`. Pairs can contain any combination of other types, including other pairs, and are mainly used internally with e.g. projection conditionals and`select()`.
+A pair of values, e.g. `"a" => 1`. Pairs can contain any combination of other types, including other pairs, and are mainly used internally with e.g. {select()}.
+
+Note: The `=>` form inside an object literal is a [conditional attribute](#sec-Object) rather than a {Pair}.
 
 In serialized JSON, pairs are represented as a string on the form `fst => snd` where `fst` and `snd` are the serialized JSON for the first and the second expression.
 
