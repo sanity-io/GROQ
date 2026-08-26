@@ -135,6 +135,12 @@ Object literal supports syntactical sugar when the attribute name and value is e
 *[_type == "person"]{"name": name}
 ```
 
+The attribute name may also be a parameter which evaluates to a string:
+
+```example
+*[_type == "person"]{$field: name}
+```
+
 Object : { ObjectAttributes? `,`? }
 
 ObjectAttributes :
@@ -145,6 +151,7 @@ ObjectAttributes :
 ObjectAttribute :
 
 - String : Expression
+- Parameter : Expression
 - Expression
 - `...` Expression?
 
@@ -165,6 +172,11 @@ EvaluateObject(scope):
     - Let {value} be the result of {Evaluate(valueNode, scope)}.
     - If the {ObjectAttribute} contains a {String}:
       - Let {name} be the string value of the {String}.
+    - Otherwise if the {ObjectAttribute} contains a {Parameter}:
+      - Let {keyNode} be the {Parameter} of the {ObjectAttribute}.
+      - Let {name} be the result of {Evaluate(keyNode, scope)}.
+      - If {name} is not a string:
+        - Report an error.
     - Otherwise:
       - Let {name} be the result of {DetermineName(valueNode)}.
     - Set the attribute {name} to {value} in {result}.
@@ -181,7 +193,11 @@ DetermineName(node):
 ValidateObject():
 
 - For each {ObjectAttribute}:
-  - If the {ObjectAttribute} does not contain a {String}:
+  - If the {ObjectAttribute} contains a {Parameter}:
+    - Let {name} be the string value of the {Identifier} of the {Parameter}.
+    - If the parameter doesn't exist in the current validation context:
+      - Report an error.
+  - Otherwise if the {ObjectAttribute} does not contain a {String}:
     - Let {expr} be the {Expression}.
     - Execute {ValidateObjectAttribute(expr)}.
 
