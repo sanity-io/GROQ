@@ -1,5 +1,21 @@
 # Traversal operators
 
+Each section below defines the _traverse function_ of a single traversal operator: how that operator
+alone traverses a value.
+
+Traversal operators are, however, almost always used in sequence (e.g.
+`user.roles[0].permissions[priority > 2]{name}`), and a sequence is not evaluated by simply applying
+each traverse function in turn. The rules for how a sequence is combined — and in particular when a
+traversal is applied to _each element_ of an array rather than to the array as a whole — are
+specified in ["Traversal execution"](#sec-Traversal-execution).
+
+Reading the functions below in isolation is therefore misleading. For example
+{EvaluateAttributeAccess()} returns {null} when the base is not an object, and yet
+`*[_type == "person"].name` returns an array of names: the {ArrayPostfix} implied by {Everything} and
+the {AttributeAccess} combine into a {TraversalArray}, which is evaluated with
+{EvaluateTraversalMap()}, so `.name` is applied to each document rather than to the array of
+documents.
+
 ## Attribute access traversal
 
 An attribute access returns an attribute of an object.

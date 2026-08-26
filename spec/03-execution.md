@@ -398,6 +398,50 @@ TraversalArrayTarget :
 - BasicTraversalPlain TraversalArrayTarget
 - Projection TraversalArrayTarget
 
+### Traversal examples
+
+The following examples show how the rules above combine. They all use this dataset:
+
+```example
+[
+  {"_id": "a", "scalar": "x", "arrays": [[11, 12], [21, 22]]},
+  {"_id": "b", "scalar": "y", "arrays": [[31, 32]]}
+]
+```
+
+Recall that when the left-hand side is an {Everything}, {Array} or {PipeFuncCall} an {ArrayPostfix}
+is implied, so `*.scalar` is interpreted as `*[].scalar`.
+
+- `*.scalar` returns `["x", "y"]`.
+  `.scalar` is a {TraversalPlain}, and `BasicTraversalArray TraversalPlain` is a {TraversalArray}
+  evaluated with {EvaluateTraversalMap()}. The attribute access is applied to each document.
+
+- `*.scalar[]` returns `[null, null]`.
+  `.scalar[]` is `BasicTraversalPlain TraversalArray`, which is a {TraversalArrayTarget}, and
+  `BasicTraversalArray TraversalArrayTarget` is evaluated with {EvaluateTraversalFlatMap()}. For
+  each document {EvaluateArrayPostfix()} returns {null} because `scalar` is a string, and since
+  {null} is not an array a {null} is appended.
+
+- `*.arrays[][1]` returns `[[21, 22], null]`.
+  `[][1]` is `BasicTraversalArray TraversalArraySource`, which is a {TraversalArraySource}, so
+  `.arrays[][1]` is `BasicTraversalPlain TraversalArraySource`, which is a {TraversalPlain}. The
+  outer combination is therefore {EvaluateTraversalMap()}, producing one element per document.
+
+- `*.arrays[][1][]` returns `[21, 22, null]`.
+  `[1][]` is `ElementAccess TraversalArray`, which is a {TraversalArray}, so `.arrays[][1][]` is a
+  {TraversalArrayTarget} and the outer combination is {EvaluateTraversalFlatMap()}. The array
+  produced for the first document is concatenated, while the second document produces {null}, which
+  is appended.
+
+- `[{"a": {"x": 1}}, {"a": {"x": 2}}].a{"x": x}[0...1]` returns `[null, null]`.
+  `{"x": x}[0...1]` is `Projection TraversalArray`, which is a {TraversalArray} evaluated with
+  {EvaluateTraversalInnerMap()}. Since `.a` evaluates to an object rather than an array,
+  {EvaluateTraversalInnerMap()} returns {null} for each element.
+
+Note: {EvaluateTraversalMap()}, {EvaluateTraversalFlatMap()} and {EvaluateTraversalInnerMap()} pass
+{scope} unchanged to the traverse functions they invoke. Mapping over an array does not introduce a
+nested scope, and therefore does not change the meaning of {Parent} (`^`) inside the traversal.
+
 ## Query execution
 
 To execute a query you must first construct a query context, and then evaluate the query expression inside a root scope.
