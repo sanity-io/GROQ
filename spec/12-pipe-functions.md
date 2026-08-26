@@ -33,7 +33,7 @@ order(base, args, scope):
     - Else if {direction} is {Reverse} and {order} is {Greater}: \* Set {order} to {Less}.
     - If {order} is not {Equal}: \* Return {order}.
   - Return {Equal}.
-- Return a sorted array using {cmp} as the comparator function.
+- Return an array sorted using {cmp} as the comparator function. The sort must be stable: Elements for which {cmp} returns {Equal} retain their relative order from {base}.
 
 order_validate(args):
 
