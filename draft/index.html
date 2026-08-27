@@ -70,6 +70,7 @@
 <li><a href="#sec-Array-traversals"><span class="spec-secid">3.11.3</span>Array traversals</a></li>
 <li><a href="#sec-Array-source-traversals"><span class="spec-secid">3.11.4</span>Array source traversals</a></li>
 <li><a href="#sec-Array-target-traversals"><span class="spec-secid">3.11.5</span>Array target traversals</a></li>
+<li><a href="#sec-Traversal-examples"><span class="spec-secid">3.11.6</span>Traversal examples</a></li>
 </ol>
 </li>
 <li><a href="#sec-Query-execution"><span class="spec-secid">3.12</span>Query execution</a></li>
@@ -858,6 +859,26 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <div class="spec-rhs"><span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span><span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span></div>
 </div>
 </section>
+<section id="sec-Traversal-examples" secid="3.11.6">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-examples">3.11.6</a></span>Traversal examples</h3>
+<p>The following examples show how the rules above combine. They all use this dataset:</p>
+<pre id="example-6d757" class="spec-example"><a href="#example-6d757">Example № 8</a><code>[
+  {"_id": "a", "scalar": "x", "arrays": [[11, 12], [21, 22]]},
+  {"_id": "b", "scalar": "y", "arrays": [[31, 32]]}
+]
+</code></pre>
+<p>Recall that when the left-hand side is an <span class="spec-nt"><a href="#Everything" data-name="Everything">Everything</a></span>, <span class="spec-nt"><a href="#Array" data-name="Array">Array</a></span> or <span class="spec-nt"><a href="#PipeFuncCall" data-name="PipeFuncCall">PipeFuncCall</a></span> an <span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span> is implied, so <code>*.scalar</code> is interpreted as <code>*[].scalar</code>.</p>
+<ul>
+<li><code>*.scalar</code> returns <code>["x", "y"]</code>. <code>.scalar</code> is a <span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span>, and <code>BasicTraversalArray TraversalPlain</code> is a <span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span> evaluated with <span class="spec-call"><a href="#EvaluateTraversalMap()" data-name="EvaluateTraversalMap">EvaluateTraversalMap</a>()</span>. The attribute access is applied to each document.</li>
+<li><code>*.scalar[]</code> returns <code>[null, null]</code>. <code>.scalar[]</code> is <code>BasicTraversalPlain TraversalArray</code>, which is a <span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span>, and <code>BasicTraversalArray TraversalArrayTarget</code> is evaluated with <span class="spec-call"><a href="#EvaluateTraversalFlatMap()" data-name="EvaluateTraversalFlatMap">EvaluateTraversalFlatMap</a>()</span>. For each document <span class="spec-call"><a href="#EvaluateArrayPostfix()" data-name="EvaluateArrayPostfix">EvaluateArrayPostfix</a>()</span> returns <span class="spec-keyword">null</span> because <code>scalar</code> is a string, and since <span class="spec-keyword">null</span> is not an array a <span class="spec-keyword">null</span> is appended.</li>
+<li><code>*.arrays[][1]</code> returns <code>[[21, 22], null]</code>. <code>[][1]</code> is <code>BasicTraversalArray TraversalArraySource</code>, which is a <span class="spec-nt"><a href="#TraversalArraySource" data-name="TraversalArraySource">TraversalArraySource</a></span>, so <code>.arrays[][1]</code> is <code>BasicTraversalPlain TraversalArraySource</code>, which is a <span class="spec-nt"><a href="#TraversalPlain" data-name="TraversalPlain">TraversalPlain</a></span>. The outer combination is therefore <span class="spec-call"><a href="#EvaluateTraversalMap()" data-name="EvaluateTraversalMap">EvaluateTraversalMap</a>()</span>, producing one element per document.</li>
+<li><code>*.arrays[][1][]</code> returns <code>[21, 22, null]</code>. <code>[1][]</code> is <code>ElementAccess TraversalArray</code>, which is a <span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span>, so <code>.arrays[][1][]</code> is a <span class="spec-nt"><a href="#TraversalArrayTarget" data-name="TraversalArrayTarget">TraversalArrayTarget</a></span> and the outer combination is <span class="spec-call"><a href="#EvaluateTraversalFlatMap()" data-name="EvaluateTraversalFlatMap">EvaluateTraversalFlatMap</a>()</span>. The array produced for the first document is concatenated, while the second document produces <span class="spec-keyword">null</span>, which is appended.</li>
+<li><code>[{"a": {"x": 1}}, {"a": {"x": 2}}].a{"x": x}[0...1]</code> returns <code>[null, null]</code>. <code>{"x": x}[0...1]</code> is <code>Projection TraversalArray</code>, which is a <span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span> evaluated with <span class="spec-call"><a href="#EvaluateTraversalInnerMap()" data-name="EvaluateTraversalInnerMap">EvaluateTraversalInnerMap</a>()</span>. Since <code>.a</code> evaluates to an object rather than an array, <span class="spec-call"><a href="#EvaluateTraversalInnerMap()" data-name="EvaluateTraversalInnerMap">EvaluateTraversalInnerMap</a>()</span> returns <span class="spec-keyword">null</span> for each element.</li>
+</ul>
+<div id="note-733e1" class="spec-note">
+<a href="#note-733e1">Note</a>
+<span class="spec-call"><a href="#EvaluateTraversalMap()" data-name="EvaluateTraversalMap">EvaluateTraversalMap</a>()</span>, <span class="spec-call"><a href="#EvaluateTraversalFlatMap()" data-name="EvaluateTraversalFlatMap">EvaluateTraversalFlatMap</a>()</span> and <span class="spec-call"><a href="#EvaluateTraversalInnerMap()" data-name="EvaluateTraversalInnerMap">EvaluateTraversalInnerMap</a>()</span> pass <var data-name="scope">scope</var> unchanged to the traverse functions they invoke. Mapping over an array does not introduce a nested scope, and therefore does not change the meaning of <span class="spec-nt"><a href="#Parent" data-name="Parent">Parent</a></span> (<code>^</code>) inside the traversal.</div>
+</section>
 </section>
 <section id="sec-Query-execution" secid="3.12">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Query-execution">3.12</a></span>Query execution</h2>
@@ -1010,15 +1031,21 @@ data.filter(u =&gt; u._type == "user").map(u =&gt; u._id)
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Object">4.6</a></span>Object</h2>
 <p>An unordered collection of key/value pairs (referred to as attributes) with unique keys, e.g. <code>{"a": 1, "b": 2}</code>. Keys must be strings, while values can be any combination of other types, including other objects. If duplicate keys are specified, the last key is used.</p>
 <p>The values of an object literal can use the full power of expressions:</p>
-<pre id="example-be133" class="spec-example"><a href="#example-be133">Example № 8</a><code>*[_type == "rect"]{"area": width * height}
+<pre id="example-be133" class="spec-example"><a href="#example-be133">Example № 9</a><code>*[_type == "rect"]{"area": width * height}
 </code></pre>
 <div id="note-bb598" class="spec-note">
 <a href="#note-bb598">Note</a>
 A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection</a></span> expression is just an expression with an object literal to the right of it.</div>
 <p>Object literal supports syntactical sugar when the attribute name and value is equivalent:</p>
-<pre id="example-55386" class="spec-example"><a href="#example-55386">Example № 9</a><code>// These two are equivalent
+<pre id="example-55386" class="spec-example"><a href="#example-55386">Example № 10</a><code>// These two are equivalent
 *[_type == "person"]{name}
 *[_type == "person"]{"name": name}
+</code></pre>
+<p>The attribute name may also be a parameter which evaluates to a string:</p>
+<pre id="example-c4d9a" class="spec-example"><a href="#example-c4d9a">Example № 11</a><code>*[_type == "person"]{$field: name}
+</code></pre>
+<p>An attribute may be <em>conditional</em>. When the condition evaluates to <span class="spec-keyword">true</span>, the attributes of the object on the right-hand side are merged into the enclosing object; otherwise the attribute contributes nothing:</p>
+<pre id="example-f4c0c" class="spec-example"><a href="#example-f4c0c">Example № 12</a><code>*[]{_type, _type == "person" =&gt; {name, age}}
 </code></pre>
 <div class="spec-production" id="Object">
 <span class="spec-nt"><a href="#Object" data-name="Object">Object</a></span><div class="spec-rhs"><span class="spec-t">{</span><span class="spec-quantified"><span class="spec-nt"><a href="#ObjectAttributes" data-name="ObjectAttributes">ObjectAttributes</a></span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span><span class="spec-quantified"><span class="spec-t">,</span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span><span class="spec-t">}</span></div>
@@ -1029,9 +1056,14 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 </div>
 <div class="spec-production" id="ObjectAttribute">
 <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#String" data-name="String">String</a></span><span class="spec-t">:</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Parameter" data-name="Parameter">Parameter</a></span><span class="spec-t">:</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
+<div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">=&gt;</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 <div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
 <div class="spec-rhs"><span class="spec-t">...</span><span class="spec-quantified"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-quantifiers"><span class="spec-quantifier optional">opt</span></span></span></div>
 </div>
+<div id="note-9c953" class="spec-note">
+<a href="#note-9c953">Note</a>
+An <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> on the form <code>Expression =&gt; Expression</code> is always interpreted as a conditional attribute, never as an attribute whose value is a <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>.</div>
 <div class="spec-algo" id="EvaluateObject()">
 <span class="spec-call"><a href="#EvaluateObject()" data-name="EvaluateObject">EvaluateObject</a>(<var data-name="scope">scope</var>)</span><ol>
 <li>Let <var data-name="result">result</var> be a new empty object.</li>
@@ -1052,11 +1084,38 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 </li>
 </ol>
 </li>
+<li>Otherwise if the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> contains <code>=&gt;</code>:<ol>
+<li>Let <var data-name="condNode">condNode</var> be the first <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span>.</li>
+<li>Let <var data-name="cond">cond</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="condNode">condNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="cond">cond</var> is not <span class="spec-keyword">true</span>:<ol>
+<li>Continue with the next <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span>.</li>
+</ol>
+</li>
+<li>Let <var data-name="valueNode">valueNode</var> be the last <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span>.</li>
+<li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="valueNode">valueNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="value">value</var> is an object:<ol>
+<li>For each <var data-name="name">name</var> and <var data-name="attributeValue">attributeValue</var> of <var data-name="value">value</var>:<ol>
+<li>Set the attribute <var data-name="name">name</var> to <var data-name="attributeValue">attributeValue</var> in <var data-name="result">result</var>.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
 <li>Otherwise:<ol>
 <li>Let <var data-name="valueNode">valueNode</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span>.</li>
 <li>Let <var data-name="value">value</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="valueNode">valueNode</var>, <var data-name="scope">scope</var>)</span>.</li>
 <li>If the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> contains a <span class="spec-nt"><a href="#String" data-name="String">String</a></span>:<ol>
 <li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#String" data-name="String">String</a></span>.</li>
+</ol>
+</li>
+<li>Otherwise if the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> contains a <span class="spec-nt"><a href="#Parameter" data-name="Parameter">Parameter</a></span>:<ol>
+<li>Let <var data-name="keyNode">keyNode</var> be the <span class="spec-nt"><a href="#Parameter" data-name="Parameter">Parameter</a></span> of the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span>.</li>
+<li>Let <var data-name="name">name</var> be the result of <span class="spec-call"><a href="#Evaluate()" data-name="Evaluate">Evaluate</a>(<var data-name="keyNode">keyNode</var>, <var data-name="scope">scope</var>)</span>.</li>
+<li>If <var data-name="name">name</var> is not a string:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
 </ol>
 </li>
 <li>Otherwise:<ol>
@@ -1071,6 +1130,9 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <li>Return <var data-name="result">result</var>.</li>
 </ol>
 </div>
+<div id="note-870d7" class="spec-note">
+<a href="#note-870d7">Note</a>
+Both expressions of a conditional attribute are evaluated in the same <var data-name="scope">scope</var> as the object itself. A conditional attribute does not introduce a nested scope, and therefore does not change the meaning of <span class="spec-nt"><a href="#Parent" data-name="Parent">Parent</a></span> (<code>^</code>) inside it.</div>
 <div class="spec-algo" id="DetermineName()">
 <span class="spec-call"><a href="#DetermineName()" data-name="DetermineName">DetermineName</a>(<var data-name="node">node</var>)</span><ol>
 <li>If <var data-name="node">node</var> is an <span class="spec-nt"><a href="#ThisAttribute" data-name="ThisAttribute">ThisAttribute</a></span>:<ol>
@@ -1087,7 +1149,22 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 <div class="spec-algo" id="ValidateObject()">
 <span class="spec-call"><a href="#ValidateObject()" data-name="ValidateObject">ValidateObject</a>()</span><ol>
 <li>For each <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span>:<ol>
-<li>If the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> does not contain a <span class="spec-nt"><a href="#String" data-name="String">String</a></span>:<ol>
+<li>If the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> contains a <span class="spec-nt"><a href="#Parameter" data-name="Parameter">Parameter</a></span>:<ol>
+<li>Let <var data-name="name">name</var> be the string value of the <span class="spec-nt"><a href="#Identifier" data-name="Identifier">Identifier</a></span> of the <span class="spec-nt"><a href="#Parameter" data-name="Parameter">Parameter</a></span>.</li>
+<li>If the parameter doesn&rsquo;t exist in the current validation context:<ol>
+<li>Report an error.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Otherwise if the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> contains <code>=&gt;</code>:<ol>
+<li>For each <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span> of the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span>:<ol>
+<li>Execute <span class="spec-nt"><span data-name="Validate">Validate</span></span> on the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Otherwise if the <span class="spec-nt"><a href="#ObjectAttribute" data-name="ObjectAttribute">ObjectAttribute</a></span> does not contain a <span class="spec-nt"><a href="#String" data-name="String">String</a></span>:<ol>
 <li>Let <var data-name="expr">expr</var> be the <span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span>.</li>
 <li>Execute <span class="spec-call"><a href="#ValidateObjectAttribute()" data-name="ValidateObjectAttribute">ValidateObjectAttribute</a>(<var data-name="expr">expr</var>)</span>.</li>
 </ol>
@@ -1116,7 +1193,10 @@ A <span class="spec-nt"><a href="#Projection" data-name="Projection">Projection<
 </section>
 <section id="sec-Pair" secid="4.7">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Pair">4.7</a></span>Pair</h2>
-<p>A pair of values, e.g. <code>"a" =&gt; 1</code>. Pairs can contain any combination of other types, including other pairs, and are mainly used internally with e.g. projection conditionals and<code>select()</code>.</p>
+<p>A pair of values, e.g. <code>"a" =&gt; 1</code>. Pairs can contain any combination of other types, including other pairs, and are mainly used internally with e.g. <span class="spec-call"><span data-name="select">select</span>()</span>.</p>
+<div id="note-9174a" class="spec-note">
+<a href="#note-9174a">Note</a>
+The <code>=&gt;</code> form inside an object literal is a <a href="#sec-Object">conditional attribute</a> rather than a <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span>.</div>
 <p>In serialized JSON, pairs are represented as a string on the form <code>fst =&gt; snd</code> where <code>fst</code> and <code>snd</code> are the serialized JSON for the first and the second expression.</p>
 <div class="spec-production" id="Pair">
 <span class="spec-nt"><a href="#Pair" data-name="Pair">Pair</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span><span class="spec-t">=&gt;</span><span class="spec-nt"><a href="#Expression" data-name="Expression">Expression</a></span></div>
@@ -1322,7 +1402,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-This-expression" secid="6.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-This-expression">6.1</a></span>This expression</h2>
 <p>A this expression returns the this value of the current scope.</p>
-<pre id="example-2a218" class="spec-example"><a href="#example-2a218">Example № 10</a><code>*[_id == "doc"][0].numbers[@ &gt;= 10]
+<pre id="example-2a218" class="spec-example"><a href="#example-2a218">Example № 13</a><code>*[_id == "doc"][0].numbers[@ &gt;= 10]
                            ~
 </code></pre>
 <div class="spec-production" id="This">
@@ -1337,7 +1417,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-This-attribute-expression" secid="6.2">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-This-attribute-expression">6.2</a></span>This attribute expression</h2>
 <p>A <em>this attribute expression </em>returns an attribute from the this value of the current scope.</p>
-<pre id="example-722e6" class="spec-example"><a href="#example-722e6">Example № 11</a><code>*[_id == "document"][name == "Michael Bluth"]
+<pre id="example-722e6" class="spec-example"><a href="#example-722e6">Example № 14</a><code>*[_id == "document"][name == "Michael Bluth"]
   ~~~                ~~~~
 </code></pre>
 <div class="spec-production" id="ThisAttribute">
@@ -1356,7 +1436,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Everything-expression" secid="6.3">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Everything-expression">6.3</a></span>Everything expression</h2>
 <p>An everything expression returns the full dataset.</p>
-<pre id="example-1301a" class="spec-example"><a href="#example-1301a">Example № 12</a><code>*[_type == "person"]
+<pre id="example-1301a" class="spec-example"><a href="#example-1301a">Example № 15</a><code>*[_type == "person"]
 ~
 </code></pre>
 <div class="spec-production" id="Everything">
@@ -1372,7 +1452,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Parent-expression" secid="6.4">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Parent-expression">6.4</a></span>Parent expression</h2>
 <p>A parent expression returns a this value for an upper scope.</p>
-<pre id="example-a79d8" class="spec-example"><a href="#example-a79d8">Example № 13</a><code>// Find all people who have a cool friend
+<pre id="example-a79d8" class="spec-example"><a href="#example-a79d8">Example № 16</a><code>// Find all people who have a cool friend
 *[_type == "person" &amp;&amp; *[_id == ^.friend._ref][0].isCool]
                                 ~
 </code></pre>
@@ -1397,7 +1477,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Parameter-expression" secid="6.5">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Parameter-expression">6.5</a></span>Parameter expression</h2>
 <p>A parameter expression returns the value of a parameter</p>
-<pre id="example-23c64" class="spec-example"><a href="#example-23c64">Example № 14</a><code>*[_type == $type]
+<pre id="example-23c64" class="spec-example"><a href="#example-23c64">Example № 17</a><code>*[_type == $type]
            ~~~~~
 </code></pre>
 <div class="spec-production" id="Parameter">
@@ -1423,7 +1503,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Function-call-expression">6.6</a></span>Function call expression</h2>
 <p>GROQ comes with a set of built-in functions which provides additional features. See the <a href="#sec-Functions">&ldquo;Functions&rdquo;</a> for available functions and their namespaces.</p>
 <p>Custom GROQ functions can be defined to extend or override the built-in function set. See <a href="12-custom-functions.md">Custom functions</a> for details.</p>
-<pre id="example-8a980" class="spec-example"><a href="#example-8a980">Example № 15</a><code>*{"score": round(score, 2)}
+<pre id="example-8a980" class="spec-example"><a href="#example-8a980">Example № 18</a><code>*{"score": round(score, 2)}
            ~~~~~~~~~~~~~~~
 
 *{"description": global::lower(description)}
@@ -1504,7 +1584,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Parenthesis-expression" secid="7.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Parenthesis-expression">7.1</a></span>Parenthesis expression</h2>
 <p>A parenthesis expression allows you to add parenthesis around another expression to control precedence of operators.</p>
-<pre id="example-2f8db" class="spec-example"><a href="#example-2f8db">Example № 16</a><code>(1 + 2) * 3
+<pre id="example-2f8db" class="spec-example"><a href="#example-2f8db">Example № 19</a><code>(1 + 2) * 3
 ~~~~~~~
 </code></pre>
 <div class="spec-production" id="Parenthesis">
@@ -1521,7 +1601,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Traversal-expression" secid="7.2">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-expression">7.2</a></span>Traversal expression</h2>
 <p>A traversal expressions starts a traversal.</p>
-<pre id="example-1dd92" class="spec-example"><a href="#example-1dd92">Example № 17</a><code>users.foo.bar[0].sources[]-&gt;name
+<pre id="example-1dd92" class="spec-example"><a href="#example-1dd92">Example № 20</a><code>users.foo.bar[0].sources[]-&gt;name
 </code></pre>
 <p>When the left-hand side is an <span class="spec-nt"><a href="#Everything" data-name="Everything">Everything</a></span>, <span class="spec-nt"><a href="#Array" data-name="Array">Array</a></span>, or <span class="spec-nt"><a href="#PipeFuncCall" data-name="PipeFuncCall">PipeFuncCall</a></span> this is interpreted as if there was an additional explicit <span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span> traversal. E.g. <code>*._id</code> is interpreted as <code>*[]._id</code> and therefore returns an array of IDs.</p>
 <div class="spec-production" id="TraversalExpression">
@@ -1553,7 +1633,7 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 <section id="sec-Pipe-function-call-expression" secid="7.3">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-function-call-expression">7.3</a></span>Pipe function call expression</h2>
 <p>GROQ comes with a set of built-in pipe functions which provides additional features. Pipe functions always accepts an array on the left-hand side and returns another array, and the syntax is optimized for being able to chain it together with other compound expressions. See the <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a> for available functions.</p>
-<pre id="example-9e38d" class="spec-example"><a href="#example-9e38d">Example № 18</a><code>*[_type == "person"] | order(name) | {age}
+<pre id="example-9e38d" class="spec-example"><a href="#example-9e38d">Example № 21</a><code>*[_type == "person"] | order(name) | {age}
                      ~~~~~~~~~~~~~
 </code></pre>
 <div class="spec-production" id="PipeFuncCall">
@@ -1596,10 +1676,13 @@ In GROQ <code>1 == null</code> returns <code>false</code> (which is different fr
 </section>
 <section id="sec-Traversal-operators" secid="8">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Traversal-operators">8</a></span>Traversal operators</h1>
+<p>Each section below defines the <em>traverse function</em> of a single traversal operator: how that operator alone traverses a value.</p>
+<p>Traversal operators are, however, almost always used in sequence (e.g. <code>user.roles[0].permissions[priority &gt; 2]{name}</code>), and a sequence is not evaluated by simply applying each traverse function in turn. The rules for how a sequence is combined &mdash; and in particular when a traversal is applied to <em>each element</em> of an array rather than to the array as a whole &mdash; are specified in <a href="#sec-Traversal-execution">&ldquo;Traversal execution&rdquo;</a>.</p>
+<p>Reading the functions below in isolation is therefore misleading. For example <span class="spec-call"><a href="#EvaluateAttributeAccess()" data-name="EvaluateAttributeAccess">EvaluateAttributeAccess</a>()</span> returns <span class="spec-keyword">null</span> when the base is not an object, and yet <code>*[_type == "person"].name</code> returns an array of names: the <span class="spec-nt"><a href="#ArrayPostfix" data-name="ArrayPostfix">ArrayPostfix</a></span> implied by <span class="spec-nt"><a href="#Everything" data-name="Everything">Everything</a></span> and the <span class="spec-nt"><a href="#AttributeAccess" data-name="AttributeAccess">AttributeAccess</a></span> combine into a <span class="spec-nt"><a href="#TraversalArray" data-name="TraversalArray">TraversalArray</a></span>, which is evaluated with <span class="spec-call"><a href="#EvaluateTraversalMap()" data-name="EvaluateTraversalMap">EvaluateTraversalMap</a>()</span>, so <code>.name</code> is applied to each document rather than to the array of documents.</p>
 <section id="sec-Attribute-access-traversal" secid="8.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Attribute-access-traversal">8.1</a></span>Attribute access traversal</h2>
 <p>An attribute access returns an attribute of an object.</p>
-<pre id="example-2ff7e" class="spec-example"><a href="#example-2ff7e">Example № 19</a><code>person.name
+<pre id="example-2ff7e" class="spec-example"><a href="#example-2ff7e">Example № 22</a><code>person.name
       ~~~~~
 
 person["Full Name"]
@@ -1652,7 +1735,7 @@ person["Full Name"]
 <section id="sec-Slice-traversal" secid="8.3">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Slice-traversal">8.3</a></span>Slice traversal</h2>
 <p>A slice returns a slice of an array.</p>
-<pre id="example-e380f" class="spec-example"><a href="#example-e380f">Example № 20</a><code>people[0..10]
+<pre id="example-e380f" class="spec-example"><a href="#example-e380f">Example № 23</a><code>people[0..10]
       ~~~~~~~
 </code></pre>
 <div class="spec-production" id="Slice">
@@ -1695,7 +1778,7 @@ person["Full Name"]
 <section id="sec-Filter-traversal" secid="8.4">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Filter-traversal">8.4</a></span>Filter traversal</h2>
 <p>A filter returns an array filtered another expression.</p>
-<pre id="example-ce0b3" class="spec-example"><a href="#example-ce0b3">Example № 21</a><code>*[_type == "person"]
+<pre id="example-ce0b3" class="spec-example"><a href="#example-ce0b3">Example № 24</a><code>*[_type == "person"]
  ~~~~~~~~~~~~~~~~~~~
 </code></pre>
 <div class="spec-production" id="Filter">
@@ -1735,7 +1818,7 @@ person["Full Name"]
 <section id="sec-Projection-traversal" secid="8.6">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Projection-traversal">8.6</a></span>Projection traversal</h2>
 <p>A projection operator returns a new object.</p>
-<pre id="example-258f2" class="spec-example"><a href="#example-258f2">Example № 22</a><code>*[_type == "person"]{name, "isLegal": age &gt;= 18}
+<pre id="example-258f2" class="spec-example"><a href="#example-258f2">Example № 25</a><code>*[_type == "person"]{name, "isLegal": age &gt;= 18}
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 </code></pre>
 <div class="spec-production" id="Projection">
@@ -2704,7 +2787,7 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <section id="sec-global-boost-" secid="11.1.13">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-global-boost-">11.1.13</a></span>global::boost()</h3>
 <p>The <code>boost</code> function accepts an expression and a boost value, and increases or decreases the score computed by <code>score()</code> (see <a href="#sec-Pipe-functions">&ldquo;Pipe functions&rdquo;</a>) accordingly. <code>boost</code> can only be used within the argument list to <code>score()</code>.</p>
-<pre id="example-b8fda" class="spec-example"><a href="#example-b8fda">Example № 23</a><code>* | score(boost(title matches "milk", 5.0), body matches "milk")
+<pre id="example-b8fda" class="spec-example"><a href="#example-b8fda">Example № 26</a><code>* | score(boost(title matches "milk", 5.0), body matches "milk")
 </code></pre>
 <p>The expression must be a predicate expressions that evaluates to a single boolean value. Any other result value is ignored.</p>
 <p>The value argument must be a number &ge; 0.</p>
@@ -3375,7 +3458,7 @@ This function returns a string due to backwards compatibility. It&rsquo;s recomm
 <section id="sec-Pipe-functions" secid="13">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Pipe-functions">13</a></span>Pipe functions</h1>
 <p>Pipe functions provide additional functionality to GROQ queries. They are invoked through a <a href="#sec-Pipe-function-call-expression">Pipe function call expression</a>. They differ from regular functions in that they always accept an array as input and returns another array (or <span class="spec-keyword">null</span>). As such, the syntax is optimized for chaining (the array it works on comes on the left-hand side instead of being an argument):</p>
-<pre id="example-d44da" class="spec-example"><a href="#example-d44da">Example № 24</a><code>*[_type == "person"] | order(name) | {age}
+<pre id="example-d44da" class="spec-example"><a href="#example-d44da">Example № 27</a><code>*[_type == "person"] | order(name) | {age}
 </code></pre>
 <div id="note-88a44" class="spec-note">
 <a href="#note-88a44">Note</a>
@@ -3409,7 +3492,7 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <li>Return <span class="spec-nt"><span data-name="Equal">Equal</span></span>.</li>
 </ol>
 </li>
-<li>Return a sorted array using <var data-name="cmp">cmp</var> as the comparator function.</li>
+<li>Return an array sorted using <var data-name="cmp">cmp</var> as the comparator function. The sort must be stable: Elements for which <var data-name="cmp">cmp</var> returns <span class="spec-nt"><span data-name="Equal">Equal</span></span> retain their relative order from <var data-name="base">base</var>.</li>
 </ol>
 </div>
 <div class="spec-algo" id="order_validate()">
@@ -3424,10 +3507,10 @@ that function arguments are not evaluated eagerly, and it&rsquo;s up to the func
 <section id="sec-global-score-" secid="13.2">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-global-score-">13.2</a></span>global::score()</h2>
 <p>The <code>score</code> function assigns a score to an array of results, based on one or more scoring expressions. The <code>score</code> function may only be used as a pipe function.</p>
-<pre id="example-16420" class="spec-example"><a href="#example-16420">Example № 25</a><code>*[_type == "listing"] | score(body match "jacuzzi")
+<pre id="example-16420" class="spec-example"><a href="#example-16420">Example № 28</a><code>*[_type == "listing"] | score(body match "jacuzzi")
 </code></pre>
 <p>In this query, anything where <code>body match "jacuzzi"</code> returns true will be scored higher than other results. Multiple expressions can be used:</p>
-<pre id="example-34b6f" class="spec-example"><a href="#example-34b6f">Example № 26</a><code>*[_type == "listing"] | score(body match "jacuzzi", bedrooms &gt; 2, available &amp;&amp; !inContract)
+<pre id="example-34b6f" class="spec-example"><a href="#example-34b6f">Example № 29</a><code>*[_type == "listing"] | score(body match "jacuzzi", bedrooms &gt; 2, available &amp;&amp; !inContract)
 </code></pre>
 <p>When multiple expressions are provided, the scores are merged into a single score for each result (see <a href="#sec-Score-evaluation">score evaluation</a>)</p>
 <p>Only predicate expressions &mdash; that is, expressions that evaluate to a single boolean value or to <code>null</code> &mdash; may be used, including <code>boost()</code>. However, an implementation can put further constraints on which expressions are permitted as a score expression for optimization purposes.</p>
@@ -4175,6 +4258,7 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_3.11.3"><a href="#sec-Array-traversals"><span class="spec-secid">3.11.3</span>Array traversals</a></li>
 <li id="_sidebar_3.11.4"><a href="#sec-Array-source-traversals"><span class="spec-secid">3.11.4</span>Array source traversals</a></li>
 <li id="_sidebar_3.11.5"><a href="#sec-Array-target-traversals"><span class="spec-secid">3.11.5</span>Array target traversals</a></li>
+<li id="_sidebar_3.11.6"><a href="#sec-Traversal-examples"><span class="spec-secid">3.11.6</span>Traversal examples</a></li>
 </ol>
 </li>
 <li id="_sidebar_3.12"><a href="#sec-Query-execution"><span class="spec-secid">3.12</span>Query execution</a></li>
